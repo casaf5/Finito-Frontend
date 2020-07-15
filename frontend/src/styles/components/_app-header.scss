@@ -1,0 +1,15 @@
+.app-header{
+    width: 100%;
+    background-color: orange;
+    text-align: center;
+    font-size: rem(30px);
+    nav{
+        .links{
+            justify-content: flex-end;
+            >*{
+                width: 200px;
+            }
+        }
+
+    }
+}
