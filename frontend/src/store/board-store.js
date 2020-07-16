@@ -1,8 +1,8 @@
-import { toyService } from "../services/toy-service.js";
+import { taskService } from "../services/task-service.js";
 
-export const toyStore = {
+export const taskStore = {
   state: {
-    toys: null,
+    tasks: null,
     filterBy: {
       name: "",
       inStock: "all",
@@ -11,50 +11,50 @@ export const toyStore = {
     },
   },
   getters: {
-    toys(state) {
-      return state.toys;
+    tasks(state) {
+      return state.tasks;
     },
   },
   mutations: {
-    setToys(state, { toys }) {
-      state.toys = toys;
+    setTasks(state, { tasks }) {
+      state.tasks = tasks;
     },
-    deleteToy(state, { id }) {
-      const idx = state.toys.findIndex((t) => t._id === id);
-      state.toys.splice(idx, 1);
+    deleteTask(state, { id }) {
+      const idx = state.tasks.findIndex((t) => t._id === id);
+      state.tasks.splice(idx, 1);
     },
-    updateToy(state, { toy }) {
-      const idx = state.toys.findIndex((t) => t._id === toy._id);
-      state.toys.splice(idx, 1, toy);
+    updateTask(state, { task }) {
+      const idx = state.tasks.findIndex((t) => t._id === task._id);
+      state.tasks.splice(idx, 1, task);
     },
-    addToy(state, { toy }) {
-      state.toys.push(toy);
+    addTask(state, { task }) {
+      state.tasks.push(task);
     },
     setFilterBy(state,{filterBy}){
       state.filterBy=filterBy
     }
   },
   actions: {
-    loadToys({ commit,state }, { filterBy }) {
-      return toyService.query(state.filterBy)
-        .then((toys) => {
-        commit({ type: "setToys", toys });
-        return toys;
+    loadTasks({ commit,state }, { filterBy }) {
+      return taskService.query(state.filterBy)
+        .then((tasks) => {
+        commit({ type: "settasks", tasks });
+        return tasks;
       });
     },
-    deleteToy({ commit }, { id }) {
-      return toyService.deleteToy(id)
+    deleteTask({ commit }, { id }) {
+      return taskService.deleteTask(id)
         .then(() => {
-        commit({ type: "deleteToy", id });
+        commit({ type: "deletetask", id });
       })
         .catch(err=>console.log("Problem Deleting,",err))
     },
-    saveToy({ commit }, { toy }) {
-      const type = toy._id ? "updateToy" : "addToy";
-      return toyService.save(toy)
-        .then((savedToy) => {
-        commit({ type: type, toy: savedToy });
-        return savedToy;
+    saveTask({ commit }, { task }) {
+      const type = task._id ? "updatetask" : "addtask";
+      return taskService.save(task)
+        .then((savedtask) => {
+        commit({ type: type, task: savedtask });
+        return savedtask;
       })
       .catch(err=>console.log("Problem With,",type,err))
 
