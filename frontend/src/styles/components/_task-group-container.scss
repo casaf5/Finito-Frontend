@@ -1,0 +1,22 @@
+.task-group-container {
+  background-color: #ebecf0;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  & > * {
+    margin: 10px 0;
+  }
+  .task-group-title-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    .title {
+      font-size: 1rem;
+      text-align: left;
+    }
+    .add-task-container {
+      display: flex;
+      margin-top: auto;
+    }
+  }
+}
