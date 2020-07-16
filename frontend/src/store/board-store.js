@@ -1,63 +1,73 @@
-import { taskService } from "../services/task-service.js";
+import { boardService } from "../services/board-service.js";
 
-export const taskStore = {
+export default {
   state: {
-    tasks: null,
+    boards: [],
+    board: null,
     filterBy: {
-      name: "",
-      inStock: "all",
-      type: "all",
-      sortBy:'name',
+      name: '',
+      tags: '',
+      creator: '',
     },
   },
   getters: {
-    tasks(state) {
-      return state.tasks;
+    boards(state) {
+      return state.boards;
     },
+    board(state) {
+      return state.board;
+    },
+    activities(state) {
+      return state.board.activities
+    }
   },
   mutations: {
-    setTasks(state, { tasks }) {
-      state.tasks = tasks;
+    setBoards(state, { boards }) {
+      state.boards = boards;
     },
-    deleteTask(state, { id }) {
-      const idx = state.tasks.findIndex((t) => t._id === id);
-      state.tasks.splice(idx, 1);
+    setBoard(state, {id}) {
+      state.board = state.boards.find(b => b._id === id)
+      // console.log(state.board)
     },
-    updateTask(state, { task }) {
-      const idx = state.tasks.findIndex((t) => t._id === task._id);
-      state.tasks.splice(idx, 1, task);
+    deleteBoard(state, { id }) {
+      const idx = state.boards.findIndex((t) => t._id === id);
+      state.boards.splice(idx, 1);
     },
-    addTask(state, { task }) {
-      state.tasks.push(task);
+    updateBoard(state, { board }) {
+      const idx = state.boards.findIndex((t) => t._id === board._id);
+      state.boards.splice(idx, 1, board);
+    },
+    addBoard(state, { board }) {
+      state.boards.push(board);
     },
     setFilterBy(state,{filterBy}){
       state.filterBy=filterBy
     }
   },
   actions: {
-    loadTasks({ commit,state }, { filterBy }) {
-      return taskService.query(state.filterBy)
-        .then((tasks) => {
-        commit({ type: "settasks", tasks });
-        return tasks;
+    loadBoards({ commit,state }, { filterBy }) {
+      return boardService.query(state.filterBy)
+        .then((boards) => {
+        console.log(boards)
+        commit({ type: "setboards", boards });
+        return boards;
       });
     },
-    deleteTask({ commit }, { id }) {
-      return taskService.deleteTask(id)
+    deleteBoard({ commit }, { id }) {
+      return boardService.deleteboard(id)
         .then(() => {
-        commit({ type: "deletetask", id });
+        commit({ type: "deleteboard", id });
       })
         .catch(err=>console.log("Problem Deleting,",err))
     },
-    saveTask({ commit }, { task }) {
-      const type = task._id ? "updatetask" : "addtask";
-      return taskService.save(task)
-        .then((savedtask) => {
-        commit({ type: type, task: savedtask });
-        return savedtask;
+    saveBoard({ commit }, { board }) {
+      const type = board._id ? "updateboard" : "addboard";
+      return boardService.save(board)
+        .then((savedboard) => {
+        commit({ type: type, board: savedboard });
+        return savedboard;
       })
       .catch(err=>console.log("Problem With,",type,err))
-
     },
   },
 };

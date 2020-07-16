@@ -14,4 +14,12 @@ export default {
     appHeader,
   },
 };
+
+// <board-details>
+//   <task-group v-for="">
+//    <task-preview v-for="">
+//    <button>+</bitton>
+
+
 </script>
+

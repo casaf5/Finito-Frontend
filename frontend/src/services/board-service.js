@@ -6,16 +6,22 @@ export const boardService = {
   deleteBoard,
   save,
   getById,
-  getEmptyBoard,
+  // getEmptyBoard,
 };
+// //// json server url to use
+var jsonTesting = `http://localhost:3000/board/`
+//////////
+
 function _getUrl(id=''){
   const BASE_URL=(process.env.NODE_ENV!=='development')? '/api/board':'//localhost:3030/api/board'
   return `${BASE_URL}/${id}`
 }
 function query(filterBy) {
-  let filterQuery = `?name=${filterBy.name}&type=${filterBy.type}&inStock=${filterBy.inStock}&sort=${filterBy.sortBy}`;
+  let filterQuery = `?name=${filterBy.name}`;
+  
   return axios
-    .get(_getUrl()+filterQuery)
+    // .get(_getUrl()+filterQuery)
+    .get(jsonTesting)
     .then((res) => res.data);
 }
 function getById(boardId) {
