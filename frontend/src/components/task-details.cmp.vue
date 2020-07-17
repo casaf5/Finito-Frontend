@@ -147,10 +147,13 @@ export default {
     },
     // CHECKLIST CRUDL => should emit by component (inside will be also items crudl)
     checkListAdded(checklist){
-            
+      task.checkLists.push(checklist)
+      this.addActivity("ADDED_CHECKLIST");
     },
     checkListRemoved(checklist){
-
+       const idx = this.task.checkLists.findIndex(cl => cl.id === checklist.id)
+       this.task.checkLists.splice(idx, 1);
+       this.addActivity("REMOVED_CHECKLIST");
     },
     checkListUpdated(checklist){
 
@@ -166,7 +169,7 @@ export default {
     fileAttched(file){
 
     },
-    ///////// activiy log/////////
+    ///////// activiy log + state board update/////////
     // async
     addActivity(action, changed = "") {
       this.activityToAdd.action = action;
@@ -252,12 +255,16 @@ export default {
       return txt;
     }
   },
-
   created() {
     // //only for testing
     this.loadBoards();
     console.log('cls', this.task.checkLists)
-    ///////
+    // /////
+
+    // /// copying the task it self also so could be editted out of the store
+    
+    // this.task = this.boardToEdit.taskGroups.tasks.find(t => t.id===this.task.id)
+ 
     this.user = this.$store.getters.loggedUser
       ? this.$store.getters.loggedUser
       : { name: "Guest", url: "guestimg" };
