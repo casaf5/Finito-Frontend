@@ -1,24 +1,72 @@
-[
 {
-  "id": "a101",
-  "byUser":"miniUser",
-  "action":"TASK_CREATE",
-  "task":"miniTask",
-  "at":1122
-},
-{
-  "id": "a102",
-  "byUser":"miniUser",
-  "action":"CARD_DELETE",
-  "card":"miniCard",
-  "at":1122
-  
-},
-{
-  "id": "a103",
-  "byUser":"miniUser",
-  "action":"CARD_UPDATE",
-  "card":"miniCard",
-  "at":1122
+  "board": [
+    {
+      "_id": "b101",
+      "name": "tech_projects",
+      "members": [],
+      "tags": [
+        "tech",
+        "project"
+      ],
+      "style": {
+        "bgColor": "",
+        "bgUrl": ""
+      },
+      "creator": {},
+      "activities": [
+        {
+          "id": "a303",
+          "byUser": {
+            "name": "Ayal",
+            "url": "blablaimg"
+          },
+          "action": "CHECKLIST_CREATE",
+          "txt": "",
+          "edditedTask": {
+            "id": "et404",
+            "name": "tech_projects",
+            "at": 1122
+          }
+        }
+      ],
+      "taskGroup": [
+        {
+          "id:": "t202",
+          "name": "Trello",
+          "position": "",
+          "tasks": [
+            {
+              "id": "t505",
+              "name": "",
+              "desc": "finish trello proj",
+              "dueDate": "",
+              "watchMembers": [],
+              "createdAt": "",
+              "executeTime": "",
+              "members": [],
+              "labels": [
+                {
+                  "color": "",
+                  "title": ""
+                }
+              ],
+              "comments": [
+                {
+                  "createdBy": "",
+                  "txt": "",
+                  "createdAt": ""
+                }
+              ],
+              "cover": {
+                "color": "",
+                "url": ""
+              },
+              "attachments": [],
+              "checkLists": []
+            }
+          ]
+        }
+      ]
+    }
+  ]
 }
-]
