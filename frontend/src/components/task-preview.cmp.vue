@@ -5,6 +5,8 @@
 </template>
 
 <script>
+
+
 export default {
   props: {
     task: {
@@ -16,4 +18,7 @@ export default {
 </script>
 
 <style  lang="scss">
+.task-preview-container{
+  margin: 10px;
+}
 </style>

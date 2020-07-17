@@ -1,113 +1,83 @@
 <template>
-  <div class="card-scene">
-    <Container
-      orientation="horizontal"
-      @drop="onTaskGroupDrop($event)"
-      drag-handle-selector=".group-title"
-      :drop-placeholder="upperDropPlaceholderOptions"
-    >
-      <Draggable v-for="column in scene.children" :key="column.id">
-        <div :class="column.props.className">
-          <div class="card-column-header">
-            <span class="column-drag-handle">&#x2630;</span>
-            {{ column.name }}
-          </div>
-          <Container
-            group-name="col"
-            @drop="(e) => onCardDrop(column.id, e)"
-            @drag-start="(e) => log('drag start', e)"
-            @drag-end="(e) => log('drag end', e)"
-            :get-child-payload="getCardPayload(column.id)"
-            drag-class="card-ghost"
-            drop-class="card-ghost-drop"
-            :drop-placeholder="dropPlaceholderOptions"
-          >
-            <Draggable v-for="card in column.children" :key="card.id">
-              <div :class="card.props.className" :style="card.props.style">
-                <p>{{ card.data }}</p>
-              </div>
-            </Draggable>
-          </Container>
-        </div>
-      </Draggable>
-    </Container>
+  <div>
+    <div class="simple-page">
+        <Container @drop="onDrop" drag-handle-selector=".task-group-title" orientation="horizontal">            
+          <Draggable v-for="taskGroup in taskGroups" :key="taskGroup.id">
+           <task-group :taskGroup="taskGroup" @taskDrop="onTaskDrop" @taskPayLoad="getTaskPayLoad"/>
+          </Draggable>
+        </Container>
+    </div>
   </div>
 </template>
-
+ 
 <script>
-import { Container, Draggable } from 'vue-smooth-dnd'
-import { applyDrag, generateItems } from '../utils/helpers'
-const lorem = `Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. 
-Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. 
-Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.`
-const columnNames = ['Lorem', 'Ipsum', 'Consectetur', 'Eiusmod']
-const cardColors = [
-  'azure',
-  'beige',
-  'bisque',
-  'blanchedalmond',
-  'burlywood',
-  'cornsilk',
-  'gainsboro',
-  'ghostwhite',
-  'ivory',
-  'khaki'
-]
-const pickColor = () => {
-  const rand = Math.floor(Math.random() * 10)
-  return cardColors[rand]
-}
-const scene = {
-  type: 'container',
-  props: {
-    orientation: 'horizontal'
-  },
-  children: generateItems(4, i => ({
-    id: `column${i}`,
-    type: 'container',
-    name: columnNames[i],
-    props: {
-      orientation: 'vertical',
-      className: 'card-container'
-    },
-    children: generateItems(+(Math.random() * 10).toFixed() + 5, j => ({
-      type: 'draggable',
-      id: `${i}${j}`,
-      props: {
-        className: 'card',
-        style: {backgroundColor: pickColor()}
-      },
-      data: lorem.slice(0, Math.floor(Math.random() * 150) + 30)
-    }))
-  }))
-}
+import { Container, Draggable } from "vue-smooth-dnd";
+import { applyDrag, generateItems } from "../utils/helpers.js";
+import taskGroup from '../components/task-group.cmp.vue';
+import taskPreview from '../components/task-preview.cmp.vue'
+
 export default {
-  name: 'Cards',
-  components: {Container, Draggable},
-  data () {
-    return {
-      scene,
-      upperDropPlaceholderOptions: {
-        className: 'cards-drop-preview',
-        animationDuration: '150',
-        showOnTop: true
-      },
-      dropPlaceholderOptions: {
-        className: 'drop-preview',
-        animationDuration: '150',
-        showOnTop: true
-      }
-    }
+  name: "Simple",
+  components: { Container, Draggable,taskGroup,taskPreview },
+  methods:{
+      
   },
-  methods: {
-    onTaskGroupDrop (dropResult) {
-      const scene = Object.assign({}, this.scene)
-      scene.children = applyDrag(scene.children, dropResult)
-      this.scene = scene
+  data() {
+    return {
+   taskGroups: [
+        {
+          id: "tg101",
+          title: "In Progress",
+          position: 0,
+          tasks: [
+            {
+              id: "t101",
+              title: "Finish working on UI",
+              desc: "UI needs to get finished by Sunday",
+              dueDate: new Date(),
+              watchMembers: []
+            },
+             {
+              id: "t102",
+              title: "CHECK",
+              desc: "UI needs to get finished by Sunday",
+              dueDate: new Date(),
+              watchMembers: []
+            },
+             {
+              id: "t103",
+              title: "check2",
+              desc: "UI needs to get finished by Sunday",
+              dueDate: new Date(),
+              watchMembers: []
+            }
+          ]
+        },
+        {
+          id: "tg102",
+          title: "Almost done",
+          position: 1,
+          tasks: [
+            {
+              id: "t102",
+              title: "Finish working on UX",
+              desc: "UX needs to get finished by Sunday",
+              dueDate: new Date(),
+              watchMembers: []
+            }
+          ]
+        }
+      ]
+    };
+  },
+  methods: {  
+    onDrop(dropResult) {
+      this.taskGroups = applyDrag(this.taskGroups, dropResult);
+      console.log('taskGroups now',this.taskGroups)
     },
-    onCardDrop (columnId, dropResult) {
+    onTaskDrop (taskGroupId, dropResult) {
       if (dropResult.removedIndex !== null || dropResult.addedIndex !== null) {
-        const scene = Object.assign({}, this.scene)
+        const taskGroup = Object.assign({}, this.scene)
         const column = scene.children.filter(p => p.id === columnId)[0]
         const columnIndex = scene.children.indexOf(column)
         const newColumn = Object.assign({}, column)
@@ -116,11 +86,16 @@ export default {
         this.scene = scene
       }
     },
-    getCardPayload (columnId) {
+    getTaskPayload (taskGroupId) {
       return index => {
-        return this.scene.children.filter(p => p.id === columnId)[0].children[index]
+        return this.scene.children.filter(p => p.id === taskGroupId)[0].children[index]
       }
     }
   }
-}
+};
 </script>
+
+
+<style lang="scss">
+
+</style>
