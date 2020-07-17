@@ -8,9 +8,7 @@
           <Container
             group-name="taskGroup"
             @drop="(e) => onTaskDrop(taskGroup.id, e)"
-            @drag-start="(e) => log('drag start', e)"
-            @drag-end="(e) => log('drag end', e)"
-            :get-child-payload="getTaskPayload(taskGroup.id)"
+            :get-child-payload="getTaskPayLoad(taskGroup.id)"
             drag-class="card-ghost"
             drop-class="card-ghost-drop"
             :drop-placeholder="dropPlaceholderOptions"
@@ -29,6 +27,8 @@
 </template>
 
 <script>
+import { Container, Draggable } from "vue-smooth-dnd";
+
 import TaskPreview from "./task-preview.cmp";
 export default {
   props: {
@@ -37,20 +37,33 @@ export default {
       required: true
     }
   },
+  created(){
+console.log('created',this.taskGroup)
+  },
   data() {
-    return {};
+    return {
+       dropPlaceholderOptions: {
+        className: 'drop-preview',
+        animationDuration: '150',
+        showOnTop: true
+      },
+    };
   },
   methods:{
      onTaskDrop (taskGroupId, dropResult) {
        this.$emit('taskDrop',taskGroupId, dropResult)
     
     },
-    getTaskPayload (taskGroupId) {
-       this.$emit('taskPayLoad',taskGroupId)
+     getTaskPayLoad (taskGroupId) {
+      return index => {
+        return this.taskGroup.tasks[index]
+      }
     }
   },
   components: {
-    TaskPreview
+    TaskPreview,
+    Container, 
+    Draggable
   }
 };
 </script>
