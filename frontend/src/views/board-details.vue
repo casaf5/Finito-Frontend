@@ -68,10 +68,6 @@ export default {
         this.board=board
       }
     },
-    async getBoard(){
-    let board= await this.$store.getters.board
-    this.board=board
-    }
   },
   components: { 
     Container, 

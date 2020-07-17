@@ -10,8 +10,8 @@
         group-name="taskGroup"
         @drop="(e) => onTaskDrop(taskGroup.id, e)"
         :get-child-payload="getTaskPayLoad(taskGroup.id)"
-        drag-class="card-ghost"
-        drop-class="card-ghost-drop"
+        drag-class="task-ghost"
+        drop-class="task-ghost-drop"
         :drop-placeholder="dropPlaceholderOptions"
       >
         <Draggable v-for="task in taskGroup.tasks" :key="task.id">
@@ -40,7 +40,7 @@ export default {
   data() {
     return {
       dropPlaceholderOptions: {
-        className: "drop-preview",
+        className: "task-drop-preview",
         animationDuration: "150",
         showOnTop: true
       },
@@ -66,18 +66,3 @@ export default {
   }
 };
 </script>
-
-<style lang="scss">
-.task-group-container {
-  margin: 10px;
-}
-.card-ghost {
-  transition: transform 0.18s ease;
-  transform: rotateZ(5deg);
-}
-
-.card-ghost-drop {
-  transition: transform 0.18s ease-in-out;
-  transform: rotateZ(0deg);
-}
-</style>
