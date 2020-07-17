@@ -6,7 +6,6 @@
       <task-group-actions @close="show = !show" v-show="show" />
     </div>
     <div class="task-container flex col">
-<<<<<<< HEAD
           <Container
             group-name="taskGroup"
             @drop="(e) => onTaskDrop(taskGroup.id,e)"
@@ -26,20 +25,6 @@
         <span type="text">Add another card</span>
       </div>
       <i class="el-icon-full-screen task-icon"></i>
-=======
-      <Container
-        group-name="taskGroup"
-        @drop="(e) => onTaskDrop(taskGroup.id, e)"
-        :get-child-payload="getTaskPayLoad(taskGroup.id)"
-        drag-class="card-ghost"
-        drop-class="card-ghost-drop"
-        :drop-placeholder="dropPlaceholderOptions"
-      >
-        <Draggable v-for="task in taskGroup.tasks" :key="task.id">
-          <task-preview :task="task" />
-        </Draggable>
-      </Container>
->>>>>>> 47f096a9d158e5aad6f136c1e7c50ff7727ebb63
     </div>
     <add-task :inGroup="true" />
   </div>
