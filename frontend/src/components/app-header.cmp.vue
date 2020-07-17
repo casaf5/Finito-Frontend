@@ -5,6 +5,7 @@
       <section class="links flex clean-list">
         <router-link tag="li" to="/">Boards</router-link>
         <router-link tag="li" to="/about">About</router-link>
+        <router-link tag="li" to="/cmps-check">CMPS CHECK</router-link>
         <router-link tag="li" to="/dash">Dashboard</router-link>
         <router-link tag="li" to="/login">Login</router-link>
         <!-- <router-link tag="li" to="/signup" v-show="!loggedUser" >Sign Up</router-link> -->

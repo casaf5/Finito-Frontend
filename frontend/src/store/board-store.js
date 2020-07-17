@@ -48,7 +48,7 @@ export default {
       try{
         const boards=await boardService.query(state.filterBy)
         commit({ type: "setBoards", boards });
-        console.log('board from store:',boards)
+        return boards
       }catch(err){
         console.log('Problem getting board ')
         throw err

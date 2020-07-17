@@ -11,11 +11,11 @@ Vue.use(VueRouter)
     name: 'Landing-Page',
     component: trellorApp
   },
-  // {
-  //   path: '/',
-  //   name: 'Landing-Page',
-  //   component: landingPage
-  // },
+  {
+    path: '/cmps-check',
+    name: 'Landing-Page',
+    component: landingPage
+  },
   // {
   //   path: '/about',
   //   name: 'About',
