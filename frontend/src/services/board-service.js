@@ -8,6 +8,7 @@ export const boardService = {
   getById,
   // getEmptyBoard,
 };
+
 // //// json server url to use
 var jsonTesting = `http://localhost:3000/board/`
 //////////
@@ -18,7 +19,6 @@ function _getUrl(id=''){
 }
 function query(filterBy) {
   let filterQuery = `?name=${filterBy.name}`;
-  
   return axios
     // .get(_getUrl()+filterQuery)
     .get(jsonTesting)

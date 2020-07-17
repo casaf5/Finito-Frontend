@@ -6,7 +6,7 @@
   <!--  -->
   </div>
 </template>
-
+ 
 <script>
 
 import {eventBus,SHOW_MSG} from '../services/event-bus-service.js'
