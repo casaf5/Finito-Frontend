@@ -11,9 +11,11 @@
 <script>
 import { eventBus, SHOW_MSG } from "../services/event-bus-service.js";
 import boardDetails from "./board-details.vue";
+
 // //////// only here for testing
 import taskDetails from "@/components/task-details.cmp.vue";
 // ////////////////
+
 export default {
   name: "trellor-app",
   // //////// only here for testing
@@ -37,7 +39,6 @@ export default {
     taskDetails,
     boardDetails
   }
-  // ////////////////
 };
 </script>
 
