@@ -26,8 +26,7 @@ export default {
       state.boards = boards;
     },
     setBoard(state, {id}) {
-      state.board = state.boards.find(b => b._id === id)
-      // console.log(state.board)
+      state.board = state.boards.find((b) => b._id === id)
     },
     deleteBoard(state, { id }) {
       const idx = state.boards.findIndex((t) => t._id === id);
@@ -49,22 +48,22 @@ export default {
       return boardService.query(state.filterBy)
         .then((boards) => {
         console.log(boards)
-        commit({ type: "setboards", boards });
+        commit({ type: "setBoards", boards });
         return boards;
       });
     },
     deleteBoard({ commit }, { id }) {
       return boardService.deleteboard(id)
         .then(() => {
-        commit({ type: "deleteboard", id });
+        commit({ type: "deleteBoard", id });
       })
         .catch(err=>console.log("Problem Deleting,",err))
     },
     saveBoard({ commit }, { board }) {
-      const type = board._id ? "updateboard" : "addboard";
+      const type = board._id ? "updateBoard" : "addBoard";
       return boardService.save(board)
         .then((savedboard) => {
-        commit({ type: type, board: savedboard });
+        commit({ type: type, board: savedoard });
         return savedboard;
       })
       .catch(err=>console.log("Problem With,",type,err))
