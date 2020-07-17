@@ -1,0 +1,42 @@
+.add-task-container {
+  width: 220px;
+  display: flex;
+  align-self: start;
+  align-items: center;
+  justify-content: space-between;
+  border-radius: 3px;
+  &.transparent {
+    background-color: rgba($task-group-color, 0.5);
+  }
+  span {
+    color: $faded-cta-color;
+    margin-left: 3px;
+  }
+  .add-task-left-content {
+    flex-grow: 1;
+    display: flex;
+    align-items: center;
+    border-radius: 5px;
+    padding: 0px 15px;
+    &:hover {
+      background-color: darken($task-group-color, 5%);
+    }
+  }
+  .add-task-content-container {
+    background-color: $task-group-color;
+    width: 100%;
+    textarea {
+      display: block;
+      border: none;
+      resize: none;
+      width: 100%;
+    }
+    button {
+      font-family: inherit;
+      background-color: #232323;
+      color: #fff;
+      border: none;
+      outline: none;
+    }
+  }
+}

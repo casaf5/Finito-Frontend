@@ -32,7 +32,6 @@
   .task-group-title-container {
     display: flex;
     justify-content: space-between;
-    align-items: center;
     margin: 5px 0;
     padding: 0 rem(10px);
     .task-group-title {
@@ -46,28 +45,6 @@
       font-weight: 600;
       color: $task-title-color;
       text-align: left;
-    }
-  }
-  .add-task-container {
-    display: flex;
-    margin-top: auto;
-    align-items: center;
-    justify-content: space-between;
-    padding-right: 5px;
-    margin: 5px 0;
-    span {
-      color: $faded-cta-color;
-      margin-left: 3px;
-    }
-    .add-task-left-content {
-      flex-grow: 1;
-      display: flex;
-      align-items: center;
-      border-radius: 5px;
-      padding: 0px 15px;
-      &:hover {
-        background-color: darken($task-group-color, 5%);
-      }
     }
   }
 }
