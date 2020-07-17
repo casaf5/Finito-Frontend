@@ -21,6 +21,20 @@ export default {
               desc: "UI needs to get finished by Sunday",
               dueDate: new Date(),
               watchMembers: []
+            },
+             {
+              id: "t102",
+              title: "CHECK",
+              desc: "UI needs to get finished by Sunday",
+              dueDate: new Date(),
+              watchMembers: []
+            },
+             {
+              id: "t103",
+              title: "check2",
+              desc: "UI needs to get finished by Sunday",
+              dueDate: new Date(),
+              watchMembers: []
             }
           ]
         },

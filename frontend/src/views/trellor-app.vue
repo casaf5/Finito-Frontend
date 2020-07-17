@@ -12,7 +12,7 @@ import appHeader from '../components/app-header.cmp.vue'
 export default {
   name: "trellor-app",
   components:{
-    dragGroup,
+    
   }
 };
 </script>

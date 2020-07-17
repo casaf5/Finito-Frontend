@@ -15,6 +15,8 @@
 
 <script>
 import TaskPreview from "./task-preview.cmp";
+const GROUP_DROP='groupDrop'
+const TASK_DROP="taskDrop"
 export default {
   props: {
     taskGroup: {
@@ -24,6 +26,11 @@ export default {
   },
   data() {
     return {};
+  },
+  methods:{
+    groupDrop(groupId,e){
+      this.$emit(GROUP_DROP,groupId,e)
+    }
   },
   components: {
     TaskPreview
