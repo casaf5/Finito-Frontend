@@ -1,31 +1,24 @@
-
-// <board-details>
-//   <task-group v-for="">
-//    <task-preview v-for="">
-//    <button>+</bitton>
-
-
+[
 {
   "id": "a101",
-  "byUser":"miniUser"
-  "action":"TASK_CREATE"
-  "task":"miniTask"
+  "byUser":"miniUser",
+  "action":"TASK_CREATE",
+  "task":"miniTask",
   "at":1122
-}
-
+},
 {
   "id": "a102",
-  "byUser":"miniUser"
-  "action":"CARD_DELETE"
-  "card":"miniCard"
+  "byUser":"miniUser",
+  "action":"CARD_DELETE",
+  "card":"miniCard",
   "at":1122
   
-}
-
+},
 {
   "id": "a103",
-  "byUser":"miniUser"
-  "action":"CARD_UPDATE"
-  "card":"miniCard"
+  "byUser":"miniUser",
+  "action":"CARD_UPDATE",
+  "card":"miniCard",
   "at":1122
 }
+]

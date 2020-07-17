@@ -3,7 +3,7 @@
     <div class="task-group-title-container">
       <textarea class="task-group-title" v-model="taskGroup.title"></textarea>
       <i @click="show = !show" class="el-icon-more task-icon"></i>
-      <task-actions @close="show = !show" v-show="show" />
+      <task-group-actions @close="show = !show" v-show="show" />
     </div>
     <div class="task-container flex col">
           <Container
@@ -33,9 +33,8 @@
 import { Container, Draggable } from "vue-smooth-dnd";
 
 import TaskPreview from "./task-preview.cmp";
-import TaskActions from "./task-actions.cmp";
-const GROUP_DROP = "groupDrop";
-const TASK_DROP = "taskDrop";
+import taskGroupActions from './task-group-actions.cmp';
+
 export default {
   props: {
     taskGroup: {
@@ -43,17 +42,14 @@ export default {
       required: true
     }
   },
-  created(){
-console.log('created',this.taskGroup)
-  },
   data() {
     return {
-<<<<<<< HEAD
        dropPlaceholderOptions: {
         className: 'drop-preview',
         animationDuration: '150',
         showOnTop: true
       },
+      show:false,
     };
   },
   methods:{
@@ -65,24 +61,13 @@ console.log('created',this.taskGroup)
       return index => {
         return this.taskGroup.tasks[index]
       }
-=======
-      show: false
-    };
-  },
-  methods: {
-    groupDrop(groupId, e) {
-      this.$emit(GROUP_DROP, groupId, e);
->>>>>>> taskGroup
     }
   },
   components: {
     TaskPreview,
-<<<<<<< HEAD
+    taskGroupActions,
     Container, 
-    Draggable
-=======
-    TaskActions
->>>>>>> taskGroup
+    Draggable,
   }
 };
 </script>
