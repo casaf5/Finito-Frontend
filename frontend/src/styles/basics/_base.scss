@@ -1,10 +1,11 @@
 * {
     box-sizing: border-box;
+    list-style: none;
 }
 
 html {
     font-family: Montserrat;
-    line-height: 2;
+    // line-height: 2;
 }
 
 body {
@@ -18,7 +19,7 @@ img {
 h1, h2, h3, h4, h5, h6 {
     font-weight: normal;
     margin: 0 0 .4em;
-    line-height: 1.8;
+    // line-height: 1.8;
     padding: 0;
     margin: 0;
    

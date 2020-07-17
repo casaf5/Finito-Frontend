@@ -1,25 +1,33 @@
 <template>
   <section class="task-details">
-    <div class="flex row">
+          <!-- will change to col from task width-->
+   <div class="task-details-containers-wraper">
+    <div class="flex row task-details-main-container">
       <div class="flex col task-left-container">
         <h2 class="task-name">{{ task.name }}</h2>
         <h3 class="task-group-name">{{ taskGroup.name }}</h3>
-        <div class="task-members-labels-wraper">
+        <div class="task-completed">checkbox</div>
+        <div class="task-members-labels-date flex row">
           <div class="task-members-container">members</div>
           <div class="task-labels-container">labels</div>
         </div>
+        <div>duedate</div>
         <div class="task-desc">
-          <!-- <task-desc/> -->
+          <!-- <task-desc/> -->desc
         </div>
         <!-- <div class="task-checklists">
           <ul>
-            <li v-for="checklist in board.checklists" :key="checklist.id">
+            <li v-for="checklist in board.tasks.checkLists" :key="checklist.id">
               <checklist-preview :checklist="checklist"/>
             </li>
           </ul>
         </div>-->
-        <div v-if="activitiesToShow">
-          <ul class="task-activities">
+        <div class="task-activities">
+          <div class="task-activties-header flex row space-between">
+            <div>icon</div>
+            <button>Show Details</button>
+          </div>
+          <ul v-if="activitiesToShow">
             <li v-for="activity in activitiesToShow" :key="activity.id">{{activity.txt}}</li>
           </ul>
         </div>
@@ -37,6 +45,7 @@
         <button>Watch</button>
       </div>
     </div>
+  </div>
   </section>
 </template>
 
@@ -54,8 +63,6 @@ export default {
         }
       },
       boardToEdit: null
-      // for testing only
-      // boardToEdit: {activities:[]}
     };
   },
   computed: {
@@ -85,13 +92,18 @@ export default {
       await this.$store.commit({ type: "setBoard", id: "b101" });
       this.boardToEdit = JSON.parse(JSON.stringify(this.board));
       console.log("board to edit", this.boardToEdit);
-      // this.addActivity('ADDED_LABEL')
+       this.addActivity("ADDED_ITEM", 'checklist');
     },
     //////
     removeTask(id) {
       this.boardToEdit.findIndex(t => t.id === id);
       this.boardToEdit.splice(idx, 1);
       this.addActivity("REMOVED_TASK");
+    },
+    copyTask(id) {
+      // this.boardToEdit.findIndex(t => t.id === id);
+      // this.boardToEdit.unshift(idx, 1);
+      this.addActivity("COPPIED_TASK");
     },
 
     // adding activity to store
