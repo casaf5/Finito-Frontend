@@ -3,13 +3,20 @@
           <!-- will change to col from task width-->
    <div class="task-details-containers-wraper">
     <div class="flex row task-details-main-container">
-      <div class="flex col task-left-container">
+      <div class="flex col space-between task-left-container">
         <h2 class="task-name">{{ task.name }}</h2>
         <h3 class="task-group-name">{{ taskGroup.name }}</h3>
         <div class="task-completed">checkbox</div>
-        <div class="task-members-labels-date flex row">
-          <div class="task-members-container">members</div>
-          <div class="task-labels-container">labels</div>
+        <div class="task-members-labels-container flex row">
+          <div class="task-members-container">
+            <h5>Members</h5>
+            {{user.name}}
+            <!-- v for members -->
+          </div>
+          <div class="task-labels-container">
+             <h5>Labels</h5>
+             <!-- v for labels preview -->
+          </div>
         </div>
         <div>duedate</div>
         <div class="task-desc">
@@ -92,6 +99,8 @@ export default {
       await this.$store.commit({ type: "setBoard", id: "b101" });
       this.boardToEdit = JSON.parse(JSON.stringify(this.board));
       console.log("board to edit", this.boardToEdit);
+      // /////check for checklist
+      console.log('cl', this.boardToEdit.taskGroup[0].tasks[0].checkLists);
        this.addActivity("ADDED_ITEM", 'checklist');
     },
     //////
@@ -195,7 +204,6 @@ export default {
   created() {
     // //only for testing
     this.loadBoards();
-    console.log(this.task);
     ///////
     this.user = this.$store.getters.loggedUser
       ? this.$store.getters.loggedUser

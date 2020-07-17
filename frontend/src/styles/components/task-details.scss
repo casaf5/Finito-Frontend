@@ -1,8 +1,27 @@
 .task-details-containers-wraper {
-    max-width: 60%;
+    width: 60%;
+    height: 90vh;
     background-color: gray;
     position: absolute;
-    top:50%;
-    left:15%;
-    transform:translate(10%,-50%);
+    top:0;
+    left:50%;
+    transform: translate(-50%);
+    font-size: 1.2rem;
+    padding: 1.25rem;
+    margin-top: 5rem;
+    margin-bottom: 3.75rem;
+    width: 700px;
+}
+
+.task-details-main-container {
+    height: 100%;
+    flex: 1;
+    button {
+        border: none;
+        margin: 10px;
+    }
+}
+.task-left-container {
+    flex: 1;
+    text-align: left;
 }
