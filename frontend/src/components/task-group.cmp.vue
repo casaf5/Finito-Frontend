@@ -1,5 +1,5 @@
 <template>
-  <div class="task-group-container">
+  <div class="task-group">
     <div class="task-group-title-container">
       <textarea class="task-group-title" v-model="taskGroup.title"></textarea>
       <i @click="show = !show" class="el-icon-more task-icon"></i>
