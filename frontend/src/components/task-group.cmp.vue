@@ -1,8 +1,9 @@
 <template>
   <div class="task-group-container">
     <div class="task-group-title-container">
-      <h3 class="task-group-title">{{taskGroup.title}}</h3>
-      <span>...</span>
+      <textarea class="task-group-title" v-model="taskGroup.title"></textarea>
+      <i @click="show = !show" class="el-icon-more task-icon"></i>
+      <task-actions @close="show = !show" v-show="show" />
     </div>
     <div class="task-container flex col">
           <Container
@@ -19,9 +20,11 @@
           </Container>
     </div>
     <div class="add-task-container">
-      <span>+</span>
-      <input type="text" />
-      <span>icon</span>
+      <div class="add-task-left-content">
+        <i class="el-icon-plus task-icon"></i>
+        <span type="text">Add another card</span>
+      </div>
+      <i class="el-icon-full-screen task-icon"></i>
     </div>
   </div>
 </template>
@@ -30,6 +33,9 @@
 import { Container, Draggable } from "vue-smooth-dnd";
 
 import TaskPreview from "./task-preview.cmp";
+import TaskActions from "./task-actions.cmp";
+const GROUP_DROP = "groupDrop";
+const TASK_DROP = "taskDrop";
 export default {
   props: {
     taskGroup: {
@@ -42,6 +48,7 @@ console.log('created',this.taskGroup)
   },
   data() {
     return {
+<<<<<<< HEAD
        dropPlaceholderOptions: {
         className: 'drop-preview',
         animationDuration: '150',
@@ -58,12 +65,24 @@ console.log('created',this.taskGroup)
       return index => {
         return this.taskGroup.tasks[index]
       }
+=======
+      show: false
+    };
+  },
+  methods: {
+    groupDrop(groupId, e) {
+      this.$emit(GROUP_DROP, groupId, e);
+>>>>>>> taskGroup
     }
   },
   components: {
     TaskPreview,
+<<<<<<< HEAD
     Container, 
     Draggable
+=======
+    TaskActions
+>>>>>>> taskGroup
   }
 };
 </script>
