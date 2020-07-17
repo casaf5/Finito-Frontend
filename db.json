@@ -29,7 +29,7 @@
           }
         }
       ],
-      "taskGroup": [
+      "taskGroups": [
         {
           "id:": "t202",
           "name": "Trello",
@@ -62,7 +62,10 @@
                 "url": ""
               },
               "attachments": [],
-              "checkLists": []
+              "checkLists": [{
+                "name":"Ayal",
+                "items":["finish logics", "finish css", "get better"]
+              }]
             }
           ]
         }

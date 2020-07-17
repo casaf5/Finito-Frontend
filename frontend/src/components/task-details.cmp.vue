@@ -1,7 +1,8 @@
 <template>
-  <section class="task-details">
+  <section v-if="isShown" class="task-details">
           <!-- will change to col from task width-->
    <div class="task-details-containers-wraper">
+    <button @click="closeModal">X</button>
     <div class="flex row task-details-main-container">
       <div class="flex col space-between task-left-container">
         <h2 class="task-name">{{ task.name }}</h2>
@@ -22,13 +23,14 @@
         <div class="task-desc">
           <!-- <task-desc/> -->desc
         </div>
-        <!-- <div class="task-checklists">
-          <ul>
-            <li v-for="checklist in board.tasks.checkLists" :key="checklist.id">
+        <div class="task-checklists">
+          <!-- v-if="checkListsToShow" -->
+          <ul >
+            <li v-for="checklist in task.checkLists" :key="checklist.id">
               <checklist-preview :checklist="checklist"/>
             </li>
           </ul>
-        </div>-->
+        </div>
         <div class="task-activities">
           <div class="task-activties-header flex row space-between">
             <div>icon</div>
@@ -47,7 +49,7 @@
         <button>Attachment</button>
         <button>Cover</button>
         <button>Copy</button>
-        <button>Remove</button>
+        <button @click="removeTask">Remove</button>
         <button>Move</button>
         <button>Watch</button>
       </div>
@@ -57,11 +59,15 @@
 </template>
 
 <script>
+  import checklistPreview from "@/components/checklist-preview.cmp.vue"
+  // import { eventBus, SHOW_MSG } from "@/services/event-bus.service.js";
+
 export default {
   name: "task-details",
   props: ["taskGroup", "task"],
   data() {
     return {
+      isShown:true,
       user: null,
       activityToAdd: {
         edditedTask: {
@@ -86,9 +92,14 @@ export default {
       } else {
         return activities;
       }
-    }
+    },
+    // checkListsToShow (){
+    //     return  this.task.checkLists
   },
   methods: {
+    closeModal (){
+      this.isShown = false;
+    },
     // delete after
     async loadBoards() {
       await this.$store.dispatch({ type: "loadBoards" });
@@ -100,22 +111,62 @@ export default {
       this.boardToEdit = JSON.parse(JSON.stringify(this.board));
       console.log("board to edit", this.boardToEdit);
       // /////check for checklist
-      console.log('cl', this.boardToEdit.taskGroup[0].tasks[0].checkLists);
+      console.log('cl', this.boardToEdit.taskGroups[0].tasks[0].checkLists);
        this.addActivity("ADDED_ITEM", 'checklist');
     },
-    //////
-    removeTask(id) {
-      this.boardToEdit.findIndex(t => t.id === id);
-      this.boardToEdit.splice(idx, 1);
+    ////////
+    // TASK CRUDL +
+    removeTask() {
+      const idx = this.taskGroup.tasks.findIndex(t => t.id===this.task.id)
+      this.boardToEdit.taskGroup.tasks.splice(idx, 1);
       this.addActivity("REMOVED_TASK");
+      this.closeModal()
     },
-    copyTask(id) {
-      // this.boardToEdit.findIndex(t => t.id === id);
-      // this.boardToEdit.unshift(idx, 1);
+    copyTask() {
+      this.boardToEdit.taskGroup.tasks.unshift(JSON.parse(JSON.stringify(this.task)));
       this.addActivity("COPPIED_TASK");
     },
+    toggleTaskCompletion(){
+      let action = ''
+      this.task.isComplete = !this.task.isComplete
+      action = (this.task.isComplete)? "COMPLETED_TASK" : "INCOMPLETED_TASK"
+      this.addActivity(action)
+    },
+    watchTask(){
+    },
+    // needs to add position on data-base, inside which group can be found
+    moveTask() {
+    },
 
-    // adding activity to store
+    // LABEL "CRUDL" => should emit by component
+    labelAdded(){
+      
+    },
+    labelRemoved(){
+
+    },
+    // CHECKLIST CRUDL => should emit by component (inside will be also items crudl)
+    checkListAdded(checklist){
+            
+    },
+    checkListRemoved(checklist){
+
+    },
+    checkListUpdated(checklist){
+
+    },
+    // OTHERS
+    // get an obj of the changes and update the board
+    coverUpdated(cover) {
+
+    },
+    memberJoined(memeber){
+
+    },
+    fileAttched(file){
+
+    },
+    ///////// activiy log/////////
     // async
     addActivity(action, changed = "") {
       this.activityToAdd.action = action;
@@ -201,15 +252,20 @@ export default {
       return txt;
     }
   },
+
   created() {
     // //only for testing
     this.loadBoards();
+    console.log('cls', this.task.checkLists)
     ///////
     this.user = this.$store.getters.loggedUser
       ? this.$store.getters.loggedUser
       : { name: "Guest", url: "guestimg" };
     // this.boardToEdit = JSON.parse(JSON.stringify(this.board))
     // console.log('board to edit', this.boardToEdit)
+  },
+  components : {
+    checklistPreview
   }
 };
 </script>
