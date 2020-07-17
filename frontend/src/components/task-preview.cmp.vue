@@ -1,6 +1,9 @@
 <template>
   <div class="task-preview-container">
-    <span>{{task.title}}</span>
+    <div class="task-preview-content">
+      <span>{{task.title}}</span>
+      <i class="el-icon-edit"></i>
+    </div>
   </div>
 </template>
 
