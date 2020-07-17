@@ -25,49 +25,63 @@ export default {
     setBoards(state, { boards }) {
       state.boards = boards;
     },
-    setBoard(state, {id}) {
-      state.board = state.boards.find(b => b._id === id)
-      // console.log(state.board)
+    setBoard(state, {board}) {
+      state.board=board
     },
     deleteBoard(state, { id }) {
-      const idx = state.boards.findIndex((t) => t._id === id);
+      const idx = state.boards.findIndex((t) => t._id === board._id);
       state.boards.splice(idx, 1);
     },
     updateBoard(state, { board }) {
       const idx = state.boards.findIndex((t) => t._id === board._id);
-      state.boards.splice(idx, 1, board);
+      state.boards.splice(idx, 0,board);
     },
     addBoard(state, { board }) {
-      state.boards.push(board);
+      state.boards.unshift(board);
     },
     setFilterBy(state,{filterBy}){
       state.filterBy=filterBy
     }
   },
   actions: {
-    loadBoards({ commit,state }, { filterBy }) {
-      return boardService.query(state.filterBy)
-        .then((boards) => {
-        console.log(boards)
-        commit({ type: "setboards", boards });
-        return boards;
-      });
+    async loadBoards({ commit,state }, { filterBy }) {
+      try{
+        const boards=await boardService.query(state.filterBy)
+        commit({ type: "setBoards", boards });
+        console.log('board from store:',boards)
+      }catch(err){
+        console.log('Problem getting board ')
+        throw err
+      }
     },
-    deleteBoard({ commit }, { id }) {
-      return boardService.deleteboard(id)
-        .then(() => {
-        commit({ type: "deleteboard", id });
-      })
-        .catch(err=>console.log("Problem Deleting,",err))
+    async getBoardById({commit},{id}){
+      try{
+        let board=await boardService.getById(id)
+        commit({ type: "setBoard", board });
+        return board
+      }catch(err){
+        console.log('Problem getting board ')
+        throw err
+      }
     },
-    saveBoard({ commit }, { board }) {
-      const type = board._id ? "updateboard" : "addboard";
-      return boardService.save(board)
-        .then((savedboard) => {
-        commit({ type: type, board: savedboard });
-        return savedboard;
-      })
-      .catch(err=>console.log("Problem With,",type,err))
+    async deleteBoard({ commit }, { id }) {
+      try{
+        await boardService.deleteBoard(id)
+        commit({ type: "deleteBoard", id });
+      }catch(err){
+        console.log('Problem Deleting board ')
+        throw err
+      }
+    },
+    async saveBoard({ commit }, { board }) {
+      const type = board._id ? "updateBoard" : "addBoard";
+      try{
+        const savedBoard=await boardService.save(board)
+        commit({ type, board:savedBoard });
+      }catch(err){
+        console.log('Problem Updating board id-',board._id)
+        throw err
+      }
     },
   },
 };
