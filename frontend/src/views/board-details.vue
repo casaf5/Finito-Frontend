@@ -29,7 +29,6 @@
 import { Container, Draggable } from "vue-smooth-dnd";
 import { applyDrag, generateItems } from "../utils/helpers.js";
 import taskGroup from "../components/task-group.cmp.vue";
-import taskPreview from "../components/task-preview.cmp.vue";
 import AddTask from "../components/add-task.cmp";
 import TaskLabel from "../components/taks-label.cmp";
 import TaskCalendar from "../components/task-calander.cmp";
@@ -40,7 +39,6 @@ export default {
     Container,
     Draggable,
     taskGroup,
-    taskPreview,
     AddTask,
     TaskLabel,
     TaskCalendar
