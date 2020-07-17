@@ -1,11 +1,12 @@
 <template>
-    <section>
-     <div class="task-details">
-        <h2 class="task-name">{{ task.name }} </h2>
-        <h3 class="task-group-name">{{ taskGroup.name }} </h3>
+  <section class="task-details">
+    <div class="flex row">
+      <div class="flex col task-left-container">
+        <h2 class="task-name">{{ task.name }}</h2>
+        <h3 class="task-group-name">{{ taskGroup.name }}</h3>
         <div class="task-members-labels-wraper">
-           <div class="task-members-container">members</div> 
-           <div class="task-labels-container">labels</div> 
+          <div class="task-members-container">members</div>
+          <div class="task-labels-container">labels</div>
         </div>
         <div class="task-desc">
           <!-- <task-desc/> -->
@@ -16,96 +17,179 @@
               <checklist-preview :checklist="checklist"/>
             </li>
           </ul>
-        </div> -->
-      <div v-if="activitiesToShow">
-        <ul  class="task-activities">
-          <li  v-for="activity in activitiesToShow" :key="activity.id">
-            {{activity.txt}}
-          </li>
-        </ul> 
+        </div>-->
+        <div v-if="activitiesToShow">
+          <ul class="task-activities">
+            <li v-for="activity in activitiesToShow" :key="activity.id">{{activity.txt}}</li>
+          </ul>
+        </div>
       </div>
+      <div class="flex col task-right-container">
+        <button>Members</button>
+        <button>Labels</button>
+        <button>Due date</button>
+        <button>Checklist</button>
+        <button>Attachment</button>
+        <button>Cover</button>
+        <button>Copy</button>
+        <button>Remove</button>
+        <button>Move</button>
+        <button>Watch</button>
       </div>
-    </section>
+    </div>
+  </section>
 </template>
 
 <script>
 export default {
   name: "task-details",
-  props: ['taskGroup','task'],
+  props: ["taskGroup", "task"],
   data() {
     return {
-        user : null,
-        activityToAdd : {
-            'edditedTask':{
-                id:this.task.id,
-                name:this.task.name
-            },
-        },
-        boardToEdit : null
-        // for testing only
-        // boardToEdit: {activities:[]}
+      user: null,
+      activityToAdd: {
+        edditedTask: {
+          id: this.task.id,
+          name: this.task.name
+        }
+      },
+      boardToEdit: null
+      // for testing only
+      // boardToEdit: {activities:[]}
     };
   },
   computed: {
-    board () {
-      return this.$store.getters.board
+    board() {
+      return this.$store.getters.board;
     },
     activitiesToShow() {
-      let activities = null
+      let activities = null;
       if (this.boardToEdit) {
-          activities = this.boardToEdit.activities;
-          return activities.filter(activity => activity.edditedTask.id === this.task.id)
+        activities = this.boardToEdit.activities;
+        return activities.filter(
+          activity => activity.edditedTask.id === this.task.id
+        );
       } else {
-        return activities
+        return activities;
       }
-    },
+    }
   },
-    methods: {
-      // delete after
-      async loadBoards (){
-        await this.$store.dispatch({ type:"loadBoards"});
-        console.log('boardsare loaded')
-        this.setBoard()
-      },
-      async setBoard (){
-        await this.$store.commit({ type: "setBoard", id: "b101"});
-        this.boardToEdit = JSON.parse(JSON.stringify(this.board))
-        console.log('board to edit', this.boardToEdit)
-      },
-      //////
-      removeTask(id) {
-      this.boardToEdit.findIndex((t) => t.id === id);
+  methods: {
+    // delete after
+    async loadBoards() {
+      await this.$store.dispatch({ type: "loadBoards" });
+      console.log("boardsare loaded");
+      this.setBoard();
+    },
+    async setBoard() {
+      await this.$store.commit({ type: "setBoard", id: "b101" });
+      this.boardToEdit = JSON.parse(JSON.stringify(this.board));
+      console.log("board to edit", this.boardToEdit);
+      // this.addActivity('ADDED_LABEL')
+    },
+    //////
+    removeTask(id) {
+      this.boardToEdit.findIndex(t => t.id === id);
       this.boardToEdit.splice(idx, 1);
-      addActivity('TASK_REMOVED')
-      },
+      this.addActivity("REMOVED_TASK");
+    },
 
     // adding activity to store
-    // async  
-    addActivity(action, changedTo='') {
-      this.activityToAdd.action = action
-      this.activityToAdd.byUser = this.user
-      const txt = getTxtToRndr (action, changedTo)
-      this.activityToAdd.txt = txt
-      this.boardToEdit.activities.unshift(this.activityToAdd)
+    // async
+    addActivity(action, changed = "") {
+      this.activityToAdd.action = action;
+      this.activityToAdd.byUser = this.user;
+      this.activityToAdd.url = this.user.url;
+      const txt = this.getTxtToRndr(action, changed);
+      this.activityToAdd.txt = txt;
+      this.boardToEdit.activities.unshift(this.activityToAdd);
       // const updatedboard = await this.$store.dispatch({ type:"saveBoard", board: this.boardToEdit});
       // const type = (updatedboard) ? 'success' : 'error'
       // const msg = (updatedboard) ? `${this.activityToAdd.action} successfully!` : `${this.activityToAdd.action} faild...`
       // eventBus.$emit(SHOW_MSG, {msg, type});
     },
 
-  // getting an action and what has been changed (name/date etc..) => using switch case to get the write txt
-    getTxtToRndr (action, changedTo) {
-        // switch case
-        return `${action} happend`
+    // getting an action and what has been changed (name/date etc..) => using switch case to get the write txt
+    getTxtToRndr(action, changed) {
+      let txt = "";
+      // return `${action} happend`
+      switch (action) {
+        // ADD
+        case "ADDED_LABEL":
+          txt = `${this.user.name} added label in ${this.task.name}`;
+          break;
+        case "ADDED_CHECKLIST":
+          txt = `${this.user.name} added checklist in ${this.task.name}`;
+          break;
+        case "ADDED_ITEM":
+          // checklist name in changed
+          txt = `${this.user.name} added item in ${this.task.name} ${changed}`;
+          break;
+        case "ADDED_COVER":
+          txt = `${this.user.name} added cover to ${this.task.name}`;
+          break;
+        case "ADDED_ATTACHMENT":
+          txt = `${this.user.name} attached a file to ${this.task.name}`;
+          break;
+        // REMOVE
+        case "REMOVED_TASK":
+          txt = `${this.user.name} removed ${this.task.name}`;
+          break;
+        case "REMOVED_LABEL":
+          txt = `${this.user.name} removed label from ${this.task.name}`;
+          break;
+        case "REMOVED_CHECKLIST":
+          txt = `${this.user.name} removed checklist from ${this.task.name}`;
+          break;
+        case "REMOVED_ITEM":
+          // checklist name in changed
+          txt = `${this.user.name} removed item from ${this.task.name} ${changed}`;
+          break;
+        // UPDATE
+        case "UPDATED_DESC":
+          txt = `${this.user.name} updated the description of ${this.task.name}`;
+          break;
+        case "UPDATED_COVER":
+          txt = `${this.user.name} changed the cover of ${this.task.name}`;
+          break;
+        case "UPDATED_DATE":
+          // the new date in changed
+          txt = `${this.user.name} changed the due-date of ${this.task.name} to ${changed}`;
+          break;
+        // OTHERS
+        case "JOINED_MEMBER":
+          txt = `${this.user.name} joined as a memeber to ${this.task.name}`;
+          break;
+        case "MOVED_TASK":
+          // changed gets the new list task was moved to
+          txt = `${this.user.name} moved ${this.task.name} to ${changed}`;
+          break;
+        case "COMPLETED_TASK":
+          txt = `${this.user.name} completed the task ${this.task.name}`;
+          break;
+        case "INCOMPLETED_TASK":
+          txt = `${this.user.name} incompleted the task ${this.task.name}`;
+          break;
+        case "COPPIED_TASK":
+          txt = `${this.user.name} coppied ${this.task.name}`;
+          break;
+        case "WATCHED_TASK":
+          txt = `${this.user.name} watched ${this.task.name}`;
+          break;
+      }
+      return txt;
     }
   },
-  created (){
+  created() {
     // //only for testing
-    this.loadBoards()
+    this.loadBoards();
+    console.log(this.task);
     ///////
-    this.user = (this.$store.getters.loggedUser)? this.$store.getters.loggedUser : {name:'Guest', url:'guestimg'}
+    this.user = this.$store.getters.loggedUser
+      ? this.$store.getters.loggedUser
+      : { name: "Guest", url: "guestimg" };
     // this.boardToEdit = JSON.parse(JSON.stringify(this.board))
     // console.log('board to edit', this.boardToEdit)
   }
-}
+};
 </script>

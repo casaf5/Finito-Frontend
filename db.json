@@ -21,7 +21,7 @@
             "url": "blablaimg"
           },
           "action": "CHECKLIST_CREATE",
-          "txt": "",
+          "txt": "Ayal created tech_projects list",
           "edditedTask": {
             "id": "et404",
             "name": "tech_projects",

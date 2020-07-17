@@ -20,7 +20,7 @@ export default {
   data () {
     return {
       task:{
-        id:'a101',
+        id:'et404',
         name:'finish trello',
         activities: [{txt:'Ayal joined the room'}]
       },
