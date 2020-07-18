@@ -15,7 +15,6 @@ export default {
     TaskCreateLabel
   },
   data() {
-    // <!-- :style="{'background-color':color.color}" -->
     return {
       component: "task-choose-label"
     };

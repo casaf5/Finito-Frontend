@@ -1,0 +1,15 @@
+button {
+  margin-top: 10px;
+  border: none;
+  outline: none;
+}
+
+.btn-primary {
+  padding: 5px 10px;
+  font-family: inherit;
+  background-color: #232323;
+  color: #fff;
+  &.large {
+    padding: 10px 20px;
+  }
+}

@@ -7,33 +7,26 @@
         :drop-placeholder="upperDropPlaceholderOptions"
         orientation="horizontal"
       >
-        <Draggable
-          v-for="taskGroup in board.taskGroups"
-          :key="taskGroup.id"
-        >
-          <task-group
-            :taskGroup="taskGroup"
-            @taskDrop="onTaskDrop"
-          />
+        <Draggable v-for="taskGroup in board.taskGroups" :key="taskGroup.id">
+          <task-group :taskGroup="taskGroup" @taskDrop="onTaskDrop" />
         </Draggable>
       </Container>
-      
     </div>
   </div>
 </template>
  
 <script>
-
 import { Container, Draggable } from "vue-smooth-dnd";
 import { applyDrag, generateItems } from "../utils/helpers.js";
 import taskGroup from "../components/task-group.cmp.vue";
-
+import AddTask from "../components/add-task.cmp.vue";
 export default {
   name: "board-details",
   components: {
     Container,
     Draggable,
     taskGroup,
+    AddTask
   },
 
   data() {
@@ -46,33 +39,45 @@ export default {
       }
     };
   },
- async created(){
-    let id="1E3E-1735BF480CA-26A5" // IN REAL APP WILL COME FROM PARAMS
-    this.board=await this.$store.dispatch({type:"getBoardById",id})
+  async created() {
+    let id = "1E3E-1735BF480CA-26A5"; // IN REAL APP WILL COME FROM PARAMS
+    this.board = await this.$store.dispatch({ type: "getBoardById", id });
   },
   methods: {
     onDrop(dropResult) {
       this.board.taskGroups = applyDrag(this.board.taskGroups, dropResult);
-      this.$store.dispatch({type:"saveBoard",board:this.board})
-
+      this.$store.dispatch({ type: "saveBoard", board: this.board });
     },
     onTaskDrop(taskGroupId, dropResult) {
       if (dropResult.removedIndex !== null || dropResult.addedIndex !== null) {
-        const board =Object.assign({}, this.board)
-        const taskGroup = board.taskGroups.filter(taskG => taskG.id === taskGroupId)[0];
+        const board = Object.assign({}, this.board);
+        const taskGroup = board.taskGroups.filter(
+          taskG => taskG.id === taskGroupId
+        )[0];
         const taskGroupIndex = board.taskGroups.indexOf(taskGroup);
-        const newTaskGroup =Object.assign({}, taskGroup)
+        const newTaskGroup = Object.assign({}, taskGroup);
         newTaskGroup.tasks = applyDrag(newTaskGroup.tasks, dropResult);
+
+        // Because Iv'e added ParentlistId to each task to be able to find in what list it's located
+        // I had to make sure that the parentListid will change for each task that's why I'm looping
+        //over all tasks and chagning their parent
+        newTaskGroup.tasks.forEach(task => {
+          task.parentListId = newTaskGroup.id;
+        });
+
         board.taskGroups.splice(taskGroupIndex, 1, newTaskGroup);
-        this.$store.dispatch({type:"saveBoard",board})
-        this.board=board
+        this.$store.dispatch({ type: "saveBoard", board });
+        this.board = board;
       }
-    },
+    }
   },
-  components: { 
-    Container, 
-    Draggable, 
-    taskGroup },
+  components: {
+    Container,
+    Draggable,
+    taskGroup
+  }
 };
 </script>
 
+<style scoped >
+</style>
