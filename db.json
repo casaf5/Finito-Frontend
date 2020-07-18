@@ -4,10 +4,7 @@
       "_id": "1E3E-1735BF480CA-26A5",
       "name": "board2",
       "members": [],
-      "tags": [
-        "tech",
-        "project"
-      ],
+      "tags": ["tech", "project"],
       "style": {
         "bgColor": "",
         "bgUrl": ""
@@ -429,7 +426,7 @@
               "desc": "finish trello proj",
               "dueDate": "",
               "watchMembers": [],
-              "createdAt": "",
+              "createdAt": "2020-07-18T08:09:14.191Z",
               "executeTime": "",
               "members": [],
               "labels": [],
@@ -472,6 +469,34 @@
                   "title": "second label"
                 }
               ],
+              "cover": {
+                "color": "",
+                "url": ""
+              },
+              "attachments": [],
+              "checkList": {
+                "title": "",
+                "tasks": []
+              }
+            }
+          ]
+        },
+        {
+          "id": "1107-1735BF02AA2-17C5",
+          "title": "Almost done",
+          "position": "",
+          "tasks": [
+            {
+              "parentListId": "1107-1735BF02AA2-17C5",
+              "id": "1866-17360E8052D-AF5",
+              "title": "new card",
+              "desc": "",
+              "dueDate": "",
+              "watchMembers": [],
+              "createdAt": "2020-07-18T07:51:25.229Z",
+              "executeTime": "",
+              "members": [],
+              "labels": [],
               "comments": [
                 {
                   "createdBy": "",
