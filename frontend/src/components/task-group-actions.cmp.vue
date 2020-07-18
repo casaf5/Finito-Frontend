@@ -1,6 +1,6 @@
 <template>
-  <task-action-container @close="$emit('close')" :title="'List Actions'">
-    <li>Add Card...</li>
+  <task-action-container @close="close" :title="'List Actions'">
+    <li @click="createdCard">Add Card...</li>
     <li>Copy List...</li>
     <li>Move List...</li>
     <li>Watch</li>
@@ -17,6 +17,15 @@ import TaskActionContainer from "./task-action-container.cmp";
 export default {
   components: {
     TaskActionContainer
+  },
+  methods: {
+    close() {
+      this.$emit("close");
+    },
+    createdCard() {
+      this.$emit("createCard");
+      this.close();
+    }
   }
 };
 </script>

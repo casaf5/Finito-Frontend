@@ -11,8 +11,8 @@
 
 // COMPONENTS
 
-@import './components/app-header';
-@import './components/task-details';
+@import "./components/app-header";
+@import "./components/task-details";
 
 @import "./components/app-header";
 @import "./components/board";
@@ -21,7 +21,9 @@
 @import "./components/add-task";
 @import "./components/task-actions";
 @import "./components/label-color";
+@import "./components/button";
 
 //VIEWS
 
 @import "./views/trellor-app";
+@import "./views//board-details";

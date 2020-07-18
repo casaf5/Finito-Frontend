@@ -7,16 +7,17 @@
       <div class="flex col space-between task-left-container">
         <h2 class="task-name">{{ task.name }}</h2>
         <h3 class="task-group-name">{{ taskGroup.name }}</h3>
-        <div class="task-completed">checkbox</div>
+        <div class="task-isComplete">checkbox</div>
         <div class="task-members-labels-container flex row">
           <div class="task-members-container">
             <h5>Members</h5>
             {{user.name}}
             <!-- v for members -->
           </div>
-          <div class="task-labels-container">
-             <h5>Labels</h5>
-             <!-- v for labels preview -->
+          <div>duedate</div>
+          <div class="task-desc">
+            <!-- <task-desc/> -->
+            desc
           </div>
         </div>
         <div>duedate</div>
@@ -36,9 +37,6 @@
             <div>icon</div>
             <button>Show Details</button>
           </div>
-          <ul v-if="activitiesToShow">
-            <li v-for="activity in activitiesToShow" :key="activity.id">{{activity.txt}}</li>
-          </ul>
         </div>
       </div>
       <div class="flex col task-right-container">
@@ -54,7 +52,6 @@
         <button>Watch</button>
       </div>
     </div>
-  </div>
   </section>
 </template>
 
@@ -69,8 +66,9 @@ export default {
   data() {
     return {
       isShown:true,
-      currGroupIdx:null,
+      // taskGroup:null,
       user: null,
+      taskIdx: null,
       activityToAdd: {
         edditedTask: {
           id: this.task.id,
@@ -119,19 +117,18 @@ export default {
     ////////
     // TASK CRUDL +
     removeTask() {
-      const taskIdx = this.taskGroup.tasks.findIndex(t => t.id===this.task.id)
-      this.boardToEdit.taskGroups[this.currGroupIdx].tasks.splice(taskIdx, 1);
+      this.taskGroup.tasks.splice(this.taskIdx, 1);
       this.addActivity("REMOVED_TASK");
       this.closeModal()
     },
     copyTask() {
-      this.boardToEdit.taskGroups[this.currGroupIdx].tasks.unshift(JSON.parse(JSON.stringify(this.task)));
+      this.taskGroup.tasks.unshift(JSON.parse(JSON.stringify(this.task)));
       this.addActivity("COPPIED_TASK");
     },
     toggleTaskCompletion(){
       let action = ''
-      this.task.completed = !this.task.completed
-      action = (this.task.completed)? "COMPLETED_TASK" : "INCOMPLETED_TASK"
+      this.task.isComplete = !this.task.isComplete
+      action = (this.task.isComplete)? " COMPLETED_TASK" : "INCOMPLETED_TASK"
       this.addActivity(action)
     },
     watchTask(){
@@ -139,18 +136,19 @@ export default {
     // gets the new taskgroup id from the relevant comp
     moveTask(newTaskgroupId) {
       this.task.parentListId = newTaskgroupId
-      const idx = this.taskGroup.tasks.findIndex(t => t.id===this.task.id)
-      this.boardToEdit.taskGroups[this.currGroupIdx].tasks.splice(idx, 1);
-      this.boardToEdit.taskGroups[this.currGroupIdx].tasks.unshift(this.task);
+      const newGroupIdx = this.boardToEdit.taskGroups.findIndex(g => g.id === newTaskgroupId)
+      this.taskGroup.tasks.splice(this.taskIdx, 1);
+      this.boardToEdit.taskGroups[newGroupIdx].push(this.task);
+         this.addActivity("MOVED_TASK");
     },
 
     // LABEL "CRUDL" => should emit by component
     labelAdded(label){
-      this.boardToEdit.taskGroups[this.currGroupIdx].tasks.labels.push(label)
+      this.taskGroup.tasks.labels.push(label)
       this.addActivity("ADDED_LABEL");
     },
     labelRemoved(idx){
-      this.boardToEdit.taskGroups[this.currGroupIdx].tasks.labels.splice(idx, 1)
+      this.taskGroup.tasks.labels.splice(idx, 1)
       this.addActivity("REMOVED_LABEL");
     },
     // CHECKLIST CRUDL => should emit by component (inside will be also items crudl)
@@ -252,11 +250,11 @@ export default {
           // changed gets the new list task was moved to
           txt = `${this.user.name} moved ${this.task.name} to ${changed}`;
           break;
-        case "COMPLETED_TASK":
-          txt = `${this.user.name} completed the task ${this.task.name}`;
+        case "isComplete_TASK":
+          txt = `${this.user.name} isComplete the task ${this.task.name}`;
           break;
-        case "INCOMPLETED_TASK":
-          txt = `${this.user.name} incompleted the task ${this.task.name}`;
+        case "INisComplete_TASK":
+          txt = `${this.user.name} inisComplete the task ${this.task.name}`;
           break;
         case "COPPIED_TASK":
           txt = `${this.user.name} coppied ${this.task.name}`;
@@ -279,7 +277,7 @@ export default {
     // this.task = this.boardToEdit.taskGroups.tasks.find(t => t.id===this.task.id)
     // const taskGroupId = this.task.parentListId
     // this.taskGroup = this.boardToEdit.taskGroups.find(tg => tg.id === taskGroupId)
-    // this.currGroupIdx = this.boardToEdit.taskGroups.findIndex (g => g.id === this.taskGroup.id)
+    // this.taskIdx = this.taskGroup.tasks.findIndex(t => t.id===this.task.id)
 
  
     this.user = this.$store.getters.loggedUser

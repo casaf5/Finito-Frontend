@@ -4,15 +4,15 @@
     :class="{'transparent':!inGroup}"
     class="add-task-container"
   >
-    <div @click="toggleEdit" v-if="!showEditSection" class="add-task-left-content">
+    <div @click="toggleEdit" v-if="!show" class="add-task-left-content">
       <i class="el-icon-plus task-icon"></i>
       <span type="text">Add another card</span>
       <i class="el-icon-full-screen task-icon"></i>
     </div>
     <transition name="fade" mode="out-in">
-      <div v-if="showEditSection" class="add-task-content-container">
+      <div v-if="show" class="add-task-content-container">
         <textarea :placeholder="placeholderText" v-model="content"></textarea>
-        <button>{{buttonText}}</button>
+        <button @click="addTask">{{buttonText}}</button>
         <i @click="toggleEdit" class="el-icon-close"></i>
       </div>
     </transition>
@@ -21,7 +21,7 @@
 
 <script>
 export default {
-  props: ["inGroup"],
+  props: ["inGroup", "show"],
   data() {
     return {
       items: [],
@@ -31,7 +31,20 @@ export default {
   },
   methods: {
     toggleEdit() {
-      this.showEditSection = !this.showEditSection;
+      this.$emit("toggleEdit", !this.show);
+    },
+    addTask() {
+      if (this.content) {
+        if (this.inGroup) {
+          this.$emit("addTask", this.content);
+          this.show = false;
+        } else {
+          this.$emit("addList", this.content);
+          this.show = false;
+        }
+        return;
+      }
+      alert("tasks cant be empty");
     }
   },
   computed: {

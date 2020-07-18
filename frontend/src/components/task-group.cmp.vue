@@ -1,17 +1,21 @@
 <template>
-  <div class="task-group-container">
+  <div class="task-group">
     <div class="task-group-title-container">
       <textarea class="task-group-title" v-model="taskGroup.title"></textarea>
       <i @click="show = !show" class="el-icon-more task-icon"></i>
-      <task-group-actions @close="show = !show" v-show="show" />
+      <task-group-actions
+        @createCard="toggleAddTask = !toggleAddTask"
+        @close="show = !show"
+        v-show="show"
+      />
     </div>
     <div class="task-container flex col">
       <Container
         group-name="taskGroup"
         @drop="(e) => onTaskDrop(taskGroup.id, e)"
         :get-child-payload="getTaskPayLoad(taskGroup.id)"
-        drag-class="card-ghost"
-        drop-class="card-ghost-drop"
+        drag-class="task-ghost"
+        drop-class="task-ghost-drop"
         :drop-placeholder="dropPlaceholderOptions"
       >
         <Draggable v-for="task in taskGroup.tasks" :key="task.id">
@@ -19,13 +23,18 @@
         </Draggable>
       </Container>
     </div>
-    <add-task :inGroup="true" />
+    <add-task
+      :show="toggleAddTask"
+      @toggleEdit="toggleAddTask = $event"
+      @addTask="addTask"
+      :inGroup="true"
+    />
   </div>
 </template>
 
 <script>
 import { Container, Draggable } from "vue-smooth-dnd";
-
+import { utilService } from "../utils/utils.js";
 import TaskPreview from "./task-preview.cmp";
 import taskGroupActions from "./task-group-actions.cmp";
 import AddTask from "./add-task.cmp";
@@ -37,14 +46,16 @@ export default {
       required: true
     }
   },
+  created() {},
   data() {
     return {
       dropPlaceholderOptions: {
-        className: "drop-preview",
+        className: "task-drop-preview",
         animationDuration: "150",
         showOnTop: true
       },
-      show: false
+      show: false,
+      toggleAddTask: false
     };
   },
   methods: {
@@ -55,6 +66,24 @@ export default {
       return index => {
         return this.taskGroup.tasks[index];
       };
+    },
+    addTask(taskContent) {
+      const task = utilService.getEmptyTask(this.taskGroup.id);
+      task.title = taskContent;
+
+      const board = JSON.parse(JSON.stringify(this.board));
+
+      const taskGroupIndex = this.$store.getters.getTaskGroupByIndex(
+        this.taskGroup.id
+      );
+
+      board.taskGroups[taskGroupIndex].tasks.push(task);
+      this.$store.dispatch({ type: "saveBoard", board });
+    }
+  },
+  computed: {
+    board() {
+      return this.$store.getters.board;
     }
   },
   components: {
@@ -66,18 +95,3 @@ export default {
   }
 };
 </script>
-
-<style lang="scss">
-.task-group-container {
-  margin: 10px;
-}
-.card-ghost {
-  transition: transform 0.18s ease;
-  transform: rotateZ(5deg);
-}
-
-.card-ghost-drop {
-  transition: transform 0.18s ease-in-out;
-  transform: rotateZ(0deg);
-}
-</style>

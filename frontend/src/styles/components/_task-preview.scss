@@ -9,14 +9,16 @@
   }
   .task-preview-content {
     display: flex;
-    align-items: center;
-    i {
+    > * {
+      margin: 5px 0;
+    }
+    .edit {
       margin-left: auto;
       margin-right: 5px;
       opacity: 0;
       transition: all 0.3s;
     }
-    &:hover i {
+    &:hover .edit {
       opacity: 1;
     }
   }

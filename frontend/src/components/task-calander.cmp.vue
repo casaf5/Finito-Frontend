@@ -28,7 +28,7 @@ export default {
 <style lang="scss" >
 .el-calendar-table {
   .el-calendar-day {
-    height: 38px !important;
+    height: 30px !important;
     text-align: center;
   }
   & thead > * {
