@@ -19,7 +19,9 @@
         :drop-placeholder="dropPlaceholderOptions"
       >
         <Draggable v-for="task in taskGroup.tasks" :key="task.id">
-          <task-preview :task="task" />
+        <div @click="taskClicked(task)" >
+          <task-preview :task="task" />   
+        </div>
         </Draggable>
       </Container>
     </div>
@@ -59,6 +61,9 @@ export default {
     };
   },
   methods: {
+    taskClicked (task){
+      this.$emit("taskClicked", task);
+    },
     onTaskDrop(taskGroupId, dropResult) {
       this.$emit("taskDrop", taskGroupId, dropResult);
     },

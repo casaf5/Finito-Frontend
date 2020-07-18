@@ -13,7 +13,7 @@ Vue.use(VueRouter)
   },
   {
     path: '/cmps-check',
-    name: 'Landing-Page',
+    // name: 'Landing-Page',
     component: landingPage
   },
   // {

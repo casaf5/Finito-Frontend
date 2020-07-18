@@ -13,20 +13,16 @@
       </div>
       <div class="flex">
         <span>{{task.title}}</span>
-        <i class="el-icon-edit edit"></i>
+        <i class="el-icon-edit edit"></i>    
       </div>
-      <div
+      <!-- <div
         :class="{'check-list-completed':allTaskCompleted}"
         v-if="unCompletedTasks"
         class="task-status-container"
       >
-        <div class="checklist-container">
-          <i class="el-icon-document-checked"></i>
-          <span>{{taskString}}</span>
-        </div>
-        <i class="el-icon-aim"></i>
+        <i class="el-icon-aim"></i>    
         <i v-if="currentTask.desc" class="el-icon-tickets"></i>
-      </div>
+      </div> -->
     </div>
   </div>
 </template>
@@ -45,22 +41,22 @@ export default {
     };
   },
   computed: {
-    unCompletedTasks() {
-      return this.currentTask.checkList.tasks.some(task => !task.completed);
-    },
-    allTaskCompleted() {
-      return this.currentTask.checkList.tasks.every(task => task.completed);
-    },
-    taskString() {
-      const uncompletedTasks = this.currentTask.checkList.tasks.reduce(
-        (acc, task) => {
-          if (task.completed) acc++;
-          return acc;
-        },
-        0
-      );
-      return `  ${uncompletedTasks}/${this.currentTask.checkList.tasks.length}`;
-    },
+    // unCompletedTasks() {
+    //   return this.currentTask.checkLists.items.some(task => !task.completed);
+    // },
+    // allTaskCompleted() {
+    //   return this.currentTask.checkLists.items.every(task => task.completed);
+    // },
+    // taskString() {
+    //   const uncompletedTasks = this.currentTask.checkLists.items.reduce(
+    //     (acc, task) => {
+    //       if (task.completed) acc++;
+    //       return acc;
+    //     },
+    //     0
+    //   );
+    //   return `  ${uncompletedTasks}/${this.currentTask.checkLists.items.length}`;
+    // },
     currentTask() {
       const board = this.$store.getters.board;
       const currentTaskGroup = board.taskGroups.findIndex(

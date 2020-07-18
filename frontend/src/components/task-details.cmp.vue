@@ -5,8 +5,8 @@
     <button @click="closeModal">X</button>
     <div class="flex row task-details-main-container">
       <div class="flex col space-between task-left-container">
-        <h2 class="task-name">{{ task.name }}</h2>
-        <h3 class="task-group-name">{{ taskGroup.name }}</h3>
+        <h2 class="task-name">{{ task.title }}</h2>
+        <h3 class="task-group-name">{{taskGroup.title}}</h3>
         <div class="task-isComplete">checkbox</div>
         <div class="task-members-labels-container flex row">
           <div class="task-members-container">
@@ -14,13 +14,12 @@
             {{user.name}}
             <!-- v for members -->
           </div>
-          <div>duedate</div>
+        <div>duedate</div>
           <div class="task-desc">
             <!-- <task-desc/> -->
             desc
           </div>
         </div>
-        <div>duedate</div>
         <div class="task-desc">
           <!-- <task-desc/> -->desc
         </div>
@@ -40,18 +39,19 @@
         </div>
       </div>
       <div class="flex col task-right-container">
-        <button>Members</button>
-        <button>Labels</button>
-        <button>Due date</button>
-        <button>Checklist</button>
-        <button>Attachment</button>
-        <button>Cover</button>
-        <button>Copy</button>
-        <button @click="removeTask">Remove</button>
-        <button>Move</button>
-        <button>Watch</button>
+        <button><i class="el-icon-user"></i> Members</button>
+        <button><i class="el-icon-price-tag"></i> Labels</button> 
+        <button><i class="el-icon-date"></i> Due date</button>
+        <button><i class="el-icon-document-checked"></i> Checklist</button>
+        <button><i class="el-icon-paperclip"></i> Attachment</button>
+        <button><i class="el-icon-picture-outline"></i> Cover</button>
+        <button><i class="el-icon-document-copy"></i> Copy</button>
+        <button @click="removeTask"><i class="el-icon-delete"></i> Remove</button>
+        <button><i class="el-icon-right"></i> Move</button>
+        <button><i class="el-icon-view"></i> Watch</button>
       </div>
     </div>
+  </div>
   </section>
 </template>
 
@@ -62,11 +62,10 @@
 export default {
   name: "task-details",
   // move taskgroup to data, not a prop & updated at created
-  props: ["taskGroup", "task"],
+  props: ["task","isShown"],
   data() {
     return {
-      isShown:true,
-      // taskGroup:null,
+      taskGroup:null,
       user: null,
       taskIdx: null,
       activityToAdd: {
@@ -93,27 +92,28 @@ export default {
         return activities;
       }
     },
-    // checkListsToShow (){
-    //     return  this.task.checkLists
+    checkListsToShow (){
+        return  this.task.checkLists
+  },
   },
   methods: {
     closeModal (){
       this.isShown = false;
     },
     // delete after
-    async loadBoards() {
-      await this.$store.dispatch({ type: "loadBoards" });
-      console.log("boardsare loaded");
-      this.setBoard();
-    },
-    async setBoard() {
-      await this.$store.commit({ type: "setBoard", id: "b101" });
-      this.boardToEdit = JSON.parse(JSON.stringify(this.board));
-      console.log("board to edit", this.boardToEdit);
+    // async loadBoards() {
+    //   await this.$store.dispatch({ type: "loadBoards" });
+    //   console.log("boardsare loaded");
+    //   this.setBoard();
+    // },
+    // async setBoard() {
+    //   await this.$store.commit({ type: "setBoard", id: "b101" });
+    //   this.boardToEdit = JSON.parse(JSON.stringify(this.board));
+    //   console.log("board to edit", this.boardToEdit);
       // /////check for checklist
-      console.log('cl', this.boardToEdit.taskGroups[0].tasks[0].checkLists);
-       this.addActivity("ADDED_ITEM", 'checklist');
-    },
+      // console.log('cl', this.boardToEdit.taskGroups[0].tasks[0].checkLists);
+      //  this.addActivity("ADDED_ITEM", 'checklist');
+    // },
     ////////
     // TASK CRUDL +
     removeTask() {
@@ -268,26 +268,23 @@ export default {
   },
   created() {
     // //only for testing
-    this.loadBoards();
-    console.log('cls', this.task.checkLists)
+    // this.loadBoards();
+    // console.log('cls', this.task.checkLists)
     // /////
 
     // /// copying the task it self also so could be editted out of the store
-    
-    // this.task = this.boardToEdit.taskGroups.tasks.find(t => t.id===this.task.id)
-    // const taskGroupId = this.task.parentListId
-    // this.taskGroup = this.boardToEdit.taskGroups.find(tg => tg.id === taskGroupId)
-    // this.taskIdx = this.taskGroup.tasks.findIndex(t => t.id===this.task.id)
-
- 
-    this.user = this.$store.getters.loggedUser
-      ? this.$store.getters.loggedUser
-      : { name: "Guest", url: "guestimg" };
-    // this.boardToEdit = JSON.parse(JSON.stringify(this.board))
-    // console.log('board to edit', this.boardToEdit)
+    this.boardToEdit = JSON.parse(JSON.stringify(this.board))
+    const taskGroupId = this.task.parentListId;
+    this.taskGroup = this.boardToEdit.taskGroups.find(tg => tg.id === taskGroupId)
+    console.log('gr',this.taskGroup)
+    const taskGroupIdx = this.boardToEdit.taskGroups.findIndex(tg => tg.id === taskGroupId)
+    this.task = this.boardToEdit.taskGroups[taskGroupIdx].tasks.find(t => t.id===this.task.id)
+    console.log(this.task)
+    this.taskIdx = this.taskGroup.tasks.findIndex(t => t.id===this.task.id)
+    this.user = (this.$store.getters.loggedUser)? this.$store.getters.loggedUser : { name: "Guest", url: "guestimg" }
   },
   components : {
     checklistPreview
   }
-};
+}
 </script>
