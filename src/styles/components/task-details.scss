@@ -1,4 +1,7 @@
 .task-details-containers-wraper {
+    h5, h6 {
+        color:  rgb(168, 168, 168);
+    }
     width: 60%;
     height: 90vh;
     background-color:white;
@@ -15,6 +18,7 @@
     button{
         float: right;
         border: none;
+        border-radius: 5px;
     }
 }
 
@@ -25,16 +29,29 @@
         border: none;
         margin: 10px;
         text-align: left;
+        height: 1.8rem;
+        border-radius: 5px;
     }
 }
 
 .task-left-container {
     flex: 1;
     text-align: left;
+    .task-details-titles-container{
+        h2{
+            margin-bottom: 15px;
+        }
+    }
 }
 
 .task-right-container {
     margin-left: 3.5rem;
     margin-top: 3.8rem;
     text-align: left;
+}
+
+.task-activities{
+    button{
+        margin-top: 0;
+    }
 }

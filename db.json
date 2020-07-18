@@ -99,6 +99,7 @@
               "attachments": [],
               "checkLists": [
                 {
+<<<<<<< HEAD
                   "title": "by today",
                   "items": [
                     {
@@ -124,6 +125,17 @@
               "parentListId": "1107-1735BF02AA2-17C5",
               "id": "230A-1735X823XC51-2025",
               "title": "Work on front end",
+=======
+                  "title": "",
+                  "items": []
+                }
+              ]
+            },
+            {
+              "parentListId": "25E6-1735BEF12E4-EBF",
+              "id": "D62-1735QOWE1EE0-1V45",
+              "title": "MISSION 7",
+>>>>>>> 7b328d25464d4e48121ce7090621ebaa0f8dde6c
               "desc": "finish trello proj",
               "dueDate": "",
               "watchMembers": [],
@@ -158,19 +170,35 @@
               "attachments": [],
               "checkLists": [
                 {
+<<<<<<< HEAD
                   "title": "",
                   "items": []
+=======
+                  "title": "apply scss",
+                  "items": [
+                    "apply on trello app",
+                    "also on task-details",
+                    "combine them"
+                  ]
+>>>>>>> 7b328d25464d4e48121ce7090621ebaa0f8dde6c
                 }
               ]
             },
             {
+<<<<<<< HEAD
               "parentListId": "1107-1735BF02AA2-17C5",
               "id": "T52-DSV45BE61XX0-14F5",
               "title": "MISSION 4",
               "desc": "finish trello proj",
+=======
+              "parentListId": "25E6-1735BEF12E4-EBF",
+              "id": "2582-17360F854CF-598",
+              "title": "newest card",
+              "desc": "",
+>>>>>>> 7b328d25464d4e48121ce7090621ebaa0f8dde6c
               "dueDate": "",
               "watchMembers": [],
-              "createdAt": "",
+              "createdAt": "2020-07-18T08:09:14.191Z",
               "executeTime": "",
               "members": [],
               "labels": [],
@@ -192,7 +220,18 @@
                   "items": []
                 }
               ]
+<<<<<<< HEAD
             },
+=======
+            }
+          ]
+        },
+        {
+          "id": "1107-1735BF02AA2-17C5",
+          "title": "Almost done",
+          "position": "",
+          "tasks": [
+>>>>>>> 7b328d25464d4e48121ce7090621ebaa0f8dde6c
             {
               "parentListId": "1107-1735BF02AA2-17C5",
               "id": "1866-17360E8052D-AF5",
@@ -287,11 +326,24 @@
               "attachments": [],
               "checkLists": [
                 {
+<<<<<<< HEAD
                   "title": "apply scss",
                   "items": [
                     "apply on trello app",
                     "also on task-details",
                     "combine them"
+=======
+                  "title": "by today",
+                  "items": [
+                    {
+                      "content": "Work on UX",
+                      "completed": true
+                    },
+                    {
+                      "content": "finish the UI",
+                      "completed": true
+                    }
+>>>>>>> 7b328d25464d4e48121ce7090621ebaa0f8dde6c
                   ]
                 }
               ]
@@ -305,7 +357,11 @@
               "watchMembers": [],
               "createdAt": "2020-07-18T18:34:01.658Z",
               "executeTime": "",
-              "members": [],
+              "members": [
+                "Asaf Cohen",
+                "Ayal Magid",
+                "Tomer Zuker"
+              ],
               "labels": [],
               "comments": [
                 {
@@ -321,8 +377,22 @@
               "attachments": [],
               "checkLists": [
                 {
+<<<<<<< HEAD
                   "title": "",
                   "items": []
+=======
+                  "title": "by today",
+                  "items": [
+                    {
+                      "content": "go to the super",
+                      "completed": true
+                    },
+                    {
+                      "content": "finish homework",
+                      "completed": false
+                    }
+                  ]
+>>>>>>> 7b328d25464d4e48121ce7090621ebaa0f8dde6c
                 }
               ]
             }
