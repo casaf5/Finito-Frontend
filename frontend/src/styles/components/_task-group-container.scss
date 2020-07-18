@@ -6,6 +6,7 @@
   position: relative;
   flex-direction: column;
   margin: 0 10px;
+  max-width: 240px;
   .task-drop-preview {
     background-color: rgba(150, 150, 200, 0.1);
     border: 1px dashed #abc;
@@ -45,4 +46,3 @@
     }
   }
 }
-

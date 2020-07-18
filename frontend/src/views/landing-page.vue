@@ -1,8 +1,11 @@
 <template>
   <div class="landing-page">
-    <add-task />
     <task-label />
-    <task-calendar />
+
+    <!-- <add-task / >-->
+    <!-- <task-calendar />-->
+    <!-- <TaskCheckList /> -->
+    <!-- <task-members /> -->
   </div>
 </template>
 
@@ -10,13 +13,16 @@
 import AddTask from "../components/add-task.cmp";
 import TaskLabel from "../components/taks-label.cmp";
 import TaskCalendar from "../components/task-calander.cmp";
-
+import TaskCheckList from "../components/task-checklist.cmp";
+import TaskMembers from "../components/task-members.cmp";
 export default {
   name: "Landing-page",
   components: {
     AddTask,
     TaskLabel,
-    TaskCalendar
+    TaskCalendar,
+    TaskCheckList,
+    TaskMembers
   }
 };
 </script>
