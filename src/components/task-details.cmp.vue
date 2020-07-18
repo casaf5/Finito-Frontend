@@ -1,69 +1,73 @@
 <template>
-  <section class="task-details">
-    <!-- will change to col from task width-->
-    <div class="task-details-containers-wraper">
-      <div class="flex row task-details-main-container">
-        <div class="flex col space-between task-left-container">
-          <h2 class="task-name">{{ task.name }}</h2>
-          <h3 class="task-group-name">{{ taskGroup.name }}</h3>
-          <div class="task-completed">checkbox</div>
-          <div class="task-members-labels-container flex row">
-            <div class="task-members-container">
-              <h5>Members</h5>
-              {{user.name}}
-              <!-- v for members -->
-            </div>
-            <div class="task-labels-container">
-              <h5>Labels</h5>
-              <!-- v for labels preview -->
-            </div>
+  <section v-if="isShown" class="task-details">
+          <!-- will change to col from task width-->
+   <div class="task-details-containers-wraper">
+    <button @click="closeModal">X</button>
+    <div class="flex row task-details-main-container">
+      <div class="flex col space-between task-left-container">
+        <h2 class="task-name">{{ task.title }}</h2>
+        <h3 class="task-group-name">{{taskGroup.title}}</h3>
+        <div class="task-isComplete">checkbox</div>
+        <div class="task-members-labels-container flex row">
+          <div class="task-members-container">
+            <h5>Members</h5>
+            {{user.name}}
+            <!-- v for members -->
           </div>
-          <div>duedate</div>
+        <div>duedate</div>
           <div class="task-desc">
             <!-- <task-desc/> -->
             desc
           </div>
-          <!-- <div class="task-checklists">
-          <ul>
-            <li v-for="checklist in board.tasks.checkLists" :key="checklist.id">
+        </div>
+        <div class="task-desc">
+          <!-- <task-desc/> -->desc
+        </div>
+        <div class="task-checklists">
+          <!-- v-if="checkListsToShow" -->
+          <ul >
+            <li v-for="(checklist,idx) in task.checkLists" :key="idx">
               <checklist-preview :checklist="checklist"/>
             </li>
           </ul>
-          </div>-->
-          <div class="task-activities">
-            <div class="task-activties-header flex row space-between">
-              <div>icon</div>
-              <button>Show Details</button>
-            </div>
-            <ul v-if="activitiesToShow">
-              <li v-for="activity in activitiesToShow" :key="activity.id">{{activity.txt}}</li>
-            </ul>
+        </div>
+        <div class="task-activities">
+          <div class="task-activties-header flex row space-between">
+            <div>icon</div>
+            <button>Show Details</button>
           </div>
         </div>
-        <div class="flex col task-right-container">
-          <button>Members</button>
-          <button>Labels</button>
-          <button>Due date</button>
-          <button>Checklist</button>
-          <button>Attachment</button>
-          <button>Cover</button>
-          <button>Copy</button>
-          <button>Remove</button>
-          <button>Move</button>
-          <button>Watch</button>
-        </div>
+      </div>
+      <div class="flex col task-right-container">
+        <button><i class="el-icon-user"></i> Members</button>
+        <button><i class="el-icon-price-tag"></i> Labels</button> 
+        <button><i class="el-icon-date"></i> Due date</button>
+        <button><i class="el-icon-document-checked"></i> Checklist</button>
+        <button><i class="el-icon-paperclip"></i> Attachment</button>
+        <button><i class="el-icon-picture-outline"></i> Cover</button>
+        <button><i class="el-icon-document-copy"></i> Copy</button>
+        <button @click="removeTask"><i class="el-icon-delete"></i> Remove</button>
+        <button><i class="el-icon-right"></i> Move</button>
+        <button><i class="el-icon-view"></i> Watch</button>
       </div>
     </div>
+  </div>
   </section>
 </template>
 
 <script>
+  import checklistPreview from "@/components/checklist-preview.cmp.vue"
+  // import { eventBus, SHOW_MSG } from "@/services/event-bus.service.js";
+
 export default {
   name: "task-details",
-  props: ["taskGroup", "task"],
+  // move taskgroup to data, not a prop & updated at created
+  props: ["task","isShown"],
   data() {
     return {
+      taskGroup:null,
       user: null,
+      taskIdx: null,
       activityToAdd: {
         edditedTask: {
           id: this.task.id,
@@ -87,36 +91,92 @@ export default {
       } else {
         return activities;
       }
-    }
+    },
+    checkListsToShow (){
+        return  this.task.checkLists
+  },
   },
   methods: {
+    closeModal (){
+      this.isShown = false;
+    },
     // delete after
-    async loadBoards() {
-      await this.$store.dispatch({ type: "loadBoards" });
-      console.log("boardsare loaded");
-      this.setBoard();
-    },
-    async setBoard() {
-      await this.$store.commit({ type: "setBoard", id: "b101" });
-      this.boardToEdit = JSON.parse(JSON.stringify(this.board));
-      console.log("board to edit", this.boardToEdit);
+    // async loadBoards() {
+    //   await this.$store.dispatch({ type: "loadBoards" });
+    //   console.log("boardsare loaded");
+    //   this.setBoard();
+    // },
+    // async setBoard() {
+    //   await this.$store.commit({ type: "setBoard", id: "b101" });
+    //   this.boardToEdit = JSON.parse(JSON.stringify(this.board));
+    //   console.log("board to edit", this.boardToEdit);
       // /////check for checklist
-      console.log("cl", this.boardToEdit.taskGroup[0].tasks[0].checkLists);
-      this.addActivity("ADDED_ITEM", "checklist");
-    },
-    //////
-    removeTask(id) {
-      this.boardToEdit.findIndex(t => t.id === id);
-      this.boardToEdit.splice(idx, 1);
+      // console.log('cl', this.boardToEdit.taskGroups[0].tasks[0].checkLists);
+      //  this.addActivity("ADDED_ITEM", 'checklist');
+    // },
+    ////////
+    // TASK CRUDL +
+    removeTask() {
+      this.taskGroup.tasks.splice(this.taskIdx, 1);
       this.addActivity("REMOVED_TASK");
+      this.closeModal()
     },
-    copyTask(id) {
-      // this.boardToEdit.findIndex(t => t.id === id);
-      // this.boardToEdit.unshift(idx, 1);
+    copyTask() {
+      this.taskGroup.tasks.unshift(JSON.parse(JSON.stringify(this.task)));
       this.addActivity("COPPIED_TASK");
     },
+    toggleTaskCompletion(){
+      let action = ''
+      this.task.isComplete = !this.task.isComplete
+      action = (this.task.isComplete)? " COMPLETED_TASK" : "INCOMPLETED_TASK"
+      this.addActivity(action)
+    },
+    watchTask(){
+    },
+    // gets the new taskgroup id from the relevant comp
+    moveTask(newTaskgroupId) {
+      this.task.parentListId = newTaskgroupId
+      const newGroupIdx = this.boardToEdit.taskGroups.findIndex(g => g.id === newTaskgroupId)
+      this.taskGroup.tasks.splice(this.taskIdx, 1);
+      this.boardToEdit.taskGroups[newGroupIdx].push(this.task);
+         this.addActivity("MOVED_TASK");
+    },
 
-    // adding activity to store
+    // LABEL "CRUDL" => should emit by component
+    labelAdded(label){
+      this.taskGroup.tasks.labels.push(label)
+      this.addActivity("ADDED_LABEL");
+    },
+    labelRemoved(idx){
+      this.taskGroup.tasks.labels.splice(idx, 1)
+      this.addActivity("REMOVED_LABEL");
+    },
+    // CHECKLIST CRUDL => should emit by component (inside will be also items crudl)
+    checkListAdded(checklist){
+      this.task.checkLists.push(checklist)
+      this.addActivity("ADDED_CHECKLIST");
+    },
+    checkListRemoved(idx){
+       this.task.checkLists.splice(idx, 1);
+       this.addActivity("REMOVED_CHECKLIST");
+    },
+    // will emit from the checklistpreview comp
+    checkListUpdated(idx){
+      const checklist = this.task.checkLists[idx]
+      this.addActivity("UPDATED_CHECKLIST", checklist.title);
+    },
+    // OTHERS
+    // get an obj of the changes and update the board
+    coverUpdated(cover) {
+
+    },
+    memberJoined(memeber){
+
+    },
+    fileAttched(file){
+
+    },
+    ///////// activiy log + state board update/////////
     // async
     addActivity(action, changed = "") {
       this.activityToAdd.action = action;
@@ -178,6 +238,10 @@ export default {
           // the new date in changed
           txt = `${this.user.name} changed the due-date of ${this.task.name} to ${changed}`;
           break;
+        case "UPDATED_CHECKLIST":
+          // changed is the name of the checklist
+          txt = `${this.user.name} updated the checklist ${changed} in ${this.task.name}`;
+          break;
         // OTHERS
         case "JOINED_MEMBER":
           txt = `${this.user.name} joined as a memeber to ${this.task.name}`;
@@ -186,11 +250,11 @@ export default {
           // changed gets the new list task was moved to
           txt = `${this.user.name} moved ${this.task.name} to ${changed}`;
           break;
-        case "COMPLETED_TASK":
-          txt = `${this.user.name} completed the task ${this.task.name}`;
+        case "isComplete_TASK":
+          txt = `${this.user.name} isComplete the task ${this.task.name}`;
           break;
-        case "INCOMPLETED_TASK":
-          txt = `${this.user.name} incompleted the task ${this.task.name}`;
+        case "INisComplete_TASK":
+          txt = `${this.user.name} inisComplete the task ${this.task.name}`;
           break;
         case "COPPIED_TASK":
           txt = `${this.user.name} coppied ${this.task.name}`;
@@ -204,13 +268,23 @@ export default {
   },
   created() {
     // //only for testing
-    this.loadBoards();
-    ///////
-    this.user = this.$store.getters.loggedUser
-      ? this.$store.getters.loggedUser
-      : { name: "Guest", url: "guestimg" };
-    // this.boardToEdit = JSON.parse(JSON.stringify(this.board))
-    // console.log('board to edit', this.boardToEdit)
+    // this.loadBoards();
+    // console.log('cls', this.task.checkLists)
+    // /////
+
+    // /// copying the task it self also so could be editted out of the store
+    this.boardToEdit = JSON.parse(JSON.stringify(this.board))
+    const taskGroupId = this.task.parentListId;
+    this.taskGroup = this.boardToEdit.taskGroups.find(tg => tg.id === taskGroupId)
+    console.log('gr',this.taskGroup)
+    const taskGroupIdx = this.boardToEdit.taskGroups.findIndex(tg => tg.id === taskGroupId)
+    this.task = this.boardToEdit.taskGroups[taskGroupIdx].tasks.find(t => t.id===this.task.id)
+    console.log(this.task)
+    this.taskIdx = this.taskGroup.tasks.findIndex(t => t.id===this.task.id)
+    this.user = (this.$store.getters.loggedUser)? this.$store.getters.loggedUser : { name: "Guest", url: "guestimg" }
+  },
+  components : {
+    checklistPreview
   }
-};
+}
 </script>

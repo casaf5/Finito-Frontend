@@ -2,21 +2,23 @@
     <section class="checklist-preview">
       <div class="checklist-preview-container flex col">
         <div class="checklist-preview-header flex row space-between">
-            <checkbox>YES</checkbox>
+          <!-- change to checkbox -->
+            <h4><i class="el-icon-circle-check"></i>{{checklist.title}}</h4>
             <button>Delete</button>
         </div>
         <div class="checklist-progress-bar">
-            80%
+           <el-progress :percentage="50"></el-progress>
         </div>
-        <template>
+        <div>
           <ul v-if="checklist">
-            <li v-for="item in checklist.items" :key="item.id" class="flex row space-between">
-                <h3>{{item.txt}}</h3>
+            <li v-for="(item,idx) in checklist.items" :key="idx" class="flex row space-between">
+                <h3>{{item.content}}</h3>
                 <button>x</button>
             </li>
           </ul>
-        <template>
+        </div>
         <button>Add an item</button>
+      </div>
     </section>   
 </template>
 
@@ -24,6 +26,15 @@
 export default {
       name: "checklist-preview",
       props: ["checklist"],
+      methods: {
+        // ///update progress bar
+      format(percentage) {
+        return percentage === 100 ? 'Full' : `${percentage}%`;
+      }
+    },
+      created (){
+        console.log('clist inside comp', this.checklist)
+      }
 }
 </script>
 
