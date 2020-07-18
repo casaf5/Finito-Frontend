@@ -100,21 +100,7 @@ export default {
     closeModal (){
       this.isShown = false;
     },
-    // delete after
-    // async loadBoards() {
-    //   await this.$store.dispatch({ type: "loadBoards" });
-    //   console.log("boardsare loaded");
-    //   this.setBoard();
-    // },
-    // async setBoard() {
-    //   await this.$store.commit({ type: "setBoard", id: "b101" });
-    //   this.boardToEdit = JSON.parse(JSON.stringify(this.board));
-    //   console.log("board to edit", this.boardToEdit);
-      // /////check for checklist
-      // console.log('cl', this.boardToEdit.taskGroups[0].tasks[0].checkLists);
-      //  this.addActivity("ADDED_ITEM", 'checklist');
-    // },
-    ////////
+
     // TASK CRUDL +
     removeTask() {
       this.taskGroup.tasks.splice(this.taskIdx, 1);
@@ -267,11 +253,6 @@ export default {
     }
   },
   created() {
-    // //only for testing
-    // this.loadBoards();
-    // console.log('cls', this.task.checkLists)
-    // /////
-
     // /// copying the task it self also so could be editted out of the store
     this.boardToEdit = JSON.parse(JSON.stringify(this.board))
     const taskGroupId = this.task.parentListId;

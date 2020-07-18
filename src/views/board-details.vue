@@ -1,6 +1,7 @@
 <template>
   <div>
     <div class="board-details" v-if="board">
+      <task-details v-if="taskToOpen" :task="taskToOpen" :isShown="isShown=true"/>
       <Container
         @drop="onDrop"
         drag-handle-selector=".task-group-title"
@@ -8,7 +9,7 @@
         orientation="horizontal"
       >
         <Draggable v-for="taskGroup in board.taskGroups" :key="taskGroup.id">
-          <task-group :taskGroup="taskGroup" @taskDrop="onTaskDrop" />
+          <task-group :taskGroup="taskGroup" @taskDrop="onTaskDrop" @taskClicked="openTask"/>
         </Draggable>
       </Container>
     </div>
@@ -18,6 +19,7 @@
 <script>
 import { Container, Draggable } from "vue-smooth-dnd";
 import { applyDrag, generateItems } from "../utils/helpers.js";
+import taskDetails from "@/components/task-details.cmp.vue";
 import taskGroup from "../components/task-group.cmp.vue";
 import AddTask from "../components/add-task.cmp.vue";
 export default {
@@ -33,6 +35,7 @@ export default {
     return {
       /**I dont think we need to have the board in the data you can get it from the store. */
       // board: null,
+      taskToOpen:null,
       upperDropPlaceholderOptions: {
         className: "taskGroup-drop-preview",
         animationDuration: "150",
@@ -45,6 +48,9 @@ export default {
     await this.$store.dispatch({ type: "getBoardById", id });
   },
   methods: {
+    openTask(task){
+      this.taskToOpen = task
+    },
     onDrop(dropResult) {
       this.board.taskGroups = applyDrag(this.board.taskGroups, dropResult);
       this.$store.dispatch({ type: "saveBoard", board: this.board });
@@ -78,7 +84,8 @@ export default {
   components: {
     Container,
     Draggable,
-    taskGroup
+    taskGroup,
+    taskDetails
   },
   computed: {
     board() {

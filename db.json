@@ -58,10 +58,46 @@
                 "url": ""
               },
               "attachments": [],
-              "checkLists": [{
-                "title": "",
-                "items": []
-              }]
+              "checkLists": [
+                {
+                  "title": "",
+                  "items": []
+                }
+              ]
+            },
+            {
+              "parentListId": "25E6-1735BEF12E4-EBF",
+              "id": "D62-1735QOWE1EE0-1V45",
+              "title": "MISSION 7",
+              "desc": "finish trello proj",
+              "dueDate": "",
+              "watchMembers": [],
+              "createdAt": "",
+              "executeTime": "",
+              "members": [],
+              "labels": [],
+              "comments": [
+                {
+                  "createdBy": "",
+                  "txt": "",
+                  "createdAt": ""
+                }
+              ],
+              "cover": {
+                "color": "",
+                "url": ""
+              },
+              "attachments": [],
+              "checkLists": [
+                {
+                  "title": "apply scss",
+                  "items": [
+                    "apply on trello app",
+                    "also on task-details",
+                    "combine them"
+                  ]
+                }
+              ]
             },
             {
               "parentListId": "25E6-1735BEF12E4-EBF",
@@ -86,10 +122,12 @@
                 "url": ""
               },
               "attachments": [],
-              "checkLists": [{
-                "title": "",
-                "items": []
-              }]
+              "checkLists": [
+                {
+                  "title": "",
+                  "items": []
+                }
+              ]
             },
             {
               "parentListId": "25E6-1735BEF12E4-EBF",
@@ -114,10 +152,12 @@
                 "url": ""
               },
               "attachments": [],
-              "checkLists": [{
-                "title": "",
-                "items": []
-              }]
+              "checkLists": [
+                {
+                  "title": "",
+                  "items": []
+                }
+              ]
             }
           ]
         },
@@ -126,34 +166,6 @@
           "title": "Almost done",
           "position": "",
           "tasks": [
-            {
-              "parentListId": "1107-1735BF02AA2-17C5",
-              "id": "D62-1735QOWE1EE0-1V45",
-              "title": "MISSION 7",
-              "desc": "finish trello proj",
-              "dueDate": "",
-              "watchMembers": [],
-              "createdAt": "",
-              "executeTime": "",
-              "members": [],
-              "labels": [],
-              "comments": [
-                {
-                  "createdBy": "",
-                  "txt": "",
-                  "createdAt": ""
-                }
-              ],
-              "cover": {
-                "color": "",
-                "url": ""
-              },
-              "attachments": [],
-              "checkLists": [{
-                "title": "apply scss",
-                "items": ["apply on trello app", "also on task-details", "combine them"]
-              }]
-            },
             {
               "parentListId": "1107-1735BF02AA2-17C5",
               "id": "230A-1735X823XC51-2025",
@@ -190,10 +202,12 @@
                 "url": ""
               },
               "attachments": [],
-              "checkLists": [{
-                "title": "",
-                "items": []
-              }]
+              "checkLists": [
+                {
+                  "title": "",
+                  "items": []
+                }
+              ]
             },
             {
               "parentListId": "1107-1735BF02AA2-17C5",
@@ -227,19 +241,21 @@
                 "url": ""
               },
               "attachments": [],
-              "checkLists": [{
-                "title": "by today",
-                "items": [
-                  {
-                    "content": "Work on UX",
-                    "completed": true
-                  },
-                  {
-                    "content": "finish the UI",
-                    "completed": true
-                  }
-                ]
-              }]
+              "checkLists": [
+                {
+                  "title": "by today",
+                  "items": [
+                    {
+                      "content": "Work on UX",
+                      "completed": true
+                    },
+                    {
+                      "content": "finish the UI",
+                      "completed": true
+                    }
+                  ]
+                }
+              ]
             },
             {
               "parentListId": "1107-1735BF02AA2-17C5",
@@ -264,19 +280,21 @@
                 "url": ""
               },
               "attachments": [],
-              "checkLists": [{
-                "title": "by today",
-                "items": [
-                  {
-                    "content": "go to the super",
-                    "completed": true
-                  },
-                  {
-                    "content": "finish homework",
-                    "completed": false
-                  }
-                ]
-              }]
+              "checkLists": [
+                {
+                  "title": "by today",
+                  "items": [
+                    {
+                      "content": "go to the super",
+                      "completed": true
+                    },
+                    {
+                      "content": "finish homework",
+                      "completed": false
+                    }
+                  ]
+                }
+              ]
             }
           ]
         }
