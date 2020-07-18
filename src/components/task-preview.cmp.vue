@@ -1,7 +1,5 @@
 <template>
-  <div>
-    <Modal class="modal" v-if="displayModal"></Modal>
-    <div class="task-preview-container">
+    <div class="task-preview-container" @click="taskClicked" >
       <div class="task-preview-content">
         <div v-if="currentTask.labels.length>=1" class="task-label-container">
           <div
@@ -13,9 +11,9 @@
             v-for="(label,index) in currentTask.labels"
           ></div>
         </div>
-        <div class="flex">
+        <div class="task-title flex" >
           <span>{{task.title}}</span>
-          <i @click="displayModal = !displayModal" class="el-icon-edit edit"></i>
+          <i class="el-icon-edit edit"></i>
         </div>
         <div class="task-status-container">
           <!-- <div
@@ -31,11 +29,11 @@
         </div>
       </div>
     </div>
-  </div>
 </template>
 
 <script>
 import Modal from "./UI Components/modal";
+
 export default {
   props: {
     task: {
@@ -86,6 +84,11 @@ export default {
       );
       return currentTask;
     }
+  },
+  methods:{
+     taskClicked() {
+      this.$emit("taskClicked", this.task);
+    },
   },
   components: {
     Modal

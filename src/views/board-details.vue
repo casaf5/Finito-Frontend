@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="board-details" v-if="board">
-      <task-details v-if="taskToOpen" :task="taskToOpen" :isShown="isShown=true"/>
+      <task-details v-if="taskToEdit" :taskToEdit="taskToEdit" @closeModal="closeTaskModal"/>
       <Container
         @drop="onDrop"
         drag-handle-selector=".task-group-title"
@@ -9,7 +9,7 @@
         orientation="horizontal"
       >
         <Draggable v-for="taskGroup in board.taskGroups" :key="taskGroup.id">
-          <task-group :taskGroup="taskGroup" @taskDrop="onTaskDrop" @taskClicked="openTask"/>
+          <task-group :taskGroup="taskGroup" @taskDrop="onTaskDrop" @taskClicked="openTaskModal" />
         </Draggable>
       </Container>
     </div>
@@ -18,24 +18,20 @@
  
 <script>
 import { Container, Draggable } from "vue-smooth-dnd";
-import { applyDrag, generateItems } from "../utils/helpers.js";
+import {applyDrag} from '../utils/utils.js';
 import taskDetails from "@/components/task-details.cmp.vue";
 import taskGroup from "../components/task-group.cmp.vue";
-import AddTask from "../components/add-task.cmp.vue";
+
 export default {
   name: "board-details",
   components: {
     Container,
     Draggable,
     taskGroup,
-    AddTask
   },
-
   data() {
     return {
-      /**I dont think we need to have the board in the data you can get it from the store. */
-      // board: null,
-      taskToOpen:null,
+      taskToEdit:null,
       upperDropPlaceholderOptions: {
         className: "taskGroup-drop-preview",
         animationDuration: "150",
@@ -46,11 +42,9 @@ export default {
   async created() {
     let id = "1E3E-1735BF480CA-26A5"; // IN REAL APP WILL COME FROM PARAMS
     await this.$store.dispatch({ type: "getBoardById", id });
+    
   },
   methods: {
-    openTask(task){
-      this.taskToOpen = task
-    },
     onDrop(dropResult) {
       this.board.taskGroups = applyDrag(this.board.taskGroups, dropResult);
       this.$store.dispatch({ type: "saveBoard", board: this.board });
@@ -79,8 +73,15 @@ export default {
         so the app will update without having to refresh the page */
         // this.board = board;
       }
+    },
+    openTaskModal(task){
+      this.taskToEdit=task;
+    },
+    closeTaskModal(){
+    this.taskToEdit=null;
     }
   },
+ 
   components: {
     Container,
     Draggable,

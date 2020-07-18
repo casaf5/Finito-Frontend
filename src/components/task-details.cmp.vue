@@ -1,5 +1,5 @@
 <template>
-  <section v-if="isShown" class="task-details">
+  <section class="task-details">
     <!-- will change to col from task width-->
     <div class="task-details-containers-wraper">
       <button @click="closeModal">X</button>
@@ -92,17 +92,18 @@ import Avatar from 'vue-avatar';
 export default {
   name: "task-details",
   // move taskgroup to data, not a prop & updated at created
-  props: ["task", "isShown"],
+  props: ["taskToEdit"],
   data() {
     return {
+      task:null,
       taskGroup: null,
       user: null,
       taskIdx: null,
       checked: false,
       activityToAdd: {
         edditedTask: {
-          id: this.task.id,
-          name: this.task.name
+          id: this.taskToEdit.id,
+          name: this.taskToEdit.name
         }
       },
       boardToEdit: null
@@ -129,7 +130,7 @@ export default {
   },
   methods: {
     closeModal() {
-      this.isShown = false;
+      this.$emit('closeModal')
     },
 
     // TASK CRUDL +
@@ -279,9 +280,9 @@ export default {
     }
   },
   created() {
-    // /// copying the task it self also so could be editted out of the store
+    /// copying the task it self also so could be editted out of the store
     this.boardToEdit = JSON.parse(JSON.stringify(this.board));
-    const taskGroupId = this.task.parentListId;
+    const taskGroupId = this.taskToEdit.parentListId;
     this.taskGroup = this.boardToEdit.taskGroups.find(
       tg => tg.id === taskGroupId
     );
@@ -289,9 +290,7 @@ export default {
     const taskGroupIdx = this.boardToEdit.taskGroups.findIndex(
       tg => tg.id === taskGroupId
     );
-    this.task = this.boardToEdit.taskGroups[taskGroupIdx].tasks.find(
-      t => t.id === this.task.id
-    );
+    this.task=JSON.parse(JSON.stringify(this.taskToEdit))
     console.log(this.task);
     this.taskIdx = this.taskGroup.tasks.findIndex(t => t.id === this.task.id);
     this.user = this.$store.getters.loggedUser
