@@ -26,7 +26,7 @@
         <div class="task-checklists">
           <!-- v-if="checkListsToShow" -->
           <ul >
-            <li v-for="checklist in task.checkLists" :key="checklist.id">
+            <li v-for="(checklist,idx) in task.checkLists" :key="idx">
               <checklist-preview :checklist="checklist"/>
             </li>
           </ul>
@@ -64,10 +64,12 @@
 
 export default {
   name: "task-details",
+  // move taskgroup to data, not a prop & updated at created
   props: ["taskGroup", "task"],
   data() {
     return {
       isShown:true,
+      currGroupIdx:null,
       user: null,
       activityToAdd: {
         edditedTask: {
@@ -117,46 +119,53 @@ export default {
     ////////
     // TASK CRUDL +
     removeTask() {
-      const idx = this.taskGroup.tasks.findIndex(t => t.id===this.task.id)
-      this.boardToEdit.taskGroup.tasks.splice(idx, 1);
+      const taskIdx = this.taskGroup.tasks.findIndex(t => t.id===this.task.id)
+      this.boardToEdit.taskGroups[this.currGroupIdx].tasks.splice(taskIdx, 1);
       this.addActivity("REMOVED_TASK");
       this.closeModal()
     },
     copyTask() {
-      this.boardToEdit.taskGroup.tasks.unshift(JSON.parse(JSON.stringify(this.task)));
+      this.boardToEdit.taskGroups[this.currGroupIdx].tasks.unshift(JSON.parse(JSON.stringify(this.task)));
       this.addActivity("COPPIED_TASK");
     },
     toggleTaskCompletion(){
       let action = ''
-      this.task.isComplete = !this.task.isComplete
-      action = (this.task.isComplete)? "COMPLETED_TASK" : "INCOMPLETED_TASK"
+      this.task.completed = !this.task.completed
+      action = (this.task.completed)? "COMPLETED_TASK" : "INCOMPLETED_TASK"
       this.addActivity(action)
     },
     watchTask(){
     },
-    // needs to add position on data-base, inside which group can be found
-    moveTask() {
+    // gets the new taskgroup id from the relevant comp
+    moveTask(newTaskgroupId) {
+      this.task.parentListId = newTaskgroupId
+      const idx = this.taskGroup.tasks.findIndex(t => t.id===this.task.id)
+      this.boardToEdit.taskGroups[this.currGroupIdx].tasks.splice(idx, 1);
+      this.boardToEdit.taskGroups[this.currGroupIdx].tasks.unshift(this.task);
     },
 
     // LABEL "CRUDL" => should emit by component
-    labelAdded(){
-      
+    labelAdded(label){
+      this.boardToEdit.taskGroups[this.currGroupIdx].tasks.labels.push(label)
+      this.addActivity("ADDED_LABEL");
     },
-    labelRemoved(){
-
+    labelRemoved(idx){
+      this.boardToEdit.taskGroups[this.currGroupIdx].tasks.labels.splice(idx, 1)
+      this.addActivity("REMOVED_LABEL");
     },
     // CHECKLIST CRUDL => should emit by component (inside will be also items crudl)
     checkListAdded(checklist){
-      task.checkLists.push(checklist)
+      this.task.checkLists.push(checklist)
       this.addActivity("ADDED_CHECKLIST");
     },
-    checkListRemoved(checklist){
-       const idx = this.task.checkLists.findIndex(cl => cl.id === checklist.id)
+    checkListRemoved(idx){
        this.task.checkLists.splice(idx, 1);
        this.addActivity("REMOVED_CHECKLIST");
     },
-    checkListUpdated(checklist){
-
+    // will emit from the checklistpreview comp
+    checkListUpdated(idx){
+      const checklist = this.task.checkLists[idx]
+      this.addActivity("UPDATED_CHECKLIST", checklist.title);
     },
     // OTHERS
     // get an obj of the changes and update the board
@@ -231,6 +240,10 @@ export default {
           // the new date in changed
           txt = `${this.user.name} changed the due-date of ${this.task.name} to ${changed}`;
           break;
+        case "UPDATED_CHECKLIST":
+          // changed is the name of the checklist
+          txt = `${this.user.name} updated the checklist ${changed} in ${this.task.name}`;
+          break;
         // OTHERS
         case "JOINED_MEMBER":
           txt = `${this.user.name} joined as a memeber to ${this.task.name}`;
@@ -264,6 +277,10 @@ export default {
     // /// copying the task it self also so could be editted out of the store
     
     // this.task = this.boardToEdit.taskGroups.tasks.find(t => t.id===this.task.id)
+    // const taskGroupId = this.task.parentListId
+    // this.taskGroup = this.boardToEdit.taskGroups.find(tg => tg.id === taskGroupId)
+    // this.currGroupIdx = this.boardToEdit.taskGroups.findIndex (g => g.id === this.taskGroup.id)
+
  
     this.user = this.$store.getters.loggedUser
       ? this.$store.getters.loggedUser

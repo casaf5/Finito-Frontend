@@ -24,14 +24,14 @@ export default {
         name:'finish trello',
         activities: [{txt:'Ayal joined the room'}],
         checkLists: [{
-                "id":"f13",
-                "name":"Ayal",
+                "title":"Ayal",
                 "items":[
                   {id:"111", name:"finish logics"},{id:"222", name:"finish css"},{id:"333", name:"get better"}
                   ]
               }]
       },
       taskGroup:{
+        tasks:[""],
         name:'test-list'
       }
     }
