@@ -17,7 +17,7 @@
             </li>
           </ul>
         </div>
-        <button>Add an item</button>
+        <button class="checklist-preview-additem-btn">Add an item</button>
       </div>
     </section>   
 </template>

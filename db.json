@@ -67,6 +67,36 @@
             },
             {
               "parentListId": "25E6-1735BEF12E4-EBF",
+              "id": "1866-17360E8052D-AF5",
+              "title": "new card",
+              "desc": "",
+              "dueDate": "",
+              "watchMembers": [],
+              "createdAt": "2020-07-18T07:51:25.229Z",
+              "executeTime": "",
+              "members": [],
+              "labels": [],
+              "comments": [
+                {
+                  "createdBy": "",
+                  "txt": "",
+                  "createdAt": ""
+                }
+              ],
+              "cover": {
+                "color": "",
+                "url": ""
+              },
+              "attachments": [],
+              "checkLists": [
+                {
+                  "title": "",
+                  "items": []
+                }
+              ]
+            },
+            {
+              "parentListId": "25E6-1735BEF12E4-EBF",
               "id": "D62-1735QOWE1EE0-1V45",
               "title": "MISSION 7",
               "desc": "finish trello proj",
@@ -96,36 +126,6 @@
                     "also on task-details",
                     "combine them"
                   ]
-                }
-              ]
-            },
-            {
-              "parentListId": "25E6-1735BEF12E4-EBF",
-              "id": "1866-17360E8052D-AF5",
-              "title": "new card",
-              "desc": "",
-              "dueDate": "",
-              "watchMembers": [],
-              "createdAt": "2020-07-18T07:51:25.229Z",
-              "executeTime": "",
-              "members": [],
-              "labels": [],
-              "comments": [
-                {
-                  "createdBy": "",
-                  "txt": "",
-                  "createdAt": ""
-                }
-              ],
-              "cover": {
-                "color": "",
-                "url": ""
-              },
-              "attachments": [],
-              "checkLists": [
-                {
-                  "title": "",
-                  "items": []
                 }
               ]
             },
@@ -266,7 +266,11 @@
               "watchMembers": [],
               "createdAt": "",
               "executeTime": "",
-              "members": [],
+              "members": [
+                "Asaf Cohen",
+                "Ayal Magid",
+                "Tomer Zuker"
+              ],
               "labels": [],
               "comments": [
                 {
