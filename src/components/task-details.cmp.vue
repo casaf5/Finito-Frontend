@@ -2,34 +2,36 @@
   <section class="task-details">
     <!-- will change to col from task width-->
     <div class="task-details-containers-wraper">
-      <button @click="closeModal">X</button>
-      <div class="flex row task-details-main-container">
-        <div class="flex col space-between task-left-container">
+      <button class="close-modal-btn" @click="closeModal">X</button>
+      <div class="task-details-main-container ">
+        <div class="task-left-container">
           <div class="task-details-titles-container">
             <h2 class="task-name">{{ task.title }}</h2>
-            <h5 class="task-group-name">{{taskGroup.title}}</h5>
+            <h5 class="task-group-name">in Group <span>{{taskGroup.title}}</span></h5>
           </div>
-          <el-checkbox v-model="checked" class="task-isComplete">Completed</el-checkbox>
-          <div class="task-members-labels-container flex row">
-            <div class="task-members-container">
+          <!-- <el-checkbox v-model="checked" class="task-isComplete">Completed</el-checkbox> -->
+          <div class="task-members-labels-container flex wrap " >
+            <section class="task-members-container">
               <h6>MEMBERS | </h6>
               <div v-for="(member,idx) in task.members" :key="idx">
                 <!-- change to member name -->
                    <avatar username="member"></avatar>
               </div>
-            </div>
-            <div class="task-labels">
-              <h6> LABELS</h6>
+            </section>
+            <section class="task-labels-container">
+              <h6>LABELS</h6>
               <!-- v for labels -->
-            </div>
-          </div>
-          <div>
-            <h6>DUE DATE</h6>
+            </section>
+          <section class="task-date-container">
+            <h6>|DUE DATE</h6>
             {{task.dueDate}}
+          </section>
           </div>
-          <div class="task-desc">
-            <!-- <task-desc/> -->
-            Description
+          <div class="task-desc-container">
+            <h4><i class="fas fa-grip-lines"></i> Description</h4>
+            <textarea  placeholder="Add Description to task.." 
+            @click="focusOnDesc" v-model="task.desc" ref="desTextArea"
+            @blur="removeFocus" class="desc-textarea" />
           </div>
           <div v-if="checkListsToShow[0].title" class="task-checklists">
             <ul>
@@ -41,13 +43,13 @@
           <div class="task-activities">
             <div class="task-activties-header flex row space-between">
               <div>
-                <h4>Activity</h4>
+                <h4><i class="fas fa-hdd"></i> Activity</h4>
+                <button>Show Details</button>
               </div>
-              <button>Show Details</button>
             </div>
           </div>
         </div>
-        <div class="flex col task-right-container">
+        <div class="task-right-container flex col ">
           <button>
             <i class="el-icon-user"></i> Members
           </button>
@@ -86,6 +88,7 @@
 
 <script>
 import checklistPreview from "@/components/checklist-preview.cmp.vue";
+import TaskActionContainer from "./task-action-container.cmp";
 import Avatar from 'vue-avatar';
 // import { eventBus, SHOW_MSG } from "@/services/event-bus.service.js";
 
@@ -108,6 +111,22 @@ export default {
       },
       boardToEdit: null
     };
+  },
+   created() {
+    /// copying the task it self also so could be editted out of the store
+    this.boardToEdit = JSON.parse(JSON.stringify(this.board));
+    const taskGroupId = this.taskToEdit.parentListId;
+    this.taskGroup = this.boardToEdit.taskGroups.find(
+      tg => tg.id === taskGroupId
+    );
+    const taskGroupIdx = this.boardToEdit.taskGroups.findIndex(
+      tg => tg.id === taskGroupId
+    );
+    this.task=this.taskGroup.tasks.find(task=>task.id===this.taskToEdit.id)
+    this.taskIdx = this.taskGroup.tasks.findIndex(t => t.id === this.task.id);
+    this.user = this.$store.getters.loggedUser
+      ? this.$store.getters.loggedUser
+      : { name: "Guest", url: "guestimg" };
   },
   computed: {
     board() {
@@ -132,7 +151,18 @@ export default {
     closeModal() {
       this.$emit('closeModal')
     },
-
+    saveBoard(){
+      this.$store.dispatch({type:'saveBoard',board:this.boardToEdit})
+    },
+    //DESCREPTION 
+    focusOnDesc(){
+      this.$refs.desTextArea.select()
+      this.$refs.desTextArea.classList.add('edit')
+    },
+    removeFocus(){
+     this.$refs.desTextArea.classList.remove('edit')
+     this.saveBoard()
+    },
     // TASK CRUDL +
     removeTask() {
       this.taskGroup.tasks.splice(this.taskIdx, 1);
@@ -279,27 +309,11 @@ export default {
       return txt;
     }
   },
-  created() {
-    /// copying the task it self also so could be editted out of the store
-    this.boardToEdit = JSON.parse(JSON.stringify(this.board));
-    const taskGroupId = this.taskToEdit.parentListId;
-    this.taskGroup = this.boardToEdit.taskGroups.find(
-      tg => tg.id === taskGroupId
-    );
-    console.log("gr", this.taskGroup);
-    const taskGroupIdx = this.boardToEdit.taskGroups.findIndex(
-      tg => tg.id === taskGroupId
-    );
-    this.task=JSON.parse(JSON.stringify(this.taskToEdit))
-    console.log(this.task);
-    this.taskIdx = this.taskGroup.tasks.findIndex(t => t.id === this.task.id);
-    this.user = this.$store.getters.loggedUser
-      ? this.$store.getters.loggedUser
-      : { name: "Guest", url: "guestimg" };
-  },
+ 
   components: {
     checklistPreview,
-    Avatar
+    Avatar,
+    TaskActionContainer
   }
 };
 </script>

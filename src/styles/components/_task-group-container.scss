@@ -24,12 +24,11 @@
     cursor: pointer;
   }
 
-  .task-icon {
-    color: $icon-color;
-  }
+  
   .task-group-title-container {
     display: flex;
     justify-content: space-between;
+    position: relative;
     .task-group-title {
       cursor: pointer;
       font-family: inherit;
@@ -45,7 +44,14 @@
       width: 100%;
       &.edit{
         border: 2px solid #172b4d;
-        
+      }
+    }
+    i{
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      &.task-icon {
+        color: $icon-color;
       }
     }
   }
