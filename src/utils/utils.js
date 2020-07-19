@@ -1,6 +1,7 @@
 export const utilService = {
   getRandomId,
   getEmptyTask,
+  getEmptyCheckList,
   deepCopy,
 };
 
@@ -9,7 +10,15 @@ export const utilService = {
 function deepCopy(object) {
   return JSON.parse(JSON.stringify(object));
 }
-
+// function for generating an empty checkList
+function getEmptyCheckList() {
+  const checklist={
+    id:getRandomId(),
+    title:"New Checklist",
+    items:[],
+  }
+return checklist
+}
 // function for generating an empty task
 function getEmptyTask(parentListId) {
   const task = {

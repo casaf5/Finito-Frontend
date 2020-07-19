@@ -61,7 +61,20 @@
               "checkLists": [
                 {
                   "title": "",
-                  "items": []
+                  "items": [
+                    {
+                      "content": "mission 1",
+                      "completed": true
+                    },
+                    {
+                      "content": "mission 2",
+                      "completed": false
+                    },
+                    {
+                      "content": "mission 3",
+                      "completed": false
+                    }
+                  ]
                 }
               ]
             },
@@ -139,8 +152,8 @@
             {
               "parentListId": "1107-1735BF02AA2-17C5",
               "id": "T52-DS12233VCV1EE0-14F5",
-              "title": "UX Stuff",
-              "desc": "sdsdssdsdssdsdssdsdssdsdssdsdssdsdssdsdssdsdssdsdssdsdssdsdssdsdssdsdssdsdssdsdssdsdssdsdssdsdssdsdssdsdssdsdssdsdssdsdssdsdssdsdssdsdssdsdssdsdssdsdssdsdssdsdssdsdssdsdssdsdssdsdssdsdssdsdssdsdssdsdssdsdssdsdssdsdssdsdssdsdssdsdssdsdssdsdssdsdssdsdssdsdssdsdssdsdssdsdssdsdssdsdssdsdssdsdssdsdssdsdssdsdssdsdssdsdssdsdssdsdssdsdssdsdssdsdssdsdssdsdssdsdssdsdssdsdssdsdssdsdssdsdssdsdssdsdssdsdssdsdssdsdssdsdssdsdssdsdssdsdssdsdssdsdssdsdssdsdssdsdssdsdssdsdssdsdssdsdssdsdssdsdssdsdssdsdssdsdssdsdssdsdssdsdssdsdssdsdssdsdssdsdssdsdssdsds",
+              "title": "i am with checklist",
+              "desc": "i am with checklist",
               "dueDate": "",
               "watchMembers": [],
               "createdAt": "",
@@ -170,17 +183,9 @@
               "attachments": [],
               "checkLists": [
                 {
-                  "title": "by today",
-                  "items": [
-                    {
-                      "content": "Work on UX",
-                      "completed": true
-                    },
-                    {
-                      "content": "finish the UI",
-                      "completed": true
-                    }
-                  ]
+                  "id": "25F3-17364A396D0-CA4",
+                  "title": "New Checklist",
+                  "items": []
                 }
               ]
             },
@@ -570,7 +575,22 @@
               "checkLists": [
                 {
                   "title": "",
-                  "items": []
+                  "items": [
+                    {
+                      "content": "hi",
+                      "completed": false
+                    }
+                  ]
+                },
+                {
+                  "id": "2514-173648F2FF7-12F9",
+                  "title": "New Checklist",
+                  "items": [
+                    {
+                      "content": "new tasks",
+                      "completed": true
+                    }
+                  ]
                 }
               ]
             },
@@ -600,6 +620,11 @@
               "checkLists": [
                 {
                   "title": "",
+                  "items": []
+                },
+                {
+                  "id": "888-173648B6C4E-19B8",
+                  "title": "New Checklist",
                   "items": []
                 }
               ]

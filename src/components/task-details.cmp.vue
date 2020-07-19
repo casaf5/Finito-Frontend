@@ -33,12 +33,13 @@
             @click="focusOnDesc" v-model="task.desc" ref="desTextArea"
             @blur="removeFocus" class="desc-textarea" />
           </div>
-          <div v-if="checkListsToShow[0].title" class="task-checklists">
-            <ul>
-              <li v-for="(checklist,idx) in task.checkLists" :key="idx">
-                <checklist-preview :checklist="checklist" />
-              </li>
-            </ul>
+          <div  class="task-checklists" v-if="task.checkLists.length!=0">
+               <task-check-list v-for="checklist in task.checkLists" 
+               :checklist="checklist" 
+               :key="checklist.id" 
+               @remove="removeCheckList(checklist.id)"
+               @update="saveBoard"
+               />
           </div>
           <div class="task-activities">
             <div class="task-activties-header flex row space-between">
@@ -59,7 +60,7 @@
           <button>
             <i class="el-icon-date"></i> Due date
           </button>
-          <button>
+          <button @click="addCheckList">
             <i class="el-icon-document-checked"></i> Checklist
           </button>
           <button>
@@ -87,10 +88,10 @@
 </template>
 
 <script>
-import checklistPreview from "@/components/checklist-preview.cmp.vue";
+import {utilService} from '../utils/utils.js';
 import TaskActionContainer from "./task-action-container.cmp";
+import taskCheckList from '../components/checklist-cmp';
 import Avatar from 'vue-avatar';
-// import { eventBus, SHOW_MSG } from "@/services/event-bus.service.js";
 
 export default {
   name: "task-details",
@@ -144,7 +145,7 @@ export default {
       }
     },
     checkListsToShow() {
-      return this.task.checkLists;
+      return this.task.checkLists[0].items;
     }
   },
   methods: {
@@ -163,6 +164,17 @@ export default {
      this.$refs.desTextArea.classList.remove('edit')
      this.saveBoard()
     },
+    //CheckList
+    addCheckList(){
+      this.task.checkLists.push(utilService.getEmptyCheckList())
+      this.saveBoard()
+    },
+    removeCheckList(id){
+      const listIdx=this.task.checkLists.findIndex(list=>list.id===id)
+      this.task.checkLists.splice(listIdx,1)
+      this.saveBoard()
+    },
+ 
     // TASK CRUDL +
     removeTask() {
       this.taskGroup.tasks.splice(this.taskIdx, 1);
@@ -311,7 +323,7 @@ export default {
   },
  
   components: {
-    checklistPreview,
+    taskCheckList,
     Avatar,
     TaskActionContainer
   }
