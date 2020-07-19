@@ -1,34 +1,61 @@
 <template>
-  <task-action-container @close="close" :title="'List Actions'">
-    <li @click="createdCard">Add Card...</li>
-    <li @click="duplicateList">Copy List...</li>
-    <li>Move List...</li>
-    <li>Watch</li>
-    <hr />
-    <li>Move All Cards in this List...</li>
-    <li>Archive All Cards in this List...</li>
-    <hr />
-    <li>Archive This List</li>
-  </task-action-container>
+  <div>
+    <task-action-container @back="back" @close="close" :showIcon="showIcon" :title="title">
+      <component
+        @duplicateList="duplicateList"
+        @createCard="createCard"
+        @compToRender="toggleCompoent"
+        :is="componentToRender"
+      />
+    </task-action-container>
+  </div>
 </template>
 
 <script>
 import TaskActionContainer from "./task-action-container.cmp";
+import ListOfActions from "./task actions/list-of-actions";
+import MoveList from "./task actions/move-list.cmp";
+import SortBy from "./task actions/sort-by.cmp";
 export default {
+  data() {
+    return {
+      componentToRender: "list-of-actions",
+      title: "List of Actions",
+      showIcon: false
+    };
+  },
   components: {
-    TaskActionContainer
+    TaskActionContainer,
+    ListOfActions,
+    MoveList,
+    SortBy
   },
   methods: {
+    resetComponent() {
+      this.componentToRender = "list-of-actions";
+      this.showIcon = false;
+      this.title = "List of Actions";
+    },
+
     close() {
       this.$emit("close");
+      this.resetComponent();
     },
-    createdCard() {
+    toggleCompoent(componentToRender) {
+      this.componentToRender = componentToRender.name;
+      this.title = componentToRender.title;
+      this.showIcon = componentToRender.showIcon;
+    },
+    back() {
+      this.resetComponent();
+    },
+    createCard() {
       this.$emit("createCard");
-      this.close();
+      this.$emit("close");
     },
     duplicateList() {
       this.$emit("duplicateList");
-      this.close();
+      this.$emit("close");
     }
   }
 };

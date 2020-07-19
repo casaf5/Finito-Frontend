@@ -2,7 +2,7 @@
   <task-action-container title="Labels">
     <div class="task-label-container">
       <li>
-        <input class="task-label-search" type="text" />
+        <form-input v-model="labelText" type="text" />
       </li>
       <span>Labels</span>
       <li>
@@ -10,33 +10,36 @@
           :displayIcon="true"
           :color="color"
           :key="index"
-          v-for="(color,index) in colors"
+          v-for="(color,index) in colorsToDisplay"
+          @selectedColor="selectedColor"
         />
       </li>
-      <button @click="createNewLabel">Create new Label</button>
+      <button class="btn-primary" @click="createNewLabel">Create new Label</button>
     </div>
   </task-action-container>
 </template>
 
 <script>
-import TaskActionContainer from "./task-action-container.cmp";
+import TaskActionContainer from "../task-action-container.cmp";
 import LabelColor from "./label-color.cmp";
+import FormInput from "../From Elements/form-input.cmp";
 export default {
   components: {
     TaskActionContainer,
-    LabelColor
+    LabelColor,
+    FormInput
   },
   data() {
-    // <!-- :style="{'background-color':color.color}" -->
     return {
+      labelText: "",
       colors: [
         {
-          label: "",
+          label: "hey",
           color: "#61BD4F",
           selectedColor: "#519839"
         },
         {
-          label: "",
+          label: "hello",
           color: "#f2d600",
           selectedColor: "#D9B51C"
         },
@@ -66,6 +69,20 @@ export default {
   methods: {
     createNewLabel() {
       this.$emit("createLabel", "task-create-label");
+    },
+    selectedColor(choosenColor) {
+      this.$emit("createLabel", {
+        name: task - create - label,
+        color: choosenColor
+      });
+    }
+  },
+  computed: {
+    colorsToDisplay() {
+      const searchTerm = this.labelText.toLowerCase();
+      return this.colors.filter(color =>
+        color.label.toLowerCase().includes(searchTerm)
+      );
     }
   }
 };

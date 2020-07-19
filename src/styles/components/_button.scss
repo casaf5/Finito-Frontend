@@ -7,9 +7,13 @@ button {
 .btn-primary {
   padding: 5px 10px;
   font-family: inherit;
-  background-color: #232323;
+  background-color: $btn-primary-color;
+  transition: all 0.3s ease-in-out;
   color: #fff;
   &.large {
     padding: 10px 20px;
+  }
+  &:hover {
+    background-color: darken($btn-primary-color, 10%);
   }
 }
