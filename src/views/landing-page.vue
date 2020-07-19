@@ -8,7 +8,9 @@
             <a>Login</a>
           </router-link>
           <router-link to="/auto" tag="li"> <a>Sign Up</a> </router-link>
-          <router-link to="/" tag="li"> <a>Board</a> </router-link>
+          <router-link to="/board/1E3E-1735BF480CA-26A5" tag="li">
+            <a>Board</a>
+          </router-link>
         </ul>
       </nav>
       <div class="hero-content-container">
@@ -53,8 +55,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import url("https://fonts.googleapis.com/css2?family=Gochi+Hand&display=swap");
-
 .landing-page {
   display: grid;
   grid-template-columns:
@@ -102,7 +102,7 @@ export default {
     }
     .logo {
       font-size: 40px;
-      font-family: "Gochi Hand", cursive;
+      font-family: Gochi, cursive;
     }
     h3 {
       margin: 5px 0;
@@ -126,7 +126,6 @@ export default {
     > * {
       padding: 5px 10px;
     }
-
     li {
       transition: all 0.3s ease-in-out;
       cursor: pointer;
