@@ -10,6 +10,11 @@
     > * {
       margin: 5px 0;
     }
+    .task-title-container {
+      span {
+        width: 90%;
+      }
+    }
     .task-status-container {
       display: flex;
       align-items: center;
@@ -37,11 +42,12 @@
     flex-wrap: wrap;
     .label-color {
       margin: 2px 0;
-      padding: 2px 7px;
-      align-self: stretch;
-      border-radius: 5px;
+      padding: 0px 7px;
+      border-radius: 10px;
       margin-right: 5px;
       transition: all 0.5s ease-in-out;
+      min-width: 56px;
+      height: 20px;
       cursor: pointer;
       span {
         color: #fff;
@@ -51,7 +57,8 @@
       }
     }
     .label-color-enlarged {
-      padding: 5px 15px;
+      padding: 0px 15px;
+      border-radius: 5px;
     }
   }
   .check-list-completed {
@@ -60,5 +67,3 @@
     color: #fff;
   }
 }
-
-

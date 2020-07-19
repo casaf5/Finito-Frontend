@@ -1,18 +1,18 @@
 <template>
   <div
-    :style="{'padding':!inGroup? '5px' :''}"
-    :class="{'transparent':!inGroup}"
+    :style="{ padding: !inGroup ? '5px' : '' }"
+    :class="{ transparent: !inGroup }"
     class="add-task-container"
   >
-    <div class="add-task-left-content" @click="toggleEdit" v-if="!show" >
+    <div class="add-task-left-content" @click="toggleEdit" v-if="!show">
       <i class="el-icon-plus task-icon"></i>
       <span type="text">Add another card</span>
       <i class="el-icon-full-screen task-icon"></i>
     </div>
     <transition name="fade" mode="out-in">
       <div v-if="show" class="add-task-content-container">
-        <textarea :placeholder="placeholderText" v-model="content" ></textarea>
-        <button @click="addTask">{{buttonText}}</button>
+        <textarea :placeholder="placeholderText" v-model="content"></textarea>
+        <button @click="addTask">{{ buttonText }}</button>
         <i @click="toggleEdit" class="el-icon-close"></i>
       </div>
     </transition>
@@ -26,7 +26,7 @@ export default {
     return {
       items: [],
       content: "",
-      showEditSection: false
+      showEditSection: false,
     };
   },
   methods: {
@@ -37,7 +37,7 @@ export default {
       if (this.content) {
         if (this.inGroup) {
           this.$emit("addTask", this.content);
-          this.content='';
+          this.content = "";
           this.show = false;
         } else {
           this.$emit("addList", this.content);
@@ -46,7 +46,7 @@ export default {
         return;
       }
       alert("tasks cant be empty");
-    }
+    },
   },
   computed: {
     buttonText() {
@@ -54,12 +54,12 @@ export default {
     },
     placeholderText() {
       return this.inGroup ? "Enter Card title..." : "Enter List Title...";
-    }
-  }
+    },
+  },
 };
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 .fade-enter-active,
 .fade-leave-active {
   transition: opacity 0.5s ease-in-out;
@@ -70,6 +70,6 @@ export default {
 }
 .component-fade-enter-active,
 .component-fade-leave-active {
-  transition: opacity 0.2s ease;
+  transition: opacity 0.5s ease;
 }
 </style>
