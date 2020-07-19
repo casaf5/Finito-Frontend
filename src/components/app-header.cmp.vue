@@ -1,6 +1,6 @@
 <template>
   <header class="app-header">
-    <user-msg/>
+    <user-msg />
     <nav>
       <section class="links flex clean-list">
         <router-link tag="li" to="/">Boards</router-link>
@@ -16,21 +16,15 @@
 </template>
 
 <script>
-
-import {eventBus,SHOW_MSG} from '../services/event-bus-service.js'
-import userMsg from './user-msg.cmp.vue'
+import { eventBus, SHOW_MSG } from "../services/event-bus-service.js";
+import userMsg from "./user-msg.cmp.vue";
 
 export default {
   name: "app-header",
-  computed: {
-   
-  },
-  methods: {
-   
-  },
+  computed: {},
+  methods: {},
   components: {
     userMsg,
-  }
+  },
 };
 </script>
-

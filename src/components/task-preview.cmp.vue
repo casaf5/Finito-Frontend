@@ -1,32 +1,32 @@
 <template>
-  <div class="task-preview-container" @click="taskClicked">
+  <div class="task-preview-container">
     <div class="task-preview-content">
       <div v-if="currentTask.labels.length >= 1" class="task-label-container">
         <small-label
-          @labelClicked="enlargeLabel = !enlargeLabel"
+          @labelClicked="toggleLabels"
           :enenlargeLabel="enlargeLabel"
           :key="index"
           v-for="(label, index) in currentTask.labels"
           :label="label"
         />
       </div>
-      <div class="task-title flex">
-        <span>{{ task.title }}</span>
+      <div class="task-title-container flex">
+        <span @click="taskClicked">{{ task.title }}</span>
         <i class="el-icon-edit edit"></i>
       </div>
       <div class="task-status-container">
         <div
           :class="{
-            'check-list-completed': checkListsStatus.allTasksCompleted,
+            'check-list-completed': allCompleted,
           }"
           class="checklist-container"
-          v-if="currentTask.checkLists[0].items.length"
+          v-if="currentTask.checkLists.length"
         >
           <i class="el-icon-document-checked"></i>
           <span>{{ taskString }}</span>
         </div>
         <i class="el-icon-aim"></i>
-        <i v-if="currentTask.desc" class="el-icon-tickets"></i>
+        <i v-if="currentTask.desc" class="fas fa-stream"></i>
       </div>
     </div>
   </div>
@@ -46,35 +46,35 @@ export default {
   data() {
     return {
       displayModal: false,
-      enlargeLabel: false,
     };
   },
   computed: {
     checkListsStatus() {
       let isUncompleted;
-      let allTasksCompleted;
       let completedAmout;
       let allTasks = 0;
       this.currentTask.checkLists.forEach((checkList) => {
         allTasks += checkList["items"].length;
         isUncompleted = checkList["items"].some((item) => !item.completed);
-        allTasksCompleted = checkList["items"].every((task) => task.completed);
         completedAmout = checkList["items"].reduce((acc, task) => {
           if (task.completed) acc++;
           return acc;
         }, 0);
       });
-      console.log(allTasks);
       return {
         allTasks,
-        allTasksCompleted,
         isUncompleted,
         completedAmout,
       };
     },
-
     taskString() {
       return `  ${this.checkListsStatus.completedAmout}/${this.checkListsStatus.allTasks}`;
+    },
+    allCompleted() {
+      return (
+        this.checkListsStatus.completedAmout ===
+          this.checkListsStatus.allTasks && this.checkListsStatus.allTasks >= 1
+      );
     },
     currentTask() {
       const board = this.$store.getters.board;
@@ -86,10 +86,25 @@ export default {
       );
       return currentTask;
     },
+    board() {
+      return this.$store.getters.board;
+    },
+    enlargeLabel() {
+      const currentTaskGroup = this.board.taskGroups.findIndex(
+        (taskGroup) => taskGroup.id === this.task.parentListId
+      );
+      return this.board.taskGroups[currentTaskGroup].labelsOpen;
+    },
   },
   methods: {
     taskClicked() {
       this.$emit("taskClicked", this.task);
+    },
+    toggleLabels() {
+      this.board.taskGroups.forEach((taskGroup) => {
+        console.log(taskGroup.isOpen);
+        taskGroup.labelsOpen = !taskGroup.labelsOpen;
+      });
     },
   },
   components: {
