@@ -1,0 +1,31 @@
+.home-page{
+    margin:100px auto;
+    max-width: 80%;
+    >*{
+        position: relative;
+        justify-content: center;
+        align-items: center;
+        height: max-content;
+        margin:50px;
+        border-radius: 10px;
+        border: 1px solid black;
+        text-align: center;
+        color: white;
+        background-color: #505049b5;
+        font-size: rem(30px);
+        font-family: Montserrat-Bold;
+        font-weight: bold;
+        letter-spacing: 1.2px;
+        transition: all .3s;
+        cursor: pointer;
+        h4{
+            position: absolute;
+            top:-40px;
+            left:0;
+        }
+        &:hover{
+            background-color: #505049d2;
+
+        }
+    }
+}

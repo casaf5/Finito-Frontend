@@ -1,4 +1,5 @@
 .task-details-containers-wraper {
+<<<<<<< HEAD
   h5,
   h6 {
     color: rgb(168, 168, 168);
@@ -19,6 +20,18 @@
   margin-bottom: 3.75rem;
   z-index: 3;
   .close-modal-btn {
+=======
+    h5, h6 {
+        color:  rgb(168, 168, 168);
+    }
+    h2{
+        margin-bottom: 0.8rem;
+    }
+    width: 750px;
+    min-height: 95vh;
+    line-height: 1.25rem;
+    background-color:#f4f5f7;
+>>>>>>> ayal
     position: absolute;
     top: 0;
     right: 6px;
