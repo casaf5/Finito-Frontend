@@ -78,14 +78,14 @@ export default {
     },
     closeTaskModal() {
       this.taskToEdit = null;
-    },
+    }
   },
 
   components: {
     Container,
     Draggable,
     taskGroup,
-    taskDetails,
+    taskDetails
   },
   computed: {
     board() {

@@ -54,9 +54,10 @@
           <task-activity v-if="activitiesToShow" :activities="activitiesToShow" />
         </div>
         <div class="task-right-container flex col">
-          <button>
+          <button @click="toggleMemebersComp">
             <i class="el-icon-user"></i> Members
           </button>
+          <task-members @closeMembersComp="toggleMemebersComp" v-if="memebersOpen" :members="board.members"/>
           <button>
             <i class="el-icon-price-tag"></i> Labels
           </button>
@@ -94,6 +95,7 @@
 import {utilService} from '../utils/utils.js';
 import {loggerService} from "../services/logger-service.js";
 import TaskActionContainer from "./task-action-container.cmp";
+import taskMembers from "../components/task-members.cmp.vue";
 import taskCheckList from '../components/checklist-cmp';
 import taskActivity from '../components/task-activity.cmp.vue';
 import Avatar from 'vue-avatar';
@@ -111,6 +113,7 @@ export default {
       user: null,
       taskIdx: null,
       // checked: false,
+      memebersOpen: false,
       activityToAdd: {
         edditedTask: {
           id: this.taskToEdit.id,
@@ -152,9 +155,6 @@ export default {
     },
   },
   methods: {
-    closeModal() {
-      this.$emit('closeModal')
-    },
     async saveBoard(actionStr = 'ACTION SAVED'){
       const savedBoard = await this.$store.dispatch({ type:"saveBoard", board: this.boardToEdit});
       // USER MSG
@@ -166,6 +166,12 @@ export default {
       } 
       const msg = (savedBoard) ? `${fixedStr} SUCCESSFULLY!` : `${fixedStr} FAILD...`
       eventBus.$emit(SHOW_MSG, {msg, type});
+    },
+    closeModal() {
+      this.$emit('closeModal')
+    },
+    toggleMemebersComp(){
+      this.memebersOpen = !this.memebersOpen
     },
     //DESCREPTION 
     focusOnDesc(){
@@ -252,7 +258,8 @@ export default {
     taskCheckList,
     Avatar,
     TaskActionContainer,
-    taskActivity
+    taskActivity,
+    taskMembers
   }
 };
 </script>
