@@ -7,9 +7,6 @@
 <script>
 export default {
   props: ["board"],
-  created() {
-    console.log("preview:", this.board);
-  },
   methods:{
       moveToBoard(){
           this.$router.push(`/board/${this.board._id}`)
