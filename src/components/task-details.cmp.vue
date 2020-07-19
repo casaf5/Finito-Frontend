@@ -21,9 +21,11 @@
           <div class="task-members-labels-date flex wrap">
             <section class="task-members-container">
               <h6>MEMBERS |</h6>
+              <!-- change to id when users have it -->
               <div v-for="(member,idx) in task.members" :key="idx">
                 <!-- change to member name -->
-                <avatar :username="member"></avatar>
+                <avatar class="members-avatar" v-if="member.url" :src="member.url"></avatar>
+                <avatar class="members-avatar" v-else :username="member.name"></avatar>
               </div>
             </section>
             <section class="task-labels-container">
@@ -57,7 +59,9 @@
           <button @click="toggleMemebersComp">
             <i class="el-icon-user"></i> Members
           </button>
-          <task-members @closeMembersComp="toggleMemebersComp" v-if="memebersOpen" :members="board.members"/>
+          <!-- :removeMember="memberLeft"  -->
+          <task-members @addMember="addMember" @removeMember="removeMember" @closeMembersComp="toggleMemebersComp" 
+          v-if="memebersOpen" :boardMembers="board.members" :taskMembers="task.members"/>
           <button>
             <i class="el-icon-price-tag"></i> Labels
           </button>
@@ -241,7 +245,15 @@ export default {
     // OTHERS
     // get an obj of the changes and update the board
     coverUpdated(cover) {},
-    memberJoined(memeber) {},
+    addMember(member) {
+      this.task.members.push(member)
+      this.addActivity('JOINED_MEMBER')
+    },
+    removeMember(member){
+      const idx = this.task.members.findIndex(m => m.id === member.id)
+       this.task.members.splice(idx, 1);
+       this.addActivity('MEMBER_LEFT')
+    },
     fileAttched(file) {},
 
     addActivity(action, changed = "") {

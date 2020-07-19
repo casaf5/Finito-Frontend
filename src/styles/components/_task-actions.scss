@@ -25,7 +25,9 @@
     align-items: center;
     position: relative;
     margin-bottom: 15px;
-
+    .el-icon-close {
+      cursor: pointer;
+    }
     span {
       text-align: center;
     }

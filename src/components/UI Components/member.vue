@@ -1,8 +1,12 @@
 <template>
-  <div class="member-container">
+<section class="member flex space-between">
+  <div class="member-container" @click="emittoggleMember">
     <Avatar :src="member.url" :username="member.name" />
     <span class="member-name">{{member.name}}</span>
   </div>
+  <slot>
+  </slot>
+</section>
 </template>
 
 <script>
@@ -13,11 +17,16 @@ export default {
     member: {
       type: Object,
       required: true
-    }
+    },
   },
   components: {
     Avatar
-  }
+  },
+     methods: {
+      emittoggleMember() {
+        this.$emit("toggleMember");
+      }
+    }
 };
 </script>
 
@@ -29,5 +38,10 @@ export default {
   }
   display: flex;
   align-items: center;
+}
+.v-member{
+    align-self: center;
+    font-size: 0.8rem;
+    margin-right: 0.9rem;
 }
 </style>
