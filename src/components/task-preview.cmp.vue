@@ -20,7 +20,7 @@
             'check-list-completed': checkListsStatus.allTasksCompleted,
           }"
           class="checklist-container"
-          v-if="currentTask.checkLists[0].items.length"
+          v-if="currentTask.checkLists.length"
         >
           <i class="el-icon-document-checked"></i>
           <span>{{ taskString }}</span>
@@ -64,7 +64,6 @@ export default {
           return acc;
         }, 0);
       });
-      console.log(allTasks);
       return {
         allTasks,
         allTasksCompleted,
