@@ -8,11 +8,11 @@
         :key="board._id"
       />
     </section>
-    <section class="new-board">
-      <h4><i class="fas fa-plus-circle"></i> Create New Board</h4>
-    </section>
     <section class="board-temp">
       <h4><i class="fas fa-photo-video"></i> Templates</h4>
+    </section>
+    <section class="new-board">
+      <h4><i class="fas fa-plus-circle"></i> Create New Board</h4>
     </section>
   </div>
 </template>

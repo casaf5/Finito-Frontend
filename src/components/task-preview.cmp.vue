@@ -1,7 +1,10 @@
 <template>
   <div class="task-preview-container">
     <div class="task-preview-content">
-      <div v-if="currentTask.labels.length >= 1" class="task-label-container">
+      <div
+        v-if="currentTask.labels.length >= 1"
+        class="task-label-container"
+      >
         <small-label
           @labelClicked="toggleLabels"
           :enenlargeLabel="enlargeLabel"
@@ -26,7 +29,10 @@
           <span>{{ taskString }}</span>
         </div>
         <i class="el-icon-aim"></i>
-        <i v-if="currentTask.desc" class="fas fa-stream"></i>
+        <i
+          v-if="currentTask.desc"
+          class="fas fa-stream"
+        ></i>
       </div>
     </div>
   </div>
@@ -39,13 +45,13 @@ export default {
   props: {
     task: {
       type: Object,
-      required: true,
-    },
+      required: true
+    }
   },
   methods: {},
   data() {
     return {
-      displayModal: false,
+      displayModal: false
     };
   },
   computed: {
@@ -53,9 +59,9 @@ export default {
       let isUncompleted;
       let completedAmout;
       let allTasks = 0;
-      this.currentTask.checkLists.forEach((checkList) => {
+      this.currentTask.checkLists.forEach(checkList => {
         allTasks += checkList["items"].length;
-        isUncompleted = checkList["items"].some((item) => !item.completed);
+        isUncompleted = checkList["items"].some(item => !item.completed);
         completedAmout = checkList["items"].reduce((acc, task) => {
           if (task.completed) acc++;
           return acc;
@@ -64,7 +70,7 @@ export default {
       return {
         allTasks,
         isUncompleted,
-        completedAmout,
+        completedAmout
       };
     },
     taskString() {
@@ -79,10 +85,10 @@ export default {
     currentTask() {
       const board = this.$store.getters.board;
       const currentTaskGroup = board.taskGroups.findIndex(
-        (taskGroup) => taskGroup.id === this.task.parentListId
+        taskGroup => taskGroup.id === this.task.parentListId
       );
       const currentTask = board.taskGroups[currentTaskGroup].tasks.find(
-        (task) => task.id === this.task.id
+        task => task.id === this.task.id
       );
       return currentTask;
     },
@@ -91,26 +97,26 @@ export default {
     },
     enlargeLabel() {
       const currentTaskGroup = this.board.taskGroups.findIndex(
-        (taskGroup) => taskGroup.id === this.task.parentListId
+        taskGroup => taskGroup.id === this.task.parentListId
       );
       return this.board.taskGroups[currentTaskGroup].labelsOpen;
-    },
+    }
   },
   methods: {
     taskClicked() {
       this.$emit("taskClicked", this.task);
     },
     toggleLabels() {
-      this.board.taskGroups.forEach((taskGroup) => {
+      this.board.taskGroups.forEach(taskGroup => {
         console.log(taskGroup.isOpen);
         taskGroup.labelsOpen = !taskGroup.labelsOpen;
       });
-    },
+    }
   },
   components: {
     Modal,
-    SmallLabel,
-  },
+    SmallLabel
+  }
 };
 </script>
 

@@ -16,7 +16,6 @@ export default {
   },
   async created() {
     const boards = await this.$store.dispatch({ type: "loadBoards" });
-    console.log('trellor created boards res:', boards)
   },
   components: {
     boardDetails

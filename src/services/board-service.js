@@ -20,13 +20,11 @@ async function query(filterBy) {
   // let filterQuery = `?name=${filterBy.name}`;
   const res = await axios.get(_getUrl());
   const boards = res.data;
-  console.log("boards", boards);
   return boards;
 }
 async function getById(boardId) {
   const res = await axios.get(_getUrl(boardId));
   const board = res.data;
-  console.log("board", board);
   return board;
 }
 

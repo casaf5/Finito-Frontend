@@ -3,8 +3,7 @@
     <nav>
       <section
         class="links flex space-between clean-list"
-        v-if="$route.path != '/'"
-      >
+        v-if="$route.path != '/'">
         <section class="flex left-side">
           <router-link tag="li" to="/home"
             ><i class="fas fa-home header-item home-icon"></i
@@ -16,8 +15,6 @@
           <span>Finito</span>
         </section>
         <section class="flex right-side">
-          <!-- <router-link tag="li" to="/about">About</router-link>
-        <router-link tag="li" to="/cmps-check">CMPS CHECK</router-link> -->
           <router-link tag="li" to="/dash" class="header-item"
             >Dashboard</router-link
           >
