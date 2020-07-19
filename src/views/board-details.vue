@@ -48,7 +48,8 @@ export default {
     };
   },
   async created() {
-    let id = "1E3E-1735BF480CA-26A5"; // IN REAL APP WILL COME FROM PARAMS
+    // let id = this.$params.id; 
+    let id="1E3E-1735BF480CA-26A5"
     await this.$store.dispatch({ type: "getBoardById", id });
   },
   methods: {

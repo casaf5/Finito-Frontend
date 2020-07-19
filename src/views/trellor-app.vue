@@ -1,6 +1,5 @@
 <template>
-  <div class="trellor-app main-layout">
-    <h1>Board</h1>
+  <div class="trellor-app">
     <board-details />
   </div>
 </template>

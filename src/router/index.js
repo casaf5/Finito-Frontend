@@ -2,6 +2,7 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import landingPage from '../views/landing-page.vue'
 import trellorApp from '../views/trellor-app.vue'
+import homePage from '../views/home-page.vue'
 
 Vue.use(VueRouter)
 
@@ -9,18 +10,18 @@ Vue.use(VueRouter)
   {
     path: '/',
     name: 'Landing-Page',
-    component: trellorApp
+    component: () => import(/* webpackChunkName: "about" */ '../views/landing-page.vue')
   },
   {
-    path: '/cmps-check',
+    path: '/home',
     // name: 'Landing-Page',
-    component: landingPage
+    component: () => import(/* webpackChunkName: "about" */ '../views/home-page.vue')  
   },
-  // {
-  //   path: '/about',
-  //   name: 'About',
-  //   component: () => import(/* webpackChunkName: "about" */ '../views/About.vue')
-  // }
+  {
+    path: '/board/:id',
+    name: 'Trellor-app',
+    component: () => import(/* webpackChunkName: "about" */ '../views/trellor-app.vue')
+  }
 ]
 
 const router = new VueRouter({

@@ -9,8 +9,8 @@
             <h2 class="task-name">{{ task.title }}</h2>
             <h5 class="task-group-name">in Group <span>{{taskGroup.title}}</span></h5>
           </div>
-          <!-- <el-checkbox v-model="checked" class="task-isComplete">Completed</el-checkbox> -->
-          <div class="task-members-labels-container flex wrap " >
+          <el-checkbox v-model="checked" class="task-isComplete">Completed</el-checkbox>
+          <div class="task-members-labels-date flex wrap " >
             <section class="task-members-container">
               <h6>MEMBERS | </h6>
               <div v-for="(member,idx) in task.members" :key="idx">
@@ -33,11 +33,11 @@
             @click="focusOnDesc" v-model="task.desc" ref="desTextArea"
             @blur="removeFocus" class="desc-textarea" />
           </div>
-          <div  class="task-checklists" v-if="task.checkLists.length!=0">
-               <task-check-list v-for="checklist in task.checkLists" 
+          <div  class="task-checklists" v-if="task.checkLists.length">
+               <task-check-list v-for="(checklist,idx) in task.checkLists" 
                :checklist="checklist" 
-               :key="checklist.id" 
-               @remove="removeCheckList(checklist.id)"
+               :key="idx" 
+               @remove="checkListRemoved(idx)"
                @update="saveBoard"
                />
           </div>
@@ -60,7 +60,7 @@
           <button>
             <i class="el-icon-date"></i> Due date
           </button>
-          <button @click="addCheckList">
+          <button @click="addCheckList">  
             <i class="el-icon-document-checked"></i> Checklist
           </button>
           <button>
@@ -69,7 +69,7 @@
           <button>
             <i class="el-icon-picture-outline"></i> Cover
           </button>
-          <button>
+          <button @click="copyTask">
             <i class="el-icon-document-copy"></i> Copy
           </button>
           <button @click="removeTask">
@@ -144,9 +144,6 @@ export default {
         return activities;
       }
     },
-    checkListsToShow() {
-      return this.task.checkLists[0].items;
-    }
   },
   methods: {
     closeModal() {
@@ -164,16 +161,6 @@ export default {
      this.$refs.desTextArea.classList.remove('edit')
      this.saveBoard()
     },
-    //CheckList
-    addCheckList(){
-      this.task.checkLists.push(utilService.getEmptyCheckList())
-      this.saveBoard()
-    },
-    removeCheckList(id){
-      const listIdx=this.task.checkLists.findIndex(list=>list.id===id)
-      this.task.checkLists.splice(listIdx,1)
-      this.saveBoard()
-    },
  
     // TASK CRUDL +
     removeTask() {
@@ -181,6 +168,7 @@ export default {
       this.addActivity("REMOVED_TASK");
       this.closeModal();
     },
+    // change id after copy --- make more options
     copyTask() {
       this.taskGroup.tasks.unshift(JSON.parse(JSON.stringify(this.task)));
       this.addActivity("COPPIED_TASK");
@@ -213,10 +201,12 @@ export default {
       this.addActivity("REMOVED_LABEL");
     },
     // CHECKLIST CRUDL => should emit by component (inside will be also items crudl)
-    checkListAdded(checklist) {
-      this.task.checkLists.push(checklist);
+    //CheckList
+    addCheckList(){
+      this.task.checkLists.push(utilService.getEmptyCheckList())
       this.addActivity("ADDED_CHECKLIST");
     },
+
     checkListRemoved(idx) {
       this.task.checkLists.splice(idx, 1);
       this.addActivity("REMOVED_CHECKLIST");
@@ -240,6 +230,7 @@ export default {
       const txt = this.getTxtToRndr(action, changed);
       this.activityToAdd.txt = txt;
       this.boardToEdit.activities.unshift(this.activityToAdd);
+      this. saveBoard()
       // const updatedboard = await this.$store.dispatch({ type:"saveBoard", board: this.boardToEdit});
       // const type = (updatedboard) ? 'success' : 'error'
       // const msg = (updatedboard) ? `${this.activityToAdd.action} successfully!` : `${this.activityToAdd.action} faild...`
