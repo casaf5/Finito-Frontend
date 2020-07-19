@@ -9,7 +9,7 @@
       <span type="text">Add another card</span>
       <!-- <i class="el-icon-full-screen screen-icon"></i> -->
     </div>
-    <transition name="fade" mode="out-in">
+    <transition name="fade">
       <div v-if="show" class="add-task-content-container">
         <textarea :placeholder="placeholderText" v-model="content"></textarea>
         <section class="add-task-actions flex space-between">

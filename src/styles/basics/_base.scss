@@ -12,8 +12,7 @@ html {
 body {
   margin: 0;
   background-image: url(~@/assets/images/cartoon-bg.jpg);
-  background-size: auto;
-  background-position: center;
+  background-size: stretch;
   background-repeat: no-repeat;
 }
 body::-webkit-scrollbar {

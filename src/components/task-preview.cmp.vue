@@ -1,5 +1,6 @@
 <template>
   <div class="task-preview-container">
+    <section class="task-cover"></section>
     <div class="task-preview-content">
       <div v-if="currentTask.labels.length >= 1" class="task-label-container">
         <small-label
