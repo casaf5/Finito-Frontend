@@ -1,5 +1,5 @@
 <template>
-    <div class="user-msg screen" :class="msgClass" v-show="message">
+    <div class="user-msg screen" :class="msgClass"  v-show="message">
         <h3>{{message}}</h3>
     </div>
 </template>
@@ -20,11 +20,11 @@ export default {
   
     created() {
         eventBus.$on(SHOW_MSG, msg => {
-            this.message = msg
-            // this.msgClass=msgClass
+            this.message = msg.msg
+            this.msgClass=msg.type
             this.timeoutMsg=setTimeout(()=>{
                 this.message=''
-            },2000)
+            },3000)
         })
     },
     destroyed(){

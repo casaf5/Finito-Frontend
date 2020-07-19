@@ -14,11 +14,12 @@
     .checklist-progress-bar{
         .el-progress__text {
             margin-left: 18px;
+            margin-bottom: 1rem;
         }
     }
     .checklist-container{
         >*{
-            margin: 5px 5px 5px 0px;
+            margin: 5px 5px 16px 0px;
             font-size: rem(15px);
         }
         .check-item.isDone{
@@ -32,12 +33,14 @@
         width: max-content;
         padding:5px;
         margin-top: 5px;
+        margin-left: 0;
+        cursor: pointer;
     }
     .add-item{
         input{
-            margin-left: 10px;
             width: 90%;
             height: 30px;
+            margin-bottom: 1rem;
         }
         i{
             display: flex;
