@@ -1,7 +1,14 @@
 <template>
   <div class="task-group">
     <div class="task-group-title-container">
-      <input type="text" class="task-group-title" v-model="taskGroup.title" ref="titleInputArea" @click="selectTitle" @blur="updateTitle">
+      <input
+        type="text"
+        class="task-group-title"
+        v-model="taskGroup.title"
+        ref="titleInputArea"
+        @click="selectTitle"
+        @blur="updateTitle"
+      />
       <i @click="show = !show" class="el-icon-more task-icon"></i>
       <task-group-actions
         @createCard="toggleAddTask = !toggleAddTask"
@@ -20,7 +27,7 @@
         :drop-placeholder="dropPlaceholderOptions"
       >
         <Draggable v-for="task in taskGroup.tasks" :key="task.id">
-            <task-preview :task="task" @taskClicked="taskClicked" />
+          <task-preview :task="task" @taskClicked="taskClicked" />
         </Draggable>
       </Container>
     </div>
@@ -45,8 +52,8 @@ export default {
   props: {
     taskGroup: {
       type: Object,
-      required: true
-    }
+      required: true,
+    },
   },
   created() {},
   data() {
@@ -57,30 +64,30 @@ export default {
       dropPlaceholderOptions: {
         className: "task-drop-preview",
         animationDuration: "150",
-        showOnTop: true
+        showOnTop: true,
       },
     };
   },
   computed: {
     board() {
-        return this.$store.getters.board;
-    }
+      return this.$store.getters.board;
+    },
   },
   methods: {
-    selectTitle(){
-    const titleInputArea=this.$refs.titleInputArea
-    titleInputArea.select()
-    titleInputArea.classList.add('edit')
+    selectTitle() {
+      const titleInputArea = this.$refs.titleInputArea;
+      titleInputArea.select();
+      titleInputArea.classList.add("edit");
     },
-    updateTitle(){
+    updateTitle() {
       const board = utilService.deepCopy(this.board);
       const duplicatedList = utilService.deepCopy(this.taskGroup);
       const taksGroupIndex = this.board.taskGroups.findIndex(
-        taskGroup => taskGroup.id === this.taskGroup.id
+        (taskGroup) => taskGroup.id === this.taskGroup.id
       );
-      board.taskGroups.splice(taksGroupIndex , 1, duplicatedList);
+      board.taskGroups.splice(taksGroupIndex, 1, duplicatedList);
       this.$store.dispatch({ type: "saveBoard", board });
-      this.$refs.titleInputArea.classList.remove('edit')
+      this.$refs.titleInputArea.classList.remove("edit");
     },
     taskClicked(task) {
       this.$emit("taskClicked", task);
@@ -89,7 +96,7 @@ export default {
       this.$emit("taskDrop", taskGroupId, dropResult);
     },
     getTaskPayLoad(taskGroupId) {
-      return index => {
+      return (index) => {
         return this.taskGroup.tasks[index];
       };
     },
@@ -113,13 +120,13 @@ export default {
 
       duplicatedList.id = newListId;
 
-      duplicatedList.tasks.forEach(task => {
+      duplicatedList.tasks.forEach((task) => {
         task.parentListId = newListId;
         task.id = utilService.getRandomId();
       });
 
       const taksGroupIndex = this.board.taskGroups.findIndex(
-        taskGroup => taskGroup.id === this.taskGroup.id
+        (taskGroup) => taskGroup.id === this.taskGroup.id
       );
 
       board.taskGroups.splice(taksGroupIndex + 1, 0, duplicatedList);
@@ -127,7 +134,7 @@ export default {
     },
     moveList() {
       const board = utilService.deepCopy(this.board);
-    }
+    },
   },
   components: {
     Container,
@@ -135,7 +142,7 @@ export default {
     TaskPreview,
     taskGroupActions,
     TaskActionContainer,
-    AddTask
-  }
+    AddTask,
+  },
 };
 </script>

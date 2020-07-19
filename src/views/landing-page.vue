@@ -161,7 +161,7 @@ export default {
     font-weight: 600;
     border-radius: 3px;
     font-size: 16px;
-    padding: 15px 30px;
+    padding: 10px 20px;
     background-color: #e63946;
     color: #fff;
     &:hover {

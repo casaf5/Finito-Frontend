@@ -1,126 +1,123 @@
 .task-details-containers-wraper {
-    h5, h6 {
-        color:  rgb(168, 168, 168);
-    }
-    h2{
-        margin-bottom: 0.8rem;
-    }
-    width: 750px;
-    min-height: 95vh;
-    line-height: 1.25rem;
-    background-color:#f4f5f7;
+  h5,
+  h6 {
+    color: rgb(168, 168, 168);
+  }
+  h2 {
+    margin-bottom: 0.8rem;
+  }
+  width: 750px;
+  min-height: 95vh;
+  line-height: 1.25rem;
+  background-color: #f4f5f7;
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translate(-50%);
+  font-size: 1.2rem;
+  margin-top: 5rem;
+  margin-bottom: 3.75rem;
+  z-index: 3;
+  .close-modal-btn {
     position: absolute;
-    top:0;
-    left:50%;
-    transform: translate(-50%);
-    font-size: 1.2rem;
-    margin-top: 5rem;
-    margin-bottom: 3.75rem;
-    z-index: 3;
-    .close-modal-btn{
-        position: absolute;
-        top: 0;
-        right: 6px;
-        border: none;
-        background-color: transparent;
-        font-weight: bold;
-    }
-    button:hover{
-        background-color: rgb(224, 224, 224);
-    }
+    top: 0;
+    right: 6px;
+    border: none;
+    background-color: transparent;
+    font-weight: bold;
+  }
+  button:hover {
+    background-color: rgb(224, 224, 224);
+  }
 }
 
 .task-details-main-container {
-    display: grid;
-    height: 100%;
-    margin-top:10px;
-    grid-template-columns: 0.75fr 0.25fr;
-    grid-template-rows: 1fr;
-    padding:rem(20px);
-    button {
-        border: none;
-        margin: 10px;
-        margin-right: 0;
-        text-align: left;
-        height: 1.8rem;
-        border-radius: 5px;
-    }
-    .task-left-container {
-        display: grid;
-        grid-template-rows: 0.3fr 0.3fr 0.3fr;
-        align-content: start;
-        grid-gap:5px;
-        .task-details-titles-container{
-            .task-group-name{
-                span{
-                    text-decoration: underline;
-                }
-            }
-        }
-        .task-members-labels-date{
-            >h6{
-                display: inline;
-            }
-<<<<<<< HEAD
-=======
-            .members-avatar{
-                width: 2rem !important;
-                height: 2rem !important;
-            }
->>>>>>> ayal
-        }
-        .task-desc-container{
-            .desc-textarea{
-                width: 95%;
-                border: none;
-                padding: 5px 5px 5px 6px;
-                font-size: 14px;
-                font-family: Montserrat;
-                color:black;
-                margin-left: 20px;
-                background-color: transparent;
-                &.edit{
-                    border: 2px solid #172b4d;
-                    background-color: white;
-                  }
-            }
-            }
-        }
-        .task-right-container {
-            button{
-                border: none;
-                border-radius: 5px;
-                height: 3.2rem;
-                margin-left: 1.5rem;
-            }
-        }     
-}
-
-.task-activities{
-
-    .task-activties-header{
-        h4{
-            padding-top: 5px;
-        }
-    }
+  display: grid;
+  height: 100%;
+  margin-top: 10px;
+  grid-template-columns: 0.75fr 0.25fr;
+  grid-template-rows: 1fr;
+  padding: rem(20px);
+  button {
+    border: none;
+    margin: 10px;
+    margin-right: 0;
     text-align: left;
-    font-size: 0.9rem;
-    ul{
-        padding-left: 0;
-        max-height: 170px;
-        overflow-y: auto;
+    height: 1.8rem;
+    border-radius: 5px;
+  }
+  .task-left-container {
+    display: grid;
+    grid-template-rows: 0.3fr 0.3fr 0.3fr;
+    align-content: start;
+    grid-gap: 5px;
+    .task-details-titles-container {
+      .task-group-name {
+        span {
+          text-decoration: underline;
         }
-    button{
-        margin-top: 0;
+      }
     }
-    .activity-avatar{
+    .task-members-labels-date {
+      > h6 {
+        display: inline;
+      }
+      .members-avatar {
         width: 2rem !important;
         height: 2rem !important;
+      }
     }
-    .details-activity-text {
-        margin-left: 0.7rem;
+    .task-desc-container {
+      .desc-textarea {
+        width: 95%;
+        border: none;
+        padding: 5px 5px 5px 6px;
+        font-size: 14px;
+        font-family: Montserrat;
+        color: black;
+        margin-left: 20px;
+        background-color: transparent;
+        &.edit {
+          border: 2px solid #172b4d;
+          background-color: white;
+        }
+      }
     }
-    .details-activity-avatar-text-wraper{
-        margin-bottom: 0.8rem;
+  }
+  .task-right-container {
+    button {
+      border: none;
+      border-radius: 5px;
+      height: 3.2rem;
+      margin-left: 1.5rem;
     }
+  }
+}
+
+.task-activities {
+  .task-activties-header {
+    h4 {
+      padding-top: 5px;
+    }
+  }
+  text-align: left;
+  font-size: 0.9rem;
+  ul {
+    padding-left: 0;
+    max-height: 170px;
+    overflow-y: auto;
+  }
+  button {
+    margin-top: 0;
+  }
+  .activity-avatar {
+    width: 2rem !important;
+    height: 2rem !important;
+  }
+  .details-activity-text {
+    margin-left: 0.7rem;
+  }
+  .details-activity-avatar-text-wraper {
+    margin-bottom: 0.8rem;
+  }
 }
