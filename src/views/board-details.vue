@@ -19,6 +19,7 @@
             @taskClicked="openTaskModal"
           />
         </Draggable>
+        <add-task :inGroup="false" />
       </Container>
     </div>
   </div>
@@ -29,13 +30,16 @@ import { Container, Draggable } from "vue-smooth-dnd";
 import { applyDrag } from "../utils/utils.js";
 import taskDetails from "@/components/task-details.cmp.vue";
 import taskGroup from "../components/task-group.cmp.vue";
+import addTask from "../components/add-task.cmp.vue";
 
 export default {
   name: "board-details",
   components: {
+    addTask,
     Container,
     Draggable,
     taskGroup,
+    taskDetails,
   },
   data() {
     return {
@@ -48,7 +52,7 @@ export default {
     };
   },
   async created() {
-    let id = this.$route.params.id; 
+    let id = this.$route.params.id;
     await this.$store.dispatch({ type: "getBoardById", id });
   },
   methods: {
@@ -81,12 +85,6 @@ export default {
     },
   },
 
-  components: {
-    Container,
-    Draggable,
-    taskGroup,
-    taskDetails,
-  },
   computed: {
     board() {
       return this.$store.getters.board;

@@ -50,7 +50,7 @@ export default {
   },
   computed: {
     buttonText() {
-      return this.inGroup ? "Add Card" : "Add List";
+      return this.inGroup ? "Add task" : "Add List";
     },
     placeholderText() {
       return this.inGroup ? "Enter Card title..." : "Enter List Title...";
