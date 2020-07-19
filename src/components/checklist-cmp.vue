@@ -10,7 +10,7 @@
             </div>
             <ul class="checklist-container clean-list">
                 <li v-for="(item,idx) in checklist.items" class="flex space-between" :key="idx" >
-                  <label :for="idx" class="check-item" >
+                  <label :for="idx" class="check-item" :class={isDone:item.completed} >
                       <input  type="checkbox" v-model="item.completed" :id="idx" @click="changeItemStatus(idx)"  >
                       {{item.content}}
                   </label>

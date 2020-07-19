@@ -43,6 +43,9 @@
         letter-spacing: 2px;
         padding: 0;
         margin: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
       }
       .right-side {
         li {

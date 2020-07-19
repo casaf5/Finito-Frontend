@@ -7,13 +7,15 @@
     <div class="add-task-left-content" @click="toggleEdit" v-if="!show">
       <i class="el-icon-plus task-icon"></i>
       <span type="text">Add another card</span>
-      <i class="el-icon-full-screen task-icon"></i>
+      <!-- <i class="el-icon-full-screen screen-icon"></i> -->
     </div>
     <transition name="fade" mode="out-in">
       <div v-if="show" class="add-task-content-container">
         <textarea :placeholder="placeholderText" v-model="content"></textarea>
-        <button @click="addTask">{{ buttonText }}</button>
-        <i @click="toggleEdit" class="el-icon-close"></i>
+        <section class="add-task-actions flex space-between">
+          <button @click="addTask" :class={editActive:show}>{{ buttonText }}</button>
+          <i @click="toggleEdit" class="el-icon-close"></i>
+        </section>
       </div>
     </transition>
   </div>

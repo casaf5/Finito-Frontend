@@ -11,7 +11,7 @@ html {
 
 body {
   margin: 0;
-  background-image: url(~@/assets/images/mountain-bg.jpg);
+  background-image: url(~@/assets/images/cartoon-bg.jpg);
   background-size: auto;
   background-position: center;
   background-repeat: no-repeat;
@@ -20,7 +20,7 @@ body::-webkit-scrollbar {
   width: 11px;
 }
 body {
-  scrollbar-width: thin;
+  scrollbar-width: auto;
   scrollbar-color: var(--thumbBG) var(--scrollbarBG);
 }
 body::-webkit-scrollbar-track {
