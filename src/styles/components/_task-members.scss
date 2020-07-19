@@ -1,0 +1,9 @@
+.task-members{
+    position: relative;
+    transform: translate(-70%);
+}
+.member:hover{
+    cursor: pointer;
+    background-color: rgb(240, 239, 239);
+    border-radius: 5px;
+}

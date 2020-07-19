@@ -57,6 +57,9 @@ function getTxtToRndr(action, changed, user, task) {
     case "JOINED_MEMBER":
       txt = `${user.name} joined as a memeber to ${task.title}`;
       break;
+    case "MEMBER_LEFT":
+      txt = `${user.name} has left ${task.title}`;
+      break;
     case "MOVED_TASK":
       // changed gets the new list task was moved to
       txt = `${user.name} moved ${this.task.name} to ${changed}`;
