@@ -1,40 +1,88 @@
 .task-details-containers-wraper {
-    width: 60%;
+    h5, h6 {
+        color:  rgb(168, 168, 168);
+    }
+    width: 750px;
     height: 90vh;
-    background-color:white;
+    background-color:#f4f5f7;
     position: absolute;
     top:0;
     left:50%;
     transform: translate(-50%);
     font-size: 1.2rem;
-    padding: 1.25rem;
     margin-top: 5rem;
     margin-bottom: 3.75rem;
-    width: 700px;
     z-index: 999;
-    button{
-        float: right;
+    .close-modal-btn{
+        position: absolute;
+        top: 0;
+        right: 6px;
         border: none;
+        background-color: transparent;
+        font-weight: bold;
     }
 }
 
 .task-details-main-container {
-    height: 100%;
-    flex: 1;
+    display: grid;
+    margin-top:10px;
+    grid-template-columns: 0.8fr 0.2fr;
+    grid-template-rows: 1fr;
+    padding:rem(20px);
     button {
         border: none;
         margin: 10px;
         text-align: left;
+        height: 1.8rem;
+        border-radius: 5px;
     }
+    .task-left-container {
+        display: grid;
+        grid-template-rows: 0.3fr 0.3fr 0.3fr;
+        align-content: start;
+        grid-gap:5px;
+        .task-details-titles-container{
+            .task-group-name{
+                span{
+                    text-decoration: underline;
+                }
+            }
+        }
+        .task-members-labels-container{
+            >h6{
+                display: inline;
+            }
+        }
+        .task-desc-container{
+            .desc-textarea{
+                width: 95%;
+                border: none;
+                padding: 5px 5px 5px 6px;
+                font-size: 14px;
+                font-family: Montserrat;
+                color:black;
+                margin-left: 20px;
+                background-color: transparent;
+                &.edit{
+                    border: 2px solid #172b4d;
+                    background-color: white;
+                  }
+            }
+            }
+        }
+        .task-right-container {
+            button{
+                border: none;
+                border-radius: 5px;
+            }
+        }     
 }
 
-.task-left-container {
-    flex: 1;
-    text-align: left;
-}
 
-.task-right-container {
-    margin-left: 3.5rem;
-    margin-top: 3.8rem;
-    text-align: left;
+
+
+.task-activities{
+    button{
+        margin-top: 0;
+    }
 }

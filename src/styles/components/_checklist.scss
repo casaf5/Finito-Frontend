@@ -1,0 +1,48 @@
+.checklist-wrapper{
+    margin-bottom: 15px;
+    .checklist-header{
+        align-items: center;
+        margin-bottom: 10px;
+        .checklist-remove-btn{
+            margin:0;
+            padding:10px;
+            background-color: #091e420a;
+            border-radius: 0;
+
+        }
+    }
+    .checklist-progress-bar{
+        .el-progress__text {
+            margin-left: 18px;
+        }
+    }
+    .checklist-container{
+        >*{
+            margin: 5px 5px 5px 0px;
+            font-size: rem(15px);
+        }
+        .check-item.isDone{
+            text-decoration:line-through ;
+        }
+    }
+    .new-item-label{
+        margin-left: 10px;
+        font-size: rem(15px);
+        background-color:#47b36b;
+        width: max-content;
+        padding:5px;
+        margin-top: 5px;
+    }
+    .add-item{
+        input{
+            margin-left: 10px;
+            width: 90%;
+            height: 30px;
+        }
+        i{
+            display: flex;
+            align-self: center;
+            justify-self: center;
+        }
+    }
+}

@@ -1,33 +1,32 @@
 <template>
-  <div>
-    <Modal class="modal" v-if="displayModal"></Modal>
-    <div class="task-preview-container">
-      <div class="task-preview-content">
-        <div v-if="currentTask.labels.length>=1" class="task-label-container">
-          <small-label
-            @labelClicked="enlargeLabel = !enlargeLabel"
-            :enenlargeLabel="enlargeLabel"
-            :key="index"
-            v-for="(label,index) in currentTask.labels"
-            :label="label"
-          />
+  <div class="task-preview-container" @click="taskClicked">
+    <div class="task-preview-content">
+      <div v-if="currentTask.labels.length >= 1" class="task-label-container">
+        <small-label
+          @labelClicked="enlargeLabel = !enlargeLabel"
+          :enenlargeLabel="enlargeLabel"
+          :key="index"
+          v-for="(label, index) in currentTask.labels"
+          :label="label"
+        />
+      </div>
+      <div class="task-title flex">
+        <span>{{ task.title }}</span>
+        <i class="el-icon-edit edit"></i>
+      </div>
+      <div class="task-status-container">
+        <div
+          :class="{
+            'check-list-completed': checkListsStatus.allTasksCompleted,
+          }"
+          class="checklist-container"
+          v-if="currentTask.checkLists[0].items.length"
+        >
+          <i class="el-icon-document-checked"></i>
+          <span>{{ taskString }}</span>
         </div>
-        <div class="flex">
-          <span>{{task.title}}</span>
-          <i @click="displayModal = !displayModal" class="el-icon-edit edit"></i>
-        </div>
-        <div class="task-status-container">
-          <div
-            :class="{'check-list-completed':checkListsStatus.allTasksCompleted}"
-            class="checklist-container"
-            v-if="currentTask.checkLists[0].items.length"
-          >
-            <i class="el-icon-document-checked"></i>
-            <span>{{taskString}}</span>
-          </div>
-          <i class="el-icon-aim"></i>
-          <i v-if="currentTask.desc" class="el-icon-tickets"></i>
-        </div>
+        <i class="el-icon-aim"></i>
+        <i v-if="currentTask.desc" class="el-icon-tickets"></i>
       </div>
     </div>
   </div>
@@ -40,14 +39,14 @@ export default {
   props: {
     task: {
       type: Object,
-      required: true
-    }
+      required: true,
+    },
   },
   methods: {},
   data() {
     return {
       displayModal: false,
-      enlargeLabel: false
+      enlargeLabel: false,
     };
   },
   computed: {
@@ -56,10 +55,10 @@ export default {
       let allTasksCompleted;
       let completedAmout;
       let allTasks = 0;
-      this.currentTask.checkLists.forEach(checkList => {
+      this.currentTask.checkLists.forEach((checkList) => {
         allTasks += checkList["items"].length;
-        isUncompleted = checkList["items"].some(item => !item.completed);
-        allTasksCompleted = checkList["items"].every(task => task.completed);
+        isUncompleted = checkList["items"].some((item) => !item.completed);
+        allTasksCompleted = checkList["items"].every((task) => task.completed);
         completedAmout = checkList["items"].reduce((acc, task) => {
           if (task.completed) acc++;
           return acc;
@@ -70,7 +69,7 @@ export default {
         allTasks,
         allTasksCompleted,
         isUncompleted,
-        completedAmout
+        completedAmout,
       };
     },
 
@@ -80,22 +79,27 @@ export default {
     currentTask() {
       const board = this.$store.getters.board;
       const currentTaskGroup = board.taskGroups.findIndex(
-        taskGroup => taskGroup.id === this.task.parentListId
+        (taskGroup) => taskGroup.id === this.task.parentListId
       );
       const currentTask = board.taskGroups[currentTaskGroup].tasks.find(
-        task => task.id === this.task.id
+        (task) => task.id === this.task.id
       );
       return currentTask;
-    }
+    },
+  },
+  methods: {
+    taskClicked() {
+      this.$emit("taskClicked", this.task);
+    },
   },
   components: {
     Modal,
-    SmallLabel
-  }
+    SmallLabel,
+  },
 };
 </script>
 
- <style  lang="scss">
+<style lang="scss">
 // .task-preview-container {
 //   margin: 10px;
 //   .task-preview-content {

@@ -4,14 +4,14 @@
     :class="{'transparent':!inGroup}"
     class="add-task-container"
   >
-    <div @click="toggleEdit" v-if="!show" class="add-task-left-content">
+    <div class="add-task-left-content" @click="toggleEdit" v-if="!show" >
       <i class="el-icon-plus task-icon"></i>
       <span type="text">Add another card</span>
       <i class="el-icon-full-screen task-icon"></i>
     </div>
     <transition name="fade" mode="out-in">
       <div v-if="show" class="add-task-content-container">
-        <textarea :placeholder="placeholderText" v-model="content"></textarea>
+        <textarea :placeholder="placeholderText" v-model="content" ></textarea>
         <button @click="addTask">{{buttonText}}</button>
         <i @click="toggleEdit" class="el-icon-close"></i>
       </div>
@@ -37,6 +37,7 @@ export default {
       if (this.content) {
         if (this.inGroup) {
           this.$emit("addTask", this.content);
+          this.content='';
           this.show = false;
         } else {
           this.$emit("addList", this.content);

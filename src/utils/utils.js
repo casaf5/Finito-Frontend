@@ -1,6 +1,7 @@
 export const utilService = {
   getRandomId,
   getEmptyTask,
+  getEmptyCheckList,
   deepCopy,
 };
 
@@ -9,7 +10,15 @@ export const utilService = {
 function deepCopy(object) {
   return JSON.parse(JSON.stringify(object));
 }
-
+// function for generating an empty checkList
+function getEmptyCheckList() {
+  const checklist={
+    id:getRandomId(),
+    title:"New Checklist",
+    items:[],
+  }
+return checklist
+}
 // function for generating an empty task
 function getEmptyTask(parentListId) {
   const task = {
@@ -57,3 +66,23 @@ function _getRandomInt(num1, num2) {
   var min = num1 <= num2 ? num1 : num2;
   return Math.floor(Math.random() * (max - min)) + min;
 }
+
+//Specific funcion to help in DND on board!
+
+export const applyDrag = (arr, dragResult) => {
+    const { removedIndex, addedIndex, payload } = dragResult
+    if (removedIndex === null && addedIndex === null) return arr
+  
+    const result = [...arr]
+    let itemToAdd = payload
+  
+    if (removedIndex !== null) {
+      itemToAdd = result.splice(removedIndex, 1)[0]
+    }
+  
+    if (addedIndex !== null) {
+      result.splice(addedIndex, 0, itemToAdd)
+    }
+  
+    return result
+  }
