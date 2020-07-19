@@ -1,8 +1,7 @@
 <template>
   <header class="app-header">
-    <user-msg/>
     <nav>
-      <section class="links flex space-between clean-list">
+      <section class="links flex space-between clean-list" v-if="$route.path!='/'">
         <section class="flex left-side">
           <router-link tag="li" to="/home"><i class="fas fa-home header-item home-icon"></i></router-link>
           <input type="text" placeholder="Search..">
@@ -29,8 +28,6 @@
 
 <script>
 import Avatar from 'vue-avatar';
-import {eventBus,SHOW_MSG} from '../services/event-bus-service.js'
-import userMsg from './user-msg.cmp.vue'
 
 export default {
   name: "app-header",
@@ -41,7 +38,6 @@ export default {
    
   },
   components: {
-    userMsg,
     Avatar,
   }
 };
