@@ -1,6 +1,8 @@
 <template>
   <div class="colors-container">
-    <div :style="colorObject" class="color unique-color"></div>
+    <div @click="selectedColor" :style="colorObject" class="color unique-color">
+      <span>{{color.label}}</span>
+    </div>
     <i v-if="displayIcon" class="el-icon-edit"></i>
   </div>
 </template>
@@ -14,10 +16,18 @@ export default {
     },
     displayIcon: {
       type: Boolean
+    },
+    index: {
+      type: Number
     }
   },
   data() {
     return {};
+  },
+  methods: {
+    selectedColor() {
+      this.$emit("selectedColor", this.color.color);
+    }
   },
   computed: {
     colorObject() {

@@ -26,13 +26,4 @@ export default {
 </script>
 
 <style lang="scss" >
-.el-calendar-table {
-  .el-calendar-day {
-    height: 30px !important;
-    text-align: center;
-  }
-  & thead > * {
-    margin: 0px 10px !important;
-  }
-}
 </style>

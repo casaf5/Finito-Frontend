@@ -2,42 +2,50 @@
   <task-action-container
     @back="$emit('back','task-choose-label')"
     title="Create Label"
-    icon="arrow-left"
+    :showIcon="true"
   >
     <div class="task-create-label-container">
       <li>
         <label>Name</label>
-        <input class="task-label-search" type="text" />
+        <form-input v-model="labelText" />
       </li>
       <span>Labels</span>
       <li>
         <label>Select Color</label>
-        <label-color :color="color" :key="index" v-for="(color,index) in colors" />
+        <label-color :color="color" :key="index" v-for="(color,index) in colorsToDisplay" />
       </li>
-      <button @click="createNewLabel">Create</button>
+      <button class="btn-primary" @click="createNewLabel">Create</button>
     </div>
   </task-action-container>
 </template>
 
 <script>
-import TaskActionContainer from "./task-action-container.cmp";
+import TaskActionContainer from "../task-action-container.cmp";
 import LabelColor from "./label-color.cmp";
+import formInput from "../From Elements/form-input.cmp";
 export default {
+  props: {
+    choosenColor: {
+      type: String
+    }
+  },
   components: {
     TaskActionContainer,
-    LabelColor
+    LabelColor,
+    formInput
   },
   data() {
     // <!-- :style="{'background-color':color.color}" -->
     return {
+      labelText: "",
       colors: [
         {
-          label: "",
+          label: "hey",
           color: "#61BD4F",
           selectedColor: "#519839"
         },
         {
-          label: "",
+          label: "hello",
           color: "#f2d600",
           selectedColor: "#D9B51C"
         },
@@ -67,6 +75,19 @@ export default {
   methods: {
     createNewLabel() {
       this.$emit("createLabel");
+    }
+  },
+  computed: {
+    colorsToDisplay() {
+      const searchTerm = this.labelText.toLowerCase();
+      return this.colors.filter(color =>
+        color.label.toLowerCase().includes(searchTerm)
+      );
+    }
+  },
+  created() {
+    if (this.choosenColor) {
+      console.log(this.choosenColor);
     }
   }
 };
