@@ -86,6 +86,7 @@ export default {
       try {
         const savedBoard = await boardService.save(board);
         commit({ type, board: savedBoard });
+        return savedBoard
       } catch (err) {
         console.log("Problem Updating board id-", board._id);
         throw err;

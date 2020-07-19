@@ -3,54 +3,57 @@
     <!-- will change to col from task width-->
     <div class="task-details-containers-wraper">
       <button class="close-modal-btn" @click="closeModal">X</button>
-      <div class="task-details-main-container ">
+      <div class="task-details-main-container">
         <div class="task-left-container">
           <div class="task-details-titles-container">
             <h2 class="task-name">{{ task.title }}</h2>
-            <h5 class="task-group-name">in Group <span>{{taskGroup.title}}</span></h5>
+            <h5 class="task-group-name">
+              in Group
+              <span>{{taskGroup.title}}</span>
+            </h5>
           </div>
-          <el-checkbox v-model="checked" class="task-isComplete">Completed</el-checkbox>
-          <div class="task-members-labels-date flex wrap " >
+          <!-- combine with due date -->
+          <!-- <el-checkbox  @click="toggleTaskCompletion" v-model="checked" class="task-isComplete" >Completed</el-checkbox> -->
+          <label>
+              <input  type="checkbox" v-model="task.isComplete" @click="toggleTaskCompletion"  >
+              Completed
+          </label>
+          <div class="task-members-labels-date flex wrap">
             <section class="task-members-container">
-              <h6>MEMBERS | </h6>
+              <h6>MEMBERS |</h6>
               <div v-for="(member,idx) in task.members" :key="idx">
                 <!-- change to member name -->
-                   <avatar username="member"></avatar>
+                <avatar :username="member"></avatar>
               </div>
             </section>
             <section class="task-labels-container">
               <h6>LABELS</h6>
               <!-- v for labels -->
             </section>
-          <section class="task-date-container">
-            <h6>|DUE DATE</h6>
-            {{task.dueDate}}
-          </section>
+            <section class="task-date-container">
+              <h6>|DUE DATE</h6>
+              {{task.dueDate}}
+            </section>
           </div>
           <div class="task-desc-container">
-            <h4><i class="fas fa-grip-lines"></i> Description</h4>
-            <textarea  placeholder="Add Description to task.." 
-            @click="focusOnDesc" v-model="task.desc" ref="desTextArea"
-            @blur="removeFocus" class="desc-textarea" />
+            <h4>
+              <i class="fas fa-grip-lines"></i> Description
+            </h4>
+            <textarea placeholder="Add Description to task.." @click="focusOnDesc" v-model="task.desc"
+              ref="desTextArea" @blur="removeFocus" class="desc-textarea"/>
           </div>
-          <div  class="task-checklists" v-if="task.checkLists.length">
-               <task-check-list v-for="(checklist,idx) in task.checkLists" 
-               :checklist="checklist" 
-               :key="idx" 
-               @remove="checkListRemoved(idx)"
-               @update="saveBoard"
-               />
+          <div class="task-checklists" v-if="task.checkLists.length">
+            <task-check-list
+              v-for="(checklist,idx) in task.checkLists"
+              :checklist="checklist"
+              :key="idx"
+              @remove="checkListRemoved(idx)"
+              @update=" checkListUpdated(idx)"
+            />
           </div>
-          <div class="task-activities">
-            <div class="task-activties-header flex row space-between">
-              <div>
-                <h4><i class="fas fa-hdd"></i> Activity</h4>
-                <button>Show Details</button>
-              </div>
-            </div>
-          </div>
+          <task-activity v-if="activitiesToShow" :activities="activitiesToShow" />
         </div>
-        <div class="task-right-container flex col ">
+        <div class="task-right-container flex col">
           <button>
             <i class="el-icon-user"></i> Members
           </button>
@@ -60,7 +63,7 @@
           <button>
             <i class="el-icon-date"></i> Due date
           </button>
-          <button @click="addCheckList">  
+          <button @click="checkListAdded">
             <i class="el-icon-document-checked"></i> Checklist
           </button>
           <button>
@@ -89,9 +92,12 @@
 
 <script>
 import {utilService} from '../utils/utils.js';
+import {loggerService} from "../services/logger-service.js";
 import TaskActionContainer from "./task-action-container.cmp";
 import taskCheckList from '../components/checklist-cmp';
+import taskActivity from '../components/task-activity.cmp.vue';
 import Avatar from 'vue-avatar';
+import {eventBus,SHOW_MSG} from '../services/event-bus-service.js'
 
 export default {
   name: "task-details",
@@ -100,10 +106,11 @@ export default {
   data() {
     return {
       task:null,
+      currDescription:this.taskToEdit.desc,
       taskGroup: null,
       user: null,
       taskIdx: null,
-      checked: false,
+      // checked: false,
       activityToAdd: {
         edditedTask: {
           id: this.taskToEdit.id,
@@ -127,7 +134,7 @@ export default {
     this.taskIdx = this.taskGroup.tasks.findIndex(t => t.id === this.task.id);
     this.user = this.$store.getters.loggedUser
       ? this.$store.getters.loggedUser
-      : { name: "Guest", url: "guestimg" };
+      : { name: "Guest", url: "https://api.adorable.io/avatars/400/79c159e13036a02295c94901b6628bfe.png" };
   },
   computed: {
     board() {
@@ -137,9 +144,8 @@ export default {
       let activities = null;
       if (this.boardToEdit) {
         activities = this.boardToEdit.activities;
-        return activities.filter(
-          activity => activity.edditedTask.id === this.task.id
-        );
+        activities =  activities.filter(activity => activity.edditedTask.id === this.task.id);
+        return activities.filter(activity => activity.edditedTask.id === this.task.id);
       } else {
         return activities;
       }
@@ -149,8 +155,17 @@ export default {
     closeModal() {
       this.$emit('closeModal')
     },
-    saveBoard(){
-      this.$store.dispatch({type:'saveBoard',board:this.boardToEdit})
+    async saveBoard(actionStr = 'ACTION SAVED'){
+      const savedBoard = await this.$store.dispatch({ type:"saveBoard", board: this.boardToEdit});
+      // USER MSG
+      const type = (savedBoard) ? 'success' : 'error'
+      let fixedStr = actionStr
+      if (actionStr !== 'ACTION SAVED'){
+      let words = actionStr.split("_")
+      if (words) fixedStr = `${words[0]} ${words[1]}`
+      } 
+      const msg = (savedBoard) ? `${fixedStr} SUCCESSFULLY!` : `${fixedStr} FAILD...`
+      eventBus.$emit(SHOW_MSG, {msg, type});
     },
     //DESCREPTION 
     focusOnDesc(){
@@ -159,9 +174,11 @@ export default {
     },
     removeFocus(){
      this.$refs.desTextArea.classList.remove('edit')
-     this.saveBoard()
+     if (this.currDescription !== this.task.desc) {
+      this.addActivity('UPDATED_DESCRIPSTION')
+      this.currDescription = this.task.desc;
+     }
     },
- 
     // TASK CRUDL +
     removeTask() {
       this.taskGroup.tasks.splice(this.taskIdx, 1);
@@ -176,7 +193,7 @@ export default {
     toggleTaskCompletion() {
       let action = "";
       this.task.isComplete = !this.task.isComplete;
-      action = this.task.isComplete ? " COMPLETED_TASK" : "INCOMPLETED_TASK";
+      action = (this.task.isComplete) ? " COMPLETED_TASK" : "INCOMPLETED_TASK";
       this.addActivity(action);
     },
     watchTask() {},
@@ -202,11 +219,10 @@ export default {
     },
     // CHECKLIST CRUDL => should emit by component (inside will be also items crudl)
     //CheckList
-    addCheckList(){
+    checkListAdded(){
       this.task.checkLists.push(utilService.getEmptyCheckList())
       this.addActivity("ADDED_CHECKLIST");
     },
-
     checkListRemoved(idx) {
       this.task.checkLists.splice(idx, 1);
       this.addActivity("REMOVED_CHECKLIST");
@@ -221,102 +237,22 @@ export default {
     coverUpdated(cover) {},
     memberJoined(memeber) {},
     fileAttched(file) {},
-    ///////// activiy log + state board update/////////
-    // async
+
     addActivity(action, changed = "") {
       this.activityToAdd.action = action;
       this.activityToAdd.byUser = this.user;
-      this.activityToAdd.url = this.user.url;
-      const txt = this.getTxtToRndr(action, changed);
+      const txt = loggerService.getTxtToRndr(action, changed, this.user, this.task);
       this.activityToAdd.txt = txt;
       this.boardToEdit.activities.unshift(this.activityToAdd);
-      this. saveBoard()
-      // const updatedboard = await this.$store.dispatch({ type:"saveBoard", board: this.boardToEdit});
-      // const type = (updatedboard) ? 'success' : 'error'
-      // const msg = (updatedboard) ? `${this.activityToAdd.action} successfully!` : `${this.activityToAdd.action} faild...`
-      // eventBus.$emit(SHOW_MSG, {msg, type});
+      this.saveBoard(action)
     },
-
-    // getting an action and what has been changed (name/date etc..) => using switch case to get the write txt
-    getTxtToRndr(action, changed) {
-      let txt = "";
-      // return `${action} happend`
-      switch (action) {
-        // ADD
-        case "ADDED_LABEL":
-          txt = `${this.user.name} added label in ${this.task.name}`;
-          break;
-        case "ADDED_CHECKLIST":
-          txt = `${this.user.name} added checklist in ${this.task.name}`;
-          break;
-        case "ADDED_ITEM":
-          // checklist name in changed
-          txt = `${this.user.name} added item in ${this.task.name} ${changed}`;
-          break;
-        case "ADDED_COVER":
-          txt = `${this.user.name} added cover to ${this.task.name}`;
-          break;
-        case "ADDED_ATTACHMENT":
-          txt = `${this.user.name} attached a file to ${this.task.name}`;
-          break;
-        // REMOVE
-        case "REMOVED_TASK":
-          txt = `${this.user.name} removed ${this.task.name}`;
-          break;
-        case "REMOVED_LABEL":
-          txt = `${this.user.name} removed label from ${this.task.name}`;
-          break;
-        case "REMOVED_CHECKLIST":
-          txt = `${this.user.name} removed checklist from ${this.task.name}`;
-          break;
-        case "REMOVED_ITEM":
-          // checklist name in changed
-          txt = `${this.user.name} removed item from ${this.task.name} ${changed}`;
-          break;
-        // UPDATE
-        case "UPDATED_DESC":
-          txt = `${this.user.name} updated the description of ${this.task.name}`;
-          break;
-        case "UPDATED_COVER":
-          txt = `${this.user.name} changed the cover of ${this.task.name}`;
-          break;
-        case "UPDATED_DATE":
-          // the new date in changed
-          txt = `${this.user.name} changed the due-date of ${this.task.name} to ${changed}`;
-          break;
-        case "UPDATED_CHECKLIST":
-          // changed is the name of the checklist
-          txt = `${this.user.name} updated the checklist ${changed} in ${this.task.name}`;
-          break;
-        // OTHERS
-        case "JOINED_MEMBER":
-          txt = `${this.user.name} joined as a memeber to ${this.task.name}`;
-          break;
-        case "MOVED_TASK":
-          // changed gets the new list task was moved to
-          txt = `${this.user.name} moved ${this.task.name} to ${changed}`;
-          break;
-        case "isComplete_TASK":
-          txt = `${this.user.name} isComplete the task ${this.task.name}`;
-          break;
-        case "INisComplete_TASK":
-          txt = `${this.user.name} inisComplete the task ${this.task.name}`;
-          break;
-        case "COPPIED_TASK":
-          txt = `${this.user.name} coppied ${this.task.name}`;
-          break;
-        case "WATCHED_TASK":
-          txt = `${this.user.name} watched ${this.task.name}`;
-          break;
-      }
-      return txt;
-    }
   },
  
   components: {
     taskCheckList,
     Avatar,
-    TaskActionContainer
+    TaskActionContainer,
+    taskActivity
   }
 };
 </script>

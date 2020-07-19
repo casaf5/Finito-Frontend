@@ -2,8 +2,12 @@
     h5, h6 {
         color:  rgb(168, 168, 168);
     }
+    h2{
+        margin-bottom: 0.8rem;
+    }
     width: 750px;
-    height: 90vh;
+    min-height: 95vh;
+    line-height: 1.25rem;
     background-color:#f4f5f7;
     position: absolute;
     top:0;
@@ -12,7 +16,7 @@
     font-size: 1.2rem;
     margin-top: 5rem;
     margin-bottom: 3.75rem;
-    z-index: 999;
+    z-index: 3;
     .close-modal-btn{
         position: absolute;
         top: 0;
@@ -21,17 +25,22 @@
         background-color: transparent;
         font-weight: bold;
     }
+    button:hover{
+        background-color: rgb(224, 224, 224);
+    }
 }
 
 .task-details-main-container {
     display: grid;
+    height: 100%;
     margin-top:10px;
-    grid-template-columns: 0.8fr 0.2fr;
+    grid-template-columns: 0.75fr 0.25fr;
     grid-template-rows: 1fr;
     padding:rem(20px);
     button {
         border: none;
         margin: 10px;
+        margin-right: 0;
         text-align: left;
         height: 1.8rem;
         border-radius: 5px;
@@ -74,15 +83,37 @@
             button{
                 border: none;
                 border-radius: 5px;
+                height: 3.2rem;
+                margin-left: 1.5rem;
             }
         }     
 }
 
-
-
-
 .task-activities{
+
+    .task-activties-header{
+        h4{
+            padding-top: 5px;
+        }
+    }
+    text-align: left;
+    font-size: 0.9rem;
+    ul{
+        padding-left: 0;
+        max-height: 170px;
+        overflow-y: auto;
+        }
     button{
         margin-top: 0;
+    }
+    .activity-avatar{
+        width: 2rem !important;
+        height: 2rem !important;
+    }
+    .details-activity-text {
+        margin-left: 0.7rem;
+    }
+    .details-activity-avatar-text-wraper{
+        margin-bottom: 0.8rem;
     }
 }
