@@ -48,8 +48,7 @@ export default {
     };
   },
   async created() {
-    // let id = this.$params.id; 
-    let id="1E3E-1735BF480CA-26A5"
+    let id = this.$route.params.id; 
     await this.$store.dispatch({ type: "getBoardById", id });
   },
   methods: {
