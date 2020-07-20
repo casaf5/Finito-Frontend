@@ -88,7 +88,7 @@ export default {
         commit({ type, board: savedBoard });
         return savedBoard
       } catch (err) {
-        console.log("Problem Updating board id-", board._id);
+        console.log("Problem Saving board id-", board._id);
         throw err;
       }
     },

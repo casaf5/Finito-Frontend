@@ -19,7 +19,7 @@
             @taskClicked="openTaskModal"
           />
         </Draggable>
-        <add-task :inGroup="false" />
+        <add-task :inGroup="false"/>
       </Container>
     </div>
   </div>

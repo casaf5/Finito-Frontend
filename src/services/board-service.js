@@ -1,4 +1,5 @@
 import axios from "axios";
+import {utilService} from '../utils/utils.js'
 axios.defaults.withCredentials = true;
 
 export const boardService = {
@@ -6,7 +7,7 @@ export const boardService = {
   deleteBoard,
   save,
   getById,
-  // getEmptyBoard,
+  getEmptyBoard,
 };
 
 function _getUrl(id = "") {
@@ -45,12 +46,6 @@ function save(board) {
   return board._id ? _update(board) : _add(board);
 }
 
-// function getEmptyBoard(){
-//   return {
-//     name: "",
-//     price: 0,
-//     type: "",
-//     inStock: false,
-//     image:'',
-//   }
-// }
+function getEmptyBoard(){
+  return utilService.getNewBoard()  
+}

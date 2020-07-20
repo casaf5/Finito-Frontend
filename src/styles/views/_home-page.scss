@@ -1,8 +1,8 @@
 .home-page {
   margin-top: 55px;
   justify-self: center;
+  align-self: start;
   width: 70%;
-  z-index: -1;
   > * {
     position: relative;
     justify-content: center;
@@ -27,6 +27,12 @@
     }
     &:hover {
       background-color: #505049d2;
+    }
+  }
+  .new-board {
+    .new-board-details{
+      justify-items: flex-start;
+      align-content: flex-start;
     }
   }
 }

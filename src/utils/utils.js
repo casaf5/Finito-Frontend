@@ -2,6 +2,7 @@ export const utilService = {
   getRandomId,
   getEmptyTask,
   getEmptyCheckList,
+  getNewBoard,
   deepCopy,
 };
 
@@ -52,6 +53,30 @@ function getEmptyTask(parentListId) {
     ],
   };
   return task;
+}
+
+function getNewBoard(){
+  const newBoard={
+    "name": "",
+    "members": [],
+    "tags": [],
+    "style": {
+      "bgColor": "",
+      "bgUrl": ""
+    },
+    "creator": {},
+    "activities": [],
+    "taskGroups": [
+      {
+        "id": getRandomId(),
+        "title": "Task-Group 1",
+        "position": "",
+        "tasks": [],
+        "labelsOpen": false
+      }
+    ]
+  }
+  return newBoard;
 }
 
 function getRandomId() {

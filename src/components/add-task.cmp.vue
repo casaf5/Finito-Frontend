@@ -7,7 +7,6 @@
     <div class="add-task-left-content" @click="toggleEdit" v-if="!show">
       <i class="el-icon-plus task-icon"></i>
       <span type="text">Add another card</span>
-      <!-- <i class="el-icon-full-screen screen-icon"></i> -->
     </div>
     <transition name="fade">
       <div v-if="show" class="add-task-content-container">
@@ -23,6 +22,7 @@
 
 <script>
 export default {
+  name:"add-task",
   props: ["inGroup", "show"],
   data() {
     return {
