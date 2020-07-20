@@ -5,7 +5,6 @@ export const uploadService={
 }
 
 function fileUpload(ev){
-    let downloadLink=''
     const FORM_DATA = new FormData();
     FORM_DATA.append('filesUploaded', ev.target.files[0])
     return fetch('https://srv-file6.gofile.io/upload', {

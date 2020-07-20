@@ -15,9 +15,10 @@
           <button @click="addCheckList">
             <i class="el-icon-document-checked"></i> Checklist
           </button>
-          <button>
+         <button @click="toggleAttach" >
             <i class="el-icon-paperclip"></i> Attachment
           </button>
+          <task-attachment v-if="attachmentsOpen" @closeAttach="toggleAttach" @uploded="addAttachment"/>
           <button>
             <i class="el-icon-picture-outline"></i> Cover
           </button>
@@ -40,6 +41,7 @@
 <script>
 import taskMembers from "../components/task-members.cmp.vue";
 import taskDuedate from "../components/task-duedate.cmp.vue";
+import taskAttachment from '../components/task-attachment.cmp.vue'
 import taskMove from "../components/task-move.cmp.vue";
 import {utilService} from '../utils/utils.js';
 export default {
@@ -49,13 +51,14 @@ export default {
          memebersOpen: false,
          duedateOpen:false,
          moveCompOpen:false,
+         attachmentsOpen:false,
          taskToEdit: null,
          taskGroup: null
       }
   },
   created (){
       this.taskGroup= this.board.taskGroups.find(tg => tg.id === this.task.parentListId)
-      this.taskToEdit=this.taskGroup.tasks.find(t=> t.id === this.task.id)
+      this.taskToEdit=this.taskGroup.tasks.find(t=> t.id === this.task.id) //maybe just deepCopy?
   },
   methods:{
     // TASKS
@@ -102,6 +105,9 @@ export default {
     toggleMoveComp(){
         this.moveCompOpen = !this.moveCompOpen
     },
+    toggleAttach(){
+      this.attachmentsOpen=!this.attachmentsOpen
+    },
     addMember(member) {
       this.taskToEdit.members.push(member)
       this.$emit ('emitBoardChange', 'JOINED_MEMBER')  
@@ -115,6 +121,11 @@ export default {
     addCheckList(){
       this.taskToEdit.checkLists.push(utilService.getEmptyCheckList())
       this.$emit ('emitBoardChange', 'ADDED_CHECKLIST')  
+    },
+    //Attachments
+    addAttachment(fileObj){
+      this.taskToEdit.attachments.push(fileObj)
+      this.$emit ('emitBoardChange', 'ADDED_ATTACHMENT')  
     },
     // OTHERS
     saveDuedate(date) {
@@ -136,11 +147,9 @@ export default {
   components: {
     taskMembers,
     taskDuedate,
-    taskMove
+    taskMove,
+    taskAttachment,
   }
 }
 </script>
 
-<style>
-
-</style>

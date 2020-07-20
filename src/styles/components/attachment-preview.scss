@@ -1,0 +1,49 @@
+.attachment-preview{
+    display: grid;
+    width: 100%;
+    grid-template-columns: 20% 80%;
+    grid-template-rows: repeat(3,30px);
+    padding:5px;
+    transition:all .3s ease-in-out;
+    border-radius: 3px;
+    &:hover{
+        background-color: #e9ebef;
+    }
+    .file-img{
+        height: 90px;
+        border-radius: 3px;
+        grid-column: 1/2;
+        grid-row:1 span;
+    }
+    .file-name{
+        padding: 5px;
+        align-self: center;
+        grid-row:1/2;
+        grid-column: 2/3;
+    }
+    .file-created{
+        align-self: center;
+        grid-row:2/3;
+        grid-column: 2/3;
+        padding: 5px;
+
+    }
+    .file-actions{
+        align-self: center;
+        grid-row:3/4;
+        grid-column: 2/3;
+        padding: 5px;
+    }
+    .file-actions{
+        button{
+            border: none;
+            outline: none;
+            background-color: transparent;
+            text-decoration: underline;
+            margin:5px 5px 5px 0;
+            padding: 0;
+            font-family: Montserrat-Bold;
+            font-weight: bold;
+        }
+    }
+}

@@ -1,20 +1,21 @@
 <template>
   <div class="task-attachment">
     <task-action-container title="Upload Files" @close="closeAttach">
-      <!-- <button >Image</button>
-      <button>File</button> -->
-      <img
-        style="width:200px;height:200px;margin:0 auto;"
-        class="img-upload-preview"
-        :src="attachment.imageUrl"
-      />
+      <img class="img-upload-preview" :src="imageUrl"/>
       <section class="upload-select">
-        <input type="file" @change.prevent="uploadFile" />
-        <input type="file" @change.prevent="uploadImage" />
+        <button @click="openImageInput">Image</button>
+        <button @click="openFileInput">File</button>
+        <input ref="fileInput" type="file" @change.prevent="uploadFile" hidden/>
+        <input
+          ref="imageInput"
+          type="file"
+          @change.prevent="uploadImage"
+          hidden
+        />
       </section>
       <h5>{{ uploadStatus }}</h5>
       <section class="upload-options" v-if="sucsses">
-        <input type="text" placeholder="Your File Name" />
+        <input type="text" placeholder="Your File Name" v-model="fileName" />
         <button @click="addFile">Add to Task</button>
       </section>
     </task-action-container>
@@ -30,35 +31,47 @@ export default {
   data() {
     return {
       sucsses: null,
-      attachment: {
-        imageUrl:
-          "https://res.cloudinary.com/dwgaobhor/image/upload/v1595256587/file-logo_ngwvr9.png",
-        fileName: "New File",
-        createdAt: null,
-        downloadLink: null,
-      },
+      imageUrl:
+        "https://res.cloudinary.com/dwgaobhor/image/upload/v1595256587/file-logo_ngwvr9.png",
+      fileName: "New File",
+      downloadLink: null,
+      attachment: null,
     };
   },
   methods: {
-    uploadFile(ev) {
-      uploadService.fileUpload(ev).then((dLink) => {
-        this.downloadLink = `https://gofile.io/?c=${dLink.data.code}`;
-        this.createdAt = new Date().toLocaleDateString();
-        this.sucsses=true
-      });
+    async uploadFile(ev) {
+      let res = await uploadService.fileUpload(ev);
+      this.downloadLink = `https://gofile.io/?c=${res.data.code}`;
+      this.fileName = ev.target.files[0].name;
+      this.createAttachment(ev);
     },
     async uploadImage(ev) {
       let url = await uploadService.imageUpload(ev);
       this.imageUrl = url;
-      this.createdAt = new Date().toLocaleDateString();
       this.downloadLink = url;
-      this.sucsses=true
+      this.fileName = ev.target.files[0].name;
+      this.createAttachment();
+    },
+    createAttachment() {
+      this.attachment = {
+        name: this.fileName,
+        imageUrl: this.imageUrl,
+        createdAt: Date.now(),
+        downloadLink: this.downloadLink,
+      };
+      this.sucsses = true;
     },
     closeAttach() {
       this.$emit("closeAttach");
     },
     addFile() {
       this.$emit("uploded", this.attachment);
+    },
+    openImageInput() {
+      this.$refs.imageInput.click();
+    },
+    openFileInput() {
+      this.$refs.fileInput.click();
     },
   },
   computed: {

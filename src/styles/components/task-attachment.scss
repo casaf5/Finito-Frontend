@@ -1,5 +1,10 @@
-.task-attachment{
-    position: fixed;
-    top:50%;
-    left:50%
+.task-attachment {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  .img-upload-preview {
+    width: 80px;
+    height: 80px;
+
+  }
 }

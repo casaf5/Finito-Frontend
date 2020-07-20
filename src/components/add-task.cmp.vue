@@ -40,10 +40,8 @@ export default {
         if (this.inGroup) {
           this.$emit("addTask", this.content);
           this.content = "";
-          this.show = false;
         } else {
           this.$emit("addList", this.content);
-          this.show = false;
         }
         return;
       }

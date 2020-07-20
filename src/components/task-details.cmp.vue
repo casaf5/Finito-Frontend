@@ -44,6 +44,12 @@
             <textarea placeholder="Add Description to task.." @click="focusOnDesc" v-model="task.desc"
               ref="desTextArea" @blur="removeFocus" class="desc-textarea"/>
           </div>
+           <div class="task-attachments-container">
+            <h4>
+             <i class="fas fa-file-alt"></i> Attachments
+            </h4>
+            <file-preview v-for="(file,idx) in task.attachments" :file="file" :key="idx"/>
+          </div>
           <div class="task-checklists" v-if="task.checkLists.length">
             <task-check-list
               v-for="(checklist,idx) in task.checkLists"
@@ -73,6 +79,7 @@ import detailsBtns from "./details-btns.cmp";
 import taskCheckList from '../components/checklist-cmp';
 import taskActivity from '../components/task-activity.cmp.vue';
 import taskAttachment from '../components/task-attachment.cmp.vue';
+import filePreview from '../components/task-attach-preview.cmp.vue'
 
 import Avatar from 'vue-avatar';
 import {eventBus,SHOW_MSG} from '../services/event-bus-service.js'
@@ -195,7 +202,8 @@ export default {
     Avatar,
     TaskActionContainer,
     taskActivity,
-    detailsBtns
+    detailsBtns,
+    filePreview
   }
 };
 </script>

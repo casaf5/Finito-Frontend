@@ -3,6 +3,8 @@ import App from "./app.vue";
 import "./registerServiceWorker";
 import router from "./router";
 import store from "./store";
+import moment from 'moment';
+moment().format();
 import "./styles/styles.scss";
 
 //EXTENAL LIBS
