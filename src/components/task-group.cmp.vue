@@ -9,10 +9,16 @@
         @click="selectTitle"
         @blur="updateTitle"
       />
+      <transition name="fade">
+        <i v-if="taskGroup.isWatched" class="fas fa-eye task-icon"></i>
+      </transition>
       <i @click="show = !show" class="el-icon-more task-icon"></i>
       <task-group-actions
+        @watchList="watchList"
+        @moveToDifferentBoard="moveToDifferentBoard"
         @createCard="toggleAddTask = !toggleAddTask"
         @duplicateList="duplicateList"
+        @sortBy="sortBy"
         @close="show = !show"
         v-show="show"
       />
@@ -71,6 +77,9 @@ export default {
   computed: {
     board() {
       return this.$store.getters.board;
+    },
+    boards() {
+      return this.$store.getters.boards;
     },
   },
   methods: {
@@ -132,8 +141,21 @@ export default {
       board.taskGroups.splice(taksGroupIndex + 1, 0, duplicatedList);
       this.$store.dispatch({ type: "saveBoard", board });
     },
-    moveList() {
+    moveToDifferentBoard(index) {
+      const taksGroupIndex = this.board.taskGroups.findIndex(
+        (taskGroup) => taskGroup.id === this.taskGroup.id
+      );
       const board = utilService.deepCopy(this.board);
+      const taskGroupToMove = utilService.deepCopy(this.taskGroup);
+      board.taskGroups.splice(taksGroupIndex, 1);
+      this.boards[index].taskGroups.push(taskGroupToMove);
+    },
+    watchList() {
+      this.taskGroup.isWatched = !this.taskGroup.isWatched;
+    },
+    sortBy(order) {
+      //implement
+      console.log(order);
     },
   },
   components: {

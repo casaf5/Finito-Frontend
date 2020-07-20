@@ -6,7 +6,7 @@
       Move List...
     </li>
     <li @click="emitCompoenentToRender('SortBy', 'Sort By')">Sort By...</li>
-    <li>Watch</li>
+    <li @click="$emit('watchList')">Watch</li>
     <hr />
     <li>Move All Cards in this List...</li>
     <li>Archive All Cards in this List...</li>
