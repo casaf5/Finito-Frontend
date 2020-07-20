@@ -29,12 +29,15 @@
     .new-item-label{
         margin-left: 10px;
         font-size: rem(15px);
-        background-color:#61bd4f;
+        background-color:rgb(239, 239, 239);
         width: max-content;
         padding:5px;
         margin-top: 5px;
         margin-left: 0;
         cursor: pointer;
+    }
+    .new-item-label:hover{
+        background-color:rgb(224, 224, 224);
     }
     .add-item{
         input{

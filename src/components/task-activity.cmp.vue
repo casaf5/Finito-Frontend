@@ -3,7 +3,7 @@
     <div class="task-activities">
       <div class="task-activties-header flex row space-between">
           <h4>
-            <i class="fas fa-hdd"></i> Activity
+            <i class="fas fa-tasks"></i> Activity
           </h4>
           <button @click="toggleBtn">{{btnTxt}}</button>
       </div>

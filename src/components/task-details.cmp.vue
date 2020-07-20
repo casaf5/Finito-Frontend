@@ -1,45 +1,49 @@
 <template>
   <section class="task-details">
     <!-- will change to col from task width-->
-    <div class="task-details-containers-wraper">
-      <button class="close-modal-btn" @click="closeModal">X</button>
+    <div class="task-details-containers-wraper"> 
+      <button class="close-modal-btn" @click="closeModal"><i class="el-icon-close"></i></button>
       <div class="task-details-main-container">
         <div class="task-left-container">
           <div class="task-details-titles-container">
-            <h2 class="task-name">{{ task.title }}</h2>
-            <h5 class="task-group-name">
-              in Group
+            <h2 class="task-name"><i class="el-icon-postcard icon-margin"></i>{{ task.title }}</h2>
+            <h6 class="task-group-name">
+              Task-Group
               <span>{{taskGroup.title}}</span>
-            </h5>
+            </h6>
           </div>
           <!-- combine with due date -->
           <!-- <el-checkbox  @click="toggleTaskCompletion" v-model="checked" class="task-isComplete" >Completed</el-checkbox> -->
-          <label>
-              <input  type="checkbox" v-model="task.isComplete" @click="toggleTaskCompletion"  >
-              Completed
-          </label>
           <div class="task-members-labels-date flex wrap">
-            <section class="task-members-container">
-              <h6>MEMBERS |</h6>
-              <!-- change to id when users have it -->
-              <div v-for="(member,idx) in task.members" :key="idx">
+            <section v-show="task.members.length" class="task-members-container-wraper">
+              <h6>MEMBERS </h6>
+              <div class="task-members-container flex">
+               <div v-for="(member,idx) in task.members" :key="idx">
                 <!-- change to member name -->
                 <avatar class="members-avatar" v-if="member.url" :src="member.url"></avatar>
                 <avatar class="members-avatar" v-else :username="member.name"></avatar>
+               </div>
               </div>
             </section>
-            <section class="task-labels-container">
-              <h6>LABELS</h6>
+             <section v-show="task.labels.length" class="task-labels-container-wraper">
+            <h6>LABELS</h6>
+             <div class="task-labels-container flex">
               <!-- v for labels -->
+              </div>
             </section>
-            <section class="task-date-container">
-              <h6>|DUE DATE</h6>
+            <section v-show="task.dueDate" class="task-date-container-wraper">
+             <h6>DUE DATE</h6>
+              <div class="task-date-container flex">
+               <label>
+              <input  type="checkbox" v-model="task.isComplete" @click="toggleTaskCompletion"  >
               {{task.dueDate}}
+              </label>
+              </div>
             </section>
-          </div>
+          </div>   
           <div class="task-desc-container">
             <h4>
-              <i class="fas fa-grip-lines"></i> Description
+              <i class="el-icon-s-unfold "></i> Description
             </h4>
             <textarea placeholder="Add Description to task.." @click="focusOnDesc" v-model="task.desc"
               ref="desTextArea" @blur="removeFocus" class="desc-textarea"/>

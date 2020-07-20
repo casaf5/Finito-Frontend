@@ -2,7 +2,7 @@
 <template>
    <section class="checklist-wrapper">
             <section class="checklist-header flex space-between">
-                <h4><i class="fas fa-tasks"></i> Checklist</h4>
+                <h4><i class="el-icon-circle-check check-icon"></i> Checklist</h4>
                 <button class="checklist-remove-btn" @click="removeList">Delete</button>
             </section>
             <div class="checklist-progress-bar">
@@ -23,7 +23,7 @@
                   <i class="fas fa-plus-circle" @click="addItem"></i>
                 </section>
                    <label class="new-item-label flex space-between" @click="openCloseAdd">
-                     Add New Task
+                     Add an item
                     </label>
         </section> 
 </template>

@@ -24,7 +24,7 @@
           </button>
           <button @click="copyTask">
             <i class="el-icon-document-copy"></i> Copy
-          </button>
+          </button> 
           <button @click="removeTask">
             <i class="el-icon-delete"></i> Remove
           </button>
