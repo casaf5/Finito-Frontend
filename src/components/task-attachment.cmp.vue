@@ -1,7 +1,10 @@
 <template>
   <div class="task-attachment">
     <task-action-container title="Upload Files" @close="closeAttach">
-      <img class="img-upload-preview" :src="imageUrl"/>
+      <section class="img-container">
+           <img class="img-upload-preview" :src="imageUrl"/>
+      </section>
+      <h5 class="status"> {{uploadStatus }}</h5>
       <section class="upload-select">
         <button @click="openImageInput">Image</button>
         <button @click="openFileInput">File</button>
@@ -13,7 +16,6 @@
           hidden
         />
       </section>
-      <h5>{{ uploadStatus }}</h5>
       <section class="upload-options" v-if="sucsses">
         <input type="text" placeholder="Your File Name" v-model="fileName" />
         <button @click="addFile">Add to Task</button>
