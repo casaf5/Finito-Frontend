@@ -1,9 +1,9 @@
 <template>
   <div style="position:relative">
-    <!-- <TaskLabel /> -->
+    <TaskLabel />
     <!-- <CheckList /> -->
     <!-- <Calender /> -->
-    <Members />
+    <!-- <Members /> -->
   </div>
 </template>
 

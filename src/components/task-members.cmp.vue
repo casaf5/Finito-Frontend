@@ -27,6 +27,9 @@
             >
           </div>
         </div>
+        <div v-else>
+          <span>Start typing to search for members in the group </span>
+        </div>
       </div>
       <!-- <button class="btn-primary large">Add</button> -->
     </task-action-container>
