@@ -32,10 +32,11 @@
           outline: none;
         }
         .search-icon {
-          font-size: rem(25px);
+          font-size: rem(16px);
           position: absolute;
-          left: 325px;
-          top: 10px;
+          left: 327px;
+          top: 16px;
+          cursor: pointer;
         }
       }
       .logo {

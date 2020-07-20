@@ -1,10 +1,18 @@
 <template>
   <div>
-    <task-action-container @back="back" @close="close" :showIcon="showIcon" :title="title">
+    <task-action-container
+      @back="back"
+      @close="close"
+      :showIcon="showIcon"
+      :title="title"
+    >
       <component
         @duplicateList="duplicateList"
         @createCard="createCard"
+        @moveToDifferentBoard="moveToDifferentBoard"
         @compToRender="toggleCompoent"
+        @watchList="$emit('watchList')"
+        @sortBy="emitSortBy"
         :is="componentToRender"
       />
     </task-action-container>
@@ -21,14 +29,14 @@ export default {
     return {
       componentToRender: "list-of-actions",
       title: "List of Actions",
-      showIcon: false
+      showIcon: false,
     };
   },
   components: {
     TaskActionContainer,
     ListOfActions,
     MoveList,
-    SortBy
+    SortBy,
   },
   methods: {
     resetComponent() {
@@ -36,7 +44,9 @@ export default {
       this.showIcon = false;
       this.title = "List of Actions";
     },
-
+    moveToDifferentBoard(index) {
+      this.$emit("moveToDifferentBoard", this.boardToMoveTo);
+    },
     close() {
       this.$emit("close");
       this.resetComponent();
@@ -56,10 +66,13 @@ export default {
     duplicateList() {
       this.$emit("duplicateList");
       this.$emit("close");
-    }
-  }
+    },
+    emitSortBy(order) {
+      this.$emit("sortBy", order);
+      this.$emit("close");
+    },
+  },
 };
 </script>
 
-<style lang="scss" scoped>
-</style>
+<style lang="scss" scoped></style>
