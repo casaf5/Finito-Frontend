@@ -11,8 +11,9 @@
           :color="color"
           :key="index"
           :index="index"
-          v-for="(color, index) in colorsToDisplay"
+          v-for="(color, index) in labelsToDisplay"
           @labelClicked="labelClicked"
+          @editLabel="editLabel"
         />
       </li>
       <button class="btn-primary" @click="createNewLabel">
@@ -27,6 +28,11 @@ import TaskActionContainer from "../task-action-container.cmp";
 import LabelColor from "./label-color.cmp";
 import FormInput from "../From Elements/form-input.cmp";
 export default {
+  props: {
+    colors: {
+      type: Array,
+    },
+  },
   components: {
     TaskActionContainer,
     LabelColor,
@@ -35,68 +41,25 @@ export default {
   data() {
     return {
       labelText: "",
-      colors: [
-        {
-          label: "hey",
-          color: "#61BD4F",
-          selectedColor: "#519839",
-          wasClicked: false,
-        },
-        {
-          label: "hello",
-          color: "#f2d600",
-          selectedColor: "#D9B51C",
-          wasClicked: false,
-        },
-        {
-          label: "",
-          color: "#ff9f1a",
-          selectedColor: "#cd8313",
-          wasClicked: false,
-        },
-        {
-          label: "",
-          color: "#eb5a46",
-          selectedColor: "#b04632",
-          wasClicked: false,
-        },
-        {
-          label: "",
-          color: "#0079BF",
-          selectedColor: "#055A8C",
-          wasClicked: false,
-        },
-        {
-          label: "",
-          color: "#C377E0",
-          selectedColor: "#89609E",
-          wasClicked: false,
-        },
-      ],
     };
   },
   methods: {
     createNewLabel() {
-      this.$emit("createLabel", "task-create-label");
+      this.$emit("toggleCreateComponent", "task-create-label");
     },
     labelClicked({ label, index }) {
       this.$emit("labelClicked", label);
-      console.log("before press", this.colors[index].wasClicked);
       this.colors[index].wasClicked = !this.colors[index].wasClicked;
-      console.log("after press", this.colors[index].wasClicked);
     },
-    // selectedColor(choosenColor) {
-    //   this.$emit("createLabel", {
-    //     name: task - create - label,
-    //     color: choosenColor
-    //   });
-    // }
+    editLabel(label) {
+      this.$emit("editLabel", label);
+    },
   },
   computed: {
-    colorsToDisplay() {
+    labelsToDisplay() {
       const searchTerm = this.labelText.toLowerCase();
       return this.colors.filter((color) =>
-        color.label.toLowerCase().includes(searchTerm)
+        color.title.toLowerCase().includes(searchTerm)
       );
     },
   },

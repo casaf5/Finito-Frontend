@@ -1,9 +1,14 @@
 <template>
   <div class="colors-container">
-    <div @click="labelClicked" :style="colorObject" class="color unique-color">
-      <span>{{ color.label }}</span>
+    <div
+      :class="{ 'color-clicked': this.color.wasClicked }"
+      @click="labelClicked"
+      :style="colorObject"
+      class="color unique-color"
+    >
+      <span :class="{ red: this.clickedLabelClass }">{{ color.title }}</span>
     </div>
-    <i v-if="displayIcon" class="el-icon-edit"></i>
+    <i @click="editLabel" v-if="displayIcon" class="el-icon-edit"></i>
   </div>
 </template>
 
@@ -19,6 +24,15 @@ export default {
     index: {
       type: Number,
     },
+    editMode: {
+      type: Boolean,
+    },
+    choosenLabelIndex: {
+      type: Number,
+    },
+    createMode: {
+      type: Boolean,
+    },
   },
   data() {
     return {};
@@ -26,10 +40,24 @@ export default {
   methods: {
     labelClicked() {
       const label = {
-        title: this.color.label,
+        title: this.color.title,
         color: this.color.color,
+        selectedColor: this.color.selectedColor,
+        wasClicked: false,
       };
+      if (this.createMode) {
+        this.$emit("createLabel", { label: label, index: this.index });
+      }
       this.$emit("labelClicked", { label: label, index: this.index });
+    },
+    editLabel() {
+      const label = {
+        title: this.color.title,
+        color: this.color.color,
+        selectedColor: this.color.selectedColor,
+        wasClicked: this.color.wasClicked,
+      };
+      this.$emit("editLabel", { label, labelIndex: this.index });
     },
   },
   computed: {
@@ -37,11 +65,24 @@ export default {
       return {
         "--color": this.color.color,
         "--hover-color": this.color.selectedColor,
+        "color-clicked": this.color.wasClicked,
         width: this.displayIcon ? "85%" : "100%",
       };
+    },
+    clickedLabelClass() {
+      return this.choosenLabelIndex === this.index && this.editMode
+        ? "red"
+        : "";
     },
   },
 };
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.red {
+  color: red !important;
+}
+.color-clicked {
+  padding: 30px !important;
+}
+</style>

@@ -16,9 +16,15 @@
         <i class="el-icon-edit edit"></i>
       </div>
       <div class="task-status-container" @click="taskClicked">
-        <div :class="{'check-list-completed': allCompleted,}" class="checklist-container" v-if="currentTask.checkLists.length">
-          <i class="el-icon-document-checked"></i>
-          <span>{{ taskString }}</span>
+        <div
+          :class="{ 'check-list-completed': allCompleted }"
+          class="checklist-container"
+          v-if="currentTask.checkLists.length"
+        >
+          <div v-if="checkListsStatus.allTasks">
+            <i class="el-icon-document-checked"></i>
+            <span>{{ taskString }}</span>
+          </div>
         </div>
         <!-- <i class="el-icon-aim"></i> -->
         <i v-if="currentTask.desc" class="fas fa-stream"></i>
