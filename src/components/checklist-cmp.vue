@@ -1,8 +1,9 @@
 
 <template>
    <section class="checklist-wrapper">
-            <section class="checklist-header flex space-between">
-                <h4><i class="el-icon-circle-check check-icon"></i> Checklist</h4>
+            <section class="checklist-header">
+                <i class="el-icon-circle-check check-icon"></i>
+                <h4> Checklist</h4>
                 <button class="checklist-remove-btn" @click="removeList">Delete</button>
             </section>
             <div class="checklist-progress-bar">

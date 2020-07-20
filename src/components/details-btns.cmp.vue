@@ -1,5 +1,6 @@
 <template>
-    <section class="flex col">
+    <section class="task-actions">
+      <label>Add To Task</label>
         <button @click="toggleMemebersComp">
             <i class="el-icon-user"></i> Members
           </button>
@@ -26,6 +27,7 @@
           <button>
             <i class="el-icon-picture-outline"></i> Cover
           </button>
+          <label>Actions</label>
           <button @click="copyTask">
             <i class="el-icon-document-copy"></i> Copy
           </button> 
