@@ -56,7 +56,7 @@
           <task-activity v-if="activitiesToShow" :activities="activitiesToShow" />
         </div>
         <div class="task-right-container flex col">
-            <details-btns :board="boardToEdit" :taskGroup="taskGroup" :task="task" @emitBoardChange="boardChanged" 
+            <details-btns :board="boardToEdit" :taskGroup="taskGroup" :taskIdx="taskIdx" :task="task" @emitBoardChange="boardChanged" 
             @emitCloseModal="closeModal"
             />
         </div>
@@ -70,7 +70,6 @@ import {utilService} from '../utils/utils.js';
 import {loggerService} from "../services/logger-service.js";
 import TaskActionContainer from "./task-action-container.cmp";
 import detailsBtns from "./details-btns.cmp";
-// import taskMembers from "../components/task-members.cmp.vue";
 import taskCheckList from '../components/checklist-cmp';
 import taskActivity from '../components/task-activity.cmp.vue';
 import Avatar from 'vue-avatar';
@@ -88,11 +87,10 @@ export default {
       user: null,
       taskIdx: null,
       // checked: false,
-      // memebersOpen: false,
       activityToAdd: {
         edditedTask: {
           id: this.taskToEdit.id,
-          name: this.taskToEdit.name
+          title: this.taskToEdit.title
         }
       },
       boardToEdit: null
@@ -145,8 +143,10 @@ export default {
     closeModal() {
       this.$emit('closeModal')
     },
-    boardChanged (action) {
-      this.addActivity(action)
+    boardChanged (action, changed=null) {
+      console.log(action)
+      if (changed) { this.addActivity(action, changed)}
+      else {this.addActivity(action)}
     },
     //DESCREPTION 
     focusOnDesc(){
@@ -163,7 +163,7 @@ export default {
     toggleTaskCompletion() {
       let action = "";
       this.task.isComplete = !this.task.isComplete;
-      action = (this.task.isComplete) ? " COMPLETED_TASK" : "INCOMPLETED_TASK";
+      action = (this.task.isComplete) ? "COMPLETED_TASK" : "INCOMPLETED_TASK";
       this.addActivity(action);
     },
     // CHECKLIST
@@ -194,7 +194,6 @@ export default {
     TaskActionContainer,
     taskActivity,
     detailsBtns
-    // taskMembers
   }
 };
 </script>

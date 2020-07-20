@@ -39,7 +39,7 @@
 <script>
 import AddTask from "../components/add-task.cmp";
 import TaskLabel from "../components/task label/taks-label.cmp";
-import TaskCalendar from "../components/task-calander.cmp";
+import taskDuedate from "../components/task-duedate.cmp";
 import TaskCheckList from "../components/task-checklist.cmp";
 import TaskMembers from "../components/task-members.cmp";
 export default {
@@ -47,7 +47,7 @@ export default {
   components: {
     AddTask,
     TaskLabel,
-    TaskCalendar,
+    taskDuedate,
     TaskCheckList,
     TaskMembers,
   },

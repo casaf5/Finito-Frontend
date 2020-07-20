@@ -1,5 +1,5 @@
 <template>
-    <section>
+    <section class="flex col">
         <button @click="toggleMemebersComp">
             <i class="el-icon-user"></i> Members
           </button>
@@ -8,9 +8,10 @@
           <button>
             <i class="el-icon-price-tag"></i> Labels
           </button>
-          <button>
+          <button @click="toggleDateComp">
             <i class="el-icon-date"></i> Due date
           </button>
+          <task-duedate v-if="duedateOpen" @dateChoosed="saveDuedate" @dateRemoved="removeDuedate" @closeDateComp="toggleDateComp"/>
           <button @click="addCheckList">
             <i class="el-icon-document-checked"></i> Checklist
           </button>
@@ -26,9 +27,10 @@
           <button @click="removeTask">
             <i class="el-icon-delete"></i> Remove
           </button>
-          <button>
+          <button @click="toggleMoveComp">
             <i class="el-icon-right"></i> Move
           </button>
+            <task-move v-if="moveCompOpen" :taskGropus="this.board.taskGroups" @closeMoveComp="toggleMoveComp" @taskMoved="moveTask"/>
           <button>
             <i class="el-icon-view"></i> Watch
           </button>
@@ -37,12 +39,16 @@
 
 <script>
 import taskMembers from "../components/task-members.cmp.vue";
+import taskDuedate from "../components/task-duedate.cmp.vue";
+import taskMove from "../components/task-move.cmp.vue";
 import {utilService} from '../utils/utils.js';
 export default {
-  props: ["board","task"],
+  props: ["board","task", "taskIdx"],
   data (){
       return {
          memebersOpen: false,
+         duedateOpen:false,
+         moveCompOpen:false,
          taskToEdit: null,
          taskGroup: null
       }
@@ -66,12 +72,15 @@ export default {
     // gets the new taskgroup id from the relevant comp
     moveTask(newTaskgroupId) {
       this.taskToEdit.parentListId = newTaskgroupId;
-      const newGroupIdx = this.boardToEdit.taskGroups.findIndex(
-        g => g.id === newTaskgroupId
+      const newGroupIdx = this.board.taskGroups.findIndex(
+        tg => tg.id === newTaskgroupId
       );
       this.taskGroup.tasks.splice(this.taskIdx, 1);
-      this.boardToEdit.taskGroups[newGroupIdx].push(this.taskToEdit);
-      this.addActivity("MOVED_TASK");
+      console.log('idx', newGroupIdx)
+      console.log(this.board)
+      this.board.taskGroups[newGroupIdx].tasks.push(this.taskToEdit);
+      this.$emit ('emitBoardChange', 'MOVED_TASK') 
+      this.$emit ('emitCloseModal')
     },
     // LABELS
     addLabel(label) {
@@ -85,6 +94,13 @@ export default {
     // MEMBERS
     toggleMemebersComp(){
       this.memebersOpen = !this.memebersOpen
+    },
+    toggleDateComp(){
+     this.duedateOpen = !this.duedateOpen
+    //  console.log(this.duedateOpen)
+    },
+    toggleMoveComp(){
+        this.moveCompOpen = !this.moveCompOpen
     },
     addMember(member) {
       this.taskToEdit.members.push(member)
@@ -101,12 +117,26 @@ export default {
       this.$emit ('emitBoardChange', 'ADDED_CHECKLIST')  
     },
     // OTHERS
+    saveDuedate(date) {
+      this.taskToEdit.dueDate = date
+      this.$emit ('emitBoardChange', 'CHANGED_DATE', date)  
+    },
+    removeDuedate() {
+      if (this.taskToEdit.dueDate){
+          this.taskToEdit.dueDate = ''
+      } else {
+          console.log('there is no duedate to remove...')
+      }
+      this.$emit ('emitBoardChange', 'REMOVED_DATE')  
+    },
     updateCover(cover) {},
     attachFile(file) {},
     watchTask() {}
   },
   components: {
-    taskMembers
+    taskMembers,
+    taskDuedate,
+    taskMove
   }
 }
 </script>
