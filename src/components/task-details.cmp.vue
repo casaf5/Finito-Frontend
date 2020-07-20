@@ -52,7 +52,10 @@
             <h4>
              <i class="fas fa-file-alt"></i> Attachments
             </h4>
-            <file-preview v-for="(file,idx) in task.attachments" :file="file" :key="idx"/>
+            <file-preview v-for="(file,idx) in task.attachments" :file="file" 
+            :key="idx"
+            @remove="removeAttach(idx)"
+            />
           </div>
           <div class="task-checklists" v-if="task.checkLists.length">
             <task-check-list
@@ -65,7 +68,7 @@
           </div>
           <task-activity v-if="activitiesToShow" :activities="activitiesToShow" />
         </div>
-        <div class="task-right-container flex col">
+        <div class="task-right-container">
             <details-btns :board="boardToEdit" :taskGroup="taskGroup" :taskIdx="taskIdx" :task="task" @emitBoardChange="boardChanged" 
             @emitCloseModal="closeModal"
             />
@@ -178,6 +181,11 @@ export default {
       this.task.isComplete = !this.task.isComplete;
       action = (this.task.isComplete) ? "COMPLETED_TASK" : "INCOMPLETED_TASK";
       this.addActivity(action);
+    },
+    //ATTACHMENT
+     removeAttach(idx){
+      this.task.attachments.splice(idx,1)
+      this.addActivity('REMOVED_ATTACHMENT')
     },
     // CHECKLIST
       removeCheckList(idx) {

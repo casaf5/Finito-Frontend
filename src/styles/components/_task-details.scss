@@ -94,14 +94,16 @@
             }
           }
         }
-      }
-                                                                                  
+      }                                                                          
         .task-right-container {
+          display: grid;
+          grid-template-rows: repeat(10,35px);
+          grid-gap:5px;
             button{
                 border: none;
                 border-radius: 5px;
-                height: 3.2rem;
-                margin-left: 1.5rem;
+                height: 35px;
+                // margin:5px;
             }
         }     
 }

@@ -1,5 +1,5 @@
 export const loggerService = {
-  getTxtToRndr
+  getTxtToRndr,
 };
 
 // getting an action and what has been changed (name/date etc..) => using switch case to get the write txt
@@ -24,6 +24,7 @@ function getTxtToRndr(action, changed, user, task) {
     case "ADDED_ATTACHMENT":
       txt = `${user.name} attached a file to ${task.title}`;
       break;
+
     // REMOVE
     case "REMOVED_TASK":
       txt = `${user.name} removed ${task.title}`;
@@ -37,6 +38,9 @@ function getTxtToRndr(action, changed, user, task) {
     case "REMOVED_ITEM":
       // checklist name in changed
       txt = `${user.name} removed item from ${task.title} ${changed}`;
+      break;
+    case "REMOVED_ATTACHMENT":
+      txt = `${user.name} removed a file from ${task.title}`;
       break;
     // UPDATE
     case "UPDATED_DESCRIPSTION":

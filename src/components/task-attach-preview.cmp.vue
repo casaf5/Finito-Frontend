@@ -1,12 +1,11 @@
 <template>
-  <section class="attachment-preview" @click="downloadFile">
-      <img :src="file.imageUrl" class="file-img">
+  <section class="attachment-preview" >
+      <img :src="file.imageUrl" class="file-img" @click="downloadFile">
       <h6 class="file-name">Name :{{file.name}}</h6>
       <h6 class="file-created">Added : {{getRelativeTime}}</h6>
       <section class="file-actions">
-            <button>Remove</button>
+            <button @click="$emit('remove')">Remove</button>
             <button>Comment</button>
-            <button>Edit</button>
       </section>
   </section>
 </template>
@@ -19,13 +18,12 @@ export default {
     computed:{
         getRelativeTime(){
             return moment(this.file.createdAt).fromNow()
-           
         }
     },
     methods:{
         downloadFile(){
             window.open(`${this.file.downloadLink}`)
-        }
+        },
     }
 }
 </script>
