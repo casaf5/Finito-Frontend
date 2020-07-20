@@ -32,6 +32,28 @@
       "activities": [
         {
           "edditedTask": {
+            "id": "2205-173678E320D-1CE2"
+          },
+          "action": "UPDATED_CHECKLIST",
+          "byUser": {
+            "name": "Guest",
+            "url": "https://api.adorable.io/avatars/400/79c159e13036a02295c94901b6628bfe.png"
+          },
+          "txt": "Guest updated the checklist  in newest card"
+        },
+        {
+          "edditedTask": {
+            "id": "2205-173678E320D-1CE2"
+          },
+          "action": "UPDATED_CHECKLIST",
+          "byUser": {
+            "name": "Guest",
+            "url": "https://api.adorable.io/avatars/400/79c159e13036a02295c94901b6628bfe.png"
+          },
+          "txt": "Guest updated the checklist  in newest card"
+        },
+        {
+          "edditedTask": {
             "id": "108A-1736379250E-1FEE"
           },
           "action": "UPDATED_CHECKLIST",
@@ -2268,6 +2290,16 @@
               "checkLists": [
                 {
                   "title": "",
+                  "items": [
+                    {
+                      "content": "asdadaad",
+                      "completed": false
+                    }
+                  ]
+                },
+                {
+                  "id": "25E7-1736B7F34FC-16C9",
+                  "title": "New Checklist",
                   "items": []
                 }
               ]
