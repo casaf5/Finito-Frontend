@@ -21,7 +21,7 @@
           <div class="task-members-labels-date flex wrap">
             <section v-show="task.members.length" class="task-members-container-wraper">
               <i class="fas fa-users"></i>
-              <h4>MEMBERS</h4>
+              <h4>Members</h4>
               <div class="task-members-container flex">
                 <div v-for="(member, idx) in task.members" :key="idx">
                   <!-- change to member name -->
@@ -43,13 +43,13 @@
               class="task-labels-container-wraper"
             >
               <i class="fas fa-tags"></i>
-              <h4>LABELS</h4>
+              <h4>Labels</h4>
               <div class="task-labels-container flex">
                 <!-- v for labels -->
               </div>
             </section>
             <section v-show="task.dueDate" class="task-date-container-wraper">
-              <h6>DUE DATE</h6>
+              <h6>Due Date</h6>
               <div class="task-date-container flex">
                 <label>
                   <input
@@ -76,7 +76,7 @@
               class="desc-textarea"
             />
           </div>
-          <div class="task-attachments-container">
+          <div class="task-attachments-container" v-if="task.attachments.length>0">
             <i class="fas fa-file-alt"></i>
             <h4>
               Attachments

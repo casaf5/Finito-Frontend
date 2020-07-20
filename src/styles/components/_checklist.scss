@@ -25,20 +25,20 @@
   }
   .checklist-progress-bar {
     .el-progress__text {
-      margin-left: 16px;
+      margin-left: -15px;
     }
     .el-progress-bar__outer {
       height: 6px;
       width: 440px;
-      margin-inline-start: 40px;
+      margin-inline-start: 7px;
     }
   }
   .checklist-container {
     > * {
-      margin: 5px 5px 16px 40px;
+      margin: 5px 5px 16px 2px;
       font-size: rem(13px);
       >i{
-          margin-inline-end: 15px;
+          margin-inline-end: 48px;
       }
     }
     .check-item.isDone {
@@ -50,7 +50,7 @@
     background-color: rgb(239, 239, 239);
     width: max-content;
     padding: 2px;
-    margin: 5px 0 0 40px;
+    margin: 5px 0 0 5px;
 
     cursor: pointer;
   }
@@ -59,15 +59,15 @@
   }
   .add-item {
     input {
-      width: 82%;
+      width: 90%;
       height: 30px;
-      margin-inline-start: 40px;
+      margin-inline-start: 2px;
       border-radius: 3px;
       padding-left:5px
     }
     i {
         font-size: 18px;
-        margin-inline-end: 17px;
+        margin-inline-end: 49px;
         margin-top: 4px;
     }
   }
