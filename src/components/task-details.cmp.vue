@@ -49,47 +49,16 @@
               v-for="(checklist,idx) in task.checkLists"
               :checklist="checklist"
               :key="idx"
-              @remove="checkListRemoved(idx)"
-              @update=" checkListUpdated(idx)"
+              @remove="removeCheckList(idx)"
+              @update="updateCheckList(idx)"
             />
           </div>
           <task-activity v-if="activitiesToShow" :activities="activitiesToShow" />
         </div>
         <div class="task-right-container flex col">
-          <button @click="toggleMemebersComp">
-            <i class="el-icon-user"></i> Members
-          </button>
-          <!-- :removeMember="memberLeft"  -->
-          <task-members @addMember="addMember" @removeMember="removeMember" @closeMembersComp="toggleMemebersComp" 
-          v-if="memebersOpen" :boardMembers="board.members" :taskMembers="task.members"/>
-          <button>
-            <i class="el-icon-price-tag"></i> Labels
-          </button>
-          <button>
-            <i class="el-icon-date"></i> Due date
-          </button>
-          <button @click="checkListAdded">
-            <i class="el-icon-document-checked"></i> Checklist
-          </button>
-          <button @click="attachmentsOpen=!attachmentsOpen" >
-            <i class="el-icon-paperclip"></i> Attachment
-          </button>
-          <task-attachment v-if="attachmentsOpen" @closeAttach="attachmentsOpen=false"/>
-          <button>
-            <i class="el-icon-picture-outline"></i> Cover
-          </button>
-          <button @click="copyTask">
-            <i class="el-icon-document-copy"></i> Copy
-          </button>
-          <button @click="removeTask">
-            <i class="el-icon-delete"></i> Remove
-          </button>
-          <button>
-            <i class="el-icon-right"></i> Move
-          </button>
-          <button>
-            <i class="el-icon-view"></i> Watch
-          </button>
+            <details-btns :board="boardToEdit" :taskGroup="taskGroup" :taskIdx="taskIdx" :task="task" @emitBoardChange="boardChanged" 
+            @emitCloseModal="closeModal"
+            />
         </div>
       </div>
     </div>
@@ -100,7 +69,7 @@
 import {utilService} from '../utils/utils.js';
 import {loggerService} from "../services/logger-service.js";
 import TaskActionContainer from "./task-action-container.cmp";
-import taskMembers from "../components/task-members.cmp.vue";
+import detailsBtns from "./details-btns.cmp";
 import taskCheckList from '../components/checklist-cmp';
 import taskActivity from '../components/task-activity.cmp.vue';
 import taskAttachment from '../components/task-attachment.cmp.vue';
@@ -120,12 +89,10 @@ export default {
       user: null,
       taskIdx: null,
       // checked: false,
-      memebersOpen: false,
-      attachmentsOpen:false,
       activityToAdd: {
         edditedTask: {
           id: this.taskToEdit.id,
-          name: this.taskToEdit.name
+          title: this.taskToEdit.title
         }
       },
       boardToEdit: null
@@ -178,8 +145,10 @@ export default {
     closeModal() {
       this.$emit('closeModal')
     },
-    toggleMemebersComp(){
-      this.memebersOpen = !this.memebersOpen
+    boardChanged (action, changed=null) {
+      console.log(action)
+      if (changed) { this.addActivity(action, changed)}
+      else {this.addActivity(action)}
     },
     //DESCREPTION 
     focusOnDesc(){
@@ -193,75 +162,24 @@ export default {
       this.currDescription = this.task.desc;
      }
     },
-    //Attachments
-   
-    // TASK CRUDL +
-    removeTask() {
-      this.taskGroup.tasks.splice(this.taskIdx, 1);
-      this.addActivity("REMOVED_TASK");
-      this.closeModal();
-    },
-    // change id after copy --- make more options
-    copyTask() {
-      this.taskGroup.tasks.unshift(JSON.parse(JSON.stringify(this.task)));
-      this.addActivity("COPPIED_TASK");
-    },
     toggleTaskCompletion() {
       let action = "";
       this.task.isComplete = !this.task.isComplete;
-      action = (this.task.isComplete) ? " COMPLETED_TASK" : "INCOMPLETED_TASK";
+      action = (this.task.isComplete) ? "COMPLETED_TASK" : "INCOMPLETED_TASK";
       this.addActivity(action);
     },
-    watchTask() {},
-    // gets the new taskgroup id from the relevant comp
-    moveTask(newTaskgroupId) {
-      this.task.parentListId = newTaskgroupId;
-      const newGroupIdx = this.boardToEdit.taskGroups.findIndex(
-        g => g.id === newTaskgroupId
-      );
-      this.taskGroup.tasks.splice(this.taskIdx, 1);
-      this.boardToEdit.taskGroups[newGroupIdx].push(this.task);
-      this.addActivity("MOVED_TASK");
-    },
-
-    // LABEL "CRUDL" => should emit by component
-    labelAdded(label) {
-      this.taskGroup.tasks.labels.push(label);
-      this.addActivity("ADDED_LABEL");
-    },
-    labelRemoved(idx) {
-      this.taskGroup.tasks.labels.splice(idx, 1);
-      this.addActivity("REMOVED_LABEL");
-    },
-    // CHECKLIST CRUDL => should emit by component (inside will be also items crudl)
-    //CheckList
-    checkListAdded(){
-      this.task.checkLists.push(utilService.getEmptyCheckList())
-      this.addActivity("ADDED_CHECKLIST");
-    },
-    checkListRemoved(idx) {
+    // CHECKLIST
+      removeCheckList(idx) {
       this.task.checkLists.splice(idx, 1);
       this.addActivity("REMOVED_CHECKLIST");
     },
     // will emit from the checklistpreview comp
-    checkListUpdated(idx) {
+      updateCheckList(idx) {
       const checklist = this.task.checkLists[idx];
       this.addActivity("UPDATED_CHECKLIST", checklist.title);
     },
-    // OTHERS
-    // get an obj of the changes and update the board
-    coverUpdated(cover) {},
-    addMember(member) {
-      this.task.members.push(member)
-      this.addActivity('JOINED_MEMBER')
-    },
-    removeMember(member){
-      const idx = this.task.members.findIndex(m => m.id === member.id)
-       this.task.members.splice(idx, 1);
-       this.addActivity('MEMBER_LEFT')
-    },
-    fileAttched(file) {},
 
+    // get a string as an action and if needed another string of what changed
     addActivity(action, changed = "") {
       this.activityToAdd.action = action;
       this.activityToAdd.byUser = this.user;
@@ -277,8 +195,7 @@ export default {
     Avatar,
     TaskActionContainer,
     taskActivity,
-    taskMembers,
-    taskAttachment
+    detailsBtns
   }
 };
 </script>

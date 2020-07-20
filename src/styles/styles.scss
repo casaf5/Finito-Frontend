@@ -15,8 +15,15 @@
 @import "./components/user-msg";
 @import "./components/task-details";
 // @import "./components/task-activity";
+<<<<<<< HEAD
 @import "./components/checklist";
 @import "./components/task-members";
+=======
+@import './components/checklist';
+@import './components/task-members';
+@import './components/task-move';
+@import './components/task-duedate';
+>>>>>>> ayal
 @import "./components/app-header";
 @import "./components/board";
 @import "./components/task-group-container";
