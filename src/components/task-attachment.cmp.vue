@@ -16,7 +16,7 @@
           hidden
         />
       </section>
-      <section class="upload-options" v-if="sucsses">
+      <section class="upload-options" v-if="status">
         <input type="text" placeholder="Your File Name" v-model="fileName" />
         <button @click="addFile">Add to Task</button>
       </section>
@@ -32,7 +32,7 @@ export default {
   name: "task-attachment",
   data() {
     return {
-      sucsses: null,
+      status: null,
       imageUrl:
         "https://res.cloudinary.com/dwgaobhor/image/upload/v1595256587/file-logo_ngwvr9.png",
       fileName: "New File",
@@ -42,6 +42,7 @@ export default {
   },
   methods: {
     async uploadFile(ev) {
+      this.status='Upload'
       let res = await uploadService.fileUpload(ev);
       this.downloadLink = `https://gofile.io/?c=${res.data.code}`;
       this.fileName = ev.target.files[0].name;
@@ -61,7 +62,7 @@ export default {
         createdAt: Date.now(),
         downloadLink: this.downloadLink,
       };
-      this.sucsses = true;
+      this.status = true;
     },
     closeAttach() {
       this.$emit("closeAttach");
@@ -78,10 +79,11 @@ export default {
   },
   computed: {
     uploadStatus() {
-      if (!this.sucsses) return "Pick A File...";
-      return this.sucsses
+      if (!this.status) return "Pick A File...";
+      if(this.status==='Upload')return 'Uploading...'
+      return this.status
         ? "File Uploded!"
-        : "Problem Uploding, Please try again later...";
+        : "Problem Uploding..";
     },
   },
   components: {
