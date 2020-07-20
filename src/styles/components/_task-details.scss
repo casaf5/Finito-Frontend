@@ -1,6 +1,5 @@
 .task-details-containers-wraper {
-  h5,
-  h6 {
+  h5,h6 {
     color: rgb(168, 168, 168);
   }
   h2 {
@@ -17,7 +16,7 @@
   font-size: 1.2rem;
   margin-top: 5rem;
   margin-bottom: 3.75rem;
-  z-index: 3;
+  z-index: 9999;
   .close-modal-btn {
     position: absolute;
     top: 0;
@@ -32,73 +31,16 @@
 }
 
 .task-details-main-container {
-    display: grid;
-    height: 100%;
-    margin-top:10px;
-    grid-template-columns: 0.75fr 0.25fr;
-    grid-template-rows: 1fr;
-    padding:rem(20px);
-    button {
-        border: none;
-        margin: 10px;
-        margin-right: 0;
-        text-align: left;
-        height: 1.8rem;
-        border-radius: 5px;
-    }
-    .task-left-container {
-        display: grid;
-        grid-template-rows: 0.3fr 0.3fr 0.3fr;
-        align-content: start;
-        grid-gap:5px;
-        .task-details-titles-container{
-            .task-group-name{
-                span{
-                    text-decoration: underline;
-                }
-            }
-        }
-        .task-members-labels-date{
-            >h6{
-                display: inline;
-            }
-            .members-avatar{
-                width: 2rem !important;
-                height: 2rem !important;
-            }
-        }
-        .task-desc-container{
-            .desc-textarea{
-                width: 95%;
-                border: none;
-                padding: 5px 5px 5px 6px;
-                font-size: 14px;
-                font-family: Montserrat;
-                color:black;
-                margin-left: 20px;
-                background-color: transparent;
-                &.edit{
-                    border: 2px solid #172b4d;
-                    background-color: white;
-                  }
-            }
-            }
-        }
-        .task-right-container {
-            button{
-                border: none;
-                border-radius: 5px;
-                height: 3.2rem;
-                margin-left: 1.5rem;
-            }
-        }     
-}
-.task-activities{
-    .task-activties-header{
-        h4{
-            padding-top: 5px;
-        }
-    }
+  display: grid;
+  height: 100%;
+  margin-top: 10px;
+  grid-template-columns: 0.75fr 0.25fr;
+  grid-template-rows: 1fr;
+  padding: rem(20px);
+  button {
+    border: none;
+    margin: 10px;
+    margin-right: 0;
     text-align: left;
     height: 1.8rem;
     border-radius: 5px;
@@ -149,6 +91,63 @@
       margin-left: 1.5rem;
     }
   }
+}
+.task-activities {
+  .task-activties-header {
+    h4 {
+      padding-top: 5px;
+    }
+  }
+  text-align: left;
+  height: 1.8rem;
+  border-radius: 5px;
+}
+.task-left-container {
+  display: grid;
+  grid-template-rows: 0.3fr 0.3fr 0.3fr;
+  align-content: start;
+  grid-gap: 5px;
+  .task-details-titles-container {
+    .task-group-name {
+      span {
+        text-decoration: underline;
+      }
+    }
+  }
+  .task-members-labels-date {
+    > h6 {
+      display: inline;
+    }
+    .members-avatar {
+      width: 2rem !important;
+      height: 2rem !important;
+    }
+  }
+  .task-desc-container {
+    .desc-textarea {
+      width: 95%;
+      border: none;
+      padding: 5px 5px 5px 6px;
+      font-size: 14px;
+      font-family: Montserrat;
+      color: black;
+      margin-left: 20px;
+      background-color: transparent;
+      &.edit {
+        border: 2px solid #172b4d;
+        background-color: white;
+      }
+    }
+  }
+}
+.task-right-container {
+  button {
+    border: none;
+    border-radius: 5px;
+    height: 3.2rem;
+    margin-left: 1.5rem;
+  }
+}
 
 .task-activities {
   .task-activties-header {

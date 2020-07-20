@@ -71,9 +71,10 @@
           <button @click="checkListAdded">
             <i class="el-icon-document-checked"></i> Checklist
           </button>
-          <button>
+          <button @click="attachmentsOpen=!attachmentsOpen" >
             <i class="el-icon-paperclip"></i> Attachment
           </button>
+          <task-attachment v-if="attachmentsOpen" @closeAttach="attachmentsOpen=false"/>
           <button>
             <i class="el-icon-picture-outline"></i> Cover
           </button>
@@ -102,6 +103,8 @@ import TaskActionContainer from "./task-action-container.cmp";
 import taskMembers from "../components/task-members.cmp.vue";
 import taskCheckList from '../components/checklist-cmp';
 import taskActivity from '../components/task-activity.cmp.vue';
+import taskAttachment from '../components/task-attachment.cmp.vue';
+
 import Avatar from 'vue-avatar';
 import {eventBus,SHOW_MSG} from '../services/event-bus-service.js'
 
@@ -118,6 +121,7 @@ export default {
       taskIdx: null,
       // checked: false,
       memebersOpen: false,
+      attachmentsOpen:false,
       activityToAdd: {
         edditedTask: {
           id: this.taskToEdit.id,
@@ -189,6 +193,8 @@ export default {
       this.currDescription = this.task.desc;
      }
     },
+    //Attachments
+   
     // TASK CRUDL +
     removeTask() {
       this.taskGroup.tasks.splice(this.taskIdx, 1);
@@ -271,7 +277,8 @@ export default {
     Avatar,
     TaskActionContainer,
     taskActivity,
-    taskMembers
+    taskMembers,
+    taskAttachment
   }
 };
 </script>
