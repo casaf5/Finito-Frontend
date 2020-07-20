@@ -1,7 +1,7 @@
 <template>
   <div style="position:relative">
     <TaskLabel />
-    <Select />
+    <formSelect :showLabel="true" labelText="board" />
     <!-- <CheckList /> -->
     <!-- <Calender /> -->
     <!-- <Members /> -->
@@ -13,13 +13,14 @@ import TaskLabel from "../components/task label/taks-label.cmp";
 import CheckList from "../components/task-checklist.cmp.vue";
 import Calender from "../components/task-calander.cmp";
 import Members from "../components/task-members.cmp";
-import Select from "../components/From Elements/form-select.cmp";
+import formSelect from "../components/From Elements/form-select.cmp";
 export default {
   components: {
     TaskLabel,
     CheckList,
     Calender,
     Members,
+    formSelect,
   },
 };
 </script>
