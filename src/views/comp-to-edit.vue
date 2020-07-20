@@ -3,7 +3,6 @@
     <TaskLabel />
     <Select />
     <!-- <CheckList /> -->
-    <!-- <Calender /> -->
     <!-- <Members /> -->
   </div>
 </template>

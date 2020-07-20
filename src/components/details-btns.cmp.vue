@@ -17,13 +17,13 @@
           </button>
           <button>
             <i class="el-icon-paperclip"></i> Attachment
-          </button>
+          </button>  
           <button>
             <i class="el-icon-picture-outline"></i> Cover
           </button>
           <button @click="copyTask">
             <i class="el-icon-document-copy"></i> Copy
-          </button>
+          </button> 
           <button @click="removeTask">
             <i class="el-icon-delete"></i> Remove
           </button>
