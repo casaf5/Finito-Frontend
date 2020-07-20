@@ -1,31 +1,38 @@
-import Vue from 'vue'
-import VueRouter from 'vue-router'
-import landingPage from '../views/landing-page.vue'
-import trellorApp from '../views/trellor-app.vue'
-import homePage from '../views/home-page.vue'
+import Vue from "vue";
+import VueRouter from "vue-router";
+import landingPage from "../views/landing-page.vue";
+import trellorApp from "../views/trellor-app.vue";
+import homePage from "../views/home-page.vue";
+import Edit from "../views/comp-to-edit.vue";
+Vue.use(VueRouter);
 
-Vue.use(VueRouter)
-
-  const routes = [
+const routes = [
   {
-    path: '/',
-    name: 'Landing-Page',
-    component: () => import(/* webpackChunkName: "about" */ '../views/landing-page.vue')
+    path: "/",
+    name: "Landing-Page",
+    component: () =>
+      import(/* webpackChunkName: "about" */ "../views/landing-page.vue"),
   },
   {
-    path: '/home',
+    path: "/home",
     // name: 'Landing-Page',
-    component: () => import(/* webpackChunkName: "about" */ '../views/home-page.vue')  
+    component: () =>
+      import(/* webpackChunkName: "about" */ "../views/home-page.vue"),
   },
   {
-    path: '/board/:id',
-    name: 'Trellor-app',
-    component: () => import(/* webpackChunkName: "about" */ '../views/trellor-app.vue')
-  }
-]
+    path: "/board/:id",
+    name: "Trellor-app",
+    component: () =>
+      import(/* webpackChunkName: "about" */ "../views/trellor-app.vue"),
+  },
+  {
+    path: "/edit",
+    component: Edit,
+  },
+];
 
 const router = new VueRouter({
-  routes
-})
+  routes,
+});
 
-export default router
+export default router;

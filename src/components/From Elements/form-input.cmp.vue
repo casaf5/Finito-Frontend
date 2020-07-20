@@ -1,6 +1,6 @@
 <template>
   <div class="form-input-container">
-    <label v-if="showLabel">{{labelText}}</label>
+    <label v-if="showLabel">{{ labelText }}</label>
     <input
       class="form-input"
       :type="type"
@@ -15,29 +15,26 @@
 export default {
   data() {
     return {
-      content: ""
+      content: "",
     };
   },
   props: {
     showLabel: {
-      type: Boolean
+      type: Boolean,
     },
     labelText: {
-      type: String
+      type: String,
     },
     type: {
-      type: String
+      type: String,
     },
     placeholder: {
-      type: String
-    },
-    onChange: {
-      type: Function
+      type: String,
     },
     value: {
-      type: String
-    }
-  }
+      type: String,
+    },
+  },
 };
 </script>
 
