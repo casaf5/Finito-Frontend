@@ -79,7 +79,7 @@ export default {
       console.log('idx', newGroupIdx)
       console.log(this.board)
       this.board.taskGroups[newGroupIdx].tasks.push(this.taskToEdit);
-      this.$emit ('emitBoardChange', 'MOVED_TASK') 
+      this.$emit ('emitBoardChange', 'MOVED_TASK', this.taskGroup.title) 
       this.$emit ('emitCloseModal')
     },
     // LABELS
