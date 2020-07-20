@@ -1,10 +1,12 @@
 .task-details-containers-wraper {
-  h5,
   h6 {
     color: rgb(168, 168, 168);
+    font-size: 0.8rem;
   }
   h2 {
     margin-bottom: 0.8rem;
+    font-size: 1.25rem;
+    font-weight: bold;
   }
   width: 750px;
   min-height: 95vh;
@@ -19,15 +21,22 @@
   margin-bottom: 3.75rem;
   z-index: 3;
   .close-modal-btn {
+    text-align: center;
     position: absolute;
     top: 0;
-    right: 6px;
-    border: none;
+    right: 0;
+    padding: 4px;
+    margin: 4px;
+    margin-top: 8px;
+    font-size:1.2rem ;
     background-color: transparent;
-    font-weight: bold;
   }
   button:hover {
     background-color: rgb(224, 224, 224);
+  }
+  .close-modal-btn:hover  {
+    background-color: rgb(224, 224, 224);
+    border-radius: 50%;
   }
 }
 
@@ -45,45 +54,48 @@
         text-align: left;
         height: 1.8rem;
         border-radius: 5px;
-    }
-    .task-left-container {
+      }
+      .task-left-container {
+        
         display: grid;
         grid-template-rows: 0.3fr 0.3fr 0.3fr;
         align-content: start;
         grid-gap:5px;
         .task-details-titles-container{
-            .task-group-name{
-                span{
-                    text-decoration: underline;
-                }
+          .task-group-name{
+            span{
+              text-decoration: underline;
             }
+          }
         }
         .task-members-labels-date{
-            >h6{
-                display: inline;
-            }
-            .members-avatar{
-                width: 2rem !important;
-                height: 2rem !important;
-            }
+          >h6{
+            display: inline;
+          }
+          .members-avatar{
+            width: 2rem !important;
+            height: 2rem !important;
+          }
         }
         .task-desc-container{
-            .desc-textarea{
-                width: 95%;
-                border: none;
-                padding: 5px 5px 5px 6px;
-                font-size: 14px;
-                font-family: Montserrat;
-                color:black;
-                margin-left: 20px;
-                background-color: transparent;
-                &.edit{
-                    border: 2px solid #172b4d;
-                    background-color: white;
-                  }
+          .desc-textarea{
+            width: 95%;
+            border: none;
+            padding: 5px 5px 5px 6px;
+            font-size: 14px;
+            font-family: Montserrat;
+            color:black;
+            margin-left: 20px;
+            line-height: 1.25rem;
+            background-color: transparent;
+            &.edit{
+              border: 2px solid #172b4d;
+              background-color: white;
             }
-            }
+          }
         }
+      }
+                                                                                  
         .task-right-container {
             button{
                 border: none;
@@ -93,54 +105,35 @@
             }
         }     
 }
-.task-activities{
-    .task-activties-header{
-        h4{
-            padding-top: 5px;
-        }
-    }
-    text-align: left;
-    height: 1.8rem;
-    border-radius: 5px;
-  }
-  .task-left-container {
-    display: grid;
-    grid-template-rows: 0.3fr 0.3fr 0.3fr;
-    align-content: start;
-    grid-gap: 5px;
-    .task-details-titles-container {
-      .task-group-name {
-        span {
-          text-decoration: underline;
-        }
-      }
-    }
+
     .task-members-labels-date {
       > h6 {
         display: inline;
       }
+      h6{
+        font-weight: 700;
+      }
       .members-avatar {
+        margin-top: 5px;
+        margin-right: 5px;
         width: 2rem !important;
         height: 2rem !important;
       }
-    }
-    .task-desc-container {
-      .desc-textarea {
-        width: 95%;
-        border: none;
-        padding: 5px 5px 5px 6px;
-        font-size: 14px;
-        font-family: Montserrat;
-        color: black;
-        margin-left: 20px;
-        background-color: transparent;
-        &.edit {
-          border: 2px solid #172b4d;
-          background-color: white;
-        }
+      .task-members-container-wraper{
+        margin-right: 1rem;
+      }
+      .task-labels-container-wraper{
+        margin-right: 1rem;
+      }
+      .task-date-container-wraper{
+        margin-right: 1rem;
+      }
+      .task-date-container{
+        font-size: 0.8rem;
+        margin-top: 0.7rem;
       }
     }
-  }
+  
   .task-right-container {
     button {
       border: none;
@@ -177,3 +170,4 @@
     margin-bottom: 0.8rem;
   }
 }
+

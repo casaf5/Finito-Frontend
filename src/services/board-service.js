@@ -13,7 +13,7 @@ function _getUrl(id = "") {
   const BASE_URL =
     process.env.NODE_ENV !== "development"
       ? "/api/board"
-      : "//localhost:3030/api/board";
+      : "//localhost:3000/board";
   return `${BASE_URL}/${id}`;
 }
 async function query(filterBy) {
