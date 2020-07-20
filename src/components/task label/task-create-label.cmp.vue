@@ -1,7 +1,7 @@
 <template>
   <task-action-container
-    @back="$emit('back','task-choose-label')"
-    title="Create Label"
+    @back="$emit('back', 'task-choose-label')"
+    :title="editMode ? 'Edit Label' : 'Create Label'"
     :showIcon="true"
   >
     <div class="task-create-label-container">
@@ -12,9 +12,23 @@
       <span>Labels</span>
       <li>
         <label>Select Color</label>
-        <label-color :color="color" :key="index" v-for="(color,index) in colorsToDisplay" />
+        <label-color
+          :choosenLabelIndex="choosenLabelIndex"
+          :color="color"
+          :key="index"
+          :index="index"
+          :editMode="editMode"
+          :title="title"
+          :createMode="!editMode"
+          @editLabel="editLabel"
+          @labelClicked="labelClicked"
+          @createLabel="createLabel"
+          v-for="(color, index) in newColors"
+        />
       </li>
-      <button class="btn-primary" @click="createNewLabel">Create</button>
+      <button class="btn-primary" @click="createNewLabel">
+        {{ this.editMode ? "Save" : "Create" }}
+      </button>
     </div>
   </task-action-container>
 </template>
@@ -26,70 +40,142 @@ import formInput from "../From Elements/form-input.cmp";
 export default {
   props: {
     choosenColor: {
-      type: String
-    }
+      type: String,
+    },
+    title: {
+      type: String,
+    },
+    editMode: {
+      type: Boolean,
+    },
+    choosenLabelIndex: {
+      type: Number,
+    },
+    colors: {
+      type: Array,
+    },
   },
   components: {
     TaskActionContainer,
     LabelColor,
-    formInput
+    formInput,
+  },
+  mounted() {
+    if (this.title && this.editMode) {
+      this.labelText = this.title;
+    }
   },
   data() {
-    // <!-- :style="{'background-color':color.color}" -->
     return {
       labelText: "",
-      colors: [
+      labelToCreate: null,
+      labelToEdit: null,
+      labelToEditIndex: -1,
+      newColors: [
         {
-          label: "hey",
+          title: "",
           color: "#61BD4F",
-          selectedColor: "#519839"
+          selectedColor: "#519839",
+          wasClicked: false,
         },
         {
-          label: "hello",
+          title: "",
           color: "#f2d600",
-          selectedColor: "#D9B51C"
+          selectedColor: "#D9B51C",
+          wasClicked: false,
         },
         {
-          label: "",
+          title: "",
           color: "#ff9f1a",
-          selectedColor: "#cd8313"
+          selectedColor: "#cd8313",
+          wasClicked: false,
         },
         {
-          label: "",
+          title: "",
           color: "#eb5a46",
-          selectedColor: "#b04632"
+          selectedColor: "#b04632",
+          wasClicked: false,
         },
         {
-          label: "",
+          title: "",
           color: "#0079BF",
-          selectedColor: "#055A8C"
+          selectedColor: "#055A8C",
+          wasClicked: false,
         },
         {
-          label: "",
+          title: "",
           color: "#C377E0",
-          selectedColor: "#89609E"
-        }
-      ]
+          selectedColor: "#89609E",
+          wasClicked: false,
+        },
+      ],
     };
   },
   methods: {
     createNewLabel() {
-      this.$emit("createLabel");
-    }
+      if (!this.editMode) {
+        if (this.labelToCreate) {
+          this.labelToCreate.title = this.labelText;
+          this.$emit("createLabel", this.labelToCreate);
+        }
+      } else {
+        this.colors[this.labelToEdit.index] = this.labelText;
+        if (this.labelText) {
+          this.labelToEdit.title = this.labelText;
+        }
+        this.$emit("createLabel", {
+          label: this.labelToEdit,
+          index: this.choosenLabelIndex,
+        });
+      }
+    },
+    createLabel({ label, index }) {
+      // this.colors.forEach((color, colorIndex) => {
+      //   if (index === colorIndex) {
+      //     color.wasClicked = true;
+      //   } else {
+      //     color.wasClicked = false;
+      //   }
+      // });
+      this.labelToCreate = label;
+    },
+    labelClicked(label) {
+      this.newColors.forEach((color, colorIndex) => {
+        if (label.index === colorIndex) {
+          color.wasClicked = true;
+        } else {
+          color.wasClicked = false;
+        }
+      });
+      if (this.editMode) {
+        this.labelToEdit = label.label;
+      } else {
+      }
+    },
+    editLabel(index) {
+      this.labelToEditIndex = index;
+    },
   },
   computed: {
     colorsToDisplay() {
       const searchTerm = this.labelText.toLowerCase();
-      return this.colors.filter(color =>
+      return this.colors.filter((color) =>
         color.label.toLowerCase().includes(searchTerm)
       );
-    }
+    },
+    isCreateMode() {
+      return this.editMode;
+    },
   },
   created() {
-    if (this.choosenColor) {
-      console.log(this.choosenColor);
+    if (this.choosenLabelIndex) {
+      this.newColors[this.choosenLabelIndex].wasClicked = !this.newColors[
+        this.choosenLabelIndex
+      ].wasClicked;
+
+      this.labelToEdit = this.newColors[this.choosenLabelIndex];
     }
-  }
+  },
 };
 </script>
 

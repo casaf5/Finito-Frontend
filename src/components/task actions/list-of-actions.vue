@@ -2,8 +2,10 @@
   <div class="action-list-container">
     <li @click="createCard">Add Card...</li>
     <li @click="duplicateList">Copy List...</li>
-    <li @click="emitCompoenentToRender('move-list','Move List')">Move List...</li>
-    <li @click="emitCompoenentToRender('SortBy','Sort By')">Sort By...</li>
+    <li @click="emitCompoenentToRender('move-list', 'Move List')">
+      Move List...
+    </li>
+    <li @click="emitCompoenentToRender('SortBy', 'Sort By')">Sort By...</li>
     <li>Watch</li>
     <hr />
     <li>Move All Cards in this List...</li>
@@ -29,12 +31,11 @@ export default {
       this.$emit("compToRender", {
         name,
         title,
-        showIcon: true
+        showIcon: true,
       });
-    }
-  }
+    },
+  },
 };
 </script>
 
-<style>
-</style>
+<style scoped lang="scss"></style>

@@ -4,7 +4,7 @@
   padding: 6px 8px 2px;
   border-radius: 3px;
   box-shadow: 0px 1px 0px 0px rgba(171, 171, 171, 1);
-  &:hover{
+  &:hover {
     background-color: rgba(243, 239, 239, 0.5);
   }
   .task-preview-content {
@@ -46,45 +46,43 @@
       .check-list-completed {
         border-radius: 3px;
         background-color: $btn-primary-color;
-        i,span{
+        i,
+        span {
           color: #fff;
         }
-    }
-   
-  }
-  .task-label-container {
-    width: 100%;
-    text-align: center;
-    display: flex;
-    flex-wrap: wrap;
-    .label-color {
-      margin: 2px 0;
-      border-radius: 10px;
-      margin-right: 5px;
-      transition: all 0.5s ease-in-out;
-      min-width: 50px;
-      height: 8px;
-      cursor: pointer;
-      span {
-        color: #fff;
-        font-size: 11px;
-        display: inline;
-        max-width: 5ch;
-        font-family: Montserrat-Bold;
-        font-weight: bold;
       }
     }
-    .label-color-enlarged {
-      border-radius: 5px;
-      height: 19px;
-      padding: 0px 10px;
+    .task-label-container {
+      width: 100%;
+      text-align: center;
+      display: flex;
+      flex-wrap: wrap;
+      .label-color {
+        margin: 2px 0;
+        border-radius: 10px;
+        margin-right: 5px;
+        transition: all 0.5s ease-in-out;
+        min-width: 50px;
+        height: 8px;
+        cursor: pointer;
+        span {
+          color: #fff;
+          font-size: 11px;
+          display: inline;
+          max-width: 5ch;
+          font-family: Montserrat-Bold;
+          font-weight: bold;
+        }
+      }
+      .label-color-enlarged {
+        border-radius: 5px;
+        height: 23px;
+        padding: 0px 10px;
+      }
     }
-  }
-  i {
-    font-size: rem(13px);
-    color: #5e6c84;
-  }
-  
-
+    i {
+      font-size: rem(13px);
+      color: #5e6c84;
+    }
   }
 }
