@@ -1,12 +1,12 @@
 <template>
   <task-action-container
-    title="Enter Title"
+    title="Add Checklist"
     class="add-checklist-cmp"
     @close="closeChecklist"
   >
     <form-input
       :showLabel="true"
-      labelText="title"
+      labelText="List Title"
       v-model="title"
       type="text"
     />
@@ -36,7 +36,7 @@ export default {
       }
     },
     closeChecklist() {
-      this.$emit("closeCheckList");
+      this.$emit("close");
     },
   },
 };

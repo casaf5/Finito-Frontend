@@ -48,6 +48,9 @@ function getTxtToRndr(action, changed, user, task) {
     case "UPDATED_DESCRIPSTION":
       txt = `${user.name} updated the description of ${task.title}`;
       break;
+    case "UPDATED_TITLE":
+      txt = `${user.name} updated the description of ${task.title}`;
+      break;
     case "UPDATED_COVER":
       txt = `${user.name} changed the cover of ${task.title}`;
       break;

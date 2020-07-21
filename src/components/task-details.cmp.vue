@@ -8,41 +8,32 @@
       <div class="task-details-main-container">
         <div class="task-left-container">
           <div class="task-details-titles-container">
-            <h2 class="task-name">
-              <i class="el-icon-postcard icon-margin"></i>
-              {{ task.title }}
-            </h2>
+              <i class="el-icon-postcard "></i>
+              <input type="text" v-model="task.title" class="task-name" @blur="updateTitle">
             <h6 class="task-group-name">
-              Task-Group
+               in Task-Group
               <span>{{ taskGroup.title }}</span>
             </h6>
           </div>
           <!-- combine with due date -->
           <!-- <el-checkbox  @click="toggleTaskCompletion" v-model="checked" class="task-isComplete" >Completed</el-checkbox> -->
           <div class="task-members-labels-date flex wrap">
-            <section
-              v-show="task.members.length"
-              class="task-members-container-wraper"
-            >
-              <!-- <i class="fas fa-users"></i> -->
+            <section v-show="task.members.length" class="task-members-container-wraper">
               <h6>Members</h6>
               <div class="task-members-container flex">
                 <div v-for="(member, idx) in task.members" :key="idx">
-                  <!-- change to member name -->
                   <avatar
-                    v-if="member.url"
-                    :src="member.url"
-                    :size="30"
+                    v-if="member.img"
+                    :src="member.img"
+                    :size="35"
                   ></avatar>
-                  <avatar v-else :username="member.name" :size="30"></avatar>
+                  <avatar v-else :username="member.userName" :size="35"></avatar>
                 </div>
               </div>
             </section>
             <section
               v-show="task.labels.length"
-              class="task-labels-container-wraper"
-            >
-              <!-- <i class="fas fa-tags"></i> -->
+              class="task-labels-container-wraper" >
               <h6>Labels</h6>
               <div class="task-labels-container flex">
                 <!-- v for labels -->
@@ -52,7 +43,11 @@
               <h6>Due Date</h6>
               <div class="task-date-container flex">
                 <label>
-                  <input type="checkbox" v-model="task.isComplete" @click="toggleTaskCompletion" />
+                  <input
+                    type="checkbox"
+                    v-model="task.isComplete"
+                    @click="toggleTaskCompletion"
+                  />
                   {{ task.dueDate }}
                 </label>
               </div>
@@ -85,7 +80,7 @@
               @cover="setTaskCover(idx)"
             />
           </div>
-          <div class="task-checklists" v-if="task.checkLists.length">
+          <div class="task-checklists" v-if="task.checkLists.length > 0">
             <task-check-list
               v-for="(checklist, idx) in task.checkLists"
               :checklist="checklist"
@@ -94,7 +89,10 @@
               @update="updateCheckList(idx)"
             />
           </div>
-          <task-activity v-if="activitiesToShow" :activities="activitiesToShow" />
+          <task-activity
+            v-if="activitiesToShow"
+            :activities="activitiesToShow"
+          />
         </div>
         <div class="task-right-container">
           <details-btns
@@ -140,10 +138,10 @@ export default {
       activityToAdd: {
         edditedTask: {
           id: this.taskToEdit.id,
-          title: this.taskToEdit.title
-        }
+          title: this.taskToEdit.title,
+        },
       },
-      boardToEdit: null
+      boardToEdit: null,
     };
   },
   created() {
@@ -151,22 +149,22 @@ export default {
     this.boardToEdit = JSON.parse(JSON.stringify(this.board));
     const taskGroupId = this.taskToEdit.parentListId;
     this.taskGroup = this.boardToEdit.taskGroups.find(
-      tg => tg.id === taskGroupId
+      (tg) => tg.id === taskGroupId
     );
     const taskGroupIdx = this.boardToEdit.taskGroups.findIndex(
-      tg => tg.id === taskGroupId
+      (tg) => tg.id === taskGroupId
     );
     this.task = this.taskGroup.tasks.find(
-      task => task.id === this.taskToEdit.id
+      (task) => task.id === this.taskToEdit.id
     );
-    this.taskIdx = this.taskGroup.tasks.findIndex(t => t.id === this.task.id);
+    this.taskIdx = this.taskGroup.tasks.findIndex((t) => t.id === this.task.id);
     this.user = this.$store.getters.loggedUser
       ? this.$store.getters.loggedUser
       : {
-          id:"443",
+          id: "443",
           name: "Guest",
           url:
-            "https://api.adorable.io/avatars/400/79c159e13036a02295c94901b6628bfe.png"
+            "https://api.adorable.io/avatars/400/79c159e13036a02295c94901b6628bfe.png",
         };
   },
   computed: {
@@ -178,44 +176,42 @@ export default {
       if (this.boardToEdit) {
         activities = this.boardToEdit.activities;
         activities = activities.filter(
-          activity => activity.edditedTask.id === this.task.id
+          (activity) => activity.edditedTask.id === this.task.id
         );
-        return activities.filter(
-          activity => activity.edditedTask.id === this.task.id
-        );
-      } else {
         return activities;
       }
-    }
+    },
   },
   methods: {
-    async saveBoard(actionStr = "ACTION SAVED") {
-      const savedBoard = await this.$store.dispatch({
-        type: "saveBoard",
-        board: this.boardToEdit
+    updateBoard(actionStr = "ACTION SAVED") {
+      socketService.emit("boardUpdate", this.boardToEdit);
+      socketService.on("boardUpdate", (board) => {
+        this.$store.commit({ type: "setBoard", board });
+        // const savedBoard = await this.$store.dispatch({
+        //   type: "updateBoard",
+        //   board: this.boardToEdit
       });
       // USER MSG
-      const type = savedBoard ? "success" : "error";
-      let fixedStr = actionStr;
-      if (actionStr !== "ACTION SAVED") {
-        let words = actionStr.split("_");
-        if (words) fixedStr = `${words[0]} ${words[1]}`;
-      }
-      const msg = savedBoard
-        ? `${fixedStr} SUCCESSFULLY!`
-        : `${fixedStr} FAILD...`;
-      eventBus.$emit(SHOW_MSG, { msg, type });
+      // const type = savedBoard ? "success" : "error";
+      // let fixedStr = actionStr;
+      // if (actionStr !== "ACTION SAVED") {
+      //   let words = actionStr.split("_");
+      //   if (words) fixedStr = `${words[0]} ${words[1]}`;
+      // }
+      // const msg = savedBoard
+      //   ? `${fixedStr} SUCCESSFULLY!`
+      //   : `${fixedStr} FAILD...`;
+      // eventBus.$emit(SHOW_MSG, { msg, type });
     },
     closeModal() {
       this.$emit("closeModal");
     },
     boardChanged(action, changed = null) {
-      console.log(action);
-      if (changed) {
-        this.addActivity(action, changed);
-      } else {
-        this.addActivity(action);
-      }
+      changed ? this.addActivity(action, changed) : this.addActivity(action);
+    },
+    //TITLE
+    updateTitle(){
+    this.addActivity('UPDATED_TITLE')
     },
     //DESCREPTION
     focusOnDesc() {
@@ -242,11 +238,10 @@ export default {
     },
 
     setTaskCover(idx) {
-      if(this.task.cover.url === this.task.attachments[idx].imageUrl){
-        this.task.cover.url=""
+      if (this.task.cover.url === this.task.attachments[idx].imageUrl) {
+        this.task.cover.url = "";
         this.addActivity("REMOVED_COVER");
-      }
-      else{
+      } else {
         this.task.cover.url = this.task.attachments[idx].imageUrl;
         this.addActivity("ADDED_COVER");
       }
@@ -274,8 +269,8 @@ export default {
       );
       this.activityToAdd.txt = txt;
       this.boardToEdit.activities.unshift(this.activityToAdd);
-      this.saveBoard(action);
-    }
+      this.updateBoard(action);
+    },
   },
 
   components: {
@@ -284,7 +279,7 @@ export default {
     TaskActionContainer,
     taskActivity,
     detailsBtns,
-    filePreview
-  }
+    filePreview,
+  },
 };
 </script>

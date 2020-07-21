@@ -29,28 +29,17 @@ function getEmptyTask(parentListId) {
     desc: "",
     dueDate: "",
     watchMembers: [],
-    createdAt: new Date(),
+    createdAt: Date.now(),
     executeTime: "",
     members: [],
     labels: [],
-    comments: [
-      {
-        createdBy: "",
-        txt: "",
-        createdAt: "",
-      },
-    ],
+    comments: [],
     cover: {
       color: "",
       url: "",
     },
     attachments: [],
-    checkLists: [
-      {
-        title: "",
-        items: [],
-      },
-    ],
+    checkLists: [],
   };
   return task;
 }

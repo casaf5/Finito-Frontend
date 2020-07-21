@@ -8,13 +8,22 @@
     font-size: 1.25rem;
     font-weight: bold;
   }
+ 
   .task-name {
     font-family: Montserrat-Bold;
     font-weight: bold;
+    height: 28px;
     margin-bottom: 5px;
+    margin-inline-start: 40px;
+    background-color: transparent;
+    border: none;
+    font-size: 18px;
+  }
+  input~i{
+    top:4px;
   }
   .task-group-name {
-    margin-left: 35px;
+    margin-left: 40px;
   }
   width: 750px;
   min-height: 85vh;
@@ -39,6 +48,7 @@
     margin-top: 8px;
     font-size: 1.2rem;
     background-color: transparent;
+    border: none;
     .fa-times-circle {
       color: #bec3ce;
       transition: all 0.3s ease-in-out;
@@ -83,6 +93,9 @@
       }
     }
     .task-details-titles-container {
+      i.el-icon-postcard{
+        top:4px;
+      }
       .task-group-name {
         span {
           text-decoration: underline;
@@ -119,10 +132,10 @@
 
   .task-right-container {
     display: grid;
-    grid-template-rows: 60px repeat(12, 35px);
+    grid-template-rows: 60px repeat(11, 35px);
     grid-auto-rows: 35px;
     grid-gap: 10px;
-    button {
+    button{
       border: none;
       border-radius: 3px;
       height: 100%;
@@ -130,13 +143,24 @@
       margin: 5px;
       justify-self: center;
       text-align: left;
+      &.btn-primary{
+        width: 100%;
+        margin:0 auto;
+        font-size: rem(15px);
+        text-align: center;
+        padding:5px 0;
+      }
+      
     }
     .task-actions {
       grid-row: 2;
       label {
         font-size: rem(12px);
-        margin: 10px 0 0 10px;
+        margin: 10px 0;
         color: #5e6c84;
+      }
+      .section-header{
+        margin-left: 10px;
       }
     }
   }
@@ -188,6 +212,7 @@
       height: 35px;
       font-family: Montserrat-Bold;
       font-weight: bold;
+      border: none;
     }
   }
   text-align: left;

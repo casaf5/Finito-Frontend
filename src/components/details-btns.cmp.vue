@@ -1,6 +1,6 @@
 <template>
   <section class="task-actions">
-    <label>Add To Task</label>
+    <label class="section-header">Add To Task</label>
     <button @click="toggleMemebersComp">
       <i class="el-icon-user"></i> Members
     </button>
@@ -12,7 +12,7 @@
       :boardMembers="board.members"
       :taskMembers="task.members"
     />
-    <button><i class="el-icon-price-tag"></i> Labels</button>
+    <button><i class="el-icon-price-tag"></i>Labels</button>
     <button @click="toggleDateComp">
       <i class="el-icon-date"></i> Due date
     </button>
@@ -22,6 +22,7 @@
       @dateRemoved="removeDuedate"
       @closeDateComp="toggleDateComp"
     />
+<<<<<<< HEAD
     <div style="position:relative">
       <button @click="toggleAddCheckListOpen">
         <i class="el-icon-document-checked"></i>
@@ -33,16 +34,26 @@
         @createCheckList="addCheckList"
       />
     </div>
+=======
+    <button @click.self="toggleAddCheckListOpen">
+      <i class="el-icon-document-checked"></i>
+      Checklist
+    </button>
+    <task-checkList
+      @close="toggleAddCheckListOpen"
+      v-if="addCheckListOpen"
+      @createCheckList="addCheckList"
+    />
+>>>>>>> 5553630fb444f232878384cae528099b875232a2
     <button @click="toggleAttach">
       <i class="el-icon-paperclip"></i> Attachment
     </button>
     <task-attachment
       v-if="attachmentsOpen"
       @closeAttach="toggleAttach"
-      @uploded="addAttachment"
-    />
+      @uploded="addAttachment" />
     <button><i class="el-icon-picture-outline"></i> Cover</button>
-    <label>Actions</label>
+    <label class="section-header">Actions</label>
     <button @click="copyTask">
       <i class="el-icon-document-copy"></i> Copy
     </button>
@@ -79,7 +90,10 @@ export default {
       addCheckListOpen: false,
       taskToEdit: null,
       taskGroup: null,
+<<<<<<< HEAD
       addCheckListOpen: false,
+=======
+>>>>>>> 5553630fb444f232878384cae528099b875232a2
     };
   },
   created() {
@@ -108,7 +122,9 @@ export default {
     },
     // change id after copy --- make an option of copying to other lists
     copyTask() {
-      this.taskGroup.tasks.unshift(JSON.parse(JSON.stringify(this.task)));
+      let coppiedTask = JSON.parse(JSON.stringify(this.task));
+      coppiedTask.id = utilService.getRandomId();
+      this.taskGroup.tasks.unshift(coppiedTask);
       this.$emit("emitBoardChange", "COPPIED_TASK");
     },
     // gets the new taskgroup id from the relevant comp
@@ -118,8 +134,6 @@ export default {
         (tg) => tg.id === newTaskgroupId
       );
       this.taskGroup.tasks.splice(this.taskIdx, 1);
-      console.log("idx", newGroupIdx);
-      console.log(this.board);
       this.board.taskGroups[newGroupIdx].tasks.push(this.taskToEdit);
       this.$emit("emitBoardChange", "MOVED_TASK", this.taskGroup.title);
       this.$emit("emitCloseModal");

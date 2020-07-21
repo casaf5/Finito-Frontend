@@ -6,7 +6,7 @@
     :style="{ 'background-color': label.color }"
   >
     <transition name="fade">
-      <span v-if="enenlargeLabel">{{ label.title }}</span>
+      <h5 v-if="enenlargeLabel">{{ label.title }}</h5>
     </transition>
   </div>
 </template>
