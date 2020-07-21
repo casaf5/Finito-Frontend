@@ -22,7 +22,6 @@
           <task-attachment v-if="attachmentsOpen" 
           @closeAttach="toggleAttach" 
           @uploded="addAttachment"
-          @remove="removeAttach"
           />
           <button>
             <i class="el-icon-picture-outline"></i> Cover

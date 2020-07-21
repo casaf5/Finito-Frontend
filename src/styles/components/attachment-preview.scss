@@ -1,12 +1,12 @@
 .attachment-preview{
     display: grid;
-    width: 100%;
+    width: 99%;
     grid-template-columns: 20% 80%;
     grid-template-rows: repeat(3,30px);
-    padding:5px;
+    padding:10px;
     margin:5px;
     transition:all .2s ease-in-out;
-    border-radius: 3px;
+    border-radius: 5px;
     &:hover{
         background-color: #e9ebef86;
     }

@@ -58,14 +58,6 @@
   grid-template-columns: 0.75fr 0.25fr;
   grid-template-rows: 1fr;
   padding: rem(15px);
-  button {
-    border: none;
-    margin: 10px;
-    margin-right: 0;
-    text-align: left;
-    height: 1.8rem;
-    border-radius: 5px;
-  }
   .task-left-container {
     display: grid;
     grid-template-rows: 0.2fr repeat(4,auto);
@@ -135,6 +127,7 @@
       width: 100%;
       margin: 5px;
       justify-self: center;
+      text-align: left;
     }
     .task-actions {
       grid-row: 2;
@@ -189,14 +182,19 @@
     }
     button{
       position: absolute;
-      top:0;
+      border-radius: 5px;
+      top: 0;
       right: 0;
+      height: 35px;
+      font-family: Montserrat-Bold;
+      font-weight: bold;
     }
   }
   text-align: left;
   font-size: 0.9rem;
   ul {
     padding-left: 0;
+    font-size: rem(12px);
     max-height: 600px;
     overflow: scroll;
   }
