@@ -1,29 +1,38 @@
 import axios from "axios";
-axios.defaults.withCredentials = true
- 
+axios.defaults.withCredentials = true;
+
 export const userService = {
-  login,
-  logout,
-  signup,
+  getUsers,
+  getById,
+  remove,
 };
 function _getUrl(id = "") {
   const BASE_URL =
     process.env.NODE_ENV !== "development"
-      ? "/api/auth"
-      : "//localhost:3030/api/auth";
+      ? "/api/user"
+      : "//localhost:3030/api/user";
   return `${BASE_URL}/${id}`;
 }
-async function signup(newCredentials) {
-  let user = await axios.post(_getUrl() + `signup`, newCredentials);
-  return user.data;
+async function getUsers() {
+  let users = await axios.get(_getUrl());
+  users=users.data
+  return users
 }
 
-async function login(credentials) {
-  let user = await axios.post(_getUrl() + `login`, credentials);
-  sessionStorage.setItem("user", JSON.stringify(user.data));
-  return user.data;
+async function getById(userId) {
+  let user = await axios.get(_getUrl(userId));
+  user=user.data
+  return user;
 }
-async function logout() {
-  sessionStorage.removeItem("user");
-  return await axios.post(_getUrl() + `logout`);
+async function remove(userId) {
+    let removedUser = await axios.delete(_getUrl(userId));
+    removedUser=removedUser.data
+    return removedUser;
 }
+async function update(userId) {
+    let savedUser = await axios.put(_getUrl(userId));
+    savedUser=savedUser.data
+    return savedUser;
+}
+
+

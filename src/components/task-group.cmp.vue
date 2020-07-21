@@ -112,13 +112,10 @@ export default {
     addTask(taskContent) {
       const task = utilService.getEmptyTask(this.taskGroup.id);
       task.title = taskContent;
-
       const board = utilService.deepCopy(this.board);
-
       const taskGroupIndex = this.$store.getters.getTaskGroupByIndex(
         this.taskGroup.id
       );
-
       board.taskGroups[taskGroupIndex].tasks.push(task);
       this.$store.dispatch({ type: "saveBoard", board });
     },
@@ -165,7 +162,7 @@ export default {
         sortedTasks = this.taskGroup.tasks.sort((taskA, taskB) => {
           var titleA = taskA.title.toUpperCase(); // ignore upper and lowercase
           var titleB = taskB.title.toUpperCase(); // ignore upper and lowercase
-          if (titleA < titleB) return -1
+          if (titleA < titleB) return -1;
           if (titleA > titleB) return 1;
           return 0;
         });
