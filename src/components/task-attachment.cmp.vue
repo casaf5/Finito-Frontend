@@ -1,11 +1,11 @@
 <template>
   <div class="task-attachment">
-    <task-action-container title="Upload Files" @close="closeAttach">
+    <task-action-container title="Upload Files" @close="closeAttach" >
       <section class="img-container">
            <img class="img-upload-preview" :src="imageUrl"/>
       </section>
       <h5 class="status"> {{uploadStatus }}</h5>
-      <section class="upload-select">
+      <section class="upload-select" v-if="!status">
         <button @click="openImageInput">Image</button>
         <button @click="openFileInput">File</button>
         <input ref="fileInput" type="file" @change.prevent="uploadFile" hidden/>
@@ -16,9 +16,8 @@
           hidden
         />
       </section>
-      <section class="upload-options" v-if="status">
-        <input type="text" placeholder="Your File Name" v-model="fileName" />
-        <button @click="addFile">Add to Task</button>
+      <section class="upload-options" v-if="status===true">
+        <button @click="addFile" class="add-file-btn">Add to Task</button>
       </section>
     </task-action-container>
   </div>
@@ -34,7 +33,7 @@ export default {
     return {
       status: null,
       imageUrl:
-        "https://res.cloudinary.com/dwgaobhor/image/upload/v1595256587/file-logo_ngwvr9.png",
+        "https://res.cloudinary.com/dwgaobhor/image/upload/v1595278304/edolcc05z4ybqyso6pqz.png",
       fileName: "New File",
       downloadLink: null,
       attachment: null,
@@ -49,6 +48,7 @@ export default {
       this.createAttachment(ev);
     },
     async uploadImage(ev) {
+      this.status='Upload'
       let url = await uploadService.imageUpload(ev);
       this.imageUrl = url;
       this.downloadLink = url;
@@ -68,6 +68,7 @@ export default {
       this.$emit("closeAttach");
     },
     addFile() {
+      this.$emit("closeAttach");
       this.$emit("uploded", this.attachment);
     },
     openImageInput() {

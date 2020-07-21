@@ -1,9 +1,10 @@
 <template>
   <section>
     <div class="task-activities">
-      <div class="task-activties-header flex row space-between">
+      <div class="task-activties-header">
+        <i class="fas fa-tasks"></i>
           <h4>
-            <i class="fas fa-tasks"></i> Activity
+             Activity
           </h4>
           <button @click="toggleBtn">{{btnTxt}}</button>
       </div>
@@ -11,8 +12,9 @@
         <ul>
           <li v-for="(activity,idx) in activities" :key="idx">
             <div class="flex align-center details-activity-avatar-text-wraper">
-              <avatar class="activity-avatar" v-if="activity.byUser.url" :src="activity.byUser.url"></avatar>
-              <avatar class="activity-avatar" v-else :username="activity.byUser.name"></avatar>
+              <!-- <avatar class="activity-avatar" :size="30" v-if="activity.byUser.url" :src="activity.byUser.url"></avatar> -->
+              <avatar  :size="25" v-if="activity.byUser.url" username="Guest"></avatar>
+              <avatar  :size="25" v-else :username="activity.byUser.name"></avatar>
               <div class="details-activity-text">{{activity.txt}}</div>
             </div>
           </li>

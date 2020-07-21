@@ -12,7 +12,9 @@
       <div v-if="show" class="add-task-content-container">
         <textarea :placeholder="placeholderText" v-model="content"></textarea>
         <section class="add-task-actions flex space-between">
-          <button @click="addTask" :class={editActive:show}>{{ buttonText }}</button>
+          <button @click="addTask" :class="{ editActive: show }">
+            {{ buttonText }}
+          </button>
           <i @click="toggleEdit" class="el-icon-close"></i>
         </section>
       </div>
@@ -22,7 +24,7 @@
 
 <script>
 export default {
-  name:"add-task",
+  name: "add-task",
   props: ["inGroup", "show"],
   data() {
     return {
@@ -40,8 +42,10 @@ export default {
         if (this.inGroup) {
           this.$emit("addTask", this.content);
           this.content = "";
+          this.$emit("toggleEdit", !this.show);
         } else {
           this.$emit("addList", this.content);
+          this.$emit("toggleEdit", !this.show);
         }
         return;
       }

@@ -12,13 +12,13 @@ function deepCopy(object) {
   return JSON.parse(JSON.stringify(object));
 }
 // function for generating an empty checkList
-function getEmptyCheckList() {
-  const checklist={
-    id:getRandomId(),
-    title:"New Checklist",
-    items:[],
-  }
-return checklist
+function getEmptyCheckList(title = "Check List") {
+  const checklist = {
+    id: getRandomId(),
+    title,
+    items: [],
+  };
+  return checklist;
 }
 // function for generating an empty task
 function getEmptyTask(parentListId) {
@@ -55,27 +55,27 @@ function getEmptyTask(parentListId) {
   return task;
 }
 
-function getNewBoard(){
-  const newBoard={
-    "name": "",
-    "members": [],
-    "tags": [],
-    "style": {
-      "bgColor": "",
-      "bgUrl": ""
+function getNewBoard() {
+  const newBoard = {
+    name: "",
+    members: [],
+    tags: [],
+    style: {
+      bgColor: "",
+      bgUrl: "",
     },
-    "creator": {},
-    "activities": [],
-    "taskGroups": [
+    creator: {},
+    activities: [],
+    taskGroups: [
       {
-        "id": getRandomId(),
-        "title": "Task-Group 1",
-        "position": "",
-        "tasks": [],
-        "labelsOpen": false
-      }
-    ]
-  }
+        id: getRandomId(),
+        title: "Task-Group 1",
+        position: "",
+        tasks: [],
+        labelsOpen: false,
+      },
+    ],
+  };
   return newBoard;
 }
 
@@ -95,19 +95,19 @@ function _getRandomInt(num1, num2) {
 //Specific funcion to help in DND on board!
 
 export const applyDrag = (arr, dragResult) => {
-    const { removedIndex, addedIndex, payload } = dragResult
-    if (removedIndex === null && addedIndex === null) return arr
-  
-    const result = [...arr]
-    let itemToAdd = payload
-  
-    if (removedIndex !== null) {
-      itemToAdd = result.splice(removedIndex, 1)[0]
-    }
-  
-    if (addedIndex !== null) {
-      result.splice(addedIndex, 0, itemToAdd)
-    }
-  
-    return result
+  const { removedIndex, addedIndex, payload } = dragResult;
+  if (removedIndex === null && addedIndex === null) return arr;
+
+  const result = [...arr];
+  let itemToAdd = payload;
+
+  if (removedIndex !== null) {
+    itemToAdd = result.splice(removedIndex, 1)[0];
   }
+
+  if (addedIndex !== null) {
+    result.splice(addedIndex, 0, itemToAdd);
+  }
+
+  return result;
+};

@@ -1,5 +1,5 @@
 import axios from "axios";
-import {utilService} from '../utils/utils.js'
+import { utilService } from "../utils/utils.js";
 axios.defaults.withCredentials = true;
 
 export const boardService = {
@@ -46,6 +46,6 @@ function save(board) {
   return board._id ? _update(board) : _add(board);
 }
 
-function getEmptyBoard(){
-  return utilService.getNewBoard()  
+function getEmptyBoard() {
+  return utilService.getNewBoard();
 }
