@@ -1,5 +1,6 @@
 .add-task-container {
   width: 255px;
+  padding: 10px 0;
   display: flex;
   align-self: start;
   align-items: center;
@@ -39,13 +40,13 @@
   .add-task-content-container {
     background-color: $task-group-color;
     width: 100%;
-    .add-task-actions{
+    .add-task-actions {
       width: 254px;
     }
     textarea {
       display: block;
       border: none;
-      resize: vertical;;
+      resize: vertical;
       margin: 5px 0;
       background-color: #fff;
       padding: 6px 8px 2px;
@@ -55,9 +56,9 @@
       outline: none;
       box-shadow: 0px 1px 0px 0px rgba(171, 171, 171, 1);
     }
-    i{
+    i {
       font-size: rem(25px);
-      padding:6px 0;
+      padding: 6px 0;
     }
     button {
       padding: 3px 10px;
@@ -67,7 +68,7 @@
       color: #fff;
       border: none;
       outline: none;
-      &.editActive{
+      &.editActive {
         background-color: #5aac44;
       }
     }

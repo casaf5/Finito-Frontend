@@ -18,6 +18,25 @@ export default {
       content: "",
     };
   },
+  created() {
+    if (this.debounceInput) {
+      this.emitInput = this.debounce(this.emitInput, 400);
+    }
+  },
+  methods: {
+    debounce(fn, delay) {
+      let timer;
+      return function() {
+        clearTimeout(timer);
+        timer = setTimeout(() => {
+          fn();
+        }, delay);
+      };
+    },
+    emitInput(event) {
+      this.$emit("input", $event.target.value);
+    },
+  },
   props: {
     showLabel: {
       type: Boolean,
@@ -33,6 +52,9 @@ export default {
     },
     value: {
       type: String,
+    },
+    debounceInput: {
+      type: Boolean,
     },
   },
 };

@@ -1,6 +1,6 @@
 <template>
   <div style="position:relative">
-    <TaskLabel />
+    <!-- <TaskLabel /> -->
 
     <!-- <transition-group name="list-complete" tag="p">
       <span
@@ -9,7 +9,7 @@
         v-for="(date,index) in sortedDates"
       >{{date.title}}</span>
     </transition-group>-->
-    <transition-group name="flip-list" tag="ul">
+    <!-- <transition-group name="flip-list" tag="ul">
       <li :key="index" v-for="(date, index) in sortedDates">
         {{ date.title }}
       </li>
@@ -22,12 +22,13 @@
         v-for="(date, index) in sortedDates"
         >{{ date.title }}</span
       >
-    </transition-group>
+    </transition-group>-->
+    <!-- <button @click="sort">Sort</button> -->
 
-    <button @click="sort">Sort</button>
     <!-- <CheckList /> -->
     <!-- <Members /> -->
     <task-attach />
+    <task-cover />
   </div>
 </template>
 
@@ -37,7 +38,7 @@ import CheckList from "../components/task-checklist.cmp.vue";
 import Members from "../components/task-members.cmp";
 import Select from "../components/From Elements/form-select.cmp";
 import taskAttach from "../components/task-attachment.cmp";
-
+import TaskCover from "../components/task-cover.cmp";
 import formSelect from "../components/From Elements/form-select.cmp";
 export default {
   data() {
@@ -45,17 +46,17 @@ export default {
       dateObjects: [
         {
           title: "one",
-          createdAt: new Date("07-01-2020"),
+          createdAt: new Date("07-01-2020")
         },
         {
           title: "most receent",
-          createdAt: new Date("07-20-2020"),
+          createdAt: new Date("07-20-2020")
         },
         {
           title: "oldest",
-          createdAt: new Date("06-20-2020"),
-        },
-      ],
+          createdAt: new Date("06-20-2020")
+        }
+      ]
     };
   },
   methods: {
@@ -63,12 +64,12 @@ export default {
       this.dateObjects = this.dateObjects.sort(
         (dateA, dateB) => dateB.createdAt - dateA.createdAt
       );
-    },
+    }
   },
   computed: {
     sortedDates() {
       return this.dateObjects;
-    },
+    }
   },
   components: {
     TaskLabel,
@@ -76,7 +77,8 @@ export default {
     Members,
     taskAttach,
     formSelect,
-  },
+    TaskCover
+  }
 };
 </script>
 
