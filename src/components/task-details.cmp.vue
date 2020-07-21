@@ -189,12 +189,12 @@ export default {
     }
   },
   methods: {
-    saveBoard(actionStr = "ACTION SAVED") {
+    updateBoard(actionStr = "ACTION SAVED") {
       socketService.emit("boardUpdate", this.boardToEdit);
       socketService.on("boardUpdate", board => {
       this.$store.commit({ type: "setBoard", board });
       // const savedBoard = await this.$store.dispatch({
-      //   type: "saveBoard",
+      //   type: "updateBoard",
       //   board: this.boardToEdit
       });
       // USER MSG
@@ -277,7 +277,7 @@ export default {
       );
       this.activityToAdd.txt = txt;
       this.boardToEdit.activities.unshift(this.activityToAdd);
-      this.saveBoard(action);
+      this.updateBoard(action);
     }
   },
 
