@@ -1,5 +1,9 @@
 <template>
-  <task-action-container title="Enter Title">
+  <task-action-container
+    title="Enter Title"
+    class="add-checklist-cmp"
+    @close="closeChecklist"
+  >
     <form-input
       :showLabel="true"
       labelText="title"
@@ -21,14 +25,18 @@ export default {
   },
   data() {
     return {
-      title: "",
+      title: "New Check List",
     };
   },
   methods: {
     createCheckList() {
       if (this.title) {
         this.$emit("createCheckList", this.title);
+        this.$emit("close");
       }
+    },
+    closeChecklist() {
+      this.$emit("closeCheckList");
     },
   },
 };

@@ -38,8 +38,8 @@
     > * {
       margin: 5px 5px 16px 2px;
       font-size: rem(13px);
-      >i{
-          margin-inline-end: 48px;
+      > i {
+        margin-inline-end: 48px;
       }
     }
     .check-item.isDone {
@@ -61,16 +61,17 @@
   }
   .add-item {
     input {
-      width: 90%;
+      width: 82%;
       height: 30px;
-      margin-inline-start: 2px;
+      margin-inline-start: 7px;
       border-radius: 3px;
-      padding-left:5px
+      padding-left: 5px;
     }
     i {
-        font-size: 18px;
-        margin-inline-end: 49px;
-        margin-top: 4px;
+      font-size: 18px;
+      margin-inline-end: 49px;
+      margin-top: 4px;
     }
   }
 }
+

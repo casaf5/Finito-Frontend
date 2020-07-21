@@ -9,7 +9,8 @@
         <div class="task-left-container">
           <div class="task-details-titles-container">
             <h2 class="task-name">
-              <i class="el-icon-postcard icon-margin"></i>{{ task.title }}
+              <i class="el-icon-postcard icon-margin"></i>
+              {{ task.title }}
             </h2>
             <h6 class="task-group-name">
               Task-Group
@@ -19,9 +20,12 @@
           <!-- combine with due date -->
           <!-- <el-checkbox  @click="toggleTaskCompletion" v-model="checked" class="task-isComplete" >Completed</el-checkbox> -->
           <div class="task-members-labels-date flex wrap">
-            <section v-show="task.members.length" class="task-members-container-wraper">
-              <i class="fas fa-users"></i>
-              <h4>Members</h4>
+            <section
+              v-show="task.members.length"
+              class="task-members-container-wraper"
+            >
+              <!-- <i class="fas fa-users"></i> -->
+              <h6>Members</h6>
               <div class="task-members-container flex">
                 <div v-for="(member, idx) in task.members" :key="idx">
                   <!-- change to member name -->
@@ -30,11 +34,7 @@
                     :src="member.url"
                     :size="30"
                   ></avatar>
-                  <avatar
-                    v-else
-                    :username="member.name"
-                    :size="30"
-                  ></avatar>
+                  <avatar v-else :username="member.name" :size="30"></avatar>
                 </div>
               </div>
             </section>
@@ -42,8 +42,8 @@
               v-show="task.labels.length"
               class="task-labels-container-wraper"
             >
-              <i class="fas fa-tags"></i>
-              <h4>Labels</h4>
+              <!-- <i class="fas fa-tags"></i> -->
+              <h6>Labels</h6>
               <div class="task-labels-container flex">
                 <!-- v for labels -->
               </div>
@@ -52,21 +52,15 @@
               <h6>Due Date</h6>
               <div class="task-date-container flex">
                 <label>
-                  <input
-                    type="checkbox"
-                    v-model="task.isComplete"
-                    @click="toggleTaskCompletion"
-                  />
+                  <input type="checkbox" v-model="task.isComplete" @click="toggleTaskCompletion" />
                   {{ task.dueDate }}
                 </label>
               </div>
             </section>
           </div>
           <div class="task-desc-container">
-            <i class="el-icon-s-unfold "></i>
-            <h4>
-              Description
-            </h4>
+            <i class="el-icon-s-unfold"></i>
+            <h4>Description</h4>
             <textarea
               placeholder="Add Description to task.."
               @click="focusOnDesc"
@@ -76,16 +70,19 @@
               class="desc-textarea"
             />
           </div>
-          <div class="task-attachments-container" v-if="task.attachments.length>0">
+          <div
+            class="task-attachments-container"
+            v-if="task.attachments.length > 0"
+          >
             <i class="fas fa-file-alt"></i>
-            <h4>
-              Attachments
-            </h4>
+            <h4>Attachments</h4>
             <file-preview
               v-for="(file, idx) in task.attachments"
               :file="file"
+              :cover="task.cover"
               :key="idx"
               @remove="removeAttach(idx)"
+              @cover="setTaskCover(idx)"
             />
           </div>
           <div class="task-checklists" v-if="task.checkLists.length">
@@ -97,10 +94,7 @@
               @update="updateCheckList(idx)"
             />
           </div>
-          <task-activity
-            v-if="activitiesToShow"
-            :activities="activitiesToShow"
-          />
+          <task-activity v-if="activitiesToShow" :activities="activitiesToShow" />
         </div>
         <div class="task-right-container">
           <details-btns
@@ -120,9 +114,10 @@
 <script>
 import { utilService } from "../utils/utils.js";
 import { loggerService } from "../services/logger-service.js";
+import socketService from "../services/socket-service.js";
 import TaskActionContainer from "./task-action-container.cmp";
 import detailsBtns from "./details-btns.cmp";
-import taskCheckList from "../components/checklist-cmp";
+import taskCheckList from "../components/checklist-preview-cmp";
 import taskActivity from "../components/task-activity.cmp.vue";
 import taskAttachment from "../components/task-attachment.cmp.vue";
 import filePreview from "../components/task-attach-preview.cmp.vue";
@@ -145,10 +140,10 @@ export default {
       activityToAdd: {
         edditedTask: {
           id: this.taskToEdit.id,
-          title: this.taskToEdit.title,
-        },
+          title: this.taskToEdit.title
+        }
       },
-      boardToEdit: null,
+      boardToEdit: null
     };
   },
   created() {
@@ -156,22 +151,22 @@ export default {
     this.boardToEdit = JSON.parse(JSON.stringify(this.board));
     const taskGroupId = this.taskToEdit.parentListId;
     this.taskGroup = this.boardToEdit.taskGroups.find(
-      (tg) => tg.id === taskGroupId
+      tg => tg.id === taskGroupId
     );
     const taskGroupIdx = this.boardToEdit.taskGroups.findIndex(
-      (tg) => tg.id === taskGroupId
+      tg => tg.id === taskGroupId
     );
     this.task = this.taskGroup.tasks.find(
-      (task) => task.id === this.taskToEdit.id
+      task => task.id === this.taskToEdit.id
     );
-    this.taskIdx = this.taskGroup.tasks.findIndex((t) => t.id === this.task.id);
+    this.taskIdx = this.taskGroup.tasks.findIndex(t => t.id === this.task.id);
     this.user = this.$store.getters.loggedUser
       ? this.$store.getters.loggedUser
       : {
           id:"443",
           name: "Guest",
           url:
-            "https://api.adorable.io/avatars/400/79c159e13036a02295c94901b6628bfe.png",
+            "https://api.adorable.io/avatars/400/79c159e13036a02295c94901b6628bfe.png"
         };
   },
   computed: {
@@ -183,21 +178,21 @@ export default {
       if (this.boardToEdit) {
         activities = this.boardToEdit.activities;
         activities = activities.filter(
-          (activity) => activity.edditedTask.id === this.task.id
+          activity => activity.edditedTask.id === this.task.id
         );
         return activities.filter(
-          (activity) => activity.edditedTask.id === this.task.id
+          activity => activity.edditedTask.id === this.task.id
         );
       } else {
         return activities;
       }
-    },
+    }
   },
   methods: {
     async saveBoard(actionStr = "ACTION SAVED") {
       const savedBoard = await this.$store.dispatch({
         type: "saveBoard",
-        board: this.boardToEdit,
+        board: this.boardToEdit
       });
       // USER MSG
       const type = savedBoard ? "success" : "error";
@@ -245,6 +240,17 @@ export default {
       this.task.attachments.splice(idx, 1);
       this.addActivity("REMOVED_ATTACHMENT");
     },
+
+    setTaskCover(idx) {
+      if(this.task.cover.url === this.task.attachments[idx].imageUrl){
+        this.task.cover.url=""
+        this.addActivity("REMOVED_COVER");
+      }
+      else{
+        this.task.cover.url = this.task.attachments[idx].imageUrl;
+        this.addActivity("ADDED_COVER");
+      }
+    },
     // CHECKLIST
     removeCheckList(idx) {
       this.task.checkLists.splice(idx, 1);
@@ -269,7 +275,7 @@ export default {
       this.activityToAdd.txt = txt;
       this.boardToEdit.activities.unshift(this.activityToAdd);
       this.saveBoard(action);
-    },
+    }
   },
 
   components: {
@@ -278,7 +284,7 @@ export default {
     TaskActionContainer,
     taskActivity,
     detailsBtns,
-    filePreview,
-  },
+    filePreview
+  }
 };
 </script>

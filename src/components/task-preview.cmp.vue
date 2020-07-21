@@ -1,6 +1,6 @@
 <template>
   <div class="task-preview-container">
-    <div :style="taskCover" class="task-cover"></div>
+    <div :style="taskCover" class="task-cover" @click="taskClicked"></div>
     <div class="task-preview-content">
       <div v-if="currentTask.labels.length >= 1" class="task-label-container">
         <small-label
@@ -26,7 +26,10 @@
             <span>{{ taskString }}</span>
           </div>
         </div>
-        <!-- <i class="el-icon-aim"></i> -->
+        <div v-if="currentTask.attachments.length" class="attachments-container">
+          <i class="fas fa-paperclip"></i>
+          <span>{{this.currentTask.attachments.length}}</span>
+        </div>
         <i v-if="currentTask.desc" class="fas fa-stream"></i>
       </div>
     </div>
@@ -71,7 +74,7 @@ export default {
     taskCover() {
       if (this.currentTask.cover.url) {
         return (
-          `background:url("${this.currentTask.cover.url}");` + "height:100px"
+          `background:url("${this.currentTask.cover.url}");` + "height:130px"
         );
       } else {
         return this.currentTask.cover.color
