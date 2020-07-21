@@ -81,7 +81,10 @@ export default {
       addCheckListOpen: false,
       taskToEdit: null,
       taskGroup: null,
+<<<<<<< HEAD
       addCheckListOpen: false,
+=======
+>>>>>>> ayal
     };
   },
   created() {
