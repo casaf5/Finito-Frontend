@@ -53,6 +53,7 @@ import TaskPreview from "./task-preview.cmp";
 import taskGroupActions from "./task-group-actions.cmp";
 import TaskActionContainer from "./task-action-container.cmp";
 import AddTask from "./add-task.cmp";
+import socketService from "../services/socket-service";
 
 export default {
   props: {
@@ -82,7 +83,14 @@ export default {
       return this.$store.getters.boards;
     },
   },
+
   methods: {
+    getAndSetBoard(board) {
+      socketService.emit("boardUpdate", board);
+      socketService.on("boardUpdate", (board) => {
+        this.$store.commit({ type: "setBoard", board });
+      });
+    },
     selectTitle() {
       const titleInputArea = this.$refs.titleInputArea;
       titleInputArea.select();
@@ -111,16 +119,18 @@ export default {
     },
     addTask(taskContent) {
       const task = utilService.getEmptyTask(this.taskGroup.id);
-      task.title = taskContent;
-
       const board = utilService.deepCopy(this.board);
+      task.title = taskContent;
 
       const taskGroupIndex = this.$store.getters.getTaskGroupByIndex(
         this.taskGroup.id
       );
 
       board.taskGroups[taskGroupIndex].tasks.push(task);
-      this.$store.dispatch({ type: "saveBoard", board });
+
+      //socket io
+      this.getAndSetBoard(board);
+      // this.$store.dispatch({ type: "saveBoard", board });
     },
     duplicateList() {
       const board = utilService.deepCopy(this.board);
@@ -139,6 +149,7 @@ export default {
       );
 
       board.taskGroups.splice(taksGroupIndex + 1, 0, duplicatedList);
+      this.getAndSetBoard(board);
       this.$store.dispatch({ type: "saveBoard", board });
     },
     moveToDifferentBoard(index) {
@@ -152,6 +163,7 @@ export default {
     },
     watchList() {
       this.taskGroup.isWatched = !this.taskGroup.isWatched;
+      this.getAndSetBoard(this.board);
     },
     sortBy(order) {
       let sortedTasks = [];
@@ -165,7 +177,7 @@ export default {
         sortedTasks = this.taskGroup.tasks.sort((taskA, taskB) => {
           var titleA = taskA.title.toUpperCase(); // ignore upper and lowercase
           var titleB = taskB.title.toUpperCase(); // ignore upper and lowercase
-          if (titleA < titleB) return -1
+          if (titleA < titleB) return -1;
           if (titleA > titleB) return 1;
           return 0;
         });

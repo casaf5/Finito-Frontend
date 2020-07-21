@@ -27,7 +27,8 @@
     <!-- <button @click="sort">Sort</button> -->
     <!-- <CheckList /> -->
     <!-- <Members /> -->
-    <!-- <task-attach /> -->
+    <task-attach />
+    <!-- <task-cover /> -->
   </div>
 </template>
 
