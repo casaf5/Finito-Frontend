@@ -44,6 +44,7 @@ export default {
   async created() {
     let id = this.$route.params.id;
     await this.$store.dispatch({ type: "getBoardById", id });
+    console.log(this.board)
     socketService.setup();
     socketService.emit("joinedBoard", this.board._id);
   },
