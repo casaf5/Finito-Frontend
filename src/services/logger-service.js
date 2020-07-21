@@ -24,7 +24,6 @@ function getTxtToRndr(action, changed, user, task) {
     case "ADDED_ATTACHMENT":
       txt = `${user.name} attached a file to ${task.title}`;
       break;
-
     // REMOVE
     case "REMOVED_TASK":
       txt = `${user.name} removed ${task.title}`;
@@ -83,6 +82,9 @@ function getTxtToRndr(action, changed, user, task) {
       break;
     case "WATCHED_TASK":
       txt = `${user.name} watched ${task.title}`;
+      break;
+    case "UNWATCHED_TASK":
+      txt = `${user.name} unwatched ${task.title}`;
       break;
   }
   return txt;

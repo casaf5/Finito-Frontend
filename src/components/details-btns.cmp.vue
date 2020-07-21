@@ -24,7 +24,7 @@
       @dateRemoved="removeDuedate"
       @closeDateComp="toggleDateComp"
     />
-    <button style="position:relative" @click="addCheckListOpen = !addCheckListOpen">
+    <button style="position:relative" @click.self="addCheckListOpen = !addCheckListOpen">
       <i class="el-icon-document-checked"></i>
       Checklist
       <task-checkList v-if="addCheckListOpen" @createCheckList="addCheckList" />
@@ -57,8 +57,11 @@
       @closeMoveComp="toggleMoveComp"
       @taskMoved="moveTask"
     />
-    <button>
-      <i class="el-icon-view"></i> Watch
+    <button @click="toggleWatch" class="flex space-between align-center">  
+      <div>
+        <i class="el-icon-view"></i> Watch
+      </div>
+      <i v-show="watchIsOn" class="el-icon-check v-watch"></i>
     </button>
   </section>
 </template>
@@ -71,16 +74,16 @@ import taskCheckList from "../components/task-checklist.cmp";
 import taskMove from "../components/task-move.cmp.vue";
 import { utilService } from "../utils/utils.js";
 export default {
-  props: ["board", "task", "taskIdx"],
+  props: ["board", "task", "taskIdx", "user"],
   data() {
     return {
       memebersOpen: false,
       duedateOpen: false,
       moveCompOpen: false,
       attachmentsOpen: false,
+      addCheckListOpen: false,
       taskToEdit: null,
       taskGroup: null,
-      addCheckListOpen: false
     };
   },
   created() {
@@ -88,6 +91,13 @@ export default {
       tg => tg.id === this.task.parentListId
     );
     this.taskToEdit = this.taskGroup.tasks.find(t => t.id === this.task.id); //maybe just deepCopy?
+    console.log(this.taskToEdit.watchMembers)
+  },
+  computed :{
+     watchIsOn (){
+       const isOn = (this.taskToEdit.watchMembers.find(member=> member.id === this.user.id))? true : false
+       return isOn
+     } 
   },
   methods: {
     // TASKS
@@ -171,7 +181,16 @@ export default {
     },
     updateCover(cover) {},
     attachFile(file) {},
-    watchTask() {}
+    toggleWatch() {
+      const idx = this.taskToEdit.watchMembers.findIndex(member => member.id === this.user.id)
+      if (idx!==-1) {this.taskToEdit.watchMembers.splice(idx, 1)
+        this.$emit("emitBoardChange", "UNWATCHED_TASK");
+      } else {
+        this.taskToEdit.watchMembers.push(this.user)
+        this.$emit("emitBoardChange", "WATCHED_TASK");
+      }
+    
+    }
   },
   components: {
     taskMembers,

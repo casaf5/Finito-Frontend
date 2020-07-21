@@ -105,7 +105,7 @@
         <div class="task-right-container">
           <details-btns
             :board="boardToEdit"
-            :taskGroup="taskGroup"
+            :user="user"
             :taskIdx="taskIdx"
             :task="task"
             @emitBoardChange="boardChanged"
@@ -168,6 +168,7 @@ export default {
     this.user = this.$store.getters.loggedUser
       ? this.$store.getters.loggedUser
       : {
+          id:"443",
           name: "Guest",
           url:
             "https://api.adorable.io/avatars/400/79c159e13036a02295c94901b6628bfe.png",
