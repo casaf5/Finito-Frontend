@@ -173,7 +173,7 @@ export default {
         this.taskGroup.id
       );
       board.taskGroups[taskGroupIndex] = this.taskGroup;
-      this.$store.dispatch({ type: "saveBoard", board });
+      // this.$store.dispatch({ type: "saveBoard", board });
     },
   },
   components: {
