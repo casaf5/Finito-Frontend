@@ -24,11 +24,17 @@
       @dateRemoved="removeDuedate"
       @closeDateComp="toggleDateComp"
     />
-    <button style="position:relative" @click="addCheckListOpen = !addCheckListOpen">
-      <i class="el-icon-document-checked"></i>
-      Checklist
-      <task-checkList v-if="addCheckListOpen" @createCheckList="addCheckList" />
-    </button>
+    <div style="position:relative">
+      <button @click="toggleAddCheckListOpen">
+        <i class="el-icon-document-checked"></i>
+        Checklist
+      </button>
+      <task-checkList
+        @close="toggleAddCheckListOpen"
+        v-if="addCheckListOpen"
+        @createCheckList="addCheckList"
+      />
+    </div>
     <button @click="toggleAttach">
       <i class="el-icon-paperclip"></i> Attachment
     </button>
@@ -133,6 +139,9 @@ export default {
     },
     toggleMoveComp() {
       this.moveCompOpen = !this.moveCompOpen;
+    },
+    toggleAddCheckListOpen() {
+      this.addCheckListOpen = !this.addCheckListOpen;
     },
     toggleAttach() {
       this.attachmentsOpen = !this.attachmentsOpen;

@@ -26,7 +26,10 @@
             <span>{{ taskString }}</span>
           </div>
         </div>
-        <!-- <i class="el-icon-aim"></i> -->
+        <div v-if="currentTask.attachments.length" class="attachments-container">
+          <i class="fas fa-paperclip"></i>
+          <span>{{this.currentTask.attachments.length}}</span>
+        </div>
         <i v-if="currentTask.desc" class="fas fa-stream"></i>
       </div>
     </div>

@@ -37,9 +37,8 @@
     .task-status-container {
       display: flex;
       align-items: center;
-      * {
-        margin-right: 3px;
-        padding-top: 3px;
+      > * {
+        margin-right: 5px;
       }
       .checklist-container {
         padding: 2px;
@@ -50,10 +49,16 @@
       }
       .check-list-completed {
         border-radius: 3px;
+        padding: 3px 5px;
         background-color: $btn-primary-color;
         i,
         span {
           color: #fff;
+        }
+      }
+      .attachments-container {
+        span {
+          margin-left: 5px;
         }
       }
     }
@@ -91,4 +96,3 @@
     }
   }
 }
-

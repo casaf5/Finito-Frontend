@@ -32,6 +32,90 @@
       "activities": [
         {
           "edditedTask": {
+            "id": "21F6-1736C494BD3-9F6",
+            "title": "MISSION 4"
+          },
+          "action": "REMOVED_CHECKLIST",
+          "byUser": {
+            "name": "Guest",
+            "url": "https://api.adorable.io/avatars/400/79c159e13036a02295c94901b6628bfe.png"
+          },
+          "txt": "Guest removed checklist from MISSION 4"
+        },
+        {
+          "edditedTask": {
+            "id": "21F6-1736C494BD3-9F6",
+            "title": "MISSION 4"
+          },
+          "action": "REMOVED_CHECKLIST",
+          "byUser": {
+            "name": "Guest",
+            "url": "https://api.adorable.io/avatars/400/79c159e13036a02295c94901b6628bfe.png"
+          },
+          "txt": "Guest removed checklist from MISSION 4"
+        },
+        {
+          "edditedTask": {
+            "id": "21F6-1736C494BD3-9F6",
+            "title": "MISSION 4"
+          },
+          "action": "REMOVED_CHECKLIST",
+          "byUser": {
+            "name": "Guest",
+            "url": "https://api.adorable.io/avatars/400/79c159e13036a02295c94901b6628bfe.png"
+          },
+          "txt": "Guest removed checklist from MISSION 4"
+        },
+        {
+          "edditedTask": {
+            "id": "21F6-1736C494BD3-9F6",
+            "title": "MISSION 4"
+          },
+          "action": "REMOVED_CHECKLIST",
+          "byUser": {
+            "name": "Guest",
+            "url": "https://api.adorable.io/avatars/400/79c159e13036a02295c94901b6628bfe.png"
+          },
+          "txt": "Guest removed checklist from MISSION 4"
+        },
+        {
+          "edditedTask": {
+            "id": "21F6-1736C494BD3-9F6",
+            "title": "MISSION 4"
+          },
+          "action": "REMOVED_CHECKLIST",
+          "byUser": {
+            "name": "Guest",
+            "url": "https://api.adorable.io/avatars/400/79c159e13036a02295c94901b6628bfe.png"
+          },
+          "txt": "Guest removed checklist from MISSION 4"
+        },
+        {
+          "edditedTask": {
+            "id": "21F6-1736C494BD3-9F6",
+            "title": "MISSION 4"
+          },
+          "action": "REMOVED_CHECKLIST",
+          "byUser": {
+            "name": "Guest",
+            "url": "https://api.adorable.io/avatars/400/79c159e13036a02295c94901b6628bfe.png"
+          },
+          "txt": "Guest removed checklist from MISSION 4"
+        },
+        {
+          "edditedTask": {
+            "id": "21F6-1736C494BD3-9F6",
+            "title": "MISSION 4"
+          },
+          "action": "REMOVED_CHECKLIST",
+          "byUser": {
+            "name": "Guest",
+            "url": "https://api.adorable.io/avatars/400/79c159e13036a02295c94901b6628bfe.png"
+          },
+          "txt": "Guest removed checklist from MISSION 4"
+        },
+        {
+          "edditedTask": {
             "id": "2674-1736C493851-1C27",
             "title": "Work on front end"
           },
@@ -495,38 +579,6 @@
           "tasks": [
             {
               "parentListId": "25E6-1735BEF12E4-EBF",
-              "id": "T52-DSV45BE61XX0-14F5",
-              "title": "MISSION 4",
-              "desc": "finish trello p\n",
-              "dueDate": "",
-              "watchMembers": [],
-              "createdAt": "",
-              "executeTime": "",
-              "members": [],
-              "labels": [],
-              "comments": [
-                {
-                  "createdBy": "",
-                  "txt": "",
-                  "createdAt": ""
-                }
-              ],
-              "cover": {
-                "color": "rgb(235, 90, 70)",
-                "url": "https://images.unsplash.com/photo-1549880338-65ddcdfd017b?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=200&fit=max&ixid=eyJhcHBfaWQiOjE0OTc5MX0"
-              },
-              "attachments": [
-                {
-                  "name": "Capture.PNG",
-                  "imageUrl": "http://res.cloudinary.com/dwgaobhor/image/upload/v1595314774/yqnewmweukxmqloekebt.png",
-                  "createdAt": 1595314775290,
-                  "downloadLink": "http://res.cloudinary.com/dwgaobhor/image/upload/v1595314774/yqnewmweukxmqloekebt.png"
-                }
-              ],
-              "checkLists": []
-            },
-            {
-              "parentListId": "25E6-1735BEF12E4-EBF",
               "id": "108A-1736379250E-1FEE",
               "title": "UX Stuff",
               "desc": "jhfjghfjhgkhvkjbgk",
@@ -570,6 +622,38 @@
                 }
               ],
               "isComplete": false
+            },
+            {
+              "parentListId": "25E6-1735BEF12E4-EBF",
+              "id": "T52-DSV45BE61XX0-14F5",
+              "title": "MISSION 4",
+              "desc": "finish trello p\n",
+              "dueDate": "",
+              "watchMembers": [],
+              "createdAt": "",
+              "executeTime": "",
+              "members": [],
+              "labels": [],
+              "comments": [
+                {
+                  "createdBy": "",
+                  "txt": "",
+                  "createdAt": ""
+                }
+              ],
+              "cover": {
+                "color": "rgb(235, 90, 70)",
+                "url": "https://images.unsplash.com/photo-1549880338-65ddcdfd017b?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=200&fit=max&ixid=eyJhcHBfaWQiOjE0OTc5MX0"
+              },
+              "attachments": [
+                {
+                  "name": "Capture.PNG",
+                  "imageUrl": "http://res.cloudinary.com/dwgaobhor/image/upload/v1595314774/yqnewmweukxmqloekebt.png",
+                  "createdAt": 1595314775290,
+                  "downloadLink": "http://res.cloudinary.com/dwgaobhor/image/upload/v1595314774/yqnewmweukxmqloekebt.png"
+                }
+              ],
+              "checkLists": []
             },
             {
               "parentListId": "25E6-1735BEF12E4-EBF",
@@ -790,25 +874,7 @@
                   "downloadLink": "http://res.cloudinary.com/dwgaobhor/image/upload/v1595288662/drdsyvmmsrah6bkc6luw.png"
                 }
               ],
-              "checkLists": [
-                {
-                  "title": "",
-                  "items": [
-                    {
-                      "content": "mission 1",
-                      "completed": true
-                    },
-                    {
-                      "content": "mission 2",
-                      "completed": false
-                    },
-                    {
-                      "content": "mission 3",
-                      "completed": false
-                    }
-                  ]
-                }
-              ]
+              "checkLists": []
             },
             {
               "parentListId": "A9F-1736C494BD3-2215",

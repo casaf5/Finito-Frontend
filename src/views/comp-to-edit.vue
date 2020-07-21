@@ -1,6 +1,6 @@
 <template>
   <div style="position:relative">
-    <!-- <TaskLabel /> -->
+    <TaskLabel />
 
     <!-- <transition-group name="list-complete" tag="p">
       <span
@@ -28,7 +28,7 @@
     <!-- <CheckList /> -->
     <!-- <Members /> -->
     <task-attach />
-    <task-cover />
+    <!-- <task-cover /> -->
   </div>
 </template>
 

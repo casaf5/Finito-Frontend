@@ -53,13 +53,14 @@ import TaskPreview from "./task-preview.cmp";
 import taskGroupActions from "./task-group-actions.cmp";
 import TaskActionContainer from "./task-action-container.cmp";
 import AddTask from "./add-task.cmp";
+import socketService from "../services/socket-service";
 
 export default {
   props: {
     taskGroup: {
       type: Object,
-      required: true,
-    },
+      required: true
+    }
   },
   created() {},
   data() {
@@ -70,8 +71,8 @@ export default {
       dropPlaceholderOptions: {
         className: "task-drop-preview",
         animationDuration: "150",
-        showOnTop: true,
-      },
+        showOnTop: true
+      }
     };
   },
   computed: {
@@ -80,9 +81,16 @@ export default {
     },
     boards() {
       return this.$store.getters.boards;
-    },
+    }
   },
+
   methods: {
+    getAndSetBoard(board) {
+      socketService.emit("boardUpdate", board);
+      socketService.on("boardUpdate", board => {
+        this.$store.commit({ type: "setBoard", board });
+      });
+    },
     selectTitle() {
       const titleInputArea = this.$refs.titleInputArea;
       titleInputArea.select();
@@ -92,7 +100,7 @@ export default {
       const board = utilService.deepCopy(this.board);
       const duplicatedList = utilService.deepCopy(this.taskGroup);
       const taksGroupIndex = this.board.taskGroups.findIndex(
-        (taskGroup) => taskGroup.id === this.taskGroup.id
+        taskGroup => taskGroup.id === this.taskGroup.id
       );
       board.taskGroups.splice(taksGroupIndex, 1, duplicatedList);
       this.$store.dispatch({ type: "saveBoard", board });
@@ -105,22 +113,24 @@ export default {
       this.$emit("taskDrop", taskGroupId, dropResult);
     },
     getTaskPayLoad(taskGroupId) {
-      return (index) => {
+      return index => {
         return this.taskGroup.tasks[index];
       };
     },
     addTask(taskContent) {
       const task = utilService.getEmptyTask(this.taskGroup.id);
-      task.title = taskContent;
-
       const board = utilService.deepCopy(this.board);
+      task.title = taskContent;
 
       const taskGroupIndex = this.$store.getters.getTaskGroupByIndex(
         this.taskGroup.id
       );
 
       board.taskGroups[taskGroupIndex].tasks.push(task);
-      this.$store.dispatch({ type: "saveBoard", board });
+
+      //socket io
+      this.getAndSetBoard(board);
+      // this.$store.dispatch({ type: "saveBoard", board });
     },
     duplicateList() {
       const board = utilService.deepCopy(this.board);
@@ -129,21 +139,22 @@ export default {
 
       duplicatedList.id = newListId;
 
-      duplicatedList.tasks.forEach((task) => {
+      duplicatedList.tasks.forEach(task => {
         task.parentListId = newListId;
         task.id = utilService.getRandomId();
       });
 
       const taksGroupIndex = this.board.taskGroups.findIndex(
-        (taskGroup) => taskGroup.id === this.taskGroup.id
+        taskGroup => taskGroup.id === this.taskGroup.id
       );
 
       board.taskGroups.splice(taksGroupIndex + 1, 0, duplicatedList);
+      this.getAndSetBoard(board);
       this.$store.dispatch({ type: "saveBoard", board });
     },
     moveToDifferentBoard(index) {
       const taksGroupIndex = this.board.taskGroups.findIndex(
-        (taskGroup) => taskGroup.id === this.taskGroup.id
+        taskGroup => taskGroup.id === this.taskGroup.id
       );
       const board = utilService.deepCopy(this.board);
       const taskGroupToMove = utilService.deepCopy(this.taskGroup);
@@ -152,11 +163,12 @@ export default {
     },
     watchList() {
       this.taskGroup.isWatched = !this.taskGroup.isWatched;
+      this.getAndSetBoard(this.board);
     },
     sortBy(order) {
       //implement
       console.log(order);
-    },
+    }
   },
   components: {
     Container,
@@ -164,7 +176,7 @@ export default {
     TaskPreview,
     taskGroupActions,
     TaskActionContainer,
-    AddTask,
-  },
+    AddTask
+  }
 };
 </script>

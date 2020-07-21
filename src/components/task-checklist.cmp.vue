@@ -1,11 +1,6 @@
 <template>
-  <task-action-container title="Enter Title">
-    <form-input
-      :showLabel="true"
-      labelText="title"
-      v-model="title"
-      type="text"
-    />
+  <task-action-container @close="close" title="Enter Title">
+    <form-input :showLabel="true" labelText="title" v-model="title" type="text" />
     <button @click="createCheckList" class="btn-primary large">Add</button>
   </task-action-container>
 </template>
@@ -17,11 +12,11 @@ import FormInput from "./From Elements/form-input.cmp";
 export default {
   components: {
     TaskActionContainer,
-    FormInput,
+    FormInput
   },
   data() {
     return {
-      title: "",
+      title: ""
     };
   },
   methods: {
@@ -30,7 +25,10 @@ export default {
         this.$emit("createCheckList", this.title);
       }
     },
-  },
+    close() {
+      this.$emit("close");
+    }
+  }
 };
 </script>
 
