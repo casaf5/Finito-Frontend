@@ -4,6 +4,7 @@ import landingPage from "../views/landing-page.vue";
 import trellorApp from "../views/trellor-app.vue";
 import homePage from "../views/home-page.vue";
 import Edit from "../views/comp-to-edit.vue";
+import dashboard from '@/views/dashboard.vue'
 Vue.use(VueRouter);
 
 const routes = [
@@ -28,6 +29,10 @@ const routes = [
   {
     path: "/edit",
     component: Edit,
+  },
+  {
+    path: '/board/dash/charts',
+    component: dashboard
   },
 ];
 

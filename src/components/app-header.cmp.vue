@@ -15,7 +15,7 @@
           <span>Finito</span>
         </section>
         <section class="flex right-side">
-          <router-link tag="li" to="/dash" class="header-item"
+          <router-link tag="li" to="/board/dash/charts" class="header-item"
             >Dashboard</router-link
           >
           <!-- <router-link tag="li" to="/login" class="header-item">Login</router-link> -->

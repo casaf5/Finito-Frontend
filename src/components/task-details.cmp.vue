@@ -192,13 +192,10 @@ export default {
     updateBoard(actionStr = "ACTION SAVED") {
       socketService.emit("boardUpdate", this.boardToEdit);
       socketService.on("boardUpdate", board => {
-      this.$store.commit({ type: "setBoard", board });
-<<<<<<< HEAD
-=======
+      this.$store.commit({ type: "setBoard", board })
       // const savedBoard = await this.$store.dispatch({
       //   type: "updateBoard",
       //   board: this.boardToEdit
->>>>>>> ayal
       });
       // USER MSG
       // const type = savedBoard ? "success" : "error";
@@ -206,11 +203,7 @@ export default {
       // if (actionStr !== "ACTION SAVED") {
       //   let words = actionStr.split("_");
       //   if (words) fixedStr = `${words[0]} ${words[1]}`;
-<<<<<<< HEAD
-      // }
-=======
       
->>>>>>> ayal
       // const msg = savedBoard
       //   ? `${fixedStr} SUCCESSFULLY!`
       //   : `${fixedStr} FAILD...`;
