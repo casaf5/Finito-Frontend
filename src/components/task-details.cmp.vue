@@ -28,13 +28,12 @@
               <h6>Members</h6>
               <div class="task-members-container flex">
                 <div v-for="(member, idx) in task.members" :key="idx">
-                  <!-- change to member name -->
                   <avatar
-                    v-if="member.url"
-                    :src="member.url"
+                    v-if="member.img"
+                    :src="member.img"
                     :size="30"
                   ></avatar>
-                  <avatar v-else :username="member.name" :size="30"></avatar>
+                  <avatar v-else :username="member.userName" :size="30"></avatar>
                 </div>
               </div>
             </section>
@@ -52,7 +51,11 @@
               <h6>Due Date</h6>
               <div class="task-date-container flex">
                 <label>
-                  <input type="checkbox" v-model="task.isComplete" @click="toggleTaskCompletion" />
+                  <input
+                    type="checkbox"
+                    v-model="task.isComplete"
+                    @click="toggleTaskCompletion"
+                  />
                   {{ task.dueDate }}
                 </label>
               </div>
@@ -85,7 +88,7 @@
               @cover="setTaskCover(idx)"
             />
           </div>
-          <div class="task-checklists" v-if="task.checkLists.length">
+          <div class="task-checklists" v-if="task.checkLists.length > 0">
             <task-check-list
               v-for="(checklist, idx) in task.checkLists"
               :checklist="checklist"
@@ -94,7 +97,10 @@
               @update="updateCheckList(idx)"
             />
           </div>
-          <task-activity v-if="activitiesToShow" :activities="activitiesToShow" />
+          <task-activity
+            v-if="activitiesToShow"
+            :activities="activitiesToShow"
+          />
         </div>
         <div class="task-right-container">
           <details-btns
@@ -140,10 +146,10 @@ export default {
       activityToAdd: {
         edditedTask: {
           id: this.taskToEdit.id,
-          title: this.taskToEdit.title
-        }
+          title: this.taskToEdit.title,
+        },
       },
-      boardToEdit: null
+      boardToEdit: null,
     };
   },
   created() {
@@ -151,22 +157,22 @@ export default {
     this.boardToEdit = JSON.parse(JSON.stringify(this.board));
     const taskGroupId = this.taskToEdit.parentListId;
     this.taskGroup = this.boardToEdit.taskGroups.find(
-      tg => tg.id === taskGroupId
+      (tg) => tg.id === taskGroupId
     );
     const taskGroupIdx = this.boardToEdit.taskGroups.findIndex(
-      tg => tg.id === taskGroupId
+      (tg) => tg.id === taskGroupId
     );
     this.task = this.taskGroup.tasks.find(
-      task => task.id === this.taskToEdit.id
+      (task) => task.id === this.taskToEdit.id
     );
-    this.taskIdx = this.taskGroup.tasks.findIndex(t => t.id === this.task.id);
+    this.taskIdx = this.taskGroup.tasks.findIndex((t) => t.id === this.task.id);
     this.user = this.$store.getters.loggedUser
       ? this.$store.getters.loggedUser
       : {
-          id:"443",
+          id: "443",
           name: "Guest",
           url:
-            "https://api.adorable.io/avatars/400/79c159e13036a02295c94901b6628bfe.png"
+            "https://api.adorable.io/avatars/400/79c159e13036a02295c94901b6628bfe.png",
         };
   },
   computed: {
@@ -176,23 +182,22 @@ export default {
     activitiesToShow() {
       let activities = null;
       if (this.boardToEdit) {
-        activities = this.boardToEdit.activities ;
-        activities = activities.filter((activity) => activity.edditedTask.id === this.task.id);
+        activities = this.boardToEdit.activities;
+        activities = activities.filter(
+          (activity) => activity.edditedTask.id === this.task.id
+        );
         return activities;
       }
-    }
+    },
   },
   methods: {
     updateBoard(actionStr = "ACTION SAVED") {
       socketService.emit("boardUpdate", this.boardToEdit);
-      socketService.on("boardUpdate", board => {
-      this.$store.commit({ type: "setBoard", board });
-<<<<<<< HEAD
-=======
-      // const savedBoard = await this.$store.dispatch({
-      //   type: "updateBoard",
-      //   board: this.boardToEdit
->>>>>>> ayal
+      socketService.on("boardUpdate", (board) => {
+        this.$store.commit({ type: "setBoard", board });
+        // const savedBoard = await this.$store.dispatch({
+        //   type: "updateBoard",
+        //   board: this.boardToEdit
       });
       // USER MSG
       // const type = savedBoard ? "success" : "error";
@@ -200,11 +205,7 @@ export default {
       // if (actionStr !== "ACTION SAVED") {
       //   let words = actionStr.split("_");
       //   if (words) fixedStr = `${words[0]} ${words[1]}`;
-<<<<<<< HEAD
       // }
-=======
-      
->>>>>>> ayal
       // const msg = savedBoard
       //   ? `${fixedStr} SUCCESSFULLY!`
       //   : `${fixedStr} FAILD...`;
@@ -214,7 +215,7 @@ export default {
       this.$emit("closeModal");
     },
     boardChanged(action, changed = null) {
-      changed? this.addActivity(action, changed): this.addActivity(action);
+      changed ? this.addActivity(action, changed) : this.addActivity(action);
     },
     //DESCREPTION
     focusOnDesc() {
@@ -241,11 +242,10 @@ export default {
     },
 
     setTaskCover(idx) {
-      if(this.task.cover.url === this.task.attachments[idx].imageUrl){
-        this.task.cover.url=""
+      if (this.task.cover.url === this.task.attachments[idx].imageUrl) {
+        this.task.cover.url = "";
         this.addActivity("REMOVED_COVER");
-      }
-      else{
+      } else {
         this.task.cover.url = this.task.attachments[idx].imageUrl;
         this.addActivity("ADDED_COVER");
       }
@@ -274,7 +274,7 @@ export default {
       this.activityToAdd.txt = txt;
       this.boardToEdit.activities.unshift(this.activityToAdd);
       this.updateBoard(action);
-    }
+    },
   },
 
   components: {
@@ -283,7 +283,7 @@ export default {
     TaskActionContainer,
     taskActivity,
     detailsBtns,
-    filePreview
-  }
+    filePreview,
+  },
 };
 </script>

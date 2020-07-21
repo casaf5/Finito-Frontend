@@ -1,9 +1,16 @@
-.task-members{
-    position: relative;
-    transform: translate(-100%);
+.task-members {
+  position: relative;
+  transform: translate(-100%);
 }
-.member:hover{
-    cursor: pointer;
-    background-color: rgb(240, 239, 239);
-    border-radius: 5px;
+.member:hover {
+  cursor: pointer;
+  background-color: rgb(240, 239, 239);
+  border-radius: 5px;
+}
+
+.member-search-status {
+    h6 {
+    font-size: 15px;
+    text-align: center;
+  }
 }

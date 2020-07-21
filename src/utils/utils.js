@@ -33,24 +33,13 @@ function getEmptyTask(parentListId) {
     executeTime: "",
     members: [],
     labels: [],
-    comments: [
-      {
-        createdBy: "",
-        txt: "",
-        createdAt: "",
-      },
-    ],
+    comments: [],
     cover: {
       color: "",
       url: "",
     },
     attachments: [],
-    checkLists: [
-      {
-        title: "",
-        items: [],
-      },
-    ],
+    checkLists: [],
   };
   return task;
 }

@@ -13,10 +13,6 @@ export default {
   data() {
     return {};
   },
-  async created() {
-    const boards = await this.$store.dispatch({ type: "loadBoards" });
-    const users = await this.$store.dispatch({ type: "loadUsers" });
-  },
   components: {
     boardDetails,
   },

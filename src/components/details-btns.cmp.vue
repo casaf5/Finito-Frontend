@@ -1,6 +1,6 @@
 <template>
   <section class="task-actions">
-    <label>Add To Task</label>
+    <label class="section-header">Add To Task</label>
     <button @click="toggleMemebersComp">
       <i class="el-icon-user"></i> Members
     </button>
@@ -12,7 +12,7 @@
       :boardMembers="board.members"
       :taskMembers="task.members"
     />
-    <button><i class="el-icon-price-tag"></i> Labels</button>
+    <button><i class="el-icon-price-tag"></i>Labels</button>
     <button @click="toggleDateComp">
       <i class="el-icon-date"></i> Due date
     </button>
@@ -22,27 +22,24 @@
       @dateRemoved="removeDuedate"
       @closeDateComp="toggleDateComp"
     />
-    <div style="position:relative">
-      <button @click="toggleAddCheckListOpen">
-        <i class="el-icon-document-checked"></i>
-        Checklist
-      </button>
-      <task-checkList
-        @close="toggleAddCheckListOpen"
-        v-if="addCheckListOpen"
-        @createCheckList="addCheckList"
-      />
-    </div>
+    <button @click.self="toggleAddCheckListOpen">
+      <i class="el-icon-document-checked"></i>
+      Checklist
+    </button>
+    <task-checkList
+      @close="toggleAddCheckListOpen"
+      v-if="addCheckListOpen"
+      @createCheckList="addCheckList"
+    />
     <button @click="toggleAttach">
       <i class="el-icon-paperclip"></i> Attachment
     </button>
     <task-attachment
       v-if="attachmentsOpen"
       @closeAttach="toggleAttach"
-      @uploded="addAttachment"
-    />
+      @uploded="addAttachment" />
     <button><i class="el-icon-picture-outline"></i> Cover</button>
-    <label>Actions</label>
+    <label class="section-header">Actions</label>
     <button @click="copyTask">
       <i class="el-icon-document-copy"></i> Copy
     </button>
@@ -54,10 +51,8 @@
       @closeMoveComp="toggleMoveComp"
       @taskMoved="moveTask"
     />
-    <button @click="toggleWatch" class="flex space-between align-center">  
-      <div>
-        <i class="el-icon-view"></i> Watch
-      </div>
+    <button @click="toggleWatch" class="flex space-between align-center">
+      <div><i class="el-icon-view"></i> Watch</div>
       <i v-show="watchIsOn" class="el-icon-check v-watch"></i>
     </button>
   </section>
@@ -81,24 +76,24 @@ export default {
       addCheckListOpen: false,
       taskToEdit: null,
       taskGroup: null,
-<<<<<<< HEAD
-      addCheckListOpen: false,
-=======
->>>>>>> ayal
     };
   },
   created() {
     this.taskGroup = this.board.taskGroups.find(
       (tg) => tg.id === this.task.parentListId
     );
-    this.taskToEdit = this.taskGroup.tasks.find(t => t.id === this.task.id); //maybe just deepCopy?
-    console.log(this.taskToEdit.watchMembers)
+    this.taskToEdit = this.taskGroup.tasks.find((t) => t.id === this.task.id); //maybe just deepCopy?
+    console.log(this.taskToEdit.watchMembers);
   },
-  computed :{
-     watchIsOn (){
-       const isOn = (this.taskToEdit.watchMembers.find(member=> member.id === this.user.id))? true : false
-       return isOn
-     } 
+  computed: {
+    watchIsOn() {
+      const isOn = this.taskToEdit.watchMembers.find(
+        (member) => member.id === this.user.id
+      )
+        ? true
+        : false;
+      return isOn;
+    },
   },
   methods: {
     // TASKS
@@ -109,8 +104,8 @@ export default {
     },
     // change id after copy --- make an option of copying to other lists
     copyTask() {
-      let coppiedTask=JSON.parse(JSON.stringify(this.task))
-      coppiedTask.id=utilService.getRandomId()
+      let coppiedTask = JSON.parse(JSON.stringify(this.task));
+      coppiedTask.id = utilService.getRandomId();
       this.taskGroup.tasks.unshift(coppiedTask);
       this.$emit("emitBoardChange", "COPPIED_TASK");
     },
@@ -186,15 +181,17 @@ export default {
     updateCover(cover) {},
     attachFile(file) {},
     toggleWatch() {
-      const idx = this.taskToEdit.watchMembers.findIndex(member => member.id === this.user.id)
-      if (idx!==-1) {this.taskToEdit.watchMembers.splice(idx, 1)
+      const idx = this.taskToEdit.watchMembers.findIndex(
+        (member) => member.id === this.user.id
+      );
+      if (idx !== -1) {
+        this.taskToEdit.watchMembers.splice(idx, 1);
         this.$emit("emitBoardChange", "UNWATCHED_TASK");
       } else {
-        this.taskToEdit.watchMembers.push(this.user)
+        this.taskToEdit.watchMembers.push(this.user);
         this.$emit("emitBoardChange", "WATCHED_TASK");
       }
-    
-    }
+    },
   },
   components: {
     taskMembers,
