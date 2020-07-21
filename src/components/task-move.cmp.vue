@@ -20,17 +20,12 @@ export default {
           newTaskGroup: ''
     };
   },
-  created(){
-      console.log('movecomp',this.taskGropus)
-      console.log(this.options)
-  },
   methods: {
     closeComp() {
       this.$emit("closeMoveComp");
     },
     emitMoveTask (){
       const newGroup = this.taskGropus.find(tg => tg.title === this.newTaskGroup)
-      console.log(newGroup)
       this.$emit ('taskMoved', newGroup.id)
     },
   },

@@ -176,14 +176,8 @@ export default {
     activitiesToShow() {
       let activities = null;
       if (this.boardToEdit) {
-        activities = this.boardToEdit.activities;
-        activities = activities.filter(
-          activity => activity.edditedTask.id === this.task.id
-        );
-        return activities.filter(
-          activity => activity.edditedTask.id === this.task.id
-        );
-      } else {
+        activities = this.boardToEdit.activities ;
+        activities = activities.filter((activity) => activity.edditedTask.id === this.task.id);
         return activities;
       }
     }
@@ -210,12 +204,7 @@ export default {
       this.$emit("closeModal");
     },
     boardChanged(action, changed = null) {
-      console.log(action);
-      if (changed) {
-        this.addActivity(action, changed);
-      } else {
-        this.addActivity(action);
-      }
+      changed? this.addActivity(action, changed): this.addActivity(action);
     },
     //DESCREPTION
     focusOnDesc() {

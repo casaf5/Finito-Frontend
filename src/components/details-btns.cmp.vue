@@ -125,7 +125,9 @@ export default {
     },
     // change id after copy --- make an option of copying to other lists
     copyTask() {
-      this.taskGroup.tasks.unshift(JSON.parse(JSON.stringify(this.task)));
+      let coppiedTask=JSON.parse(JSON.stringify(this.task))
+      coppiedTask.id=utilService.getRandomId()
+      this.taskGroup.tasks.unshift(coppiedTask);
       this.$emit("emitBoardChange", "COPPIED_TASK");
     },
     // gets the new taskgroup id from the relevant comp
@@ -135,8 +137,6 @@ export default {
         (tg) => tg.id === newTaskgroupId
       );
       this.taskGroup.tasks.splice(this.taskIdx, 1);
-      console.log("idx", newGroupIdx);
-      console.log(this.board);
       this.board.taskGroups[newGroupIdx].tasks.push(this.taskToEdit);
       this.$emit("emitBoardChange", "MOVED_TASK", this.taskGroup.title);
       this.$emit("emitCloseModal");

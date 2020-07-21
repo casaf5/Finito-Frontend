@@ -29,7 +29,7 @@ function getEmptyTask(parentListId) {
     desc: "",
     dueDate: "",
     watchMembers: [],
-    createdAt: new Date(),
+    createdAt: Date.now(),
     executeTime: "",
     members: [],
     labels: [],
