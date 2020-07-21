@@ -32,6 +32,9 @@ function getTxtToRndr(action, changed, user, task) {
     case "REMOVED_LABEL":
       txt = `${user.name} removed label from ${task.title}`;
       break;
+    case "REMOVED_COVER":
+      txt = `${user.name} removed label from ${task.title}`;
+      break;
     case "REMOVED_CHECKLIST":
       txt = `${user.name} removed checklist from ${task.title}`;
       break;

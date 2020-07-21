@@ -19,7 +19,6 @@
     </ul>
     <section class="add-item flex space-between" v-if="isAddClicked">
       <input v-model="newItemTxt" @keyup.enter="addItem" type="text" placeholder="Enter New Item.." />
-      <i class="fas fa-plus-circle" @click="addItem"></i>
     </section>
     <label class="new-item-label flex space-between" @click="openCloseAdd">Add an item</label>
   </section>

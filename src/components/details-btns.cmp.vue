@@ -24,11 +24,12 @@
       @dateRemoved="removeDuedate"
       @closeDateComp="toggleDateComp"
     />
-    <button style="position:relative" @click="addCheckListOpen = !addCheckListOpen">
+    <button @click="addCheckListOpen = !addCheckListOpen">
       <i class="el-icon-document-checked"></i>
       Checklist
-      <task-checkList v-if="addCheckListOpen" @createCheckList="addCheckList" />
     </button>
+      <task-checkList v-if="addCheckListOpen" @createCheckList="addCheckList" 
+       @closeCheckList="addCheckListOpen = !addCheckListOpen"/>
     <button @click="toggleAttach">
       <i class="el-icon-paperclip"></i> Attachment
     </button>
@@ -36,7 +37,6 @@
       v-if="attachmentsOpen"
       @closeAttach="toggleAttach"
       @uploded="addAttachment"
-      @remove="removeAttach"
     />
     <button>
       <i class="el-icon-picture-outline"></i> Cover

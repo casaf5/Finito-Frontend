@@ -19,9 +19,12 @@
           <!-- combine with due date -->
           <!-- <el-checkbox  @click="toggleTaskCompletion" v-model="checked" class="task-isComplete" >Completed</el-checkbox> -->
           <div class="task-members-labels-date flex wrap">
-            <section v-show="task.members.length" class="task-members-container-wraper">
-              <i class="fas fa-users"></i>
-              <h4>Members</h4>
+            <section
+              v-show="task.members.length"
+              class="task-members-container-wraper"
+            >
+              <!-- <i class="fas fa-users"></i> -->
+              <h6>Members</h6>
               <div class="task-members-container flex">
                 <div v-for="(member, idx) in task.members" :key="idx">
                   <!-- change to member name -->
@@ -30,11 +33,7 @@
                     :src="member.url"
                     :size="30"
                   ></avatar>
-                  <avatar
-                    v-else
-                    :username="member.name"
-                    :size="30"
-                  ></avatar>
+                  <avatar v-else :username="member.name" :size="30"></avatar>
                 </div>
               </div>
             </section>
@@ -42,8 +41,8 @@
               v-show="task.labels.length"
               class="task-labels-container-wraper"
             >
-              <i class="fas fa-tags"></i>
-              <h4>Labels</h4>
+              <!-- <i class="fas fa-tags"></i> -->
+              <h6>Labels</h6>
               <div class="task-labels-container flex">
                 <!-- v for labels -->
               </div>
@@ -76,7 +75,10 @@
               class="desc-textarea"
             />
           </div>
-          <div class="task-attachments-container" v-if="task.attachments.length>0">
+          <div
+            class="task-attachments-container"
+            v-if="task.attachments.length > 0"
+          >
             <i class="fas fa-file-alt"></i>
             <h4>
               Attachments
@@ -84,8 +86,10 @@
             <file-preview
               v-for="(file, idx) in task.attachments"
               :file="file"
+              :cover="task.cover"
               :key="idx"
               @remove="removeAttach(idx)"
+              @cover="setTaskCover(idx)"
             />
           </div>
           <div class="task-checklists" v-if="task.checkLists.length">
@@ -122,7 +126,7 @@ import { utilService } from "../utils/utils.js";
 import { loggerService } from "../services/logger-service.js";
 import TaskActionContainer from "./task-action-container.cmp";
 import detailsBtns from "./details-btns.cmp";
-import taskCheckList from "../components/checklist-cmp";
+import taskCheckList from "../components/checklist-preview-cmp";
 import taskActivity from "../components/task-activity.cmp.vue";
 import taskAttachment from "../components/task-attachment.cmp.vue";
 import filePreview from "../components/task-attach-preview.cmp.vue";
@@ -243,6 +247,17 @@ export default {
     removeAttach(idx) {
       this.task.attachments.splice(idx, 1);
       this.addActivity("REMOVED_ATTACHMENT");
+    },
+
+    setTaskCover(idx) {
+      if(this.task.cover.url === this.task.attachments[idx].imageUrl){
+        this.task.cover.url=""
+        this.addActivity("REMOVED_COVER");
+      }
+      else{
+        this.task.cover.url = this.task.attachments[idx].imageUrl;
+        this.addActivity("ADDED_COVER");
+      }
     },
     // CHECKLIST
     removeCheckList(idx) {

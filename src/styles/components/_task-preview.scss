@@ -8,7 +8,9 @@
   }
   .task-cover {
     border-radius: 3px 3px 0 0;
-    background-size: cover;
+    background-size: contain !important;
+    background-repeat: no-repeat !important;
+    background-position: center !important;
   }
   .task-preview-content {
     display: flex;
