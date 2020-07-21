@@ -189,22 +189,25 @@ export default {
     }
   },
   methods: {
-    async saveBoard(actionStr = "ACTION SAVED") {
-      const savedBoard = await this.$store.dispatch({
-        type: "saveBoard",
-        board: this.boardToEdit
+    saveBoard(actionStr = "ACTION SAVED") {
+      socketService.emit("boardUpdate", this.boardToEdit);
+      socketService.on("boardUpdate", board => {
+      this.$store.commit({ type: "setBoard", board });
+      // const savedBoard = await this.$store.dispatch({
+      //   type: "saveBoard",
+      //   board: this.boardToEdit
       });
       // USER MSG
-      const type = savedBoard ? "success" : "error";
-      let fixedStr = actionStr;
-      if (actionStr !== "ACTION SAVED") {
-        let words = actionStr.split("_");
-        if (words) fixedStr = `${words[0]} ${words[1]}`;
-      }
-      const msg = savedBoard
-        ? `${fixedStr} SUCCESSFULLY!`
-        : `${fixedStr} FAILD...`;
-      eventBus.$emit(SHOW_MSG, { msg, type });
+      // const type = savedBoard ? "success" : "error";
+      // let fixedStr = actionStr;
+      // if (actionStr !== "ACTION SAVED") {
+      //   let words = actionStr.split("_");
+      //   if (words) fixedStr = `${words[0]} ${words[1]}`;
+      
+      // const msg = savedBoard
+      //   ? `${fixedStr} SUCCESSFULLY!`
+      //   : `${fixedStr} FAILD...`;
+      // eventBus.$emit(SHOW_MSG, { msg, type });
     },
     closeModal() {
       this.$emit("closeModal");
