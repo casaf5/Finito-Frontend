@@ -15,21 +15,26 @@ body {
   background-size: stretch;
   background-repeat: no-repeat;
 }
-body::-webkit-scrollbar {
+body::-webkit-scrollbar,
+.task-container::-webkit-scrollbar {
   width: 11px;
 }
-body {
+body,
+.task-container {
   scrollbar-width: auto;
   scrollbar-color: var(--thumbBG) var(--scrollbarBG);
 }
-body::-webkit-scrollbar-track {
+body::-webkit-scrollbar-track,
+.task-container::-webkit-scrollbar-track {
   background: var(--scrollbarBG);
 }
-body::-webkit-scrollbar-thumb {
+body::-webkit-scrollbar-track,
+.task-container::-webkit-scrollbar-thumb {
   background-color: var(--thumbBG);
   border-radius: 6px;
   border: 3px solid var(--scrollbarBG);
 }
+
 img {
   width: 100%;
 }
