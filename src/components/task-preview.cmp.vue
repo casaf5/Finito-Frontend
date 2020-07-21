@@ -1,6 +1,6 @@
 <template>
   <div class="task-preview-container">
-    <div :style="taskCover" class="task-cover"></div>
+    <div :style="taskCover" class="task-cover" @click="taskClicked"></div>
     <div class="task-preview-content">
       <div v-if="currentTask.labels.length >= 1" class="task-label-container">
         <small-label

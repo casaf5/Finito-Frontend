@@ -1,6 +1,6 @@
 .add-task-container {
   width: 255px;
-  padding: 10px 0;
+  padding: 0;
   display: flex;
   align-self: start;
   align-items: center;
@@ -12,6 +12,8 @@
   span {
     color: $faded-cta-color;
     margin-left: 3px;
+    font-size: rem(12px);
+
   }
   .add-task-left-content {
     display: flex;

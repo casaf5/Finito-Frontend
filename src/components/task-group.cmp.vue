@@ -154,8 +154,29 @@ export default {
       this.taskGroup.isWatched = !this.taskGroup.isWatched;
     },
     sortBy(order) {
-      //implement
-      console.log(order);
+      let sortedTasks = [];
+      if (order !== "alphabet") {
+        sortedTasks = this.taskGroup.tasks.sort((taskA, taskB) => {
+          return order === "newest"
+            ? taskA.createdAt - taskB.createdAt
+            : taskB.createdAt - taskA.createdAt;
+        });
+      } else {
+        sortedTasks = this.taskGroup.tasks.sort((taskA, taskB) => {
+          var titleA = taskA.title.toUpperCase(); // ignore upper and lowercase
+          var titleB = taskB.title.toUpperCase(); // ignore upper and lowercase
+          if (titleA < titleB) return -1
+          if (titleA > titleB) return 1;
+          return 0;
+        });
+      }
+      this.taskGroup.tasks = sortedTasks;
+      const board = utilService.deepCopy(this.board);
+      const taskGroupIndex = this.$store.getters.getTaskGroupByIndex(
+        this.taskGroup.id
+      );
+      board.taskGroups[taskGroupIndex] = this.taskGroup;
+      this.$store.dispatch({ type: "saveBoard", board });
     },
   },
   components: {
