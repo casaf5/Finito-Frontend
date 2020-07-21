@@ -8,13 +8,22 @@
     font-size: 1.25rem;
     font-weight: bold;
   }
+ 
   .task-name {
     font-family: Montserrat-Bold;
     font-weight: bold;
+    height: 28px;
     margin-bottom: 5px;
+    margin-inline-start: 40px;
+    background-color: transparent;
+    border: none;
+    font-size: 18px;
+  }
+  input~i{
+    top:4px;
   }
   .task-group-name {
-    margin-left: 35px;
+    margin-left: 40px;
   }
   width: 750px;
   min-height: 85vh;
@@ -84,6 +93,9 @@
       }
     }
     .task-details-titles-container {
+      i.el-icon-postcard{
+        top:4px;
+      }
       .task-group-name {
         span {
           text-decoration: underline;

@@ -8,40 +8,32 @@
       <div class="task-details-main-container">
         <div class="task-left-container">
           <div class="task-details-titles-container">
-            <h2 class="task-name">
-              <i class="el-icon-postcard icon-margin"></i>
-              {{ task.title }}
-            </h2>
+              <i class="el-icon-postcard "></i>
+              <input type="text" v-model="task.title" class="task-name" @blur="updateTitle">
             <h6 class="task-group-name">
-              Task-Group
+               in Task-Group
               <span>{{ taskGroup.title }}</span>
             </h6>
           </div>
           <!-- combine with due date -->
           <!-- <el-checkbox  @click="toggleTaskCompletion" v-model="checked" class="task-isComplete" >Completed</el-checkbox> -->
           <div class="task-members-labels-date flex wrap">
-            <section
-              v-show="task.members.length"
-              class="task-members-container-wraper"
-            >
-              <!-- <i class="fas fa-users"></i> -->
+            <section v-show="task.members.length" class="task-members-container-wraper">
               <h6>Members</h6>
               <div class="task-members-container flex">
                 <div v-for="(member, idx) in task.members" :key="idx">
                   <avatar
                     v-if="member.img"
                     :src="member.img"
-                    :size="30"
+                    :size="35"
                   ></avatar>
-                  <avatar v-else :username="member.userName" :size="30"></avatar>
+                  <avatar v-else :username="member.userName" :size="35"></avatar>
                 </div>
               </div>
             </section>
             <section
               v-show="task.labels.length"
-              class="task-labels-container-wraper"
-            >
-              <!-- <i class="fas fa-tags"></i> -->
+              class="task-labels-container-wraper" >
               <h6>Labels</h6>
               <div class="task-labels-container flex">
                 <!-- v for labels -->
@@ -216,6 +208,10 @@ export default {
     },
     boardChanged(action, changed = null) {
       changed ? this.addActivity(action, changed) : this.addActivity(action);
+    },
+    //TITLE
+    updateTitle(){
+    this.addActivity('UPDATED_TITLE')
     },
     //DESCREPTION
     focusOnDesc() {

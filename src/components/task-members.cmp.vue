@@ -28,7 +28,6 @@
           <h6>Start typing to search for members in the group </h6>
         </div>
       </div>
-      <!-- <button class="btn-primary large">Add</button> -->
     </task-action-container>
   </section>
 </template>
@@ -71,7 +70,7 @@ export default {
       this.$emit(event, member);
     },
     isInGroup(member) {
-      return this.taskMembers.find((m) => m.id === member.id);
+      return this.taskMembers.find((m) => m._id === member._id);
     },
   },
 };
