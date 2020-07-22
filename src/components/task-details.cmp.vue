@@ -8,17 +8,25 @@
       <div class="task-details-main-container">
         <div class="task-left-container">
           <div class="task-details-titles-container">
-              <i class="el-icon-postcard "></i>
-              <input type="text" v-model="task.title" class="task-name" @blur="updateTitle">
+            <i class="el-icon-postcard "></i>
+            <input
+              type="text"
+              v-model="task.title"
+              class="task-name"
+              @blur="updateTitle"
+            />
             <h6 class="task-group-name">
-               in Task-Group
+              in Task-Group
               <span>{{ taskGroup.title }}</span>
             </h6>
           </div>
           <!-- combine with due date -->
           <!-- <el-checkbox  @click="toggleTaskCompletion" v-model="checked" class="task-isComplete" >Completed</el-checkbox> -->
           <div class="task-members-labels-date flex wrap">
-            <section v-show="task.members.length" class="task-members-container-wraper">
+            <section
+              v-show="task.members.length"
+              class="task-members-container-wraper"
+            >
               <h6>Members</h6>
               <div class="task-members-container flex">
                 <div v-for="(member, idx) in task.members" :key="idx">
@@ -27,16 +35,27 @@
                     :src="member.img"
                     :size="35"
                   ></avatar>
-                  <avatar v-else :username="member.userName" :size="35"></avatar>
+                  <avatar
+                    v-else
+                    :username="member.userName"
+                    :size="35"
+                  ></avatar>
                 </div>
               </div>
             </section>
             <section
               v-show="task.labels.length"
-              class="task-labels-container-wraper" >
+              class="task-labels-container-wraper"
+            >
               <h6>Labels</h6>
               <div class="task-labels-container flex">
-                <!-- v for labels -->
+                <div
+                  :key="index"
+                  v-for="(label, index) in task.labels"
+                  class="color"
+                  :style="{ 'background-color': label.color }"
+                  @click="removeLabel(index)"
+                ></div>
               </div>
             </section>
             <section v-show="task.dueDate" class="task-date-container-wraper">
@@ -102,6 +121,7 @@
             :task="task"
             @emitBoardChange="boardChanged"
             @emitCloseModal="closeModal"
+            :labelToRemove="labelToRemove"
           />
         </div>
       </div>
@@ -133,6 +153,7 @@ export default {
       taskGroup: null,
       user: null,
       taskIdx: null,
+      labelToRemove: -1,
       // checked: false,
       activityToAdd: {
         edditedTask: {
@@ -208,8 +229,8 @@ export default {
       changed ? this.addActivity(action, changed) : this.addActivity(action);
     },
     //TITLE
-    updateTitle(){
-    this.addActivity('UPDATED_TITLE')
+    updateTitle() {
+      this.addActivity("UPDATED_TITLE");
     },
     //DESCREPTION
     focusOnDesc() {
@@ -269,6 +290,9 @@ export default {
       this.boardToEdit.activities.unshift(this.activityToAdd);
       this.updateBoard(action);
     },
+    removeLabel(index) {
+      this.labelToRemove = index;
+    },
   },
 
   components: {
@@ -281,3 +305,12 @@ export default {
   },
 };
 </script>
+
+<style lang="scss" scoped>
+.color {
+  margin: 5px 10px;
+  width: 55px;
+  height: 35px;
+  border-radius: 3px;
+}
+</style>

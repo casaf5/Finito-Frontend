@@ -26,7 +26,7 @@
 
 <script>
 import { Container, Draggable } from "vue-smooth-dnd";
-import { applyDrag } from "../utils/utils.js";
+import { applyDrag, utilService } from "../utils/utils.js";
 import taskDetails from "@/components/task-details.cmp.vue";
 import taskGroup from "../components/task-group.cmp.vue";
 import socketService from "../services/socket-service";
@@ -54,6 +54,9 @@ export default {
     await this.$store.dispatch({ type: "getBoardById", id });
     socketService.setup();
     socketService.emit("joinedBoard", this.board._id);
+    socketService.on("boardUpdate", (board) => {
+      this.$store.commit({ type: "setBoard", board });
+    });
   },
   computed: {
     board() {
@@ -63,23 +66,23 @@ export default {
   methods: {
     onDrop(dropResult) {
       this.board.taskGroups = applyDrag(this.board.taskGroups, dropResult);
-      this.getAndSetBoard(this.board);
+      this.sendToSocket(this.board);
     },
     onTaskDrop(taskGroupId, dropResult) {
       if (dropResult.removedIndex !== null || dropResult.addedIndex !== null) {
-        const board = Object.assign({}, this.board);
+        const board = utilService.deepCopy(this.board);
         const taskGroup = board.taskGroups.filter(
           (taskG) => taskG.id === taskGroupId
         )[0];
         const taskGroupIndex = board.taskGroups.indexOf(taskGroup);
-        const newTaskGroup = Object.assign({}, taskGroup);
+        const newTaskGroup = utilService.deepCopy(taskGroup);
         newTaskGroup.tasks = applyDrag(newTaskGroup.tasks, dropResult);
 
         newTaskGroup.tasks.forEach((task) => {
           task.parentListId = newTaskGroup.id;
         });
         board.taskGroups.splice(taskGroupIndex, 1, newTaskGroup);
-        this.getAndSetBoard(board);
+        this.sendToSocket(board);
       }
     },
     openTaskModal(task) {
@@ -88,11 +91,8 @@ export default {
     closeTaskModal() {
       this.taskToEdit = null;
     },
-    getAndSetBoard(board) {
+    sendToSocket(board) {
       socketService.emit("boardUpdate", board);
-      socketService.on("boardUpdate", (board) => {
-        this.$store.commit({ type: "setBoard", board });
-      });
     },
     destroyed() {
       SocketService.terminate();
