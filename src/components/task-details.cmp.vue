@@ -275,7 +275,7 @@ export default {
         this.user,
         this.task
       );
-      this.activityToAdd.txt = txt;
+      this.activityToAdd.txt = txt; 
       this.boardToEdit.activities.unshift(this.activityToAdd);
       this.updateBoard(action);
     }

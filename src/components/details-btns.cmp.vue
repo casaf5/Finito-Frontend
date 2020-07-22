@@ -115,8 +115,6 @@ export default {
         (tg) => tg.id === newTaskgroupId
       );
       this.taskGroup.tasks.splice(this.taskIdx, 1);
-      console.log("idx", newGroupIdx);
-      console.log(this.board);
       this.board.taskGroups[newGroupIdx].tasks.push(this.taskToEdit);
       this.$emit("emitBoardChange", "MOVED_TASK", this.taskGroup.title);
       this.$emit("emitCloseModal");
