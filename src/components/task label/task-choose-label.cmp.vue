@@ -1,5 +1,5 @@
 <template>
-  <task-action-container title="Labels">
+  <task-action-container @close="$emit('close')" title="Labels">
     <div class="task-label-container">
       <li>
         <form-input v-model="labelText" type="text" />
@@ -48,7 +48,7 @@ export default {
       this.$emit("toggleCreateComponent", "task-create-label");
     },
     labelClicked({ label, index }) {
-      this.$emit("labelClicked", label);
+      this.$emit("labelClicked", label, index);
       this.colors[index].wasClicked = !this.colors[index].wasClicked;
     },
     editLabel(label) {

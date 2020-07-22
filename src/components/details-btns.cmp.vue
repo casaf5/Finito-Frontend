@@ -1,68 +1,66 @@
 <template>
   <section class="task-actions">
     <label class="section-header">Add To Task</label>
-    <button @click="toggleMemebersComp">
+    <button @click="toggleComponentToRender('memebersOpen')">
       <i class="el-icon-user"></i> Members
     </button>
     <task-members
       @addMember="addMember"
       @removeMember="removeMember"
-      @closeMembersComp="toggleMemebersComp"
-      v-if="memebersOpen"
+      @closeMembersComp="toggleComponentToRender('memebersOpen')"
+      v-if="componentsToToggle.memebersOpen"
       :boardMembers="board.members"
       :taskMembers="task.members"
     />
-    <button><i class="el-icon-price-tag"></i>Labels</button>
-    <button @click="toggleDateComp">
+    <button @click="toggleComponentToRender('addLabelOpen')">
+      <i class="el-icon-price-tag"></i>Labels
+    </button>
+    <task-label
+      v-if="componentsToToggle.addLabelOpen"
+      @editLabel="editLabel"
+      @setLabel="addLabel"
+      @close="toggleComponentToRender('addLabelOpen')"
+      :labels="board.labels"
+    />
+    <button @click="toggleComponentToRender('duedateOpen')">
       <i class="el-icon-date"></i> Due date
     </button>
     <task-duedate
-      v-if="duedateOpen"
+      v-if="componentsToToggle.duedateOpen"
       @dateChoosed="saveDuedate"
       @dateRemoved="removeDuedate"
-      @closeDateComp="toggleDateComp"
+      @closeDateComp="toggleComponentToRender('duedateOpen')"
     />
-<<<<<<< HEAD
-    <div style="position:relative">
-      <button @click="toggleAddCheckListOpen">
-        <i class="el-icon-document-checked"></i>
-        Checklist
-      </button>
-      <task-checkList
-        @close="toggleAddCheckListOpen"
-        v-if="addCheckListOpen"
-        @createCheckList="addCheckList"
-      />
-    </div>
-=======
-    <button @click.self="toggleAddCheckListOpen">
+    <button @click="toggleComponentToRender('addCheckListOpen')">
       <i class="el-icon-document-checked"></i>
       Checklist
     </button>
     <task-checkList
-      @close="toggleAddCheckListOpen"
-      v-if="addCheckListOpen"
+      @close="toggleComponentToRender('addCheckListOpen')"
+      v-if="componentsToToggle.addCheckListOpen"
       @createCheckList="addCheckList"
     />
->>>>>>> 5553630fb444f232878384cae528099b875232a2
-    <button @click="toggleAttach">
+    <button @click="toggleComponentToRender('attachmentsOpen')">
       <i class="el-icon-paperclip"></i> Attachment
     </button>
     <task-attachment
-      v-if="attachmentsOpen"
-      @closeAttach="toggleAttach"
-      @uploded="addAttachment" />
+      v-if="componentsToToggle.attachmentsOpen"
+      @closeAttach="toggleComponentToRender('attachmentsOpen')"
+      @uploded="addAttachment"
+    />
     <button><i class="el-icon-picture-outline"></i> Cover</button>
     <label class="section-header">Actions</label>
     <button @click="copyTask">
       <i class="el-icon-document-copy"></i> Copy
     </button>
     <button @click="removeTask"><i class="el-icon-delete"></i> Remove</button>
-    <button @click="toggleMoveComp"><i class="el-icon-right"></i> Move</button>
+    <button @click="toggleComponentToRender('moveCompOpen')">
+      <i class="el-icon-right"></i> Move
+    </button>
     <task-move
-      v-if="moveCompOpen"
+      v-if="componentsToToggle.moveCompOpen"
       :taskGropus="this.board.taskGroups"
-      @closeMoveComp="toggleMoveComp"
+      @closeMoveComp="toggleComponentToRender('moveCompOpen')"
       @taskMoved="moveTask"
     />
     <button @click="toggleWatch" class="flex space-between align-center">
@@ -78,22 +76,23 @@ import taskDuedate from "../components/task-duedate.cmp.vue";
 import taskAttachment from "../components/task-attachment.cmp.vue";
 import taskCheckList from "../components/task-checklist.cmp";
 import taskMove from "../components/task-move.cmp.vue";
+import taskLabel from "../components/task label/taks-label.cmp";
 import { utilService } from "../utils/utils.js";
 export default {
-  props: ["board", "task", "taskIdx", "user"],
+  props: ["board", "task", "taskIdx", "user", "labelToRemove"],
   data() {
     return {
-      memebersOpen: false,
-      duedateOpen: false,
-      moveCompOpen: false,
-      attachmentsOpen: false,
-      addCheckListOpen: false,
-      taskToEdit: null,
-      taskGroup: null,
-<<<<<<< HEAD
-      addCheckListOpen: false,
-=======
->>>>>>> 5553630fb444f232878384cae528099b875232a2
+      componentsToToggle: {
+        memebersOpen: false,
+        duedateOpen: false,
+        moveCompOpen: false,
+        attachmentsOpen: false,
+        addCheckListOpen: false,
+        taskToEdit: null,
+        taskGroup: null,
+        addCheckListOpen: false,
+        addLabelOpen: false,
+      },
     };
   },
   created() {
@@ -139,31 +138,35 @@ export default {
       this.$emit("emitCloseModal");
     },
     // LABELS
-    addLabel(label) {
-      this.taskToEdit.labels.push(label);
+    addLabel({ title, color, selectedColor }, index) {
+      const taskLabel = {
+        title,
+        color,
+      };
+      this.taskToEdit.labels.push(taskLabel);
       this.$emit("emitBoardChange", "ADDED_LABEL");
     },
-    removeLabel(idx) {
-      this.taskToEdit.labels.splice(idx, 1);
+    editLabel({ label: { title, color, selectedColor, wasClicked }, index }) {
+      const boardLabel = {
+        title,
+        color,
+        selectedColor,
+        wasClicked: false,
+      };
+      const board = utilService.deepCopy(this.board);
+      board.labels.splice(index, 1, boardLabel);
+      this.$store.dispatch({ type: "saveBoard", board });
+    },
+    removeLabel() {
+      this.taskToEdit.labels.splice(this.labelToRemove, 1);
       this.$emit("emitBoardChange", "REMOVED_LABEL");
     },
+    toggleComponentToRender(toggleName) {
+      this.componentsToToggle[toggleName] = !this.componentsToToggle[
+        toggleName
+      ];
+    },
     // MEMBERS
-    toggleMemebersComp() {
-      this.memebersOpen = !this.memebersOpen;
-    },
-    toggleDateComp() {
-      this.duedateOpen = !this.duedateOpen;
-      //  console.log(this.duedateOpen)
-    },
-    toggleMoveComp() {
-      this.moveCompOpen = !this.moveCompOpen;
-    },
-    toggleAddCheckListOpen() {
-      this.addCheckListOpen = !this.addCheckListOpen;
-    },
-    toggleAttach() {
-      this.attachmentsOpen = !this.attachmentsOpen;
-    },
     addMember(member) {
       this.taskToEdit.members.push(member);
       this.$emit("emitBoardChange", "JOINED_MEMBER");
@@ -217,6 +220,7 @@ export default {
     taskMove,
     taskAttachment,
     taskCheckList,
+    taskLabel,
   },
 };
 </script>

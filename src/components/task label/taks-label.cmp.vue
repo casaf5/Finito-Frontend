@@ -6,11 +6,12 @@
     @labelClicked="labelClicked"
     @editLabel="editLabel"
     @createLabel="createLabel"
+    @close="$emit('close')"
     :editMode="editMode"
     :choosenLabelIndex="choosenLabelIndex"
     :choosenColor="choosenColor"
     :title="title"
-    :colors="colors"
+    :colors="labels"
     :is="component"
   />
 </template>
@@ -20,7 +21,15 @@ import TaskActionContainer from "../task-action-container.cmp";
 import LabelColor from "./label-color.cmp";
 import TaskChooseLabel from "./task-choose-label.cmp";
 import TaskCreateLabel from "./task-create-label.cmp";
+import { utilService } from "../../utils/utils";
+
 export default {
+  // props: {
+  //   labels: {
+  //     type: Array,
+  //     required: true,
+  // }
+  // },
   components: {
     TaskActionContainer,
     LabelColor,
@@ -36,45 +45,15 @@ export default {
       title: "",
       newLabel: null,
       labelToEdit: null,
-      colors: [
-        {
-          title: "hey",
-          color: "#61BD4F",
-          selectedColor: "#519839",
-          wasClicked: false,
-        },
-        {
-          title: "hello",
-          color: "#f2d600",
-          selectedColor: "#D9B51C",
-          wasClicked: false,
-        },
-        {
-          title: "",
-          color: "#ff9f1a",
-          selectedColor: "#cd8313",
-          wasClicked: false,
-        },
-        {
-          title: "",
-          color: "#eb5a46",
-          selectedColor: "#b04632",
-          wasClicked: false,
-        },
-        {
-          title: "",
-          color: "#0079BF",
-          selectedColor: "#055A8C",
-          wasClicked: false,
-        },
-        {
-          title: "",
-          color: "#C377E0",
-          selectedColor: "#89609E",
-          wasClicked: false,
-        },
-      ],
     };
+  },
+  computed: {
+    board() {
+      return this.$store.getters.board;
+    },
+    labels() {
+      return this.$store.getters.board.labels;
+    },
   },
   methods: {
     toggleComponent(component) {
@@ -85,8 +64,11 @@ export default {
       this.component = name;
       this.choosenColor = color;
     },
-    labelClicked(label) {
-      console.log(label);
+    labelClicked(label, index) {
+      this.$emit("setLabel", label);
+      // const board = utilService.deepCopy(this.board);
+      //  board.labels.splice(label);
+      //  this.$store.dispatch({ type: "saveBoard", board });
     },
     editLabel(label) {
       this.editMode = true;
@@ -95,14 +77,18 @@ export default {
       this.toggleComponent("task-create-label");
     },
     createLabel(label) {
-      console.log(label);
+      //updating a label
       if (label.index > -1) {
-        // update
-        this.colors.splice(label.index, 1, label.label);
+        // updating a label
+        //updating should happen at board level
+        // refector so the board will be updated from here
+        this.$emit("editLabel", label);
         this.editMode = false;
       } else {
-        console.log("create label", label);
-        this.colors.push(label);
+        //creating a label and updating the board
+        const board = utilService.deepCopy(this.board);
+        board.labels.push(label);
+        this.$store.dispatch({ type: "saveBoard", board });
       }
       this.component = "task-choose-label";
     },

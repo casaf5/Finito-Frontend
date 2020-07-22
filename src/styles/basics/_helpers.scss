@@ -79,13 +79,14 @@ button {
   outline: none;
   border: none;
 }
+
 .btn-primary {
   padding: 5px 10px;
   font-family: inherit;
   background-color: $btn-primary-color;
   transition: all 0.3s ease-in-out;
   color: #fff;
-  &.remove{
+  &.remove {
     background-color: rgb(231, 138, 44);
   }
   &.large {

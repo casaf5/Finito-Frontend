@@ -65,11 +65,7 @@ export default {
     async getBoardById({ commit }, { id }) {
       try {
         let board = await boardService.getById(id);
-<<<<<<< HEAD
         commit({ type: "setBoard", board });
-=======
-        commit({type:"setBoard",board})
->>>>>>> 5553630fb444f232878384cae528099b875232a2
         return board;
       } catch (err) {
         console.log("Problem getting board ");
