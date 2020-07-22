@@ -12,13 +12,13 @@ export default {
       datasets: [
         {
           label:"Incompleted Tasks",
-          backgroundColor: ['red', 'red', 'red', 'red', 'red', 'red', 'red','red','red', 'red', 'red', 'red', 'red', 'red'],
+          backgroundColor: new Array(11).fill('red'),
          //   sent as a prop the right data
           data: this.data
         },
                 {
           label:"Completed Tasks",
-          backgroundColor: ['green','green','green','green','green','green','green','green','green','green','green','green'],
+          backgroundColor: new Array(11).fill('green'),
         //   send as a prop the right data
           data: [7,5,3,4,5]
         }
