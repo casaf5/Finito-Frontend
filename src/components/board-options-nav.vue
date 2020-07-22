@@ -15,7 +15,7 @@
           :username="member.userName"
         />
         <i class="fas fa-user-plus" @click="toggleAddMember"></i>
-        <board-members-edit v-if="boardMembersOpen" />
+        <board-members-edit v-if="boardMembersOpen" @update="membersUpdate" @close="toggleAddMember"/>
       </section>
     </section>
     <section class="right-side">
@@ -70,7 +70,10 @@ export default {
       this.$store.dispatch({type:"saveBoard",board:this.board})
       this.$store.commit({ type: "setStyle", style: this.style });
     },
-    addMember() {},
+    membersUpdate(members){
+      this.board.members=members
+      this.updateBoard()
+    },
   },
   components: {
     Avatar,
