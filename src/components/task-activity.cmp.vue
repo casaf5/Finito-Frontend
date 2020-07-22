@@ -12,7 +12,6 @@
         <ul>
           <li v-for="(activity,idx) in activities" :key="idx">
             <div class="flex align-center details-activity-avatar-text-wraper">
-              <!-- <avatar class="activity-avatar" :size="30" v-if="activity.byUser.url" :src="activity.byUser.url"></avatar> -->
               <avatar  :size="25" v-if="activity.byUser.url" username="Guest"></avatar>
               <avatar  :size="25" v-else :username="activity.byUser.name"></avatar>
               <div class="details-activity-text">{{activity.txt}}</div>

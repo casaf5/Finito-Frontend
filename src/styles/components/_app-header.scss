@@ -4,57 +4,69 @@
   background-color: #575c60bb;
   color: white;
   text-align: center;
+  height: 40px;
   z-index: 5000;
   nav {
     .links {
-      padding: 5px;
+      place-items: center;
       .header-item {
         background-color: #888c8e;
-        padding: 10px;
+        padding: 8px;
         margin: 0 5px;
-        border-radius: 5px;
+        border-radius: 3px;
         cursor: pointer;
-        font-size: rem(20px);
         display: flex;
-        justify-self: center;
-        align-self: center;
+        place-items: center;
       }
       .left-side {
+        margin:3px;
+        display: flex;
+        place-items: center;
         input {
+          height: 34px;
           position: relative;
-          width: 300px;
+          width: 250px;
           padding-left: 5px;
-          font-size: rem(18px);
+          font-size: rem(13px);
           color: white;
           background-color: #00000052;
-          border-radius: 5px;
+          border-radius: 3px;
+          margin: 0;
           border: none;
           outline: none;
         }
         .search-icon {
-          font-size: rem(16px);
+          font-size: 18px;
           position: absolute;
-          left: 327px;
-          top: 16px;
+          left: 275px;
+          top: 11px;
           cursor: pointer;
+        }
+        li{
+          font-size: rem(13px);
+          display: flex;
+          place-items: center;
+        }
+        .home-icon{
+          font-size: 18px;
         }
       }
       .logo {
         font-family: Gochi;
-        font-size: rem(30px);
+        font-size: rem(20px);
         letter-spacing: 2px;
         padding: 0;
         margin: 0;
         display: flex;
-        justify-content: center;
-        align-items: center;
+        place-items: center;
       }
       .right-side {
+        margin:3px;
         li {
-          font-size: rem(15px);
+          padding: 4px;
+          font-size: 18px;
           display: flex;
-          justify-self: center;
-          align-self: center;
+          place-items: center;
         }
       }
     }

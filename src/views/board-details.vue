@@ -1,6 +1,7 @@
 <template>
-  <div>
-    <div class="board-details" v-if="board">
+  <section class="board-details-container" v-if="board">
+    <board-options-nav />
+    <section class="board-details">
       <task-details
         v-if="taskToEdit"
         :taskToEdit="taskToEdit"
@@ -20,8 +21,8 @@
           />
         </Draggable>
       </Container>
-    </div>
-  </div>
+    </section>
+  </section>
 </template>
 
 <script>
@@ -30,6 +31,7 @@ import { applyDrag, utilService } from "../utils/utils.js";
 import taskDetails from "@/components/task-details.cmp.vue";
 import taskGroup from "../components/task-group.cmp.vue";
 import socketService from "../services/socket-service";
+import boardOptionsNav from "../components/board-options-nav.vue";
 
 export default {
   name: "board-details",
@@ -38,6 +40,7 @@ export default {
     Draggable,
     taskGroup,
     taskDetails,
+    boardOptionsNav,
   },
   data() {
     return {

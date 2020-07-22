@@ -155,12 +155,7 @@ export default {
       taskIdx: null,
       labelToRemove: -1,
       // checked: false,
-      activityToAdd: {
-        edditedTask: {
-          id: this.taskToEdit.id,
-          title: this.taskToEdit.title,
-        },
-      },
+      
       boardToEdit: null,
     };
   },
@@ -192,10 +187,10 @@ export default {
     },
     activitiesToShow() {
       let activities = null;
-      if (this.boardToEdit) {
+      if (this.boardToEdit.activities.length>0) {
         activities = this.boardToEdit.activities;
         activities = activities.filter(
-          (activity) => activity.edditedTask.id === this.task.id
+          (activity) => activity.editedTask.id === this.task.id
         );
         return activities;
       }
@@ -275,19 +270,16 @@ export default {
       const checklist = this.task.checkLists[idx];
       this.addActivity("UPDATED_CHECKLIST", checklist.title);
     },
-
     // get a string as an action and if needed another string of what changed
     addActivity(action, changed = "") {
-      this.activityToAdd.action = action;
-      this.activityToAdd.byUser = this.user;
-      const txt = loggerService.getTxtToRndr(
+      let activityToAdd={
+        editedTask:{id:this.task.id,title:this.task.title},
         action,
-        changed,
-        this.user,
-        this.task
-      );
-      this.activityToAdd.txt = txt;
-      this.boardToEdit.activities.unshift(this.activityToAdd);
+        byUser:this.user,
+        txt:loggerService.buildLog(action, changed,this.user,this.task),
+        createdAt:Date.now()
+      }
+      this.boardToEdit.activities.unshift(activityToAdd);
       this.updateBoard(action);
     },
     removeLabel(index) {

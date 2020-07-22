@@ -1,11 +1,10 @@
 export const loggerService = {
-  getTxtToRndr,
+  buildLog,
 };
 
 // getting an action and what has been changed (name/date etc..) => using switch case to get the write txt
-function getTxtToRndr(action, changed, user, task) {
+function buildLog(action, changed, user, task) {
   let txt = "";
-  // return `${action} happend`
   switch (action) {
     // ADD
     case "ADDED_LABEL":
@@ -68,7 +67,7 @@ function getTxtToRndr(action, changed, user, task) {
       break;
     // OTHERS
     case "JOINED_MEMBER":
-      txt = `${user.name} joined as a memeber to ${task.title}`;
+      txt = `${user.name} joined task ${task.title}`;
       break;
     case "MEMBER_LEFT":
       txt = `${user.name} has left ${task.title}`;

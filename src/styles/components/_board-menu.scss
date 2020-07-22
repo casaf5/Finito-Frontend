@@ -1,0 +1,67 @@
+.board-menu {
+  width: 400px;
+  height: 90vh;
+  position: fixed;
+  top: 5%;
+  right: -400px;
+  background-color: #fff;
+  box-shadow: 2px 7px 25px 0px rgba(26, 26, 26, 0.2);
+  animation-name: menu-enter;
+  animation-duration: 0.2s;
+  animation-iteration-count: 1;
+  animation-fill-mode: forwards;
+  animation-timing-function: ease-in-out;
+  z-index: 5000;
+  color: black;
+  .menu-title {
+    position: relative;
+    padding: 10px 10px 2px 10px;
+    h4 {
+      text-align: center;
+    }
+    i {
+      position: absolute;
+      font-size: 20px;
+      left: 5px;
+      top: 13px;
+      cursor: pointer;
+    }
+  }
+  .menu-section-container {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 0.3fr 0.7fr;
+    height: 100%;
+    .menu-section {
+      width: 100%;
+      height: max-content;
+      position: relative;
+    
+      h5 {
+        position: absolute;
+        left: 0;
+        top: 0;
+        i{
+            margin: 0 10px 0 5px;
+        }
+      }
+    }
+  }
+}
+@keyframes menu-enter {
+  0% {
+    right: -400px;
+  }
+  25% {
+    right: -300px;
+  }
+  50% {
+    right: -200px;
+  }
+  75% {
+    right: -100px;
+  }
+  100% {
+    right: 0;
+  }
+}
