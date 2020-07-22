@@ -29,28 +29,17 @@ function getEmptyTask(parentListId) {
     desc: "",
     dueDate: "",
     watchMembers: [],
-    createdAt: new Date(),
+    createdAt: Date.now(),
     executeTime: "",
     members: [],
     labels: [],
-    comments: [
-      {
-        createdBy: "",
-        txt: "",
-        createdAt: "",
-      },
-    ],
+    comments: [],
     cover: {
       color: "",
       url: "",
     },
     attachments: [],
-    checkLists: [
-      {
-        title: "",
-        items: [],
-      },
-    ],
+    checkLists: [],
   };
   return task;
 }
@@ -65,7 +54,46 @@ function getNewBoard() {
       bgUrl: "",
     },
     creator: {},
+    createdAt: Date.now(),
     activities: [],
+    labels: [
+      {
+        title: "",
+        color: "#61BD4F",
+        selectedColor: "#519839",
+        wasClicked: false,
+      },
+      {
+        title: "",
+        color: "#f2d600",
+        selectedColor: "#D9B51C",
+        wasClicked: false,
+      },
+      {
+        title: "",
+        color: "#ff9f1a",
+        selectedColor: "#cd8313",
+        wasClicked: false,
+      },
+      {
+        title: "",
+        color: "#eb5a46",
+        selectedColor: "#b04632",
+        wasClicked: false,
+      },
+      {
+        title: "",
+        color: "#0079BF",
+        selectedColor: "#055A8C",
+        wasClicked: false,
+      },
+      {
+        title: "",
+        color: "#C377E0",
+        selectedColor: "#89609E",
+        wasClicked: false,
+      },
+    ],
     taskGroups: [
       {
         id: getRandomId(),

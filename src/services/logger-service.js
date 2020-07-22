@@ -1,93 +1,95 @@
 export const loggerService = {
-  getTxtToRndr,
+  buildLog,
 };
 
 // getting an action and what has been changed (name/date etc..) => using switch case to get the write txt
-function getTxtToRndr(action, changed, user, task) {
+function buildLog(action, changed, user, task) {
   let txt = "";
-  // return `${action} happend`
   switch (action) {
     // ADD
     case "ADDED_LABEL":
-      txt = `${user.name} added label in ${task.title}`;
+      txt = `${user.userName} added a Label in ${task.title}`;
       break;
     case "ADDED_CHECKLIST":
-      txt = `${user.name} added checklist in ${task.title}`;
+      txt = `${user.userName} added Checklist in ${task.title}`;
       break;
     case "ADDED_ITEM":
-      // checklist name in changed
-      txt = `${user.name} added item in ${task.title} ${changed}`;
+      // Checklist name in changed
+      txt = `${user.userName} added item in ${task.title} ${changed}`;
       break;
     case "ADDED_COVER":
-      txt = `${user.name} added cover to ${task.title}`;
+      txt = `${user.userName} added Cover to ${task.title}`;
       break;
     case "ADDED_ATTACHMENT":
-      txt = `${user.name} attached a file to ${task.title}`;
+      txt = `${user.userName} attached a File to ${task.title}`;
       break;
     // REMOVE
     case "REMOVED_TASK":
-      txt = `${user.name} removed ${task.title}`;
+      txt = `${user.userName} removed ${task.title}`;
       break;
     case "REMOVED_LABEL":
-      txt = `${user.name} removed label from ${task.title}`;
+      txt = `${user.userName} removed Label from ${task.title}`;
       break;
     case "REMOVED_COVER":
-      txt = `${user.name} removed label from ${task.title}`;
+      txt = `${user.userName} removed Label from ${task.title}`;
       break;
     case "REMOVED_CHECKLIST":
-      txt = `${user.name} removed checklist from ${task.title}`;
+      txt = `${user.userName} removed Checklist from ${task.title}`;
       break;
     case "REMOVED_ITEM":
-      // checklist name in changed
-      txt = `${user.name} removed item from ${task.title} ${changed}`;
+      // Checklist name in changed
+      txt = `${user.userName} removed item from ${task.title} ${changed}`;
       break;
     case "REMOVED_ATTACHMENT":
-      txt = `${user.name} removed a file from ${task.title}`;
+      txt = `${user.userName} removed a File from ${task.title}`;
       break;
     // UPDATE
     case "UPDATED_DESCRIPSTION":
-      txt = `${user.name} updated the description of ${task.title}`;
+      txt = `${user.userName} updated the Description of ${task.title}`;
+      break;
+    case "UPDATED_TITLE":
+      txt = `${user.userName} updated the Description of ${task.title}`;
       break;
     case "UPDATED_COVER":
-      txt = `${user.name} changed the cover of ${task.title}`;
+      txt = `${user.userName} changed the Cover of ${task.title}`;
       break;
     case "CHANGED_DATE":
       // the new date in changed
-      txt = `${user.name} changed the due-date of ${task.title} to ${changed}`;
+      txt = `${user.userName} changed the Due-date of ${task.title} to ${changed}`;
       break;
     case "REMOVED_DATE":
       // the new date in changed
-      txt = `${user.name} removed the due-date of ${task.title}`;
+      txt = `${user.userName} removed the Due-date of ${task.title}`;
       break;
     case "UPDATED_CHECKLIST":
-      // changed is the name of the checklist
-      txt = `${user.name} updated the checklist ${changed} in ${task.title}`;
+      // changed is the name of the Checklist
+      txt = `${user.userName} updated Checklist ${changed} in ${task.title}`;
       break;
     // OTHERS
     case "JOINED_MEMBER":
-      txt = `${user.name} joined as a memeber to ${task.title}`;
+      txt = `${user.userName} joined task ${task.title}`;
       break;
     case "MEMBER_LEFT":
-      txt = `${user.name} has left ${task.title}`;
+      txt = `${user.userName} has left ${task.title}`;
       break;
     case "MOVED_TASK":
       // changed gets the new list task was moved to
-      txt = `${user.name} moved ${task.title} to ${changed}`;
+      txt = `${user.userName} moved ${task.title} to ${changed}`;
       break;
     case "COMPLETED_TASK":
-      txt = `${user.name} completed the task - ${task.title}`;
+      txt = `${user.userName} completed the task - ${task.title}`;
       break;
     case "INCOMPLETED_TASK":
-      txt = `${user.name} incompleted the task - ${task.title}`;
+      txt = `${user.userName} incompleted the task - ${task.title}`;
       break;
     case "COPPIED_TASK":
-      txt = `${user.name} coppied ${task.title}`;
+      txt = `${user.userName} Coppied ${task.title}`;
       break;
     case "WATCHED_TASK":
-      txt = `${user.name} watched ${task.title}`;
+      txt = `${user.userName} Watched ${task.title}`;
       break;
     case "UNWATCHED_TASK":
-      txt = `${user.name} unwatched ${task.title}`;
+      txt = `${user.userName} unwatched ${task.title}`;
       break;
   }
   return txt;

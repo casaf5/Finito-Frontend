@@ -21,7 +21,7 @@
     </select> -->
     <div class="task-duedate-btns-container flex space-between">
       <button @click.prevent="emitDuedate" class="btn-primary large">Save</button>
-      <button @click.prevent="emitRemovedate" >Remove</button>
+      <button @click.prevent="emitRemovedate" class="btn-primary remove">Remove</button>
     </div>
   </form>
   </task-action-container>

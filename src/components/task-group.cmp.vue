@@ -125,7 +125,6 @@ export default {
       const taskGroupIndex = this.$store.getters.getTaskGroupByIndex(
         this.taskGroup.id
       );
-
       board.taskGroups[taskGroupIndex].tasks.push(task);
 
       //socket io
@@ -188,7 +187,7 @@ export default {
         this.taskGroup.id
       );
       board.taskGroups[taskGroupIndex] = this.taskGroup;
-      this.$store.dispatch({ type: "saveBoard", board });
+      // this.$store.dispatch({ type: "saveBoard", board });
     },
   },
   components: {

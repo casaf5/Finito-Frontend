@@ -119,10 +119,13 @@ export default {
           this.$emit("createLabel", this.labelToCreate);
         }
       } else {
+        console.log(this.labelToEdit);
         this.colors[this.labelToEdit.index] = this.labelText;
         if (this.labelText) {
           this.labelToEdit.title = this.labelText;
         }
+        //making sure the label wont be cliked upon next render cycle
+        this.labelToEdit.wasClicked = false;
         this.$emit("createLabel", {
           label: this.labelToEdit,
           index: this.choosenLabelIndex,
@@ -164,15 +167,14 @@ export default {
       );
     },
     isCreateMode() {
-      return this.editMode;
+      return !this.editMode;
     },
   },
   created() {
-    if (this.choosenLabelIndex) {
+    if (this.choosenLabelIndex >= -1) {
       this.newColors[this.choosenLabelIndex].wasClicked = !this.newColors[
         this.choosenLabelIndex
       ].wasClicked;
-
       this.labelToEdit = this.newColors[this.choosenLabelIndex];
     }
   },
