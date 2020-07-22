@@ -75,6 +75,7 @@ export default {
   async created() {
     this.boards = await this.$store.dispatch({ type: "loadBoards" });
     this.users = await this.$store.dispatch({ type: "loadUsers" });
+    console.log(this.users)
   },
   methods: {
     async addNewBoard() {

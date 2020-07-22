@@ -49,9 +49,9 @@ function getNewBoard() {
     name: "",
     members: [],
     tags: [],
-    style: {
-      bgColor: "",
-      bgUrl: "",
+    style:{
+      "bgColor" : "#48aef9",
+      "bgUrl" : "https://i.pinimg.com/originals/5e/65/20/5e6520289b44e11a9e74363c18ce3ee1.jpg"
     },
     creator: {},
     createdAt: Date.now(),

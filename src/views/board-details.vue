@@ -55,7 +55,6 @@ export default {
   async created() {
     let id = this.$route.params.id;
     await this.$store.dispatch({ type: "getBoardById", id });
-    await this.$store.dispatch({type:"loadUsers'"})
     socketService.setup();
     socketService.emit("joinedBoard", this.board._id);
     socketService.on("boardUpdate", (board) => {
@@ -75,12 +74,12 @@ export default {
     },
     onTaskDrop(taskGroupId, dropResult) {
       if (dropResult.removedIndex !== null || dropResult.addedIndex !== null) {
-        const board = utilService.deepCopy(this.board);
+        const board = Object.assign({},this.board);
         const taskGroup = board.taskGroups.filter(
           (taskG) => taskG.id === taskGroupId
         )[0];
         const taskGroupIndex = board.taskGroups.indexOf(taskGroup);
-        const newTaskGroup = utilService.deepCopy(taskGroup);
+        const newTaskGroup = Object.assign({},taskGroup);
         newTaskGroup.tasks = applyDrag(newTaskGroup.tasks, dropResult);
 
         newTaskGroup.tasks.forEach((task) => {
