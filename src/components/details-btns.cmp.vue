@@ -100,7 +100,6 @@ export default {
       (tg) => tg.id === this.task.parentListId
     );
     this.taskToEdit = this.taskGroup.tasks.find((t) => t.id === this.task.id); //maybe just deepCopy?
-    console.log(this.taskToEdit.watchMembers);
   },
   computed: {
     watchIsOn() {

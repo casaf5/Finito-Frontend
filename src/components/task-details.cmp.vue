@@ -176,7 +176,7 @@ export default {
       ? this.$store.getters.loggedUser
       : {
           id: "443",
-          name: "Guest",
+          userName: "Guest",
           url:
             "https://api.adorable.io/avatars/400/79c159e13036a02295c94901b6628bfe.png",
         };
