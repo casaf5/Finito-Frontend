@@ -1,6 +1,6 @@
 <template>
   <div>
-    <task-action-container @back="changeComponent" :showIcon="true" title="Search for images">
+    <task-action-container @back="changeComponent" @close="closeCmp" title="Search for images">
       <form-input :debounceInput="true" v-model="query" @input="searchForPhotos" />
       <h4>Images taken from Unsplash</h4>
       <div class="imgs-container">
@@ -35,10 +35,10 @@ export default {
   methods: {
     async searchForPhotos() {
       const imageUrlPromise = await fetch(
-        `https://api.unsplash.com/search/photos/?client_id=${process.env.VUE_APP_UNSPLASHAPIKEY}&query=${this.query}&orientation=landscape`
+        `https://api.unsplash.com/search/photos/?client_id=mL5OYkRmJrdpSTr4xqCqaswySn95yN_m38YtI8rw1Uk&query=${this.query}&orientation=landscape&fit=crop&max-w=2000&max-h=4000`
       );
       const imageData = await imageUrlPromise.json();
-      this.searchedImages = imageData.results.map(image => image.urls.thumb);
+      this.searchedImages = imageData.results.map(image => image.urls.full);
     },
     imageChoosen(url) {
       this.$emit("imageChoosen", url);
@@ -46,6 +46,9 @@ export default {
     },
     changeComponent() {
       this.$emit("changeComponent", "taskCoverColor");
+    },
+    closeCmp(){
+      this.$emit('close')
     }
   },
   computed: {

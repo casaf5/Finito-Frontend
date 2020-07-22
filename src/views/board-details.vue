@@ -55,11 +55,13 @@ export default {
   async created() {
     let id = this.$route.params.id;
     await this.$store.dispatch({ type: "getBoardById", id });
+    await this.$store.dispatch({type:"loadUsers'"})
     socketService.setup();
     socketService.emit("joinedBoard", this.board._id);
     socketService.on("boardUpdate", (board) => {
       this.$store.commit({ type: "setBoard", board });
     });
+    this.$emit('setCover',this.board.style)
   },
   computed: {
     board() {

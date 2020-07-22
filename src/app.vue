@@ -1,7 +1,7 @@
 <template>
   <div id="app" class="main-layout app-bg" :style="checkForBacground">
-      <app-header />
-      <router-view />
+    <app-header />
+    <router-view/>
   </div>
 </template>
 
@@ -9,18 +9,19 @@
 import appHeader from "./components/app-header.cmp.vue";
 export default {
   name: "main-app",
-  computed:{
-    board(){
-      return this.$store.getters.board
+  computed: {
+    style(){
+      return this.$store.getters.style
     },
-    checkForBacground(){
-      if(this.board.style.bgUrl) return `background-image:url("${this.board.style.bgUrl}");`
-      return `background-color:"${this.board.style.bgUrl}";`
-    }
+    checkForBacground() {
+      if (this.style.bgUrl)
+        return `background-image:url("${this.style.bgUrl}");`;
+      return `background-color:"${this.style.bgColor}";`;
+    },
   },
+
   components: {
-    appHeader
+    appHeader,
   },
 };
 </script>
-

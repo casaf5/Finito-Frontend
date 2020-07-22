@@ -14,11 +14,19 @@
           :size="30"
           :username="member.userName"
         />
-        <i class="fas fa-user-plus" @click="addMember"></i>
+        <i class="fas fa-user-plus" @click="toggleAddMember"></i>
+        <board-members-edit v-if="boardMembersOpen" />
       </section>
     </section>
     <section class="right-side">
-      <button @click.self="toggleMenu">Show Menu</button>
+      <button @click.self="toggleMenu">Activity Log</button>
+      <button @click.self="toggleBgSelect">Background</button>
+      <board-bg-select
+        class="bgSelector"
+        v-if="bgSelectOpen"
+        @close="toggleBgSelect"
+        @imageChoosen="setBoardBg"
+      />
     </section>
     <board-menu v-if="menuIsOpen" @close="toggleMenu" />
   </section>
@@ -27,17 +35,21 @@
 <script>
 import Avatar from "vue-avatar";
 import boardMenu from "../components/board-menu.cmp";
+import boardMembersEdit from './board-members-edit.cmp'
+import boardBgSelect from "./task-cover-image";
 export default {
   name: "board-options-nav",
   data() {
     return {
       board: null,
       menuIsOpen: false,
+      bgSelectOpen: false,
+      boardMembersOpen:false,
+      style: { bgColor: "", bgUrl: "" },
     };
   },
   created() {
     this.board = this.$store.getters.board;
-    console.log("board", this.board);
   },
   methods: {
     updateBoard() {
@@ -46,13 +58,25 @@ export default {
     toggleMenu() {
       this.menuIsOpen = !this.menuIsOpen;
     },
-    addMember(){
-
-    }
+    toggleBgSelect() {
+      this.bgSelectOpen = !this.bgSelectOpen;
+    },
+    toggleAddMember(){
+      this.boardMembersOpen=!this.boardMembersOpen
+    },
+    setBoardBg(imgaeUrl) {
+      this.style.bgUrl = imgaeUrl;
+      this.board.style=this.style
+      this.$store.dispatch({type:"saveBoard",board:this.board})
+      this.$store.commit({ type: "setStyle", style: this.style });
+    },
+    addMember() {},
   },
   components: {
     Avatar,
     boardMenu,
+    boardBgSelect,
+    boardMembersEdit,
   },
 };
 </script>

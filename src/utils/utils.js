@@ -54,6 +54,7 @@ function getNewBoard() {
       bgUrl: "",
     },
     creator: {},
+    createdAt: Date.now(),
     activities: [],
     labels: [
       {

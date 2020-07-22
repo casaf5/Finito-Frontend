@@ -8,8 +8,8 @@
   .left-side {
     .board-members {
       align-self: center;
-      >*{
-          margin-inline-start: 5px;
+      > * {
+        margin-inline-start: 5px;
       }
       i {
         font-size: 16px;
@@ -49,19 +49,33 @@
       }
     }
   }
-  .right-side{
-    button{
+  .right-side {
+    button {
       background-color: #ffffff52;
       border-radius: 3px;
-      border:none;
+      border: none;
       outline: none;
-      padding:5px;
+      padding: 5px;
       font-family: Montserrat-Bold;
       font-weight: bold;
       font-size: 18px;
       color: white;
+      margin-inline-start: 10px;
     }
-   
-
+    .bgSelector {
+      color: black;
+      position: absolute;
+      top:10%;
+      right: 19%;
+      .imgs-container {
+        display: grid;
+        grid-template-columns: 0.5fr 0.5fr;
+        img {
+        width: 120px;
+        height: 100px;
+        ;
+}
+      }
+    }
   }
 }
