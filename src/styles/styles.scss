@@ -15,10 +15,10 @@
 @import "./components/user-msg";
 @import "./components/task-details";
 // @import "./components/task-activity";
-@import './components/checklist';
-@import './components/task-members';
-@import './components/task-move';
-@import './components/task-duedate';
+@import "./components/checklist";
+@import "./components/task-members";
+@import "./components/task-move";
+@import "./components/task-duedate";
 @import "./components/app-header";
 @import "./components/task-group-container";
 @import "./components/task-preview";
@@ -31,7 +31,7 @@
 @import "./components/action-list";
 @import "./components/task-attachment.scss";
 @import "./components/attachment-preview.scss";
-
+@import "./components/template.scss";
 //VIEWS
 
 @import "./views/trellor-app";

@@ -29,6 +29,10 @@ const routes = [
     path: "/edit",
     component: Edit,
   },
+  {
+    path: "*",
+    component: () => import(/* webpackChunkName: "about" */ "../views/404.vue"),
+  },
 ];
 
 const router = new VueRouter({

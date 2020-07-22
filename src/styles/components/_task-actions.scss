@@ -24,12 +24,13 @@
     align-items: center;
     position: relative;
     margin-bottom: 15px;
+    color: $task-title-color;
     .el-icon-close {
       cursor: pointer;
     }
     span {
       text-align: center;
-      font-size: 18px;
+      font-size: rem(14px);
     }
     i:not(.icon) {
       position: absolute;

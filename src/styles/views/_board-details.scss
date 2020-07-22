@@ -1,6 +1,10 @@
 .board-details {
+  min-height: 98vh;
   padding-top: 45px;
-  margin: 0 6px;
+  background-image: url("../assets/images/mountains-bg-lg.jpg");
+  background-attachment: fixed;
+  background-size: cover;
+  width: 100%;
   .taskGroup-drop-preview {
     background-color: rgba(150, 150, 200, 0.1);
     border: 1px dashed #abc;

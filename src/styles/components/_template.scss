@@ -1,0 +1,17 @@
+.template-container {
+  min-height: 250px;
+  align-self: flex-start;
+  img {
+    height: 150px;
+    width: 100%;
+    object-fit: cover;
+  }
+  .template-header {
+    font-size: rem(18px);
+    margin: 10px 0;
+    font-weight: 600;
+  }
+  p {
+    margin: 0;
+  }
+}

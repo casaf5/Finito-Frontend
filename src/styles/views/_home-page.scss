@@ -1,88 +1,30 @@
 .home-page {
-  margin-top: 55px;
-  justify-self: center;
-  align-self: start;
-  width: 70%;
+  margin-top: rem(80px);
+  display: grid;
+  min-height: 80vh;
+  grid-template-columns:
+    minmax(2rem, 1fr)
+    minmax(auto, $break-wide)
+    minmax(2rem, 1fr);
   > * {
-    position: relative;
-    justify-content: center;
-    align-items: center;
-    height: max-content;
-    margin: 50px;
-    border-radius: 8px;
-    border: 1px solid black;
-    text-align: center;
-    color: white;
-    background-color: #505049b5;
-    font-size: rem(30px);
-    font-family: Montserrat-Bold;
-    font-weight: bold;
-    letter-spacing: 1.2px;
-    transition: all 0.3s;
-    cursor: pointer;
-    h4 {
-      position: absolute;
-      top: -45px;
-      left: 0;
-    }
-    &:hover {
-      background-color: #505049d2;
-    }
+    grid-column: 2/3;
+    margin: 10px 0;
   }
-  .new-board {
-    height: max-content;
-    padding: 10px 10px;
-    .new-board-details {
+  .recent-boards-container {
+    .recent-boards {
       display: flex;
-      justify-content: space-between;
-      h3 {
-        font-size: rem(20px);
-        justify-self: center;
-        align-self: center;
-      }
-      input {
-        width: 340px;
-        height: 35px;
-        border-radius: 5px;
-        border: none;
-        padding-left: 3px;
-        justify-self: start;
-        margin: 0;
-        font-size: 20px;
-        font-family: Montserrat-Bold;
-        font-weight: bold;
-      }
-    }
-    .create-btn {
-      border: none;
-      background-color: #2196f3;
-      width: 100%;
-      height: 40px;
-      outline: none;
-      border-radius: 5px;
-      font-size: rem(20px);
-      font-family: Montserrat-Bold;
-      font-weight: bold;
-      transition: all .3s ease-in-out;
-      &:hover{
-        background-color: #2195f3ad;
-
-      }
+      flex-wrap: wrap;
     }
   }
-  .el-carousel__item h3 {
-    color: #475669;
-    font-size: 14px;
-    opacity: 0.75;
-    line-height: 200px;
-    margin: 0;
+  .catagory-label {
+    margin: 20px 0;
+    font-weight: 600;
+    font-size: rem(20px);
+    color: darken(#3498db, 40%);
   }
-
-  .el-carousel__item:nth-child(2n) {
-    background-color: #99a9bf;
-  }
-
-  .el-carousel__item:nth-child(2n + 1) {
-    background-color: #d3dce6;
+  .board-templates {
+    display: grid;
+    grid-gap: 10px;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
   }
 }
