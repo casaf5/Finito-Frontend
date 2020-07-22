@@ -1,8 +1,19 @@
 
 .chart{
-  width: 40%;
   background-color: white;
-  margin: 2rem;
   padding: 1rem;
+  margin-top: 2rem;
+  border-radius: 10px;
   /* display: inline-block; */
 }
+
+.charts-container {
+  margin: 0 auto;
+  margin-top: 1.5rem;
+  width:90%;
+}
+
+.doughnut-barchart-wraper{
+  justify-content: space-evenly;
+}
+

@@ -1,6 +1,13 @@
 <template>
   <section class="dashboard" v-if="board">
-    <div class="charts-container flex">
+    <div class="charts-container flex col">
+      <div class="linechart-container chart">
+    <!--  make it tasks completion over time - how many completed each month-->
+       <h2>Board Progress </h2>
+       <!--  Tasks Completion Per Month since created by PREC%-->
+        <line-chart :labels="monthsToShow" :data="completedTasksPerMonth" :options="options"/>
+      </div>
+    <div class="doughnut-barchart-wraper flex">
      <div class="doughnut-container chart">
       <h2>TaskGroup Popularity</h2>
         <doughnut-chart  :labels="taskGroupsTitles" :data="numOfTasksInGroup"/>
@@ -10,12 +17,7 @@
        <h2>Members Progress</h2>
         <bar-chart :labels="boardMembersNames" :data="numOfTasksPerMember" :options="options"/>
       </div>
-      <div class="linechart-container chart">
-    <!--  make it tasks completion over time - how many completed each month-->
-       <h2>Board Progress </h2>
-       <!--  Tasks Completion Per Month since created by PREC%-->
-        <line-chart :labels="monthsToShow" :data="completedTasksPerMonth" :options="options"/>
-      </div>
+     </div>
    </div>
     {{completedTasksPerMonth}}
   </section>

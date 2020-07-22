@@ -12,8 +12,8 @@ export default {
              labels: this.labels,
               datasets: [
                         {
-                label: 'Data One',
-                backgroundColor: '#f87979',
+                label: 'Tasks Finished Per Month',
+                backgroundColor: 'blue',
                 data: this.data
                  }
                ]

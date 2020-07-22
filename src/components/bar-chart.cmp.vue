@@ -11,11 +11,19 @@ export default {
       labels: this.labels,
       datasets: [
         {
-          label: "GitHub Commits",
-          backgroundColor: ['yellow', 'green', 'blue', 'purple', 'brown', 'orange'],
+          label:"Incompleted Tasks",
+          backgroundColor: ['red', 'red', 'red', 'red', 'red', 'red', 'red','red','red', 'red', 'red', 'red', 'red', 'red'],
+         //   sent as a prop the right data
           data: this.data
+        },
+                {
+          label:"Completed Tasks",
+          backgroundColor: ['green','green','green','green','green','green','green','green','green','green','green','green'],
+        //   send as a prop the right data
+          data: [7,5,3,4,5]
         }
-               ]
+                 ],
+               
              },
      this.options)
   }

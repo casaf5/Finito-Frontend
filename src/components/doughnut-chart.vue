@@ -12,10 +12,11 @@ export default {
       datasets: [
         {
           label: "GitHub Commits",
-          backgroundColor: ['yellow', 'green', 'blue'],
+          // make more colors
+          backgroundColor: ['yellow', 'green', 'blue', 'purple', 'brown', 'orange'],
           data: this.data
         }
-      ]
+      ],
     });
   },
 };
