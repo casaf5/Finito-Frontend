@@ -125,7 +125,6 @@ import { eventBus, SHOW_MSG } from "../services/event-bus-service.js";
 
 export default {
   name: "task-details",
-  // move taskgroup to data, not a prop & updated at created
   props: ["taskToEdit"],
   data() {
     return {
@@ -145,7 +144,6 @@ export default {
     };
   },
   created() {
-    /// copying the task it self also so could be editted out of the store
     this.boardToEdit = JSON.parse(JSON.stringify(this.board));
     const taskGroupId = this.taskToEdit.parentListId;
     this.taskGroup = this.boardToEdit.taskGroups.find(
