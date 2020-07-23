@@ -1,7 +1,7 @@
 <template>
   <section class="task-move">
     <task-action-container @close="closeComp" title="Move Task-Group">
-      <h5>SELECT OTHER GROUP</h5>
+      <h5>Select Other Group</h5>
       <el-select v-model="newTaskGroup" placeholder="Select">
             <el-option v-for="(item, idx) in options" :key="idx" :label="item" :value="item"></el-option>
       </el-select>

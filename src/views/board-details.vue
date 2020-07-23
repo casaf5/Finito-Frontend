@@ -1,5 +1,9 @@
 <template>
-  <section class="board-details-container" v-if="board">
+  <section
+    class="board-details-container"
+    v-if="board"
+    :style="boardBackground"
+  >
     <board-options-nav />
     <section class="board-details">
       <task-details
@@ -60,11 +64,17 @@ export default {
     socketService.on("boardUpdate", (board) => {
       this.$store.commit({ type: "setBoard", board });
     });
-    this.$emit('setCover',this.board.style)
+    this.$emit("setCover", this.board.style);
   },
   computed: {
     board() {
       return this.$store.getters.board;
+    },
+    boardBackground() {
+      const style = this.$store.getters.style;
+      console.log(style)
+      if (style.bgUrl) return `background-image:url(${style.bgUrl});`;
+      return `background-color:"${style.bgColor}";`;
     },
   },
   methods: {
@@ -74,12 +84,12 @@ export default {
     },
     onTaskDrop(taskGroupId, dropResult) {
       if (dropResult.removedIndex !== null || dropResult.addedIndex !== null) {
-        const board = Object.assign({},this.board);
+        const board = Object.assign({}, this.board);
         const taskGroup = board.taskGroups.filter(
           (taskG) => taskG.id === taskGroupId
         )[0];
         const taskGroupIndex = board.taskGroups.indexOf(taskGroup);
-        const newTaskGroup = Object.assign({},taskGroup);
+        const newTaskGroup = Object.assign({}, taskGroup);
         newTaskGroup.tasks = applyDrag(newTaskGroup.tasks, dropResult);
 
         newTaskGroup.tasks.forEach((task) => {

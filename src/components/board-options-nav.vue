@@ -35,7 +35,7 @@
 import Avatar from "vue-avatar";
 import boardMenu from "../components/board-menu.cmp";
 import boardMembersEdit from "./board-members-edit.cmp";
-// import boardBgSelect from "./task-cover-image";
+import boardBgSelect from "./board-bg-select.cmp";
 export default {
   name: "board-options-nav",
   data() {
@@ -77,7 +77,7 @@ export default {
   components: {
     Avatar,
     boardMenu,
-    // boardBgSelect,
+    boardBgSelect,
     boardMembersEdit
   }
 };

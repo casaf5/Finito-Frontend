@@ -1,5 +1,5 @@
 <template>
-  <div id="app" class="main-layout app-bg">
+  <div id="app" class="main-layout ">
     <app-header />
     <router-view />
   </div>
@@ -13,12 +13,6 @@ export default {
     style() {
       return this.$store.getters.style;
     }
-    //:style="checkForBacground"
-    // checkForBacground() {
-    //   if (this.style.bgUrl)
-    //     return `background-image:url("${this.style.bgUrl}");`;
-    //   return `background-color:"${this.style.bgColor}";`;
-    // },
   },
 
   components: {
