@@ -44,7 +44,7 @@ export default {
       this.searchedImages = await UnsplashService.searchPhoto(
         this.query,
         this.imageSize,
-        9
+        "9"
       );
     },
     imageChoosen(url) {

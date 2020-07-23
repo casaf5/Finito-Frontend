@@ -49,45 +49,52 @@ function getNewBoard() {
     name: "",
     members: [],
     tags: [],
-    style:{
-      "bgColor" : "#48aef9",
-      "bgUrl" : "https://i.pinimg.com/originals/5e/65/20/5e6520289b44e11a9e74363c18ce3ee1.jpg"
+    style: {
+      bgColor: "#48aef9",
+      bgUrl:
+        "https://i.pinimg.com/originals/5e/65/20/5e6520289b44e11a9e74363c18ce3ee1.jpg",
     },
     creator: {},
     createdAt: Date.now(),
     activities: [],
     labels: [
       {
+        id: getRandomId(),
         title: "",
         color: "#61BD4F",
         selectedColor: "#519839",
         wasClicked: false,
       },
       {
+        id: getRandomId(),
         title: "",
         color: "#f2d600",
         selectedColor: "#D9B51C",
         wasClicked: false,
       },
       {
+        id: getRandomId(),
         title: "",
         color: "#ff9f1a",
         selectedColor: "#cd8313",
         wasClicked: false,
       },
       {
+        id: getRandomId(),
         title: "",
         color: "#eb5a46",
         selectedColor: "#b04632",
         wasClicked: false,
       },
       {
+        id: getRandomId(),
         title: "",
         color: "#0079BF",
         selectedColor: "#055A8C",
         wasClicked: false,
       },
       {
+        id: getRandomId(),
         title: "",
         color: "#C377E0",
         selectedColor: "#89609E",

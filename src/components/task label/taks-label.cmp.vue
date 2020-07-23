@@ -9,6 +9,7 @@
     @close="$emit('close')"
     :editMode="editMode"
     :choosenLabelIndex="choosenLabelIndex"
+    :labelToEdit="labelToEdit"
     :choosenColor="choosenColor"
     :title="title"
     :colors="labels"
@@ -34,7 +35,7 @@ export default {
     TaskActionContainer,
     LabelColor,
     TaskChooseLabel,
-    TaskCreateLabel,
+    TaskCreateLabel
   },
   data() {
     return {
@@ -44,7 +45,7 @@ export default {
       choosenLabelIndex: -1,
       title: "",
       newLabel: null,
-      labelToEdit: null,
+      labelToEdit: null
     };
   },
   computed: {
@@ -53,7 +54,7 @@ export default {
     },
     labels() {
       return this.$store.getters.board.labels;
-    },
+    }
   },
   methods: {
     toggleComponent(component) {
@@ -66,17 +67,18 @@ export default {
     },
     labelClicked(label, index) {
       this.$emit("setLabel", label);
-      // const board = utilService.deepCopy(this.board);
-      //  board.labels.splice(label);
-      //  this.$store.dispatch({ type: "saveBoard", board });
     },
     editLabel(label) {
+      //getting my label to edit and passing the index down to label create component to continue editing
       this.editMode = true;
       this.choosenLabelIndex = label.labelIndex;
       this.title = label.label.title;
+      this.labelToEdit = label.label;
+      console.log("from task label", label);
       this.toggleComponent("task-create-label");
     },
     createLabel(label) {
+      console.log(label);
       //updating a label
       if (label.index > -1) {
         // updating a label
@@ -86,13 +88,14 @@ export default {
         this.editMode = false;
       } else {
         //creating a label and updating the board
+        console.log(label);
         const board = utilService.deepCopy(this.board);
         board.labels.push(label);
         this.$store.dispatch({ type: "saveBoard", board });
       }
       this.component = "task-choose-label";
-    },
-  },
+    }
+  }
 };
 </script>
 

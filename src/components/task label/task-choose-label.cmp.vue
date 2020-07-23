@@ -54,6 +54,8 @@ export default {
       this.colors[index].wasClicked = !this.colors[index].wasClicked;
     },
     editLabel(label) {
+      //getting the label from label color and emitting it to task label
+      console.log("task choose label:", label);
       this.$emit("editLabel", label);
     }
   },

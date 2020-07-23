@@ -155,30 +155,40 @@ export default {
       this.$emit("emitCloseModal");
     },
     // LABELS
-    addLabel({ title, color, selectedColor }, index) {
+    addLabel({ id, title, color, selectedColor }, index) {
       const taskLabel = {
         title,
-        color
+        color,
+        id
       };
       this.taskToEdit.labels.push(taskLabel);
       this.$emit("emitBoardChange", "ADDED_LABEL");
     },
-    editLabel({ label: { title, color, selectedColor, wasClicked }, index }) {
+    editLabel({ label: { title, id, color, selectedColor }, index }) {
       const boardLabel = {
+        id,
         title,
         color,
         selectedColor,
         wasClicked: false
       };
-      const taskLabel = {
+      const updatedLabel = {
+        id,
         title,
         color
       };
       const board = utilService.deepCopy(this.board);
       board.labels.splice(index, 1, boardLabel);
+
       board.taskGroups.forEach(taskGroup => {
-        taskGroup.tasks.forEach(task => {
-          task.labels[index] = taskLabel;
+        taskGroup.tasks.forEach((task, taskIdx) => {
+          task.labels.forEach((label, taskIdX) => {
+            if (label.id === updatedLabel.id) {
+              label.id = updatedLabel.id;
+              label.color = updatedLabel.color;
+              label.title = updatedLabel.title;
+            }
+          });
         });
       });
       this.$store.dispatch({ type: "saveBoard", board });

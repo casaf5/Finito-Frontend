@@ -26,9 +26,7 @@
           v-for="(color, index) in newColors"
         />
       </li>
-      <button class="btn-primary" @click="createNewLabel">
-        {{ this.editMode ? "Save" : "Create" }}
-      </button>
+      <button class="btn-primary" @click="createNewLabel">{{ this.editMode ? "Save" : "Create" }}</button>
     </div>
   </task-action-container>
 </template>
@@ -40,25 +38,28 @@ import formInput from "../From Elements/form-input.cmp";
 export default {
   props: {
     choosenColor: {
-      type: String,
+      type: String
     },
     title: {
-      type: String,
+      type: String
     },
     editMode: {
-      type: Boolean,
+      type: Boolean
     },
     choosenLabelIndex: {
-      type: Number,
+      type: Number
     },
     colors: {
-      type: Array,
+      type: Array
     },
+    labelToEdit: {
+      type: Object
+    }
   },
   components: {
     TaskActionContainer,
     LabelColor,
-    formInput,
+    formInput
   },
   mounted() {
     if (this.title && this.editMode) {
@@ -69,46 +70,45 @@ export default {
     return {
       labelText: "",
       labelToCreate: null,
-      labelToEdit: null,
       labelToEditIndex: -1,
       newColors: [
         {
           title: "",
           color: "#61BD4F",
           selectedColor: "#519839",
-          wasClicked: false,
+          wasClicked: false
         },
         {
           title: "",
           color: "#f2d600",
           selectedColor: "#D9B51C",
-          wasClicked: false,
+          wasClicked: false
         },
         {
           title: "",
           color: "#ff9f1a",
           selectedColor: "#cd8313",
-          wasClicked: false,
+          wasClicked: false
         },
         {
           title: "",
           color: "#eb5a46",
           selectedColor: "#b04632",
-          wasClicked: false,
+          wasClicked: false
         },
         {
           title: "",
           color: "#0079BF",
           selectedColor: "#055A8C",
-          wasClicked: false,
+          wasClicked: false
         },
         {
           title: "",
           color: "#C377E0",
           selectedColor: "#89609E",
-          wasClicked: false,
-        },
-      ],
+          wasClicked: false
+        }
+      ]
     };
   },
   methods: {
@@ -119,7 +119,6 @@ export default {
           this.$emit("createLabel", this.labelToCreate);
         }
       } else {
-        console.log(this.labelToEdit);
         this.colors[this.labelToEdit.index] = this.labelText;
         if (this.labelText) {
           this.labelToEdit.title = this.labelText;
@@ -128,18 +127,12 @@ export default {
         this.labelToEdit.wasClicked = false;
         this.$emit("createLabel", {
           label: this.labelToEdit,
-          index: this.choosenLabelIndex,
+          index: this.choosenLabelIndex
         });
       }
     },
     createLabel({ label, index }) {
-      // this.colors.forEach((color, colorIndex) => {
-      //   if (index === colorIndex) {
-      //     color.wasClicked = true;
-      //   } else {
-      //     color.wasClicked = false;
-      //   }
-      // });
+      console.log("label to create methods in create label", label);
       this.labelToCreate = label;
     },
     labelClicked(label) {
@@ -150,34 +143,23 @@ export default {
           color.wasClicked = false;
         }
       });
-      if (this.editMode) {
-        this.labelToEdit = label.label;
-      } else {
-      }
     },
     editLabel(index) {
       this.labelToEditIndex = index;
-    },
+    }
   },
   computed: {
-    colorsToDisplay() {
-      const searchTerm = this.labelText.toLowerCase();
-      return this.colors.filter((color) =>
-        color.label.toLowerCase().includes(searchTerm)
-      );
-    },
     isCreateMode() {
       return !this.editMode;
-    },
+    }
   },
   created() {
     if (this.choosenLabelIndex >= -1) {
       this.newColors[this.choosenLabelIndex].wasClicked = !this.newColors[
         this.choosenLabelIndex
       ].wasClicked;
-      this.labelToEdit = this.newColors[this.choosenLabelIndex];
     }
-  },
+  }
 };
 </script>
 

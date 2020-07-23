@@ -16,23 +16,23 @@
 export default {
   props: {
     color: {
-      type: Object,
+      type: Object
     },
     displayIcon: {
-      type: Boolean,
+      type: Boolean
     },
     index: {
-      type: Number,
+      type: Number
     },
     editMode: {
-      type: Boolean,
+      type: Boolean
     },
     choosenLabelIndex: {
-      type: Number,
+      type: Number
     },
     createMode: {
-      type: Boolean,
-    },
+      type: Boolean
+    }
   },
   data() {
     return {};
@@ -40,10 +40,11 @@ export default {
   methods: {
     labelClicked() {
       const label = {
+        id: this.color.id,
         title: this.color.title,
         color: this.color.color,
         selectedColor: this.color.selectedColor,
-        wasClicked: false,
+        wasClicked: false
       };
       if (this.createMode) {
         this.$emit("createLabel", { label: label, index: this.index });
@@ -51,14 +52,16 @@ export default {
       this.$emit("labelClicked", { label: label, index: this.index });
     },
     editLabel() {
+      // emitting the label that was clicked to be edited.
       const label = {
+        id: this.color.id,
         title: this.color.title,
         color: this.color.color,
         selectedColor: this.color.selectedColor,
-        wasClicked: this.color.wasClicked,
+        wasClicked: this.color.wasClicked
       };
       this.$emit("editLabel", { label, labelIndex: this.index });
-    },
+    }
   },
   computed: {
     colorObject() {
@@ -66,15 +69,15 @@ export default {
         "--color": this.color.color,
         "--hover-color": this.color.selectedColor,
         "color-clicked": this.color.wasClicked,
-        width: this.displayIcon ? "85%" : "100%",
+        width: this.displayIcon ? "85%" : "100%"
       };
     },
     clickedLabelClass() {
       return this.choosenLabelIndex === this.index && this.editMode
         ? "red"
         : "";
-    },
-  },
+    }
+  }
 };
 </script>
 
