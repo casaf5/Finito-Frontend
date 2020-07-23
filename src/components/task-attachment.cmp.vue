@@ -1,22 +1,28 @@
 <template>
   <div class="task-attachment">
-    <task-action-container title="Upload Files" @close="closeAttach" >
+    <task-action-container title="Upload Files" @close="closeAttach">
       <section class="img-container">
-           <img class="img-upload-preview" :src="imageUrl"/>
+        <img class="img-upload-preview" :src="imageUrl" />
       </section>
-      <h5 class="status"> {{uploadStatus }}</h5>
+      <h5 class="status">{{ uploadStatus }}</h5>
+      <h6 v-if="status === 'Upload'">Please Wait</h6>
       <section class="upload-select" v-if="!status">
         <button @click="openImageInput">Image</button>
         <button @click="openFileInput">File</button>
-        <input ref="fileInput" type="file" @change.prevent="uploadFile" hidden/>
+        <input
+          ref="fileInput"
+          type="file"
+          @change.prevent="uploadFile($event, 'file')"
+          hidden
+        />
         <input
           ref="imageInput"
           type="file"
-          @change.prevent="uploadImage"
+          @change.prevent="uploadFile($event, 'image')"
           hidden
         />
       </section>
-      <section class="upload-options" v-if="status===true">
+      <section class="upload-options" v-if="status === true">
         <button @click="addFile" class="add-file-btn">Add to Task</button>
       </section>
     </task-action-container>
@@ -40,20 +46,15 @@ export default {
     };
   },
   methods: {
-    async uploadFile(ev) {
-      this.status='Upload'
-      let res = await uploadService.fileUpload(ev);
-      this.downloadLink = `https://gofile.io/?c=${res.data.code}`;
+    async uploadFile(ev, type) {
+      this.status = "Upload";
+      let res = await uploadService.upload(ev, type);
+      this.downloadLink = type === "file" ? `https://gofile.io/?c=${res}` : res;
+      if (type === "image") this.imageUrl = res;
+      console.log(this.imageUrl)
       this.fileName = ev.target.files[0].name;
       this.createAttachment(ev);
-    },
-    async uploadImage(ev) {
-      this.status='Upload'
-      let url = await uploadService.imageUpload(ev);
-      this.imageUrl = url;
-      this.downloadLink = url;
-      this.fileName = ev.target.files[0].name;
-      this.createAttachment();
+      console.log(this.attachment)
     },
     createAttachment() {
       this.attachment = {
@@ -81,10 +82,8 @@ export default {
   computed: {
     uploadStatus() {
       if (!this.status) return "Pick A File...";
-      if(this.status==='Upload')return 'Uploading...'
-      return this.status
-        ? "File Uploded!"
-        : "Problem Uploding..";
+      if (this.status === "Upload") return "Uploading...";
+      return this.status ? "File Uploded!" : "Problem Uploding..";
     },
   },
   components: {
