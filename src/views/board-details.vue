@@ -4,7 +4,7 @@
     v-if="board"
     :style="boardBackground"
   >
-    <board-options-nav />
+    <board-options-nav  />
     <section class="board-details">
       <task-details
         v-if="taskToEdit"

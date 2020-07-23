@@ -2,13 +2,12 @@
   background-attachment: fixed;
   background-size: cover;
   background-repeat: no-repeat;
+  min-height: 100vh;
 
   .board-details {
-    min-height: 100vh;
-    padding: 100px 5px;
-    background-attachment: fixed;
-    background-size: cover;
-    background-repeat: no-repeat;
+    position: absolute;
+    top:11%;
+    padding:6px;
     width: 100%;
     .taskGroup-drop-preview {
       background-color: rgba(150, 150, 200, 0.1);

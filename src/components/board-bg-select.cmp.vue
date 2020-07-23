@@ -9,12 +9,10 @@
       <h4>Images taken from Unsplash</h4>
       <div class="imgs-container">
         <img
-          @click="imageChoosen(urls.raw)"
+          @click="imageChoosen(urls.full)"
           :src="urls.small"
           :key="index"
-          v-for="(urls, index) in searchedImages"
-          alt
-        />
+          v-for="(urls, index) in searchedImages"/>
       </div>
     </task-action-container>
   </div>

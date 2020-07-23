@@ -6,11 +6,6 @@
     </section>
     <hr />
     <section class="menu-section-container">
-      <section class="menu-section settings">
-        <h5 class="menu-section-title">
-          <i class="fas fa-cogs"></i>Board Settings
-        </h5>
-      </section>
       <section class="menu-section activity">
         <h5 class="menu-section-title">
           <i class="fas fa-list"></i>Activity Log
