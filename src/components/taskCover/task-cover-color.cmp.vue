@@ -2,13 +2,7 @@
   <div>
     <task-action-container @close="$emit('close')" title="Set Cover">
       <div class="colors-container">
-        <div
-          class="color"
-          :style="{ 'background-color': color.color }"
-          :key="index"
-          v-for="(color, index) in colors"
-          @click="colorClicked(color,index)"
-        ></div>
+        <color-small @colorClicked="colorClicked" size="medium" />
       </div>
       <div class="imgs-container">
         <button @click="removeCover" v-if="isCoverSet" class="btn-primary">Remove Cover</button>
@@ -25,6 +19,7 @@
 
 <script>
 import taskActionContainer from "../task-action-container.cmp";
+import colorSmall from "../UI Components/color-small";
 import FormInput from "../From Elements/form-input.cmp";
 export default {
   props: {
@@ -97,7 +92,8 @@ export default {
   computed: {},
   components: {
     taskActionContainer,
-    FormInput
+    FormInput,
+    colorSmall
   }
 };
 </script>
@@ -122,11 +118,5 @@ h4 {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  width: 100%;
-  .color {
-    margin: 5px 5px;
-    width: 78px;
-    height: 35px;
-  }
 }
 </style>

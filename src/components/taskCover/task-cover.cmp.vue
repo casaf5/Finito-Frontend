@@ -17,6 +17,7 @@
 <script>
 import taskCoverColor from "./task-cover-color.cmp";
 import taskCoverImg from "./task-cover-image";
+import { UnsplashService } from "../../services/unsplashImage-service";
 export default {
   props: {
     isCoverSet: {
@@ -28,9 +29,10 @@ export default {
     }
   },
   async created() {
-    await this.getImages(
-      `https://api.unsplash.com/photos/random/?client_id=mL5OYkRmJrdpSTr4xqCqaswySn95yN_m38YtI8rw1Uk&count=8&orientation=landscape`,
-      "random"
+    this.imagesUrl = await UnsplashService.getRandomPhotos(
+      8,
+      "landscape",
+      this.imageSize
     );
   },
   data() {
@@ -40,11 +42,6 @@ export default {
     };
   },
   methods: {
-    async getImages(url, type = "random") {
-      const imageUrlPromise = await fetch(url);
-      const imageData = await imageUrlPromise.json();
-      this.imagesUrl = imageData.map(image => image.urls[this.imageSize]);
-    },
     toggleComp(compoentToRender) {
       this.component = compoentToRender;
     },

@@ -1,13 +1,22 @@
 <template>
-  <div :style="background" class="board-preview" @click="moveToBoard">{{board.name}}</div>
+  <div :class="height" :style="background" class="board-preview" @click="moveToBoard">{{board.name}}</div>
 </template>
 
 <script>
 export default {
-  props: ["board"],
+  props: {
+    board: {
+      type: Object
+    },
+    isLink: {
+      type: Boolean
+    }
+  },
   methods: {
     moveToBoard() {
-      this.$router.push(`/board/${this.board._id}`);
+      if (this.isLink) {
+        this.$router.push(`/board/${this.board._id}`);
+      }
     }
   },
   computed: {
@@ -16,6 +25,13 @@ export default {
         return `background-image:url("${this.board.style.bgUrl}");color:#fff`;
       } else {
         return `background-color:${this.board.style.bgColor};`;
+      }
+    },
+    height() {
+      if (this.isLink) {
+        return "short";
+      } else {
+        return "full";
       }
     }
   }

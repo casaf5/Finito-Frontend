@@ -6,14 +6,23 @@
         Your Boards
       </h4>
       <div class="recent-boards">
-        <board-preview v-for="board in boards" :board="board" :key="board._id" />
+        <board-preview :isLink="true" v-for="board in boards" :board="board" :key="board._id" />
         <div @click="showModal= !showModal" class="board-preview flex create-board">Create New Board</div>
       </div>
     </div>
     <modal @close="showModal= !showModal" v-if="showModal">
       <div class="create-board-container">
-        <form-input :showLabel="true" labelText="Create Board" />
-        <button class="btn-primary">Create</button>
+        <div class="create-board-input">
+          <form-input v-model="newBoard.name" :showLabel="true" labelText="Board Title" />
+        </div>
+        <div class="create-board-colors">
+          <h4>Choose Color</h4>
+          <color-small @colorClicked="changeBgColor" size="small" />
+        </div>
+        <searchImg :topImages="topImages" @imageChoosen="setBoardImg" />
+
+        <board-preview :board="newBoard" />
+        <button @click="addNewBoard" class="btn-primary">Create</button>
       </div>
     </modal>
     <!-- <div class="new-board-container">
@@ -57,14 +66,18 @@ import { boardService } from "../services/board-service.js";
 import boardPreview from "../components/board-preview.cmp.vue";
 import boardTemplate from "../components/UI Components/template";
 import formInput from "../components/From Elements/form-input.cmp";
+import searchImg from "../components/UI Components/search-img";
 import modal from "../components/UI Components/modal";
+import colorSmall from "../components/UI Components/color-small";
 export default {
   name: "home-page",
   components: {
     boardPreview,
     boardTemplate,
     formInput,
-    modal
+    modal,
+    colorSmall,
+    searchImg
   },
   data() {
     return {
@@ -131,9 +144,25 @@ export default {
         }
       ],
       newBoard: {
-        name: "",
-        members: []
-      }
+        name: "SS",
+        members: [],
+        style: {
+          bgUrl:
+            "https://images.unsplash.com/photo-1519681393784-d120267933ba?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=750&q=80 750w",
+          bgColor: ""
+        }
+      },
+      topImages: [
+        "https://images.unsplash.com/photo-1563900833607-035c921f001c?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=400&fit=max&ixid=eyJhcHBfaWQiOjE0OTc5MX0",
+        "https://images.unsplash.com/photo-1428534302776-5c6a2dca0380?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=400&fit=max&ixid=eyJhcHBfaWQiOjE0OTc5MX0",
+        "https://images.unsplash.com/photo-1581095390906-9a7efa3f8b0a?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=400&fit=max&ixid=eyJhcHBfaWQiOjE0OTc5MX0",
+        "https://images.unsplash.com/photo-1590336225155-d7e19a3a954f?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=400&fit=max&ixid=eyJhcHBfaWQiOjE0OTc5MX0",
+        "https://images.unsplash.com/photo-1564679411940-501b3f72ebab?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=400&fit=max&ixid=eyJhcHBfaWQiOjE0OTc5MX0",
+        "https://images.unsplash.com/photo-1592252083688-16558af3eed9?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=400&fit=max&ixid=eyJhcHBfaWQiOjE0OTc5MX0",
+        "https://images.unsplash.com/photo-1445888985293-8e1b904061c4?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=400&fit=max&ixid=eyJhcHBfaWQiOjE0OTc5MX0",
+        "https://images.unsplash.com/photo-1476433564761-80392cb7dafb?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=400&fit=max&ixid=eyJhcHBfaWQiOjE0OTc5MX0",
+        "https://images.unsplash.com/photo-1563126303-227e37edb271?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=400&fit=max&ixid=eyJhcHBfaWQiOjE0OTc5MX0"
+      ]
     };
   },
   async created() {
@@ -144,6 +173,7 @@ export default {
     async addNewBoard() {
       let createdBoard = boardService.getEmptyBoard();
       createdBoard.name = this.newBoard.name;
+      createdBoard.style = this.newBoard.style;
       createdBoard.members = this.newBoard.members.map(member =>
         this.users.find(user => user._id === member)
       );
@@ -152,6 +182,13 @@ export default {
         board: createdBoard
       });
       this.$router.push(`/board/${createdBoard._id}`);
+    },
+    changeBgColor({ color }, _) {
+      this.newBoard.style.bgUrl = "";
+      this.newBoard.style.bgColor = color;
+    },
+    setBoardImg(url) {
+      this.newBoard.style.bgUrl = url;
     }
   }
 };

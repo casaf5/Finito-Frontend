@@ -24,6 +24,7 @@
 <script>
 import taskActionContainer from "../task-action-container.cmp";
 import FormInput from "../From Elements/form-input.cmp";
+import { UnsplashService } from "../../services/unsplashImage-service";
 export default {
   props: {
     topImages: {
@@ -45,12 +46,9 @@ export default {
   },
   methods: {
     async searchForPhotos() {
-      const imageUrlPromise = await fetch(
-        `https://api.unsplash.com/search/photos/?client_id=mL5OYkRmJrdpSTr4xqCqaswySn95yN_m38YtI8rw1Uk&query=${this.query}&orientation=landscape`
-      );
-      const imageData = await imageUrlPromise.json();
-      this.searchedImages = imageData.results.map(
-        image => image.urls[this.imageSize]
+      this.searchedImages = await UnsplashService.searchPhoto(
+        this.query,
+        "small"
       );
     },
     imageChoosen(url) {
@@ -87,17 +85,6 @@ export default {
     width: 78px;
     height: 45px;
     object-fit: cover;
-  }
-}
-.colors-container {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  width: 100%;
-  .color {
-    margin: 5px 10px;
-    width: 55px;
-    height: 35px;
   }
 }
 </style>

@@ -26,7 +26,7 @@
             Finito offers a cutting edge managment system which make working in
             large teams a breaze and takes you further than before
           </p>
-          <router-link tag="button" to="/" class="cta-btn">Go aboard!</router-link>
+          <router-link tag="button" to="/home" class="cta-btn">Go aboard!</router-link>
         </div>
         <div class="hero-img">
           <img src="../assets/images/hero.svg" alt />

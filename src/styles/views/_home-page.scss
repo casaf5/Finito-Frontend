@@ -12,15 +12,33 @@
   }
   .create-board-container {
     background-color: #fff;
+    display: grid;
+    grid-gap: rem(10px);
+    grid-template-columns: 1.2fr 1.5fr;
+    grid-template-rows: min-content;
     padding: rem(10px);
-    width: 450px;
-    height: 250px;
+    width: 750px;
+    min-height: 250px;
     border-radius: 3px;
     margin: 0 auto;
-    position: absolute;
+    position: fixed;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
+    > * :not(.board-preview.full) {
+      margin: 5px 0;
+    }
+    .board-preview.full {
+      grid-column: 2/3;
+      grid-row: 2/4;
+    }
+    .create-board-input {
+      grid-column: 2/3;
+    }
+    .create-board-colors {
+      grid-row: 1/2;
+      grid-column: 1/2;
+    }
   }
   .recent-boards-container {
     .recent-boards {
