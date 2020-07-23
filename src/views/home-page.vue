@@ -78,6 +78,7 @@ export default {
       boards: null,
       users: null,
       showModal: false,
+      selectedBgImgs:null,
       templates: [
         {
           name: "Project Managment",
@@ -136,7 +137,7 @@ export default {
         }
       ],
       newBoard: {
-        name: "SS",
+        name: "",
         members: [],
         style: {
           bgUrl:
@@ -165,6 +166,7 @@ export default {
   methods: {
     async addNewBoard(isTemplate = false) {
       let createdBoard = boardService.getEmptyBoard();
+      this.newBoard.style.bgUrl=this.selectedBgImgs.full
       createdBoard.name = this.newBoard.name;
       createdBoard.style = this.newBoard.style;
       createdBoard.members = this.newBoard.members.map(member =>
@@ -180,8 +182,9 @@ export default {
       this.newBoard.style.bgUrl = "";
       this.newBoard.style.bgColor = color;
     },
-    setBoardImg(url) {
-      this.newBoard.style.bgUrl = url;
+    setBoardImg(urls) {
+      this.selectedBgImgs=urls
+      this.newBoard.style.bgUrl = urls.small;
     },
     createTemplate(template) {
       this.newBoard.name = template.name;

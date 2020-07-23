@@ -30,12 +30,6 @@ export default {
     topImages: {
       type: Array
     },
-    props: {
-      imageSize: {
-        type: String,
-        default: "small"
-      }
-    }
   },
   async created() {},
   data() {

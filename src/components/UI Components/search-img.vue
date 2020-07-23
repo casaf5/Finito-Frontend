@@ -10,10 +10,10 @@
     />
     <div class="imgs-container">
       <img
-        @click="imageChoosen(url)"
-        :src="url"
+        @click="imageChoosen(urls)"
+        :src="urls.small"
         :key="index"
-        v-for="(url, index) in imagesToRender"
+        v-for="(urls, index) in imagesToRender"
         alt
       />
     </div>
@@ -43,12 +43,11 @@ export default {
     async searchForPhotos() {
       this.searchedImages = await UnsplashService.searchPhoto(
         this.query,
-        this.imageSize,
         9
       );
     },
-    imageChoosen(url) {
-      this.$emit("imageChoosen", url);
+    imageChoosen(urls) {
+      this.$emit("imageChoosen", urls);
     }
   },
   components: {

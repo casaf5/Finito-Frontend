@@ -32,7 +32,6 @@ export default {
     this.imagesUrl = await UnsplashService.getRandomPhotos(
       8,
       "landscape",
-      this.imageSize
     );
   },
   data() {

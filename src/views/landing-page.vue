@@ -4,10 +4,10 @@
       <nav class="navbar-container">
         <span class="logo">Finito</span>
         <ul class="navbar">
-          <router-link to="/auto" tag="li">
+          <router-link to="/login" tag="li">
             <a>Login</a>
           </router-link>
-          <router-link to="/auto" tag="li">
+          <router-link to="/signup" tag="li">
             <a>Sign Up</a>
           </router-link>
           <router-link to="/home" tag="li">

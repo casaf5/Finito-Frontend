@@ -1,5 +1,5 @@
 <template>
-  <div class="signup-cmp main-layout">
+  <div class="signup-cmp">
     <form @submit.prevent="registerUser" class="signup-form flex col">
       <h1>Sign Up</h1>
     <input type="text" placeholder="Email" v-model="registerDetails.email" required>
@@ -31,10 +31,3 @@
   },
   }
 </script>
-
-<style>
-  .small {
-    max-width: 600px;
-    margin:  150px auto;
-  }
-</style>
