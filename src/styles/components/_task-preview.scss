@@ -8,7 +8,7 @@
   }
   .task-cover {
     border-radius: 3px 3px 0 0;
-    background-size: contain !important;
+    background-size: cover !important;
     background-repeat: no-repeat !important;
     background-position: center !important;
   }
@@ -70,12 +70,14 @@
       display: flex;
       flex-wrap: wrap;
       .label-color {
-        margin: 2px 0;
-        border-radius: 10px;
-        margin-right: 5px;
-        transition: all 0.5s ease-in-out;
+        display: flex;
+        align-items: center;
         min-width: 50px;
         height: 8px;
+        margin: 2px 0;
+        margin-right: 5px;
+        border-radius: 10px;
+        transition: all 0.5s ease-in-out;
         cursor: pointer;
         h5 {
           color: #fff;

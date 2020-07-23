@@ -1,6 +1,6 @@
 <template>
   <div>
-    <task-action-container title="cover">
+    <task-action-container @close="$emit('close')" title="Set Cover">
       <div class="colors-container">
         <div
           class="color"
@@ -10,8 +10,9 @@
           @click="colorClicked(color,index)"
         ></div>
       </div>
-      <h4>Images taken from Unsplash</h4>
       <div class="imgs-container">
+        <button @click="removeCover" v-if="isCoverSet" class="btn-primary">Remove Cover</button>
+        <h4>Images taken from Unsplash</h4>
         <img @click="setImage(url)" :src="url" :key="index" v-for="(url, index) in topImages" alt />
       </div>
       <button
@@ -23,12 +24,15 @@
 </template>
 
 <script>
-import taskActionContainer from "./task-action-container.cmp";
-import FormInput from "./From Elements/form-input.cmp";
+import taskActionContainer from "../task-action-container.cmp";
+import FormInput from "../From Elements/form-input.cmp";
 export default {
   props: {
     topImages: {
       type: Array
+    },
+    isCoverSet: {
+      type: Boolean
     }
   },
   created() {
@@ -41,52 +45,40 @@ export default {
       searchPhotos: false,
       colors: [
         {
-          color: "#61BD4F",
-          wasClicked: false
+          color: "#61BD4F"
         },
         {
-          color: "#f2d600",
-          wasClicked: false
+          color: "#f2d600"
         },
         {
-          color: "#ff9f1a",
-          wasClicked: false
+          color: "#ff9f1a"
         },
         {
-          color: "#eb5a46",
-          wasClicked: false
+          color: "#eb5a46"
         },
         {
-          color: "#0079BF",
-          wasClicked: false
+          color: "#0079BF"
         },
         {
-          color: "#C377E0",
-          wasClicked: false
+          color: "#C377E0"
         },
         {
-          color: "#1abc9c",
-          wasClicked: false
+          color: "#1abc9c"
         },
         {
-          color: "#e74c3c",
-          wasClicked: false
+          color: "#e74c3c"
         },
         {
-          color: "#8e44ad",
-          wasClicked: false
+          color: "#8e44ad"
         },
         {
-          color: "#778beb",
-          wasClicked: false
+          color: "#778beb"
         },
         {
-          color: "#f78fb3",
-          wasClicked: false
+          color: "#f78fb3"
         },
         {
-          color: "#c44569",
-          wasClicked: false
+          color: "#c44569"
         }
       ]
     };
@@ -97,6 +89,9 @@ export default {
     },
     setImage(url) {
       this.$emit("setImage", url);
+    },
+    removeCover() {
+      this.$emit("removeCover");
     }
   },
   computed: {},
@@ -108,13 +103,17 @@ export default {
 </script>
 
 <style scoped lang="scss">
+h4 {
+  font-size: 16px;
+}
 .imgs-container {
   display: flex;
   flex-wrap: wrap;
   img {
+    cursor: pointer;
     margin: 5px 5px;
     border-radius: 5px;
-    width: 85px;
+    width: 78px;
     height: 45px;
     object-fit: cover;
   }
@@ -125,8 +124,8 @@ export default {
   justify-content: center;
   width: 100%;
   .color {
-    margin: 5px 10px;
-    width: 55px;
+    margin: 5px 5px;
+    width: 78px;
     height: 35px;
   }
 }

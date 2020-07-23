@@ -48,12 +48,23 @@
       @closeAttach="toggleComponentToRender('attachmentsOpen')"
       @uploded="addAttachment"
     />
-    <button><i class="el-icon-picture-outline"></i> Cover</button>
+    <button @click="toggleComponentToRender('addCoverOpen')">
+      <i class="el-icon-picture-outline"></i> Cover
+    </button>
+    <task-cover
+      v-if="componentsToToggle.addCoverOpen"
+      :isCoverSet="isCoverSet"
+      @setCover="updateCover"
+      @removeCover="removeCover"
+      @close="toggleComponentToRender('addCoverOpen')"
+    />
     <label class="section-header">Actions</label>
     <button @click="copyTask">
       <i class="el-icon-document-copy"></i> Copy
     </button>
-    <button @click="removeTask"><i class="el-icon-delete"></i> Remove</button>
+    <button @click="removeTask">
+      <i class="el-icon-delete"></i> Remove
+    </button>
     <button @click="toggleComponentToRender('moveCompOpen')">
       <i class="el-icon-right"></i> Move
     </button>
@@ -64,7 +75,9 @@
       @taskMoved="moveTask"
     />
     <button @click="toggleWatch" class="flex space-between align-center">
-      <div><i class="el-icon-view"></i> Watch</div>
+      <div>
+        <i class="el-icon-view"></i> Watch
+      </div>
       <i v-show="watchIsOn" class="el-icon-check v-watch"></i>
     </button>
   </section>
@@ -77,6 +90,7 @@ import taskAttachment from "../components/task-attachment.cmp.vue";
 import taskCheckList from "../components/task-checklist.cmp";
 import taskMove from "../components/task-move.cmp.vue";
 import taskLabel from "../components/task label/taks-label.cmp";
+import taskCover from "../components/taskCover/task-cover.cmp";
 import { utilService } from "../utils/utils.js";
 export default {
   props: ["board", "task", "taskIdx", "user", "labelToRemove"],
@@ -92,25 +106,29 @@ export default {
         taskGroup: null,
         addCheckListOpen: false,
         addLabelOpen: false,
-      },
+        addCoverOpen: false
+      }
     };
   },
   created() {
     this.taskGroup = this.board.taskGroups.find(
-      (tg) => tg.id === this.task.parentListId
+      tg => tg.id === this.task.parentListId
     );
-    this.taskToEdit = this.taskGroup.tasks.find((t) => t.id === this.task.id); //maybe just deepCopy?
+    this.taskToEdit = this.taskGroup.tasks.find(t => t.id === this.task.id); //maybe just deepCopy?
     console.log(this.taskToEdit.watchMembers);
   },
   computed: {
     watchIsOn() {
       const isOn = this.taskToEdit.watchMembers.find(
-        (member) => member.id === this.user.id
+        member => member.id === this.user.id
       )
         ? true
         : false;
       return isOn;
     },
+    isCoverSet() {
+      return !!this.taskToEdit.cover.url || !!this.taskToEdit.cover.color;
+    }
   },
   methods: {
     // TASKS
@@ -130,7 +148,7 @@ export default {
     moveTask(newTaskgroupId) {
       this.taskToEdit.parentListId = newTaskgroupId;
       const newGroupIdx = this.board.taskGroups.findIndex(
-        (tg) => tg.id === newTaskgroupId
+        tg => tg.id === newTaskgroupId
       );
       this.taskGroup.tasks.splice(this.taskIdx, 1);
       this.board.taskGroups[newGroupIdx].tasks.push(this.taskToEdit);
@@ -141,7 +159,7 @@ export default {
     addLabel({ title, color, selectedColor }, index) {
       const taskLabel = {
         title,
-        color,
+        color
       };
       this.taskToEdit.labels.push(taskLabel);
       this.$emit("emitBoardChange", "ADDED_LABEL");
@@ -151,10 +169,19 @@ export default {
         title,
         color,
         selectedColor,
-        wasClicked: false,
+        wasClicked: false
+      };
+      const taskLabel = {
+        title,
+        color
       };
       const board = utilService.deepCopy(this.board);
       board.labels.splice(index, 1, boardLabel);
+      board.taskGroups.forEach(taskGroup => {
+        taskGroup.tasks.forEach(task => {
+          task.labels[index] = taskLabel;
+        });
+      });
       this.$store.dispatch({ type: "saveBoard", board });
     },
     removeLabel() {
@@ -162,9 +189,14 @@ export default {
       this.$emit("emitBoardChange", "REMOVED_LABEL");
     },
     toggleComponentToRender(toggleName) {
-      this.componentsToToggle[toggleName] = !this.componentsToToggle[
-        toggleName
-      ];
+      for (const key in this.componentsToToggle) {
+        if (key === toggleName) {
+          console.log("key");
+          this.componentsToToggle[key] = !this.componentsToToggle[key];
+        } else {
+          this.componentsToToggle[key] = false;
+        }
+      }
     },
     // MEMBERS
     addMember(member) {
@@ -172,7 +204,7 @@ export default {
       this.$emit("emitBoardChange", "JOINED_MEMBER");
     },
     removeMember(member) {
-      const idx = this.task.members.findIndex((m) => m.id === member.id);
+      const idx = this.task.members.findIndex(m => m.id === member.id);
       this.taskToEdit.members.splice(idx, 1);
       this.$emit("emitBoardChange", "MEMBER_LEFT");
     },
@@ -199,11 +231,25 @@ export default {
       }
       this.$emit("emitBoardChange", "REMOVED_DATE");
     },
-    updateCover(cover) {},
+    updateCover(cover) {
+      if (cover.type === "image") {
+        this.taskToEdit.cover.color = "";
+        this.taskToEdit.cover.url = cover.payload;
+      } else {
+        this.taskToEdit.cover.url = "";
+        this.taskToEdit.cover.color = cover.payload;
+      }
+      this.$emit("emitBoardChange", "COVER_SET");
+    },
+    removeCover() {
+      this.taskToEdit.cover.url = "";
+      this.taskToEdit.cover.color = "";
+      this.$emit("emitBoardChange", "COVER_REMOVED");
+    },
     attachFile(file) {},
     toggleWatch() {
       const idx = this.taskToEdit.watchMembers.findIndex(
-        (member) => member.id === this.user.id
+        member => member.id === this.user.id
       );
       if (idx !== -1) {
         this.taskToEdit.watchMembers.splice(idx, 1);
@@ -212,7 +258,7 @@ export default {
         this.taskToEdit.watchMembers.push(this.user);
         this.$emit("emitBoardChange", "WATCHED_TASK");
       }
-    },
+    }
   },
   components: {
     taskMembers,
@@ -221,6 +267,7 @@ export default {
     taskAttachment,
     taskCheckList,
     taskLabel,
-  },
+    taskCover
+  }
 };
 </script>
