@@ -46,9 +46,7 @@ export default {
   components: {
     Avatar
   },
-  created() {
-    console.log(typeof this.$route.fullPath);
-  },
+
   computed: {
     navbarBgStyle() {
       if (this.$route.path === "/home") {

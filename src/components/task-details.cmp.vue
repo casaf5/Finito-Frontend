@@ -8,13 +8,8 @@
       <div class="task-details-main-container">
         <div class="task-left-container">
           <div class="task-details-titles-container">
-            <i class="el-icon-postcard "></i>
-            <input
-              type="text"
-              v-model="task.title"
-              class="task-name"
-              @blur="updateTitle"
-            />
+            <i class="el-icon-postcard"></i>
+            <input type="text" v-model="task.title" class="task-name" @blur="updateTitle" />
             <h6 class="task-group-name">
               in Task-Group
               <span>{{ taskGroup.title }}</span>
@@ -23,50 +18,26 @@
           <!-- combine with due date -->
           <!-- <el-checkbox  @click="toggleTaskCompletion" v-model="checked" class="task-isComplete" >Completed</el-checkbox> -->
           <div class="task-members-labels-date flex wrap">
-            <section
-              v-show="task.members.length"
-              class="task-members-container-wraper"
-            >
+            <section v-show="task.members.length" class="task-members-container-wraper">
               <h6>Members</h6>
               <div class="task-members-container flex">
                 <div v-for="(member, idx) in task.members" :key="idx">
-                  <avatar
-                    v-if="member.img"
-                    :src="member.img"
-                    :size="35"
-                  ></avatar>
-                  <avatar
-                    v-else
-                    :username="member.userName"
-                    :size="35"
-                  ></avatar>
+                  <avatar v-if="member.img" :src="member.img" :size="35"></avatar>
+                  <avatar v-else :username="member.userName" :size="35"></avatar>
                 </div>
               </div>
             </section>
-            <section
-              v-show="task.labels.length"
-              class="task-labels-container-wraper"
-            >
+            <section v-show="task.labels.length" class="task-labels-container-wraper">
               <h6>Labels</h6>
               <div class="task-labels-container flex">
-                <div
-                  :key="index"
-                  v-for="(label, index) in task.labels"
-                  class="color"
-                  :style="{ 'background-color': label.color }"
-                  @click="removeLabel(index)"
-                ></div>
+                <color-small :propColor="task.labels" @colorClicked="removeLabel" />
               </div>
             </section>
             <section v-show="task.dueDate" class="task-date-container-wraper">
               <h6>Due Date</h6>
               <div class="task-date-container flex">
                 <label>
-                  <input
-                    type="checkbox"
-                    v-model="task.isComplete"
-                    @click="toggleTaskCompletion"
-                  />
+                  <input type="checkbox" v-model="task.isComplete" @click="toggleTaskCompletion" />
                   {{ task.dueDate }}
                 </label>
               </div>
@@ -84,10 +55,7 @@
               class="desc-textarea"
             />
           </div>
-          <div
-            class="task-attachments-container"
-            v-if="task.attachments.length > 0"
-          >
+          <div class="task-attachments-container" v-if="task.attachments.length > 0">
             <i class="fas fa-file-alt"></i>
             <h4>Attachments</h4>
             <file-preview
@@ -108,10 +76,7 @@
               @update="updateCheckList(idx)"
             />
           </div>
-          <task-activity
-            v-if="activitiesToShow"
-            :activities="activitiesToShow"
-          />
+          <task-activity v-if="activitiesToShow" :activities="activitiesToShow" />
         </div>
         <div class="task-right-container">
           <details-btns
@@ -121,7 +86,6 @@
             :task="task"
             @emitBoardChange="boardChanged"
             @emitCloseModal="closeModal"
-            :labelToRemove="labelToRemove"
           />
         </div>
       </div>
@@ -139,6 +103,7 @@ import taskCheckList from "../components/checklist-preview-cmp";
 import taskActivity from "../components/task-activity.cmp.vue";
 import taskAttachment from "../components/task-attachment.cmp.vue";
 import filePreview from "../components/task-attach-preview.cmp.vue";
+import colorSmall from "../components/UI Components/color-small";
 
 import Avatar from "vue-avatar";
 import { eventBus, SHOW_MSG } from "../services/event-bus-service.js";
@@ -154,15 +119,14 @@ export default {
       taskGroup: null,
       user: null,
       taskIdx: null,
-      labelToRemove: -1,
       // checked: false,
       activityToAdd: {
         edditedTask: {
           id: this.taskToEdit.id,
-          title: this.taskToEdit.title,
-        },
+          title: this.taskToEdit.title
+        }
       },
-      boardToEdit: null,
+      boardToEdit: null
     };
   },
   created() {
@@ -170,22 +134,22 @@ export default {
     this.boardToEdit = JSON.parse(JSON.stringify(this.board));
     const taskGroupId = this.taskToEdit.parentListId;
     this.taskGroup = this.boardToEdit.taskGroups.find(
-      (tg) => tg.id === taskGroupId
+      tg => tg.id === taskGroupId
     );
     const taskGroupIdx = this.boardToEdit.taskGroups.findIndex(
-      (tg) => tg.id === taskGroupId
+      tg => tg.id === taskGroupId
     );
     this.task = this.taskGroup.tasks.find(
-      (task) => task.id === this.taskToEdit.id
+      task => task.id === this.taskToEdit.id
     );
-    this.taskIdx = this.taskGroup.tasks.findIndex((t) => t.id === this.task.id);
+    this.taskIdx = this.taskGroup.tasks.findIndex(t => t.id === this.task.id);
     this.user = this.$store.getters.loggedUser
       ? this.$store.getters.loggedUser
       : {
           id: "443",
           name: "Guest",
           url:
-            "https://api.adorable.io/avatars/400/79c159e13036a02295c94901b6628bfe.png",
+            "https://api.adorable.io/avatars/400/79c159e13036a02295c94901b6628bfe.png"
         };
   },
   computed: {
@@ -197,16 +161,16 @@ export default {
       if (this.boardToEdit) {
         activities = this.boardToEdit.activities;
         activities = activities.filter(
-          (activity) => activity.edditedTask.id === this.task.id
+          activity => activity.edditedTask.id === this.task.id
         );
         return activities;
       }
-    },
+    }
   },
   methods: {
     updateBoard(actionStr = "ACTION SAVED") {
       socketService.emit("boardUpdate", this.boardToEdit);
-      socketService.on("boardUpdate", (board) => {
+      socketService.on("boardUpdate", board => {
         this.$store.commit({ type: "setBoard", board });
         // const savedBoard = await this.$store.dispatch({
         //   type: "updateBoard",
@@ -292,9 +256,10 @@ export default {
       this.boardToEdit.activities.unshift(this.activityToAdd);
       this.updateBoard(action);
     },
-    removeLabel(index) {
-      this.labelToRemove = index;
-    },
+    removeLabel(_, index) {
+      this.task.labels.splice(index, 1);
+      this.addActivity("REMOVED_LABEL");
+    }
   },
 
   components: {
@@ -304,7 +269,8 @@ export default {
     taskActivity,
     detailsBtns,
     filePreview,
-  },
+    colorSmall
+  }
 };
 </script>
 

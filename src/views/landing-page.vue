@@ -10,8 +10,8 @@
           <router-link to="/auto" tag="li">
             <a>Sign Up</a>
           </router-link>
-          <router-link to="/board/5f1550c1586a754644f1bba2" tag="li">
-            <a>Board</a>
+          <router-link to="/home" tag="li">
+            <a>Your Boards</a>
           </router-link>
         </ul>
       </nav>

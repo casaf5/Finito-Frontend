@@ -20,18 +20,10 @@
           <color-small @colorClicked="changeBgColor" size="small" />
         </div>
         <searchImg :topImages="topImages" @imageChoosen="setBoardImg" />
-
         <board-preview :board="newBoard" />
         <button @click="addNewBoard" class="btn-primary">Create</button>
       </div>
     </modal>
-    <!-- <div class="new-board-container">
-      <h4 class="catagory-label">
-        <i class="fas fa-plus-circle"></i> Create New Board
-      </h4>
-      <div class="new-board-details">
-    <form-input v-model="newBoard.name" :showLabel="true" labelText="Board Name"></form-input>-->
-    <!-- <h3>Members:</h3> -->
     <!-- <el-select
           v-model="newBoard.members"
           filterable
@@ -47,15 +39,17 @@
             :value="member._id"
           ></el-option>
     </el-select>-->
-    <!-- </div>
-      <button class="btn-primary" @click="addNewBoard">Create</button>
-    </div>-->
     <div class="board-templates-container">
       <h4 class="catagory-label">
         <i class="fas fa-photo-video"></i> Templates
       </h4>
       <div class="board-templates">
-        <board-template :template="template" :key="index" v-for="(template,index) in templates" />
+        <board-template
+          @createTemplate="createTemplate"
+          :template="template"
+          :key="index"
+          v-for="(template,index) in templates"
+        />
       </div>
     </div>
   </section>
@@ -83,7 +77,7 @@ export default {
     return {
       boards: null,
       users: null,
-      showModal: true,
+      showModal: false,
       templates: [
         {
           name: "Project Managment",
@@ -106,8 +100,6 @@ export default {
           desc:
             "List are premade to save you the effort on making them. Go and start coding!"
         },
-
-        ,
         {
           name: "Education",
           img:
@@ -170,7 +162,7 @@ export default {
     this.users = await this.$store.dispatch({ type: "loadUsers" });
   },
   methods: {
-    async addNewBoard() {
+    async addNewBoard(isTemplate = false) {
       let createdBoard = boardService.getEmptyBoard();
       createdBoard.name = this.newBoard.name;
       createdBoard.style = this.newBoard.style;
@@ -189,6 +181,10 @@ export default {
     },
     setBoardImg(url) {
       this.newBoard.style.bgUrl = url;
+    },
+    createTemplate(template) {
+      this.newBoard.name = template.name;
+      this.addNewBoard();
     }
   }
 };

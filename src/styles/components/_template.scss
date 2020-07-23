@@ -1,6 +1,7 @@
 .template-container {
   min-height: 250px;
   align-self: flex-start;
+  position: relative;
   img {
     height: 150px;
     width: 100%;
@@ -13,5 +14,21 @@
   }
   p {
     margin: 0;
+  }
+  i {
+    cursor: pointer;
+    position: absolute;
+    top: 5px;
+    right: 10px;
+    color: #fff;
+    z-index: 3;
+  }
+  &:after {
+    content: "";
+    top: 0;
+    position: absolute;
+    height: 10%;
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.384);
   }
 }

@@ -5,7 +5,7 @@
       :class="colorSettings"
       :style="{ 'background-color': color.color }"
       :key="index"
-      v-for="(color, index) in colors"
+      v-for="(color, index) in colorsToRender"
       @click="colorClicked(color,index)"
     ></div>
   </div>
@@ -17,6 +17,9 @@ export default {
     size: {
       type: String,
       default: "medium"
+    },
+    propColor: {
+      type: Array
     }
   },
   data() {
@@ -74,6 +77,9 @@ export default {
       } else {
         return "color-medium";
       }
+    },
+    colorsToRender() {
+      return this.propColor ? this.propColor : this.colors;
     }
   }
 };

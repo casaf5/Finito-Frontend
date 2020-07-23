@@ -191,7 +191,6 @@ export default {
     toggleComponentToRender(toggleName) {
       for (const key in this.componentsToToggle) {
         if (key === toggleName) {
-          console.log("key");
           this.componentsToToggle[key] = !this.componentsToToggle[key];
         } else {
           this.componentsToToggle[key] = false;
@@ -239,12 +238,12 @@ export default {
         this.taskToEdit.cover.url = "";
         this.taskToEdit.cover.color = cover.payload;
       }
-      this.$emit("emitBoardChange", "COVER_SET");
+      this.$emit("emitBoardChange", "UPDATED_COVER");
     },
     removeCover() {
       this.taskToEdit.cover.url = "";
       this.taskToEdit.cover.color = "";
-      this.$emit("emitBoardChange", "COVER_REMOVED");
+      this.$emit("emitBoardChange", "REMOVED_COVER");
     },
     attachFile(file) {},
     toggleWatch() {

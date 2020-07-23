@@ -54,6 +54,10 @@ function getTxtToRndr(action, changed, user, task) {
     case "UPDATED_COVER":
       txt = `${user.name} changed the cover of ${task.title}`;
       break;
+    case "REMOVED_COVER":
+      // the new date in changed
+      txt = `${user.name} removed the cover of ${task.title}`;
+      break;
     case "CHANGED_DATE":
       // the new date in changed
       txt = `${user.name} changed the due-date of ${task.title} to ${changed}`;
@@ -62,6 +66,7 @@ function getTxtToRndr(action, changed, user, task) {
       // the new date in changed
       txt = `${user.name} removed the due-date of ${task.title}`;
       break;
+
     case "UPDATED_CHECKLIST":
       // changed is the name of the checklist
       txt = `${user.name} updated the checklist ${changed} in ${task.title}`;
