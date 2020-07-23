@@ -7,9 +7,15 @@
       </h4>
       <div class="recent-boards">
         <board-preview v-for="board in boards" :board="board" :key="board._id" />
-        <div class="board-preview flex create-board">Create New Board</div>
+        <div @click="showModal= !showModal" class="board-preview flex create-board">Create New Board</div>
       </div>
     </div>
+    <modal @close="showModal= !showModal" v-if="showModal">
+      <div class="create-board-container">
+        <form-input :showLabel="true" labelText="Create Board" />
+        <button class="btn-primary">Create</button>
+      </div>
+    </modal>
     <!-- <div class="new-board-container">
       <h4 class="catagory-label">
         <i class="fas fa-plus-circle"></i> Create New Board
@@ -51,17 +57,20 @@ import { boardService } from "../services/board-service.js";
 import boardPreview from "../components/board-preview.cmp.vue";
 import boardTemplate from "../components/UI Components/template";
 import formInput from "../components/From Elements/form-input.cmp";
+import modal from "../components/UI Components/modal";
 export default {
   name: "home-page",
   components: {
     boardPreview,
     boardTemplate,
-    formInput
+    formInput,
+    modal
   },
   data() {
     return {
       boards: null,
       users: null,
+      showModal: true,
       templates: [
         {
           name: "Project Managment",

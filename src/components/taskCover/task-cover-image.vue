@@ -28,6 +28,12 @@ export default {
   props: {
     topImages: {
       type: Array
+    },
+    props: {
+      imageSize: {
+        type: String,
+        default: "small"
+      }
     }
   },
   async created() {},
@@ -43,7 +49,9 @@ export default {
         `https://api.unsplash.com/search/photos/?client_id=mL5OYkRmJrdpSTr4xqCqaswySn95yN_m38YtI8rw1Uk&query=${this.query}&orientation=landscape`
       );
       const imageData = await imageUrlPromise.json();
-      this.searchedImages = imageData.results.map(image => image.urls.small);
+      this.searchedImages = imageData.results.map(
+        image => image.urls[this.imageSize]
+      );
     },
     imageChoosen(url) {
       this.$emit("imageChoosen", url);

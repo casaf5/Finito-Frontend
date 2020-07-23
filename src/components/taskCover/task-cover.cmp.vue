@@ -21,6 +21,10 @@ export default {
   props: {
     isCoverSet: {
       type: Boolean
+    },
+    imageSize: {
+      type: String,
+      default: "small"
     }
   },
   async created() {
@@ -39,7 +43,7 @@ export default {
     async getImages(url, type = "random") {
       const imageUrlPromise = await fetch(url);
       const imageData = await imageUrlPromise.json();
-      this.imagesUrl = imageData.map(image => image.urls.small);
+      this.imagesUrl = imageData.map(image => image.urls[this.imageSize]);
     },
     toggleComp(compoentToRender) {
       this.component = compoentToRender;
