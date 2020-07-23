@@ -7,9 +7,11 @@
           <router-link to="/auto" tag="li">
             <a>Login</a>
           </router-link>
-          <router-link to="/auto" tag="li"> <a>Sign Up</a> </router-link>
-          <router-link to="/board/5f1550c1586a754644f1bba2" tag="li">
-            <a>Board</a>
+          <router-link to="/auto" tag="li">
+            <a>Sign Up</a>
+          </router-link>
+          <router-link to="/home" tag="li">
+            <a>Your Boards</a>
           </router-link>
         </ul>
       </nav>
@@ -24,12 +26,10 @@
             Finito offers a cutting edge managment system which make working in
             large teams a breaze and takes you further than before
           </p>
-          <router-link tag="button" to="/" class="cta-btn"
-            >Go aboard!</router-link
-          >
+          <router-link tag="button" to="/home" class="cta-btn">Go aboard!</router-link>
         </div>
         <div class="hero-img">
-          <img src="../assets/images/hero.svg" alt="" />
+          <img src="../assets/images/hero.svg" alt />
         </div>
       </div>
     </section>
@@ -49,8 +49,8 @@ export default {
     TaskLabel,
     taskDuedate,
     TaskCheckList,
-    TaskMembers,
-  },
+    TaskMembers
+  }
 };
 </script>
 
@@ -102,7 +102,6 @@ export default {
     }
     .logo {
       font-size: 40px;
-      font-family: Gochi, cursive;
     }
     h3 {
       margin: 5px 0;

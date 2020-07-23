@@ -3,7 +3,7 @@
     <div class="overlay-content">
       <slot></slot>
     </div>
-    <div @click.prevent="backGroundClicked" style="cursor:pointer" class="overlay-wrapper"></div>
+    <div @click.self="backGroundClicked" style="cursor:pointer" class="overlay-wrapper"></div>
   </div>
 </template>
 
@@ -20,30 +20,24 @@ export default {
 };
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 .overlay-wrapper {
   display: flex;
   align-items: center;
   justify-content: center;
   height: 100%;
   width: 100%;
-  background: #000000c5;
+  background: #00000063;
   opacity: 1;
   z-index: 25;
   position: fixed;
   left: 0;
   top: 0;
-  padding-top: 40px;
   overflow: auto;
-  z-index: 50;
-}
-label {
-  padding: 5px;
+  margin-bottom: 5rem;
+  z-index: 20;
 }
 .overlay-content {
-  border-radius: 17px;
-  width: 450px;
-  background-color: #ffffff;
   z-index: 30;
   position: relative;
   margin: 0 auto;

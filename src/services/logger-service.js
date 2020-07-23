@@ -53,6 +53,10 @@ function buildLog(action, changed, user, task) {
     case "UPDATED_COVER":
       txt = `${user.userName} changed the Cover of ${task.title}`;
       break;
+    case "REMOVED_COVER":
+      // the new date in changed
+      txt = `${user.name} removed the cover of ${task.title}`;
+      break;
     case "CHANGED_DATE":
       // the new date in changed
       txt = `${user.userName} changed the Due-date of ${task.title} to ${changed}`;
@@ -61,6 +65,7 @@ function buildLog(action, changed, user, task) {
       // the new date in changed
       txt = `${user.userName} removed the Due-date of ${task.title}`;
       break;
+
     case "UPDATED_CHECKLIST":
       // changed is the name of the Checklist
       txt = `${user.userName} updated Checklist ${changed} in ${task.title}`;

@@ -2,9 +2,13 @@
   <task-action-container @close="$emit('close')" title="Labels">
     <div class="task-label-container">
       <li>
-        <form-input v-model="labelText" type="text" />
+        <form-input
+          :showLabel="true"
+          labelText="search your labels"
+          v-model="labelText"
+          type="text"
+        />
       </li>
-      <span>Labels</span>
       <li>
         <label-color
           :displayIcon="true"
@@ -16,9 +20,7 @@
           @editLabel="editLabel"
         />
       </li>
-      <button class="btn-primary" @click="createNewLabel">
-        Create new Label
-      </button>
+      <button class="btn-primary" @click="createNewLabel">Create new Label</button>
     </div>
   </task-action-container>
 </template>
@@ -30,17 +32,17 @@ import FormInput from "../From Elements/form-input.cmp";
 export default {
   props: {
     colors: {
-      type: Array,
-    },
+      type: Array
+    }
   },
   components: {
     TaskActionContainer,
     LabelColor,
-    FormInput,
+    FormInput
   },
   data() {
     return {
-      labelText: "",
+      labelText: ""
     };
   },
   methods: {
@@ -53,16 +55,16 @@ export default {
     },
     editLabel(label) {
       this.$emit("editLabel", label);
-    },
+    }
   },
   computed: {
     labelsToDisplay() {
       const searchTerm = this.labelText.toLowerCase();
-      return this.colors.filter((color) =>
+      return this.colors.filter(color =>
         color.title.toLowerCase().includes(searchTerm)
       );
-    },
-  },
+    }
+  }
 };
 </script>
 

@@ -8,23 +8,23 @@
   }
   .task-cover {
     border-radius: 3px 3px 0 0;
-    background-size: contain !important;
+    background-size: cover !important;
     background-repeat: no-repeat !important;
     background-position: center !important;
   }
   .task-preview-content {
     display: flex;
     flex-direction: column;
-    padding: 6px 8px 2px;
+    padding: 6px 8px;
 
     > * {
-      margin: 5px 0;
+      margin: 2px 0;
     }
     .task-title-container {
       span {
         font-size: rem(13px);
         width: 90%;
-        padding-left: 2px;
+        margin-bottom: 2px;
       }
       .edit {
         margin-left: auto;
@@ -52,7 +52,7 @@
       .check-list-completed {
         border-radius: 3px;
         padding: 3px 5px;
-        background-color: $btn-primary-color;
+        background-color: #27ae5fc0;
         i,
         span {
           color: #fff;
@@ -70,12 +70,14 @@
       display: flex;
       flex-wrap: wrap;
       .label-color {
-        margin: 2px 0;
-        border-radius: 10px;
-        margin-right: 5px;
-        transition: all 0.5s ease-in-out;
-        min-width: 50px;
+        display: flex;
+        align-items: center;
+        min-width: 35px;
         height: 8px;
+        margin: 2px 0;
+        margin-right: 5px;
+        border-radius: 10px;
+        transition: all 0.5s ease-in-out;
         cursor: pointer;
         h5 {
           color: #fff;
