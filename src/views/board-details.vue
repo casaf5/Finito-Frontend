@@ -1,5 +1,5 @@
 <template>
-  <section class="board-details-container" v-if="board">
+  <section class="board-details-container " v-if="board">
     <board-options-nav />
     <section class="board-details">
       <task-details
