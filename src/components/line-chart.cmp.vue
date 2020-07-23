@@ -1,24 +1,14 @@
 <script>
 import VueCharts from 'vue-chartjs';
-import { Line } from 'vue-chartjs'
+import { Line , mixins} from 'vue-chartjs'
+const { reactiveProp } = mixins
 
 export default {
-  props: ['labels', 'data', 'options'],
-  // prop , 'options'
+    mixins: [reactiveProp],
+  props: ['options'],
   extends: Line,
-
   mounted () {
-    this.renderChart({
-             labels: this.labels,
-              datasets: [
-                        {
-                label: 'Tasks Finished Per Month',
-                backgroundColor: 'blue',
-                data: this.data
-                 }
-               ]
-             },
-     this.options)
+    this.renderChart(this.chartData, this.options)
   }
 }
 </script>
