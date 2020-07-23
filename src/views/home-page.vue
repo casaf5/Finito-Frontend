@@ -6,14 +6,28 @@
         Your Boards
       </h4>
       <div class="recent-boards">
-        <board-preview :isLink="true" v-for="board in boards" :board="board" :key="board._id" />
-        <div @click="showModal= !showModal" class="board-preview flex create-board">Create New Board</div>
+        <board-preview
+          :isLink="true"
+          v-for="board in boards"
+          :board="board"
+          :key="board._id"
+        />
+        <div
+          @click="showModal = !showModal"
+          class="board-preview flex create-board"
+        >
+          Create New Board
+        </div>
       </div>
     </div>
-    <modal @close="showModal= !showModal" v-if="showModal">
+    <modal @close="showModal = !showModal" v-if="showModal">
       <div class="create-board-container">
         <div class="create-board-input">
-          <form-input v-model="newBoard.name" :showLabel="true" labelText="Board Title" />
+          <form-input
+            v-model="newBoard.name"
+            :showLabel="true"
+            labelText="Board Title"
+          />
         </div>
         <div class="create-board-colors">
           <h4>Choose Color</h4>
@@ -48,7 +62,7 @@
           @createTemplate="createTemplate"
           :template="template"
           :key="index"
-          v-for="(template,index) in templates"
+          v-for="(template, index) in templates"
         />
       </div>
     </div>
@@ -145,28 +159,26 @@ export default {
           bgColor: ""
         }
       },
-      topImages: [
-        "https://images.unsplash.com/photo-1563900833607-035c921f001c?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=400&fit=max&ixid=eyJhcHBfaWQiOjE0OTc5MX0",
-        "https://images.unsplash.com/photo-1428534302776-5c6a2dca0380?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=400&fit=max&ixid=eyJhcHBfaWQiOjE0OTc5MX0",
-        "https://images.unsplash.com/photo-1581095390906-9a7efa3f8b0a?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=400&fit=max&ixid=eyJhcHBfaWQiOjE0OTc5MX0",
-        "https://images.unsplash.com/photo-1590336225155-d7e19a3a954f?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=400&fit=max&ixid=eyJhcHBfaWQiOjE0OTc5MX0",
-        "https://images.unsplash.com/photo-1564679411940-501b3f72ebab?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=400&fit=max&ixid=eyJhcHBfaWQiOjE0OTc5MX0",
-        "https://images.unsplash.com/photo-1592252083688-16558af3eed9?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=400&fit=max&ixid=eyJhcHBfaWQiOjE0OTc5MX0",
-        "https://images.unsplash.com/photo-1445888985293-8e1b904061c4?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=400&fit=max&ixid=eyJhcHBfaWQiOjE0OTc5MX0",
-        "https://images.unsplash.com/photo-1476433564761-80392cb7dafb?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=400&fit=max&ixid=eyJhcHBfaWQiOjE0OTc5MX0",
-        "https://images.unsplash.com/photo-1563126303-227e37edb271?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=400&fit=max&ixid=eyJhcHBfaWQiOjE0OTc5MX0"
-      ]
+      // topImages: [
+      //   // {small:"https://images.unsplash.com/photo-1563900833607-035c921f001c?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=400&fit=max&ixid=eyJhcHBfaWQiOjE0OTc5MX0"},
+      //   // {small:"https://images.unsplash.com/photo-1428534302776-5c6a2dca0380?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=400&fit=max&ixid=eyJhcHBfaWQiOjE0OTc5MX0"},
+      //   // {small:"https://images.unsplash.com/photo-1581095390906-9a7efa3f8b0a?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=400&fit=max&ixid=eyJhcHBfaWQiOjE0OTc5MX0"},
+      //   // {small: "https://images.unsplash.com/photo-1590336225155-d7e19a3a954f?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=400&fit=max&ixid=eyJhcHBfaWQiOjE0OTc5MX0"},
+      //   // {small: "https://images.unsplash.com/photo-1564679411940-501b3f72ebab?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=400&fit=max&ixid=eyJhcHBfaWQiOjE0OTc5MX0"},
+      //   // {small:"https://images.unsplash.com/photo-1592252083688-16558af3eed9?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=400&fit=max&ixid=eyJhcHBfaWQiOjE0OTc5MX0"},
+      //   // {small: "https://images.unsplash.com/photo-1476433564761-80392cb7dafb?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=400&fit=max&ixid=eyJhcHBfaWQiOjE0OTc5MX0"},
+      //   // {small: "https://images.unsplash.com/photo-1563126303-227e37edb271?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=400&fit=max&ixid=eyJhcHBfaWQiOjE0OTc5MX0"}
+      // ]
     };
   },
   async created() {
     this.boards = await this.$store.dispatch({ type: "loadBoards" });
     this.users = await this.$store.dispatch({ type: "loadUsers" });
-    console.log(this.users)
   },
   methods: {
     async addNewBoard(isTemplate = false) {
       let createdBoard = boardService.getEmptyBoard();
-      this.newBoard.style.bgUrl=this.selectedBgImgs.full
+      this.newBoard.style.bgUrl=!this.newBoard.style.bgColor?this.selectedBgImgs.full:''
       createdBoard.name = this.newBoard.name;
       createdBoard.style = this.newBoard.style;
       createdBoard.members = this.newBoard.members.map(member =>
@@ -194,5 +206,4 @@ export default {
 };
 </script>
 
-<style lang="scss">
-</style>
+<style lang="scss"></style>

@@ -42,7 +42,6 @@
             class="nav-btn"
             tag="li"
             to="/signup"
-            v-show="!loggedUser"
             >Sign Up</router-link
           >
           <!-- <button class="logout-btn" @click="logout" v-show="loggedUser" >Log Out</button> -->

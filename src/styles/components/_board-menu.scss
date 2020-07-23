@@ -1,6 +1,6 @@
 .board-menu {
   width: 400px;
-  height: 90vh;
+  height: 86vh;
   position: fixed;
   padding: 5px;
   top: 8%;
@@ -13,6 +13,7 @@
   animation-fill-mode: forwards;
   animation-timing-function: ease-in-out;
   z-index: 5000;
+  overflow-y: scroll;
   color: black;
   .menu-title {
     position: relative;

@@ -2,8 +2,9 @@
   <section
     class="board-details-container"
     v-if="board"
-    :style="boardBackground">
-    <board-options-nav/>
+    :style="boardBackground"
+  >
+    <board-options-nav />
     <section class="board-details">
       <task-details
         v-if="taskToEdit"
@@ -14,7 +15,8 @@
         @drop="onDrop"
         drag-handle-selector=".task-group-title"
         :drop-placeholder="upperDropPlaceholderOptions"
-        orientation="horizontal">
+        orientation="horizontal"
+      >
         <Draggable v-for="taskGroup in board.taskGroups" :key="taskGroup.id">
           <task-group
             :taskGroup="taskGroup"
@@ -22,6 +24,7 @@
             @taskClicked="openTaskModal"
           />
         </Draggable>
+        <add-group @addGroup="addGroup" />
       </Container>
     </section>
   </section>
@@ -34,6 +37,7 @@ import taskDetails from "@/components/task-details.cmp.vue";
 import taskGroup from "../components/task-group.cmp.vue";
 import socketService from "../services/socket-service";
 import boardOptionsNav from "../components/board-options-nav.vue";
+import addGroup from "../components/add-group.cmp";
 
 export default {
   name: "board-details",
@@ -43,6 +47,7 @@ export default {
     taskGroup,
     taskDetails,
     boardOptionsNav,
+    addGroup,
   },
   data() {
     return {
@@ -69,9 +74,8 @@ export default {
     },
     boardBackground() {
       const style = this.$store.getters.style;
-      console.log(style)
       if (style.bgUrl) return `background-image:url(${style.bgUrl});`;
-      return `background-color:"${style.bgColor}";`;
+      return `background:${style.bgColor};`;
     },
   },
   methods: {
@@ -94,6 +98,11 @@ export default {
         board.taskGroups.splice(taskGroupIndex, 1, newTaskGroup);
         this.sendToSocket(board);
       }
+    },
+    addGroup(newGroup) {
+      const board = this.board;
+      board.taskGroups.push(newGroup);
+      this.$store.dispatch({type:"saveBoard",board})
     },
     openTaskModal(task) {
       this.taskToEdit = task;

@@ -19,6 +19,7 @@
         @createCard="toggleAddTask = !toggleAddTask"
         @duplicateList="duplicateList"
         @sortBy="sortBy"
+        @removeGroup="removeGroup"
         @close="show = !show"
         v-show="show"
       />
@@ -160,6 +161,13 @@ export default {
       board.taskGroups.splice(taksGroupIndex, 1);
       this.boards[index].taskGroups.push(taskGroupToMove);
     },
+    removeGroup(groupId){
+      let board=this.board
+      const idx=board.taskGroups.findIndex(group=>group.id===this.taskGroup.id)
+      board.taskGroups.splice(idx,1)
+      this.$store.dispatch({type:"saveBoard",board})
+
+    },
     watchList() {
       this.taskGroup.isWatched = !this.taskGroup.isWatched;
       this.getAndSetBoard(this.board);
@@ -174,8 +182,8 @@ export default {
         });
       } else {
         sortedTasks = this.taskGroup.tasks.sort((taskA, taskB) => {
-          var titleA = taskA.title.toUpperCase(); // ignore upper and lowercase
-          var titleB = taskB.title.toUpperCase(); // ignore upper and lowercase
+          var titleA = taskA.title.toUpperCase(); 
+          var titleB = taskB.title.toUpperCase(); 
           if (titleA < titleB) return -1;
           if (titleA > titleB) return 1;
           return 0;

@@ -1,5 +1,6 @@
 export const utilService = {
   getRandomId,
+  getEmptyGroup,
   getEmptyTask,
   getEmptyCheckList,
   getNewBoard,
@@ -20,7 +21,18 @@ function getEmptyCheckList(title = "Check List") {
   };
   return checklist;
 }
-// function for generating an empty task
+function getEmptyGroup(groupName=''){
+  const group={
+    id:getRandomId(),
+    title:groupName,
+    position:"",
+    tasks: [],
+    labelsOpen: false
+  }
+  return group
+}
+
+  // function for generating an empty task
 function getEmptyTask(parentListId) {
   const task = {
     parentListId,

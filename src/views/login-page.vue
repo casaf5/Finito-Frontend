@@ -24,7 +24,7 @@
     created(){
     if(this.$store.getters.loggedUser) {
       console.log(this.$store.getters.loggedUser)
-    this.$router.push('/')
+    this.$router.push('/home')
     }
     },
   methods:{

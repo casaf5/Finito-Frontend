@@ -48,7 +48,8 @@ export default {
     };
   },
   created() {
-    this.board = this.$store.getters.board;
+    const board = this.$store.getters.board;
+    this.board=JSON.parse(JSON.stringify(board))
   },
   methods: {
     updateBoard() {

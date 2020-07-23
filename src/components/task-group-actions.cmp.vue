@@ -8,6 +8,7 @@
     >
       <component
         @duplicateList="duplicateList"
+        @removeGroup="removeGroup"
         @createCard="createCard"
         @moveToDifferentBoard="moveToDifferentBoard"
         @compToRender="toggleCompoent"
@@ -65,6 +66,10 @@ export default {
     },
     duplicateList() {
       this.$emit("duplicateList");
+      this.$emit("close");
+    },
+     removeGroup() {
+      this.$emit("removeGroup");
       this.$emit("close");
     },
     emitSortBy(order) {
