@@ -17,7 +17,7 @@
             :style="navbarBgStyle.navBar.buttonColors"
             class="nav-btn"
             tag="li"
-            to="/dash"
+            to="/board/dash/charts"
           >Dashboard</router-link>
           <router-link
             :style="navbarBgStyle.navBar.buttonColors"

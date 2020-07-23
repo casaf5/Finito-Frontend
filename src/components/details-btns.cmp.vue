@@ -114,7 +114,7 @@ export default {
     this.taskGroup = this.board.taskGroups.find(
       tg => tg.id === this.task.parentListId
     );
-    this.taskToEdit = this.taskGroup.tasks.find(t => t.id === this.task.id); //maybe just deepCopy?
+    this.taskToEdit = this.taskGroup.tasks.find(t => t.id === this.task.id); 
   },
   computed: {
     watchIsOn() {
@@ -254,7 +254,6 @@ export default {
       this.taskToEdit.cover.color = "";
       this.$emit("emitBoardChange", "REMOVED_COVER");
     },
-    attachFile(file) {},
     toggleWatch() {
       const idx = this.taskToEdit.watchMembers.findIndex(
         member => member.id === this.user.id

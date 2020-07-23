@@ -1,13 +1,19 @@
-.board-details {
-  min-height: 100vh;
-  padding-top: 45px;
-  background-image: url("../assets/images/mountains-bg-lg.jpg");
+.board-details-container {
   background-attachment: fixed;
   background-size: cover;
-  width: 100%;
-  .taskGroup-drop-preview {
-    background-color: rgba(150, 150, 200, 0.1);
-    border: 1px dashed #abc;
-    margin: 5px 45px 5px 5px;
+  background-repeat: no-repeat;
+
+  .board-details {
+    min-height: 100vh;
+    padding: 100px 5px;
+    background-attachment: fixed;
+    background-size: cover;
+    background-repeat: no-repeat;
+    width: 100%;
+    .taskGroup-drop-preview {
+      background-color: rgba(150, 150, 200, 0.1);
+      border: 1px dashed #abc;
+      margin: 5px 45px 5px 5px;
+    }
   }
 }
