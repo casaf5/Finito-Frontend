@@ -1,12 +1,7 @@
 <template>
   <section class="board-options flex space-between">
     <section class="left-side flex space-between">
-      <input
-        type="text"
-        placeholder="Board Name"
-        v-model="board.name"
-        @blur="updateBoard"
-      />
+      <input type="text" placeholder="Board Name" v-model="board.name" @blur="updateBoard" />
       <section class="board-members flex">
         <Avatar
           v-for="member in board.members"
@@ -15,7 +10,11 @@
           :username="member.userName"
         />
         <i class="fas fa-user-plus" @click="toggleAddMember"></i>
-        <board-members-edit v-if="boardMembersOpen" @update="membersUpdate" @close="toggleAddMember"/>
+        <board-members-edit
+          v-if="boardMembersOpen"
+          @update="membersUpdate"
+          @close="toggleAddMember"
+        />
       </section>
     </section>
     <section class="right-side">
@@ -35,8 +34,8 @@
 <script>
 import Avatar from "vue-avatar";
 import boardMenu from "../components/board-menu.cmp";
-import boardMembersEdit from './board-members-edit.cmp'
-import boardBgSelect from "./task-cover-image";
+import boardMembersEdit from "./board-members-edit.cmp";
+// import boardBgSelect from "./task-cover-image";
 export default {
   name: "board-options-nav",
   data() {
@@ -44,8 +43,8 @@ export default {
       board: null,
       menuIsOpen: false,
       bgSelectOpen: false,
-      boardMembersOpen:false,
-      style: { bgColor: "", bgUrl: "" },
+      boardMembersOpen: false,
+      style: { bgColor: "", bgUrl: "" }
     };
   },
   created() {
@@ -61,25 +60,25 @@ export default {
     toggleBgSelect() {
       this.bgSelectOpen = !this.bgSelectOpen;
     },
-    toggleAddMember(){
-      this.boardMembersOpen=!this.boardMembersOpen
+    toggleAddMember() {
+      this.boardMembersOpen = !this.boardMembersOpen;
     },
     setBoardBg(imgaeUrl) {
       this.style.bgUrl = imgaeUrl;
-      this.board.style=this.style
-      this.$store.dispatch({type:"saveBoard",board:this.board})
+      this.board.style = this.style;
+      this.$store.dispatch({ type: "saveBoard", board: this.board });
       this.$store.commit({ type: "setStyle", style: this.style });
     },
-    membersUpdate(members){
-      this.board.members=members
-      this.updateBoard()
-    },
+    membersUpdate(members) {
+      this.board.members = members;
+      this.updateBoard();
+    }
   },
   components: {
     Avatar,
     boardMenu,
-    boardBgSelect,
-    boardMembersEdit,
-  },
+    // boardBgSelect,
+    boardMembersEdit
+  }
 };
 </script>
