@@ -51,16 +51,21 @@
       }
       .check-list-completed {
         border-radius: 3px;
-        padding: 3px 5px;
+        padding: 1px 5px;
         background-color: #27ae5fc0;
         i,
         span {
           color: #fff;
+          font-size: 13px;
         }
       }
       .attachments-container {
         span {
           margin-left: 5px;
+          font-size: 13px;
+        }
+        i{
+          font-size: 13px;
         }
       }
     }
@@ -74,7 +79,6 @@
         align-items: center;
         min-width: 35px;
         height: 8px;
-        margin: 2px 0;
         margin-right: 5px;
         border-radius: 10px;
         transition: all 0.5s ease-in-out;

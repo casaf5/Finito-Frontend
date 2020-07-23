@@ -2,9 +2,8 @@
   <section
     class="board-details-container"
     v-if="board"
-    :style="boardBackground"
-  >
-    <board-options-nav  />
+    :style="boardBackground">
+    <board-options-nav/>
     <section class="board-details">
       <task-details
         v-if="taskToEdit"
@@ -15,8 +14,7 @@
         @drop="onDrop"
         drag-handle-selector=".task-group-title"
         :drop-placeholder="upperDropPlaceholderOptions"
-        orientation="horizontal"
-      >
+        orientation="horizontal">
         <Draggable v-for="taskGroup in board.taskGroups" :key="taskGroup.id">
           <task-group
             :taskGroup="taskGroup"
@@ -64,7 +62,6 @@ export default {
     socketService.on("boardUpdate", (board) => {
       this.$store.commit({ type: "setBoard", board });
     });
-    this.$emit("setCover", this.board.style);
   },
   computed: {
     board() {
@@ -91,7 +88,6 @@ export default {
         const taskGroupIndex = board.taskGroups.indexOf(taskGroup);
         const newTaskGroup = Object.assign({}, taskGroup);
         newTaskGroup.tasks = applyDrag(newTaskGroup.tasks, dropResult);
-
         newTaskGroup.tasks.forEach((task) => {
           task.parentListId = newTaskGroup.id;
         });
