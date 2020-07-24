@@ -25,7 +25,7 @@ export default {
   computed: {
     background() {
       if (this.previewUrl) {
-        return `background-image:url("${this.previewUrl}");color:#fff`;
+        return `background-image:url("${this.previewUrlComputed}");color:#fff`;
       }
       if (this.board.style.previewUrl) {
         return `background-image:url("${this.board.style.previewUrl}");color:#fff`;
@@ -39,6 +39,9 @@ export default {
       } else {
         return "full";
       }
+    },
+    previewUrlComputed() {
+      return this.previewUrl;
     }
   }
 };

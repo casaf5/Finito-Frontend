@@ -16,7 +16,9 @@
           @close="toggleAddMember"
         />
       </section>
+      <router-link class="nav-btn" tag="li" to="/board/dash/charts">Dashboard</router-link>
     </section>
+
     <section class="right-side">
       <button @click.self="toggleMenu">Activity Log</button>
       <button @click.self="toggleBgSelect">Background</button>
@@ -49,7 +51,7 @@ export default {
   },
   created() {
     const board = this.$store.getters.board;
-    this.board=JSON.parse(JSON.stringify(board))
+    this.board = JSON.parse(JSON.stringify(board));
   },
   methods: {
     updateBoard() {

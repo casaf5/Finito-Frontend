@@ -1,7 +1,7 @@
 <template>
   <header
     :style="navbarBgStyle.navBar.navbarBgColor"
-    v-if="$route.path != '/' ||$route.name!='login-page'"
+    v-if="$route.path != '/' &&$route.name!='login-page'"
     class="app-header"
   >
     <section class="navbar-container">
@@ -17,12 +17,6 @@
             <input type="text" placeholder="Search.." />
             <i class="fas fa-search search-icon"></i>
           </li>
-          <router-link
-            :style="navbarBgStyle.navBar.buttonColors"
-            class="nav-btn"
-            tag="li"
-            to="/board/dash/charts"
-          >Dashboard</router-link>
           <router-link
             :style="navbarBgStyle.navBar.buttonColors"
             class="nav-btn"
@@ -56,7 +50,7 @@ export default {
 
   computed: {
     navbarBgStyle() {
-      if (this.$route.name === "Finito-app" || this.$route.path === "/Login") {
+      if (this.$route.name === "Finito-app") {
         return {
           navBar: {
             navbarBgColor: "background-color:#0006",

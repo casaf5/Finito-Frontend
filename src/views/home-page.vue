@@ -157,7 +157,20 @@ export default {
       },
       boardImgPreivewUrl:
         "https://images.unsplash.com/photo-1519681393784-d120267933ba?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=750&q=80 750w",
-      boardSaveUrls: [],
+      boardSaveUrls: [
+        {
+          full:
+            "https://images.unsplash.com/photo-1519681393784-d120267933ba?ixlib=rb-1.2.1&q=85&fm=jpg&crop=entropy&cs=srgb&ixid=eyJhcHBfaWQiOjE0OTc5MX0"
+        },
+        {
+          small:
+            "https://images.unsplash.com/photo-1519681393784-d120267933ba?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=400&fit=max&ixid=eyJhcHBfaWQiOjE0OTc5MX0"
+        },
+        {
+          regular:
+            "https://images.unsplash.com/photo-1519681393784-d120267933ba?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=1080&fit=max&ixid=eyJhcHBfaWQiOjE0OTc5MX0"
+        }
+      ],
       topImages: []
     };
   },
@@ -168,8 +181,9 @@ export default {
   },
   methods: {
     async addNewBoard(isTemplate = false) {
-      let createdBoard = boardService.getEmptyBoard();
+      if (!this.newBoard.name) return;
 
+      let createdBoard = boardService.getEmptyBoard();
       createdBoard.name = this.newBoard.name;
       createdBoard.style = this.newBoard.style;
       createdBoard.style.bgUrls = this.boardSaveUrls;
@@ -180,6 +194,7 @@ export default {
         type: "saveBoard",
         board: createdBoard
       });
+
       this.$router.push(`/board/${createdBoard._id}`);
     },
     changeBgColor({ color }, _) {
@@ -188,6 +203,9 @@ export default {
       this.newBoard.style.bgColor = color;
     },
     setBoardImg({ small, regular, full, thumbnail }) {
+      if (this.boardSaveUrls.length) {
+        this.boardSaveUrls = [];
+      }
       this.boardSaveUrls.push({ small, regular, full });
       this.newBoard.style.previewUrl = thumbnail;
       this.boardImgPreivewUrl = small;

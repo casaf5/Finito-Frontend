@@ -10,9 +10,6 @@
           <router-link to="/signup" tag="li">
             <a>Sign Up</a>
           </router-link>
-          <router-link to="/home" tag="li">
-            <a>Your Boards</a>
-          </router-link>
         </ul>
       </nav>
       <div class="hero-content-container">
@@ -85,17 +82,6 @@ export default {
       max-width: 25ch;
       position: relative;
       z-index: 2;
-      .line {
-        display: block;
-        z-index: -1;
-        position: absolute;
-        top: 1px;
-        left: -5px;
-        width: 80px;
-        height: 20px;
-        border-radius: 4px;
-        background-color: #c43440bb;
-      }
     }
     .hero-content {
       margin-top: -50px;
