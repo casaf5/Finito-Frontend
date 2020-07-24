@@ -21,6 +21,7 @@
         </div>
         <searchImg
           :saveSettings="{previewSize:'regular',saveSize:'full'}"
+          :getAllSizes="true"
           :topImages="topImages"
           @imageChoosen="setBoardImg"
         />
@@ -152,7 +153,7 @@ export default {
       },
       boardImgPreivewUrl:
         "https://images.unsplash.com/photo-1519681393784-d120267933ba?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=750&q=80 750w",
-      boardSaveUrl: "",
+      boardSaveUrls: [],
       topImages: []
     };
   },
@@ -166,7 +167,7 @@ export default {
       let createdBoard = boardService.getEmptyBoard();
       createdBoard.name = this.newBoard.name;
       createdBoard.style = this.newBoard.style;
-      createdBoard.style.bgUrl = this.boardSaveUrl;
+      createdBoard.style.bgUrls = this.boardSaveUrls;
       createdBoard.members = this.newBoard.members.map(member =>
         this.users.find(user => user._id === member)
       );
@@ -181,10 +182,10 @@ export default {
       this.boardImgPreivewUrl = "";
       this.newBoard.style.bgColor = color;
     },
-    setBoardImg({ previewUrl, saveSize, thumbnail }) {
-      this.boardSaveUrl = saveSize;
+    setBoardImg({ small, regular, full, thumbnail }) {
+      this.boardSaveUrls.push({ small, regular, full });
       this.newBoard.style.previewUrl = thumbnail;
-      this.boardImgPreivewUrl = previewUrl;
+      this.boardImgPreivewUrl = small;
     },
     createTemplate(template) {
       this.newBoard.name = template.name;

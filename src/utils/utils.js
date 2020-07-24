@@ -4,6 +4,7 @@ export const utilService = {
   getEmptyCheckList,
   getNewBoard,
   deepCopy,
+  getUrlBasedOnScreenWidth,
 };
 
 //Tired of wirting JSON.parse(JSON.stringify(object)
@@ -51,8 +52,8 @@ function getNewBoard() {
     tags: [],
     style: {
       bgColor: "#48aef9",
-      bgUrl:
-        "https://i.pinimg.com/originals/5e/65/20/5e6520289b44e11a9e74363c18ce3ee1.jpg",
+      bgUrls: [],
+      bgUrl: "",
       previewUrl: "",
     },
     creator: {},
@@ -113,6 +114,16 @@ function getNewBoard() {
     ],
   };
   return newBoard;
+}
+
+function getUrlBasedOnScreenWidth(screenWidth) {
+  if (screenWidth < 640) {
+    return "small";
+  } else if (screenWidth > 640 && screenWidth < 1200) {
+    return "regular";
+  } else {
+    return "full";
+  }
 }
 
 function getRandomId() {

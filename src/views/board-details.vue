@@ -1,16 +1,8 @@
 <template>
-  <section
-    class="board-details-container"
-    v-if="board"
-    :style="boardBackground"
-  >
+  <section class="board-details-container" v-if="board" :style="boardBackground">
     <board-options-nav />
     <section class="board-details">
-      <task-details
-        v-if="taskToEdit"
-        :taskToEdit="taskToEdit"
-        @closeModal="closeTaskModal"
-      />
+      <task-details v-if="taskToEdit" :taskToEdit="taskToEdit" @closeModal="closeTaskModal" />
       <Container
         @drop="onDrop"
         drag-handle-selector=".task-group-title"
@@ -18,11 +10,7 @@
         orientation="horizontal"
       >
         <Draggable v-for="taskGroup in board.taskGroups" :key="taskGroup.id">
-          <task-group
-            :taskGroup="taskGroup"
-            @taskDrop="onTaskDrop"
-            @taskClicked="openTaskModal"
-          />
+          <task-group :taskGroup="taskGroup" @taskDrop="onTaskDrop" @taskClicked="openTaskModal" />
         </Draggable>
       </Container>
     </section>
@@ -44,7 +32,7 @@ export default {
     Draggable,
     taskGroup,
     taskDetails,
-    boardOptionsNav,
+    boardOptionsNav
   },
   data() {
     return {
@@ -52,8 +40,8 @@ export default {
       upperDropPlaceholderOptions: {
         className: "taskGroup-drop-preview",
         animationDuration: "150",
-        showOnTop: true,
-      },
+        showOnTop: true
+      }
     };
   },
   async created() {
@@ -61,7 +49,7 @@ export default {
     await this.$store.dispatch({ type: "getBoardById", id });
     socketService.setup();
     socketService.emit("joinedBoard", this.board._id);
-    socketService.on("boardUpdate", (board) => {
+    socketService.on("boardUpdate", board => {
       this.$store.commit({ type: "setBoard", board });
     });
     this.$emit("setCover", this.board.style);
@@ -72,10 +60,11 @@ export default {
     },
     boardBackground() {
       const style = this.$store.getters.style;
-      console.log(style)
-      if (style.bgUrl) return `background-image:url(${style.bgUrl});`;
-      return `background-color:"${style.bgColor}";`;
-    },
+      const bgSize = utilService.getUrlBasedOnScreenWidth(screen.width);
+      if (style.bgUrls.length) {
+        return `background-image:url(${style.bgUrls[0][bgSize]});`;
+      } else return `background-color:${style.bgColor};`;
+    }
   },
   methods: {
     onDrop(dropResult) {
@@ -86,13 +75,13 @@ export default {
       if (dropResult.removedIndex !== null || dropResult.addedIndex !== null) {
         const board = Object.assign({}, this.board);
         const taskGroup = board.taskGroups.filter(
-          (taskG) => taskG.id === taskGroupId
+          taskG => taskG.id === taskGroupId
         )[0];
         const taskGroupIndex = board.taskGroups.indexOf(taskGroup);
         const newTaskGroup = Object.assign({}, taskGroup);
         newTaskGroup.tasks = applyDrag(newTaskGroup.tasks, dropResult);
 
-        newTaskGroup.tasks.forEach((task) => {
+        newTaskGroup.tasks.forEach(task => {
           task.parentListId = newTaskGroup.id;
         });
         board.taskGroups.splice(taskGroupIndex, 1, newTaskGroup);
@@ -110,8 +99,8 @@ export default {
     },
     destroyed() {
       SocketService.terminate();
-    },
-  },
+    }
+  }
 };
 </script>
 

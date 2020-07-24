@@ -32,8 +32,10 @@ export default {
       default: "thumb"
     },
     saveSettings: {
-      type: Object,
-      default: "small"
+      type: Object
+    },
+    getAllSizes: {
+      type: Boolean
     }
   },
   data() {
@@ -51,11 +53,17 @@ export default {
       let img = {
         thumbnail: url["thumb"]
       };
-      if (previewSize) {
-        img.previewUrl = url[previewSize];
-      }
-      if (saveSize) {
-        img.saveSize = url[saveSize];
+      if (this.getAllSizes) {
+        img.small = url["small"];
+        img.regular = url["regular"];
+        img.full = url["full"];
+      } else {
+        if (previewSize) {
+          img.previewUrl = url[previewSize];
+        }
+        if (saveSize) {
+          img.saveSize = url[saveSize];
+        }
       }
       this.$emit("imageChoosen", img);
     }
