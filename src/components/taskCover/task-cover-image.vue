@@ -6,17 +6,7 @@
       :showIcon="true"
       title="Search for images"
     >
-      <form-input :debounceInput="true" v-model="query" @input="searchForPhotos" />
-      <h4>Images taken from Unsplash</h4>
-      <div class="imgs-container">
-        <img
-          @click="imageChoosen(url)"
-          :src="url"
-          :key="index"
-          v-for="(url, index) in imagesToRender"
-          alt
-        />
-      </div>
+      <searchImg saveSize="small" :topImages="topImages" @imageChoosen="imageChoosen" />
     </task-action-container>
   </div>
 </template>
@@ -25,6 +15,7 @@
 import taskActionContainer from "../task-action-container.cmp";
 import FormInput from "../From Elements/form-input.cmp";
 import { UnsplashService } from "../../services/unsplashImage-service";
+import searchImg from "../UI Components/search-img";
 export default {
   props: {
     topImages: {
@@ -37,20 +28,8 @@ export default {
       }
     }
   },
-  async created() {},
-  data() {
-    return {
-      searchedImages: [],
-      query: ""
-    };
-  },
+
   methods: {
-    async searchForPhotos() {
-      this.searchedImages = await UnsplashService.searchPhoto(
-        this.query,
-        "small"
-      );
-    },
     imageChoosen(url) {
       this.$emit("imageChoosen", url);
       this.changeComponent();
@@ -62,14 +41,10 @@ export default {
       this.$emit("close");
     }
   },
-  computed: {
-    imagesToRender() {
-      return this.searchedImages.length ? this.searchedImages : this.topImages;
-    }
-  },
+  computed: {},
   components: {
     taskActionContainer,
-    FormInput
+    searchImg
   }
 };
 </script>

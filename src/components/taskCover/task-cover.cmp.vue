@@ -29,11 +29,7 @@ export default {
     }
   },
   async created() {
-    this.imagesUrl = await UnsplashService.getRandomPhotos(
-      8,
-      "landscape",
-      this.imageSize
-    );
+    this.imagesUrl = await UnsplashService.getRandomPhotos("9", "landscape");
   },
   data() {
     return {

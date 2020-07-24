@@ -19,7 +19,7 @@
           <h4>Choose Color</h4>
           <color-small @colorClicked="changeBgColor" size="small" />
         </div>
-        <searchImg :topImages="topImages" @imageChoosen="setBoardImg" />
+        <searchImg saveSize="full" :topImages="topImages" @imageChoosen="setBoardImg" />
         <board-preview :board="newBoard" />
         <button @click="addNewBoard" class="btn-primary">Create</button>
       </div>
@@ -57,6 +57,7 @@
 
 <script>
 import { boardService } from "../services/board-service.js";
+import { UnsplashService } from "../services/unsplashImage-service";
 import boardPreview from "../components/board-preview.cmp.vue";
 import boardTemplate from "../components/UI Components/template";
 import formInput from "../components/From Elements/form-input.cmp";
@@ -144,23 +145,13 @@ export default {
           bgColor: ""
         }
       },
-      topImages: [
-        "https://images.unsplash.com/photo-1563900833607-035c921f001c?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=400&fit=max&ixid=eyJhcHBfaWQiOjE0OTc5MX0",
-        "https://images.unsplash.com/photo-1428534302776-5c6a2dca0380?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=400&fit=max&ixid=eyJhcHBfaWQiOjE0OTc5MX0",
-        "https://images.unsplash.com/photo-1581095390906-9a7efa3f8b0a?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=400&fit=max&ixid=eyJhcHBfaWQiOjE0OTc5MX0",
-        "https://images.unsplash.com/photo-1590336225155-d7e19a3a954f?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=400&fit=max&ixid=eyJhcHBfaWQiOjE0OTc5MX0",
-        "https://images.unsplash.com/photo-1564679411940-501b3f72ebab?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=400&fit=max&ixid=eyJhcHBfaWQiOjE0OTc5MX0",
-        "https://images.unsplash.com/photo-1592252083688-16558af3eed9?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=400&fit=max&ixid=eyJhcHBfaWQiOjE0OTc5MX0",
-        "https://images.unsplash.com/photo-1445888985293-8e1b904061c4?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=400&fit=max&ixid=eyJhcHBfaWQiOjE0OTc5MX0",
-        "https://images.unsplash.com/photo-1476433564761-80392cb7dafb?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=400&fit=max&ixid=eyJhcHBfaWQiOjE0OTc5MX0",
-        "https://images.unsplash.com/photo-1563126303-227e37edb271?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=400&fit=max&ixid=eyJhcHBfaWQiOjE0OTc5MX0"
-      ]
+      topImages: []
     };
   },
   async created() {
     this.boards = await this.$store.dispatch({ type: "loadBoards" });
     this.users = await this.$store.dispatch({ type: "loadUsers" });
-    console.log(this.users)
+    this.topImages = await UnsplashService.getRandomPhotos("9", "landscape");
   },
   methods: {
     async addNewBoard(isTemplate = false) {

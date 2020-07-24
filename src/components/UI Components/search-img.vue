@@ -10,11 +10,10 @@
     />
     <div class="imgs-container">
       <img
-        @click="imageChoosen(url)"
-        :src="url"
+        @click="imageChoosen(url[saveSize])"
+        :src="url[imageDisplaySize]"
         :key="index"
-        v-for="(url, index) in imagesToRender"
-        alt
+        v-for="(url, index) in imagesToDisplay"
       />
     </div>
   </div>
@@ -28,7 +27,11 @@ export default {
     topImages: {
       type: Array
     },
-    imageSize: {
+    imageDisplaySize: {
+      type: String,
+      default: "thumb"
+    },
+    saveSize: {
       type: String,
       default: "small"
     }
@@ -41,11 +44,7 @@ export default {
   },
   methods: {
     async searchForPhotos() {
-      this.searchedImages = await UnsplashService.searchPhoto(
-        this.query,
-        this.imageSize,
-        "9"
-      );
+      this.searchedImages = await UnsplashService.searchPhoto(this.query, "9");
     },
     imageChoosen(url) {
       this.$emit("imageChoosen", url);
@@ -55,7 +54,7 @@ export default {
     formInput
   },
   computed: {
-    imagesToRender() {
+    imagesToDisplay() {
       return this.searchedImages.length ? this.searchedImages : this.topImages;
     }
   }
@@ -73,7 +72,7 @@ export default {
     cursor: pointer;
     margin: 5px 5px;
     border-radius: 5px;
-    width: 80px;
+    width: 78px;
     height: 50px;
     object-fit: cover;
   }

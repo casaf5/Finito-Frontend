@@ -7,7 +7,13 @@
       <div class="imgs-container">
         <button @click="removeCover" v-if="isCoverSet" class="btn-primary">Remove Cover</button>
         <h4>Images taken from Unsplash</h4>
-        <img @click="setImage(url)" :src="url" :key="index" v-for="(url, index) in topImages" alt />
+        <img
+          @click="setImage(url.small)"
+          :src="url.thumb"
+          :key="index"
+          v-for="(url, index) in topImages"
+          alt
+        />
       </div>
       <button
         @click="$emit('changeComponent','task-cover-img')"
