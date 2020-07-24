@@ -1,12 +1,12 @@
 .board-options {
   position: absolute;
   width: 100%;
+  background-color: transparent;
   color: white;
   text-align: center;
   height: 40px;
-  background-color: rgba(0, 0, 0, 0.4);
   padding: 5px;
-  top: 9.5%;
+  top: 8%;
   .left-side {
     .board-members {
       align-self: center;
@@ -14,7 +14,6 @@
         margin-inline-start: 5px;
       }
       i {
-        cursor: pointer;
         font-size: 16px;
         display: flex;
         justify-content: center;
@@ -24,16 +23,14 @@
         color: black;
         border-radius: 50%;
         transition: all 0.3s;
-        background-color: #fff;
         padding: 2px;
         &:hover {
+          cursor: pointer;
           background-color: white;
         }
       }
     }
     input {
-      min-width: 30px;
-      max-width: 100%;
       background-color: #ffffff52;
       border: none;
       padding: 5px;
@@ -42,8 +39,10 @@
       height: 35px;
       color: white;
       font-family: Montserrat-Bold;
+      font-weight: bold;
       border-radius: 3px;
-      font-size: 16px;
+      text-align: center;
+      font-size: 18px;
       &:focus {
         color: black;
         background-color: white;
