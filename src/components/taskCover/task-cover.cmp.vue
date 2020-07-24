@@ -41,8 +41,12 @@ export default {
     toggleComp(compoentToRender) {
       this.component = compoentToRender;
     },
-    addImage(url) {
-      this.imagesUrl.unshift(url);
+    addImage({ saveSize, previewUrl }) {
+      const img = {
+        small: saveSize,
+        thumb: previewUrl
+      };
+      this.imagesUrl.unshift(img);
     },
     colorClicked(color, index) {
       this.$emit("setCover", { payload: color.color, type: "color" });

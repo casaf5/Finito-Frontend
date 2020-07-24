@@ -10,6 +10,9 @@ export default {
     },
     isLink: {
       type: Boolean
+    },
+    previewUrl: {
+      type: String
     }
   },
   methods: {
@@ -21,9 +24,12 @@ export default {
   },
   computed: {
     background() {
-      if (this.board.style.bgUrl) {
-        return `background-image:url("${this.board.style.bgUrl}");color:#fff`;
-      } else {
+      if (this.previewUrl) {
+        return `background-image:url("${this.previewUrl}");color:#fff`;
+      }
+      if (this.board.style.previewUrl) {
+        return `background-image:url("${this.board.style.previewUrl}");color:#fff`;
+      } else if (this.board.style.bgColor) {
         return `background-color:${this.board.style.bgColor};`;
       }
     },

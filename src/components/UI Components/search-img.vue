@@ -10,7 +10,7 @@
     />
     <div class="imgs-container">
       <img
-        @click="imageChoosen(url[saveSize])"
+        @click="imageChoosen(url,index)"
         :src="url[imageDisplaySize]"
         :key="index"
         v-for="(url, index) in imagesToDisplay"
@@ -31,8 +31,8 @@ export default {
       type: String,
       default: "thumb"
     },
-    saveSize: {
-      type: String,
+    saveSettings: {
+      type: Object,
       default: "small"
     }
   },
@@ -46,8 +46,18 @@ export default {
     async searchForPhotos() {
       this.searchedImages = await UnsplashService.searchPhoto(this.query, "9");
     },
-    imageChoosen(url) {
-      this.$emit("imageChoosen", url);
+    imageChoosen(url, index) {
+      const { previewSize, saveSize } = this.saveSettings;
+      let img = {
+        thumbnail: url["thumb"]
+      };
+      if (previewSize) {
+        img.previewUrl = url[previewSize];
+      }
+      if (saveSize) {
+        img.saveSize = url[saveSize];
+      }
+      this.$emit("imageChoosen", img);
     }
   },
   components: {

@@ -19,8 +19,12 @@
           <h4>Choose Color</h4>
           <color-small @colorClicked="changeBgColor" size="small" />
         </div>
-        <searchImg saveSize="full" :topImages="topImages" @imageChoosen="setBoardImg" />
-        <board-preview :board="newBoard" />
+        <searchImg
+          :saveSettings="{previewSize:'regular',saveSize:'full'}"
+          :topImages="topImages"
+          @imageChoosen="setBoardImg"
+        />
+        <board-preview :previewUrl="boardImgPreivewUrl" :board="newBoard" />
         <button @click="addNewBoard" class="btn-primary">Create</button>
       </div>
     </modal>
@@ -64,6 +68,7 @@ import formInput from "../components/From Elements/form-input.cmp";
 import searchImg from "../components/UI Components/search-img";
 import modal from "../components/UI Components/modal";
 import colorSmall from "../components/UI Components/color-small";
+import boardPreviewCmpVue from "../components/board-preview.cmp.vue";
 export default {
   name: "home-page",
   components: {
@@ -140,11 +145,14 @@ export default {
         name: "SS",
         members: [],
         style: {
-          bgUrl:
-            "https://images.unsplash.com/photo-1519681393784-d120267933ba?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=750&q=80 750w",
-          bgColor: ""
+          bgUrl: "",
+          bgColor: "",
+          previewUrl: ""
         }
       },
+      boardImgPreivewUrl:
+        "https://images.unsplash.com/photo-1519681393784-d120267933ba?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=750&q=80 750w",
+      boardSaveUrl: "",
       topImages: []
     };
   },
@@ -158,6 +166,7 @@ export default {
       let createdBoard = boardService.getEmptyBoard();
       createdBoard.name = this.newBoard.name;
       createdBoard.style = this.newBoard.style;
+      createdBoard.style.bgUrl = this.boardSaveUrl;
       createdBoard.members = this.newBoard.members.map(member =>
         this.users.find(user => user._id === member)
       );
@@ -171,8 +180,10 @@ export default {
       this.newBoard.style.bgUrl = "";
       this.newBoard.style.bgColor = color;
     },
-    setBoardImg(url) {
-      this.newBoard.style.bgUrl = url;
+    setBoardImg({ previewUrl, saveSize, thumbnail }) {
+      this.boardSaveUrl = saveSize;
+      this.newBoard.style.previewUrl = thumbnail;
+      this.boardImgPreivewUrl = previewUrl;
     },
     createTemplate(template) {
       this.newBoard.name = template.name;

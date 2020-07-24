@@ -6,7 +6,11 @@
       :showIcon="true"
       title="Search for images"
     >
-      <searchImg saveSize="small" :topImages="topImages" @imageChoosen="imageChoosen" />
+      <searchImg
+        :saveSettings="{previewSize:'thumb',saveSize:'small'}"
+        :topImages="topImages"
+        @imageChoosen="imageChoosen"
+      />
     </task-action-container>
   </div>
 </template>
@@ -30,8 +34,8 @@ export default {
   },
 
   methods: {
-    imageChoosen(url) {
-      this.$emit("imageChoosen", url);
+    imageChoosen(img) {
+      this.$emit("imageChoosen", img);
       this.changeComponent();
     },
     changeComponent() {
