@@ -178,6 +178,7 @@ export default {
     },
     changeBgColor({ color }, _) {
       this.newBoard.style.bgUrl = "";
+      this.boardImgPreivewUrl = "";
       this.newBoard.style.bgColor = color;
     },
     setBoardImg({ previewUrl, saveSize, thumbnail }) {
