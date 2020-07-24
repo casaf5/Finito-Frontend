@@ -21,18 +21,18 @@ function getEmptyCheckList(title = "Check List") {
   };
   return checklist;
 }
-function getEmptyGroup(groupName=''){
-  const group={
-    id:getRandomId(),
-    title:groupName,
-    position:"",
+function getEmptyGroup(groupName = "") {
+  const group = {
+    id: getRandomId(),
+    title: groupName,
+    position: "",
     tasks: [],
-    labelsOpen: false
-  }
-  return group
+    labelsOpen: false,
+  };
+  return group;
 }
 
-  // function for generating an empty task
+// function for generating an empty task
 function getEmptyTask(parentListId) {
   const task = {
     parentListId,
@@ -61,9 +61,10 @@ function getNewBoard() {
     name: "",
     members: [],
     tags: [],
-    style:{
-      "bgColor" : "#48aef9",
-      "bgUrl" : "https://i.pinimg.com/originals/5e/65/20/5e6520289b44e11a9e74363c18ce3ee1.jpg"
+    style: {
+      bgColor: "#48aef9",
+      bgUrl:
+        "https://i.pinimg.com/originals/5e/65/20/5e6520289b44e11a9e74363c18ce3ee1.jpg",
     },
     creator: {},
     createdAt: Date.now(),

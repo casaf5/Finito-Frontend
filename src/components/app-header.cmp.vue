@@ -1,5 +1,9 @@
 <template>
-  <header :style="navbarBgStyle.navBar.navbarBgColor" v-if="$route.path != '/'" class="app-header">
+  <header
+    :style="navbarBgStyle.navBar.navbarBgColor"
+    v-if="$route.path != '/' ||$route.name!='login-page'"
+    class="app-header"
+  >
     <section class="navbar-container">
       <div class="navbar-left-side">
         <router-link tag="span" to="/">Finito</router-link>
@@ -19,12 +23,6 @@
             tag="li"
             to="/board/dash/charts"
           >Dashboard</router-link>
-          <!-- <router-link
-            :style="navbarBgStyle.navBar.buttonColors"
-            class="nav-btn"
-            tag="li"
-            to="/logout"
-          >Logout</router-link>-->
           <router-link
             :style="navbarBgStyle.navBar.buttonColors"
             class="nav-btn"
@@ -37,7 +35,6 @@
             tag="li"
             to="/signup"
           >Sign Up</router-link>
-          <!-- <button class="logout-btn" @click="logout" v-show="loggedUser" >Log Out</button> -->
           <i class="far fa-bell header-item notification-icon"></i>
           <Avatar username="Guest" :size="35" />
         </ul>
@@ -59,7 +56,7 @@ export default {
 
   computed: {
     navbarBgStyle() {
-      if (this.$route.name === "Finito-app") {
+      if (this.$route.name === "Finito-app" || this.$route.path === "/Login") {
         return {
           navBar: {
             navbarBgColor: "background-color:#0006",
@@ -75,6 +72,7 @@ export default {
         };
     },
     buttonColor() {}
-  }
+  },
+  displayHeader() {}
 };
 </script>

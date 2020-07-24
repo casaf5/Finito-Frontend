@@ -1,38 +1,51 @@
 <template>
-  <div class="login-cmp ">
-    <form @submit.prevent="login" class="login-form flex col">
-      <h1>Sign In</h1>
-    <input id="username" type="text" placeholder="Username" v-model="credentials.username">
-    <input id="password" type="password" placeholder="Password" v-model="credentials.password">
-    <button class="login-btn">Login</button>
+  <section class="login-cmp">
+    <div class="login-header-container">
+      <h1>Ready to continue owning your tasks?</h1>
+    </div>
+    <form @submit.prevent="login" class="login-form">
+      <h3>Welcome back to Finito</h3>
+      <div class="inputs-container">
+        <form-input labelText="username" v-model="credentials.username" :showLabel="true" />
+        <form-input labelText="password" v-model="credentials.password" :showLabel="true" />
+      </div>
+      <!-- <img src="../assets/images/login.png" alt /> -->
+      <button class="login-btn">Login</button>
+      <router-link tag="p" to="/signup">Already Have an account?</router-link>
     </form>
-  </div>
+  </section>
 </template>
 
 <script>
-
-  export default {
-    name:"login-cmp",
-    data () {
-      return {
-        credentials: {
-          username:'',
-          password:'',
-        }
+import formInput from "../components/From Elements/form-input.cmp";
+export default {
+  name: "login-page",
+  data() {
+    return {
+      credentials: {
+        username: "",
+        password: ""
       }
-    },
-    created(){
-    if(this.$store.getters.loggedUser) {
-      console.log(this.$store.getters.loggedUser)
-    this.$router.push('/home')
-    }
-    },
-  methods:{
-    login(){
-      this.$store.dispatch({type:"login",credentials:{...this.credentials}})
-      this.$router.push('/')
+    };
+  },
+  created() {
+    if (this.$store.getters.loggedUser) {
+      console.log(this.$store.getters.loggedUser);
+      this.$router.push("/home");
     }
   },
+  methods: {
+    login() {
+      this.$store.dispatch({
+        type: "login",
+        credentials: { ...this.credentials }
+      });
+      this.$router.push("/");
+    }
+  },
+  components: {
+    formInput
   }
+};
 </script>
 
