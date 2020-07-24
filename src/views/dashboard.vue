@@ -184,7 +184,7 @@ export default {
             datasets: [
                         {
                 label: 'Members Progress Over a Full Year',
-                backgroundColor: '#f87979',
+                backgroundColor: 'rgb(35, 131, 196)',
                 data: this.completedTasksPerMonth
                  }
                ]
