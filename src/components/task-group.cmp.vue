@@ -122,7 +122,6 @@ export default {
       const task = utilService.getEmptyTask(this.taskGroup.id);
       const board = utilService.deepCopy(this.board);
       task.title = taskContent;
-
       const taskGroupIndex = this.$store.getters.getTaskGroupByIndex(
         this.taskGroup.id
       );

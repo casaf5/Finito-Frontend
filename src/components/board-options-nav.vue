@@ -1,7 +1,13 @@
 <template>
   <section class="board-options flex space-between">
     <section class="left-side flex space-between">
-      <input type="text" placeholder="Board Name" v-model="board.name" @blur="updateBoard" />
+      <input
+        type="text"
+        ref="boardName"
+        placeholder="Board Name"
+        v-model="board.name"
+        @blur="updateName"
+      />
       <section class="board-members flex">
         <Avatar
           v-for="member in board.members"
@@ -16,7 +22,9 @@
           @close="toggleAddMember"
         />
       </section>
-      <router-link class="nav-btn" tag="li" to="/board/dash/charts">Dashboard</router-link>
+      <router-link class="nav-btn" tag="li" to="/board/dash/charts"
+        >Dashboard</router-link
+      >
     </section>
 
     <section class="right-side">
@@ -42,20 +50,26 @@ export default {
   name: "board-options-nav",
   data() {
     return {
-      board: null,
       menuIsOpen: false,
       bgSelectOpen: false,
       boardMembersOpen: false,
-      style: { bgColor: "", bgUrl: "" }
+      style: { bgColor: "", bgUrls: [] },
     };
   },
-  created() {
-    const board = this.$store.getters.board;
-    this.board = JSON.parse(JSON.stringify(board));
+  // created() {
+  //   const board = this.$store.getters.board;
+  //   this.board = JSON.parse(JSON.stringify(board));
+  // },
+  computed: {
+    board() {
+      return this.$store.getters.board;
+    },
   },
   methods: {
-    updateBoard() {
-      this.$store.dispatch({ type: "saveBoard", board: this.board });
+    updateName() {
+      let board = this.board;
+      board.name = this.$refs.boardName.value;
+      this.$store.dispatch({ type: "saveBoard", board});
     },
     toggleMenu() {
       this.menuIsOpen = !this.menuIsOpen;
@@ -66,22 +80,25 @@ export default {
     toggleAddMember() {
       this.boardMembersOpen = !this.boardMembersOpen;
     },
-    setBoardBg(imgaeUrl) {
-      this.style.bgUrl = imgaeUrl;
+    setBoardBg(imageUrls) {
+      console.log('imageUrls',imageUrls)
+      let board = this.board;
+      this.style.bgUrls[0] = imageUrls;
       this.board.style = this.style;
-      this.$store.dispatch({ type: "saveBoard", board: this.board });
+      this.$store.dispatch({ type: "saveBoard", board });
       this.$store.commit({ type: "setStyle", style: this.style });
     },
     membersUpdate(members) {
-      this.board.members = members;
-      this.updateBoard();
-    }
+      let board = this.board;
+      board.members = members;
+      this.$store.dispatch({ type: "saveBoard", board});
+    },
   },
   components: {
     Avatar,
     boardActivity,
     boardBgSelect,
-    boardMembersEdit
-  }
+    boardMembersEdit,
+  },
 };
 </script>

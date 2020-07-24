@@ -198,7 +198,7 @@ export default {
       this.$router.push(`/board/${createdBoard._id}`);
     },
     changeBgColor({ color }, _) {
-      this.newBoard.style.bgUrl = "";
+      this.boardSaveUrls = []
       this.boardImgPreivewUrl = "";
       this.newBoard.style.bgColor = color;
     },

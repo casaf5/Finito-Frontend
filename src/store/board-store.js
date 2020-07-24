@@ -10,8 +10,8 @@ export default {
       creator: "",
     },
     style:{
-      "bgColor" : "#48aef9",
-      "bgUrl" : "https://i.pinimg.com/originals/5e/65/20/5e6520289b44e11a9e74363c18ce3ee1.jpg"
+      // "bgColor" : "#48aef9",
+      // "bgUrl" : "https://i.pinimg.com/originals/5e/65/20/5e6520289b44e11a9e74363c18ce3ee1.jpg"
     }
   },
   getters: {
@@ -41,7 +41,7 @@ export default {
       state.board = board;
       state.style=board.style
     },
-    deleteBoard(state, { id }) {
+    deleteBoard(state, { board }) {
       const idx = state.boards.findIndex((t) => t._id === board._id);
       state.boards.splice(idx, 1);
     },
@@ -51,6 +51,7 @@ export default {
       );
       state.boards.splice(idx, 1, board);
       state.board = board;
+      state.style=board.style
     },
     addBoard(state, { board }) {
       state.boards.unshift(board);

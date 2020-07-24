@@ -63,6 +63,7 @@ export default {
     boardBackground() {
       const style = this.$store.getters.style;
       const bgSize = utilService.getUrlBasedOnScreenWidth(screen.width);
+      console.log('style',style)
       if (style.bgUrls.length) {
         return `background-image:url(${style.bgUrls[0][bgSize]});`;
       } else return `background-color:${style.bgColor};`;
