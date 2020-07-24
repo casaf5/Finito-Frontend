@@ -7,10 +7,13 @@
       </h4>
       <div class="recent-boards">
         <board-preview :isLink="true" v-for="board in boards" :board="board" :key="board._id" />
-        <div @click="showModal= !showModal" class="board-preview flex create-board">Create New Board</div>
+        <div
+          @click="showModal = !showModal"
+          class="board-preview flex create-board"
+        >Create New Board</div>
       </div>
     </div>
-    <modal @close="showModal= !showModal" v-if="showModal">
+    <modal @close="showModal = !showModal" v-if="showModal">
       <div class="create-board-container">
         <div class="create-board-input">
           <form-input v-model="newBoard.name" :showLabel="true" labelText="Board Title" />
@@ -53,7 +56,7 @@
           @createTemplate="createTemplate"
           :template="template"
           :key="index"
-          v-for="(template,index) in templates"
+          v-for="(template, index) in templates"
         />
       </div>
     </div>
@@ -85,6 +88,7 @@ export default {
       boards: null,
       users: null,
       showModal: false,
+      selectedBgImgs: null,
       templates: [
         {
           name: "Project Managment",
@@ -143,7 +147,7 @@ export default {
         }
       ],
       newBoard: {
-        name: "SS",
+        name: "",
         members: [],
         style: {
           bgUrl: "",
@@ -165,6 +169,7 @@ export default {
   methods: {
     async addNewBoard(isTemplate = false) {
       let createdBoard = boardService.getEmptyBoard();
+
       createdBoard.name = this.newBoard.name;
       createdBoard.style = this.newBoard.style;
       createdBoard.style.bgUrls = this.boardSaveUrls;
@@ -195,5 +200,4 @@ export default {
 };
 </script>
 
-<style lang="scss">
-</style>
+<style lang="scss"></style>

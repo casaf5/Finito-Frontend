@@ -1,17 +1,18 @@
 <template>
   <div class="action-list-container">
     <li @click="createCard">Add Card...</li>
-    <li @click="duplicateList">Copy List...</li>
+    <li @click="duplicateList">Copy Group...</li>
     <li @click="emitCompoenentToRender('move-list', 'Move List')">
-      Move List...
+      Move Group...
     </li>
+    <li @click="removeGroup">Remove Group</li>
     <li @click="emitCompoenentToRender('SortBy', 'Sort By')">Sort By...</li>
     <li @click="$emit('watchList')">Watch</li>
     <hr />
-    <li>Move All Cards in this List...</li>
-    <li>Archive All Cards in this List...</li>
+    <li>Move All Cards in this Group...</li>
+    <li>Archive All Cards in this Group...</li>
     <hr />
-    <li>Archive This List</li>
+    <li>Archive This Group</li>
   </div>
 </template>
 
@@ -26,6 +27,9 @@ export default {
     },
     duplicateList() {
       this.$emit("duplicateList");
+    },
+    removeGroup() {
+      this.$emit("removeGroup");
     },
     emitCompoenentToRender(name, title) {
       this.$emit("compToRender", {

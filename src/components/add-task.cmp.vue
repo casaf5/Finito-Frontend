@@ -8,7 +8,6 @@
       <i class="el-icon-plus task-icon"></i>
       <span type="text">Add another card</span>
     </div>
-    <transition name="fade">
       <div v-if="show" class="add-task-content-container">
         <textarea :placeholder="placeholderText" v-model="content"></textarea>
         <section class="add-task-actions flex space-between">
@@ -18,7 +17,6 @@
           <i @click="toggleEdit" class="el-icon-close"></i>
         </section>
       </div>
-    </transition>
   </div>
 </template>
 
@@ -63,17 +61,3 @@ export default {
 };
 </script>
 
-<style lang="scss">
-.fade-enter-active,
-.fade-leave-active {
-  transition: opacity 0.5s ease-in-out;
-}
-.fade-enter,
-.fade-leave-to {
-  opacity: 0;
-}
-.component-fade-enter-active,
-.component-fade-leave-active {
-  transition: opacity 0.5s ease;
-}
-</style>

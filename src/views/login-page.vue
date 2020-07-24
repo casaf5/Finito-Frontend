@@ -1,70 +1,51 @@
 <template>
-  <div class="login-cmp main-layout">
-    <form
-      @submit.prevent="login"
-      class="login-form flex col"
-    >
-      <h1>Sign In</h1>
-      <input
-        ref="userNameInput"
-        id="username"
-        type="text"
-        placeholder="Username"
-        v-model="credentials.username"
-        required
-      >
-      <input
-        id="password"
-        type="password"
-        placeholder="Password"
-        v-model="credentials.password"
-        required
-      >
-      <h3 v-if="failedLogin">Invaild Username/Password</h3>
+  <section class="login-cmp">
+    <div class="login-header-container">
+      <h1>Ready to continue owning your tasks?</h1>
+    </div>
+    <form @submit.prevent="login" class="login-form">
+      <h3>Welcome back to Finito</h3>
+      <div class="inputs-container">
+        <form-input labelText="username" v-model="credentials.username" :showLabel="true" />
+        <form-input labelText="password" v-model="credentials.password" :showLabel="true" />
+      </div>
+      <!-- <img src="../assets/images/login.png" alt /> -->
       <button class="login-btn">Login</button>
+      <router-link tag="p" to="/signup">Already Have an account?</router-link>
     </form>
-  </div>
+  </section>
 </template>
 
 <script>
+import formInput from "../components/From Elements/form-input.cmp";
 export default {
-  name: "login-cmp",
+  name: "login-page",
   data() {
     return {
       credentials: {
         username: "",
         password: ""
-      },
-      failedLogin: false
+      }
     };
   },
   created() {
     if (this.$store.getters.loggedUser) {
       console.log(this.$store.getters.loggedUser);
-      this.$router.push("/");
+      this.$router.push("/home");
     }
   },
   methods: {
-    async login() {
-      const user = await this.$store.dispatch({
+    login() {
+      this.$store.dispatch({
         type: "login",
         credentials: { ...this.credentials }
       });
-      if (user) this.$router.push("/");
-      else {
-        this.failedLogin = true;
-      }
+      this.$router.push("/");
     }
   },
-  mounted() {
-    this.$refs.userNameInput.focus();
+  components: {
+    formInput
   }
 };
 </script>
 
-<style>
-.small {
-  max-width: 600px;
-  margin: 150px auto;
-}
-</style>

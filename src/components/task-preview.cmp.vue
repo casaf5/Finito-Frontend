@@ -55,12 +55,12 @@ export default {
   computed: {
     checkListsStatus() {
       let isUncompleted;
-      let completedAmout;
+      let completedAmout=0;
       let allTasks = 0;
       this.currentTask.checkLists.forEach(checkList => {
         allTasks += checkList["items"].length;
         isUncompleted = checkList["items"].some(item => !item.completed);
-        completedAmout = checkList["items"].reduce((acc, task) => {
+        completedAmout += checkList["items"].reduce((acc, task) => {
           if (task.completed) acc++;
           return acc;
         }, 0);
@@ -78,7 +78,7 @@ export default {
         );
       } else {
         return this.currentTask.cover.color
-          ? "background-color:" + this.currentTask.cover.color + ";height:50px"
+          ? "background-color:" + this.currentTask.cover.color + ";height:25px"
           : "";
       }
     },

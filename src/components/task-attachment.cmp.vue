@@ -7,14 +7,13 @@
       <h5 class="status">{{ uploadStatus }}</h5>
       <h6 v-if="status === 'Upload'">Please Wait</h6>
       <section class="upload-select" v-if="!status">
-        <button @click="openImageInput">Image</button>
-        <button @click="openFileInput">File</button>
+        <button @click="openInput('imageInput')">Image</button>
+        <button @click="openInput('fileInput')">File</button>
         <input
           ref="fileInput"
           type="file"
           @change.prevent="uploadFile($event, 'file')"
-          hidden
-        />
+          hidden/>
         <input
           ref="imageInput"
           type="file"
@@ -40,7 +39,7 @@ export default {
       status: null,
       imageUrl:
         "https://res.cloudinary.com/dwgaobhor/image/upload/v1595278304/edolcc05z4ybqyso6pqz.png",
-      fileName: "New File",
+      fileName: "",
       downloadLink: null,
       attachment: null,
     };
@@ -51,10 +50,8 @@ export default {
       let res = await uploadService.upload(ev, type);
       this.downloadLink = type === "file" ? `https://gofile.io/?c=${res}` : res;
       if (type === "image") this.imageUrl = res;
-      console.log(this.imageUrl)
       this.fileName = ev.target.files[0].name;
       this.createAttachment(ev);
-      console.log(this.attachment)
     },
     createAttachment() {
       this.attachment = {
@@ -72,11 +69,8 @@ export default {
       this.$emit("closeAttach");
       this.$emit("uploded", this.attachment);
     },
-    openImageInput() {
-      this.$refs.imageInput.click();
-    },
-    openFileInput() {
-      this.$refs.fileInput.click();
+    openInput(type) {
+      this.$refs[type].click();
     },
   },
   computed: {

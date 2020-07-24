@@ -1,5 +1,9 @@
 <template>
-  <header :style="navbarBgStyle.navBar.navbarBgColor" v-if="$route.path != '/'" class="app-header">
+  <header
+    :style="navbarBgStyle.navBar.navbarBgColor"
+    v-if="$route.path != '/' ||$route.name!='login-page'"
+    class="app-header"
+  >
     <section class="navbar-container">
       <div class="navbar-left-side">
         <router-link tag="span" to="/">Finito</router-link>
@@ -23,13 +27,16 @@
             :style="navbarBgStyle.navBar.buttonColors"
             class="nav-btn"
             tag="li"
-            to="/logout"
-          >Logout</router-link>
+            to="/Login"
+          >Login</router-link>
+          <router-link
+            :style="navbarBgStyle.navBar.buttonColors"
+            class="nav-btn"
+            tag="li"
+            to="/signup"
+          >Sign Up</router-link>
           <i class="far fa-bell header-item notification-icon"></i>
           <Avatar username="Guest" :size="35" />
-          <!-- <router-link tag="li" to="/login" class="header-item">Login</router-link> -->
-          <!-- <router-link tag="li" to="/signup" v-show="!loggedUser" >Sign Up</router-link> -->
-          <!-- <button class="logout-btn" @click="logout" v-show="loggedUser" >Log Out</button> -->
         </ul>
       </nav>
     </section>
@@ -49,24 +56,23 @@ export default {
 
   computed: {
     navbarBgStyle() {
-      if (this.$route.path === "/home") {
-        return {
-          navBar: {
-            navbarBgColor: "background-color:#3498db",
-            buttonColors: "background-color:#fff;color:#333"
-          }
-        };
-      }
-      if (this.$route.fullPath.includes("/board")) {
+      if (this.$route.name === "Finito-app" || this.$route.path === "/Login") {
         return {
           navBar: {
             navbarBgColor: "background-color:#0006",
             buttonColors: "background-color:#2383c4;color:#fff"
           }
         };
-      }
+      } else
+        return {
+          navBar: {
+            navbarBgColor: "background-color:#3498db",
+            buttonColors: "background-color:#fff;color:#333"
+          }
+        };
     },
     buttonColor() {}
-  }
+  },
+  displayHeader() {}
 };
 </script>

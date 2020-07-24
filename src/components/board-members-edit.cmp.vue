@@ -8,10 +8,14 @@
         @input="searchUsers"
       />
       <section class="members-container">
-        <section v-for="user in filteredUsers" :key="user.userName" class="member">
-          <Avatar :username="user.userName" :size="25"/>
+        <section
+          v-for="user in filteredUsers"
+          :key="user.userName"
+          class="member"
+        >
+          <Avatar :username="user.userName" :size="25" />
           <h4 @click="toggleUser(user)">{{ user.userName }}</h4>
-            <i v-if="isInBoard(user)" class="el-icon-check v-member"></i>
+          <i v-if="isInBoard(user)" class="el-icon-check v-member"></i>
         </section>
       </section>
     </task-action-container>
@@ -36,11 +40,10 @@ export default {
     };
   },
   computed: {
-     currMembers(){
-        let board= this.$store.getters.board
-        return board.members
+    currMembers() {
+      let board = this.$store.getters.board;
+      return board.members;
     },
-     
   },
   async created() {
     this.users = await this.$store.dispatch({ type: "loadUsers" });
@@ -50,29 +53,29 @@ export default {
       this.searchText = text;
     },
     searchUsers(text) {
-     this.filteredUsers=this.users.filter((user) => {
+      console.log(text);
+      this.filteredUsers = this.users.filter((user) => {
         if (user.userName.toLowerCase().includes(text.toLowerCase())) {
           return user;
         }
       });
     },
-     isInBoard(user) {
+    isInBoard(user) {
       return this.currMembers.find((m) => m._id === user._id);
     },
-    toggleUser(user){
-        let currMembers=this.currMembers
-        if(this.isInBoard(user)){
-            const idx=currMembers.findIndex(u=>u._id===user._id)
-            currMembers.splice(idx,1)
-        }else{
-            currMembers.push(user)
-        }
-        this.$emit('update',currMembers)
+    toggleUser(user) {
+      let currMembers = JSON.parse(JSON.stringify(this.currMembers));
+      if (this.isInBoard(user)) {
+        const idx = currMembers.findIndex((u) => u._id === user._id);
+        currMembers.splice(idx, 1);
+      } else {
+        currMembers.push(user);
+      }
+      this.$emit("update", currMembers);
     },
-    closeMembers(){
-      this.$emit('close')
-    }
-   
+    closeMembers() {
+      this.$emit("close");
+    },
   },
 };
 </script>

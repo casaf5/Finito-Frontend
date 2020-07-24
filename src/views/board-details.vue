@@ -12,6 +12,7 @@
         <Draggable v-for="taskGroup in board.taskGroups" :key="taskGroup.id">
           <task-group :taskGroup="taskGroup" @taskDrop="onTaskDrop" @taskClicked="openTaskModal" />
         </Draggable>
+        <add-group @addGroup="addGroup" />
       </Container>
     </section>
   </section>
@@ -24,6 +25,7 @@ import taskDetails from "@/components/task-details.cmp.vue";
 import taskGroup from "../components/task-group.cmp.vue";
 import socketService from "../services/socket-service";
 import boardOptionsNav from "../components/board-options-nav.vue";
+import addGroup from "../components/add-group.cmp";
 
 export default {
   name: "board-details",
@@ -32,7 +34,8 @@ export default {
     Draggable,
     taskGroup,
     taskDetails,
-    boardOptionsNav
+    boardOptionsNav,
+    addGroup
   },
   data() {
     return {
@@ -52,7 +55,6 @@ export default {
     socketService.on("boardUpdate", board => {
       this.$store.commit({ type: "setBoard", board });
     });
-    this.$emit("setCover", this.board.style);
   },
   computed: {
     board() {
@@ -87,6 +89,11 @@ export default {
         board.taskGroups.splice(taskGroupIndex, 1, newTaskGroup);
         this.sendToSocket(board);
       }
+    },
+    addGroup(newGroup) {
+      const board = this.board;
+      board.taskGroups.push(newGroup);
+      this.$store.dispatch({ type: "saveBoard", board });
     },
     openTaskModal(task) {
       this.taskToEdit = task;

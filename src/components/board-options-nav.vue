@@ -27,13 +27,13 @@
         @imageChoosen="setBoardBg"
       />
     </section>
-    <board-menu v-if="menuIsOpen" @close="toggleMenu" />
+    <board-activity v-if="menuIsOpen" @close="toggleMenu" />
   </section>
 </template>
 
 <script>
 import Avatar from "vue-avatar";
-import boardMenu from "../components/board-menu.cmp";
+import boardActivity from "../components/board-activity-menu.cmp";
 import boardMembersEdit from "./board-members-edit.cmp";
 import boardBgSelect from "./board-bg-select.cmp";
 export default {
@@ -48,7 +48,8 @@ export default {
     };
   },
   created() {
-    this.board = this.$store.getters.board;
+    const board = this.$store.getters.board;
+    this.board=JSON.parse(JSON.stringify(board))
   },
   methods: {
     updateBoard() {
@@ -76,7 +77,7 @@ export default {
   },
   components: {
     Avatar,
-    boardMenu,
+    boardActivity,
     boardBgSelect,
     boardMembersEdit
   }
