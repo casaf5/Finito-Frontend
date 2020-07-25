@@ -1,9 +1,10 @@
 <template>
   <div>
-    <div class="overlay-content">
-      <slot></slot>
+    <div @click.self="backGroundClicked" style="cursor:pointer" class="overlay-wrapper">
+      <div class="overlay-content">
+        <slot></slot>
+      </div>
     </div>
-    <div @click.self="backGroundClicked" style="cursor:pointer" class="overlay-wrapper"></div>
   </div>
 </template>
 

@@ -231,8 +231,8 @@
   ul {
     padding-left: 0;
     font-size: rem(12px);
-    max-height: 600px;
-    overflow: scroll;
+    max-height: 270px;
+    overflow-y: auto;
   }
   .details-activity-text {
     margin-left: 0.7rem;

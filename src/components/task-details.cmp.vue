@@ -1,9 +1,9 @@
 <template>
-  <modal>
+  <modal @close="showModal= !showModal">
     <section class="task-details">
       <!-- will change to col from task width-->
       <div class="task-details-containers-wraper">
-        <button class="close-modal-btn" @click="closeModal">
+        <button class="close-modal-btn" @click="showModal= !showModal">
           <i class="fas fa-times-circle"></i>
         </button>
         <div class="task-details-main-container">
@@ -129,7 +129,7 @@ export default {
       user: null,
       taskIdx: null,
       // checked: false,
-
+      showModal: false,
       boardToEdit: null
     };
   },

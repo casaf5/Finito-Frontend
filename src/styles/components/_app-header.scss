@@ -36,17 +36,25 @@
       display: flex;
       align-items: center;
       border-radius: 3px;
+      position: relative;
       input {
-        background-color: transparent;
         border: 0px;
+        transition: all 0.3s ease-in-out;
+        border-radius: 3px;
         &::placeholder {
           font-family: inherit;
           color: rgb(221, 221, 221);
         }
         &:focus {
-          color: #fff;
+          color: #000;
           border: 0px;
           outline: none;
+          background-color: #fff;
+          transform: scale(1.2);
+        }
+        &:focus ~ .search-icon {
+          color: #333;
+          right: -10px;
         }
         li {
           font-size: rem(13px);
@@ -58,8 +66,11 @@
         }
       }
       .search-icon {
+        transition: all 0.3s ease-in-out;
+        right: 2%;
+        position: absolute;
         margin-right: 3px;
-        color: #fff;
+        color: #000;
       }
     }
     .nav-btn {

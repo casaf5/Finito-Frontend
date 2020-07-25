@@ -1,7 +1,12 @@
 <template>
   <section class="board-options flex space-between">
     <section class="left-side flex space-between">
-      <input type="text" placeholder="Board Name" v-model="board.name" @blur="updateBoard" />
+      <input
+        type="text"
+        placeholder="Board Name"
+        v-model="board.name"
+        @blur="updateBoard"
+      />
       <!-- <span @input="sync" v-text="content" contenteditable="true"></span> -->
       <section class="board-members flex">
         <Avatar
@@ -20,7 +25,10 @@
     </section>
 
     <section class="right-side">
-      <router-link class="nav-btn" tag="li" to="/board/dash/charts">Dashboard</router-link>
+      <router-link class="nav-btn" tag="button" to="/board/dash/charts">
+        <i class="el-icon-pie-chart"></i>
+        Dashboard
+      </router-link>
       <button @click.self="toggleMenu">Activity Log</button>
       <button @click.self="toggleBgSelect">Background</button>
       <board-bg-select
@@ -48,7 +56,7 @@ export default {
       bgSelectOpen: false,
       boardMembersOpen: false,
       style: { bgColor: "", bgUrl: "" },
-      content: ""
+      content: "",
     };
   },
   created() {
@@ -80,13 +88,13 @@ export default {
     membersUpdate(members) {
       this.board.members = members;
       this.updateBoard();
-    }
+    },
   },
   components: {
     Avatar,
     boardActivity,
     boardBgSelect,
-    boardMembersEdit
-  }
+    boardMembersEdit,
+  },
 };
 </script>

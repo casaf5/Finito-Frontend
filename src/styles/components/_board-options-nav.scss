@@ -1,5 +1,5 @@
 .board-options {
-  position: absolute;
+  position: fixed;
   width: 100%;
   color: white;
   text-align: center;
@@ -45,7 +45,6 @@
       align-self: center;
       height: 35px;
       color: white;
-      font-family: Montserrat-Bold;
       border-radius: 3px;
       font-size: 16px;
       &:focus {
@@ -64,16 +63,20 @@
     display: flex;
     align-items: center;
     button {
-      background-color: #465055;
+      background-color: #3498db;
       border-radius: 3px;
       border: none;
       outline: none;
       padding: 5px;
       font-family: Montserrat;
-      font-size: 18px;
+      font-size: 16px;
       color: white;
       margin-inline-start: 10px;
+      .el-icon-pie-char {
+        margin: 0;
+      }
     }
+
     .bgSelector {
       color: black;
       position: absolute;
