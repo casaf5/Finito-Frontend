@@ -24,7 +24,6 @@
       </div>
      </div>
    </div>
-    {{completedMembersTasks}}
   </section>
 </template>
 
@@ -95,8 +94,8 @@ export default {
     computed: {
     monthsToShow(){
       const monthsForward = []
-      // make if full year since board started - always 12 months a head - add a change which accept any time to start from
-      if (!this.monthToStartFrom) {this.monthToStartFrom = new Date(this.board.createdAt).getMonth()}
+      // make if full year since this month - shows 12 month backward
+      if (!this.monthToStartFrom) {this.monthToStartFrom = (new Date(Date.now()).getMonth())+2}
       var currMonth = this.monthToStartFrom-1
       for (var i=0; i<12; i++) {
         monthsForward.push(this.months[currMonth])
@@ -136,7 +135,7 @@ export default {
     },
     boardMembersNames(){
         // change to userName (with mongo)
-        return this.board.members.map(m => m.name)
+        return this.board.members.map(m => m.userName)
     },
        // change to userName (with mongo)
     tasksNumPerMember(){
@@ -145,7 +144,7 @@ export default {
             return this.board.taskGroups.reduce((higherAcc, tg) => {
                 return higherAcc += tg.tasks.reduce((acc, task) => {
                     task.members.forEach (m => {
-                        if (m.name === memberName) {
+                        if (m.userName === memberName) {
                             acc ++; 
                         }
                     })
@@ -160,7 +159,7 @@ export default {
         return this.boardMembersNames.map(memberName => {
             return this.allTasks.reduce((acc, task) => {
               task.members.forEach (m => {
-               if ((task.isComplete)&& (m.name === memberName))
+               if ((task.isComplete)&& (m.userName === memberName))
                   {acc ++}
               })
             return acc
@@ -184,7 +183,7 @@ export default {
             datasets: [
                         {
                 label: 'Members Progress Over a Full Year',
-                backgroundColor: 'rgb(35, 131, 196)',
+                backgroundColor: '#003366',
                 data: this.completedTasksPerMonth
                  }
                ]

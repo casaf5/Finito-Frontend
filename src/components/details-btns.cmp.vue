@@ -119,7 +119,7 @@ export default {
   computed: {
     watchIsOn() {
       const isOn = this.taskToEdit.watchMembers.find(
-        member => member.id === this.user.id
+        member => member._id === this.user._id
       )
         ? true
         : false;
@@ -212,7 +212,7 @@ export default {
       this.$emit("emitBoardChange", "JOINED_MEMBER");
     },
     removeMember(member) {
-      const idx = this.task.members.findIndex(m => m.id === member.id);
+      const idx = this.task.members.findIndex(m => m._id === member._id);
       this.taskToEdit.members.splice(idx, 1);
       this.$emit("emitBoardChange", "MEMBER_LEFT");
     },
@@ -256,7 +256,7 @@ export default {
     },
     toggleWatch() {
       const idx = this.taskToEdit.watchMembers.findIndex(
-        member => member.id === this.user.id
+        member => member._id === this.user._id
       );
       if (idx !== -1) {
         this.taskToEdit.watchMembers.splice(idx, 1);
