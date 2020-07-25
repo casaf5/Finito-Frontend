@@ -74,6 +74,8 @@ export default {
     colorSettings() {
       if (this.size === "small") {
         return "color-small";
+      } else if (this.size === "extra-small") {
+        return "extra-small";
       } else {
         return "color-medium";
       }
@@ -101,6 +103,12 @@ export default {
   .color-medium {
     width: 78px;
     height: 35px;
+  }
+  .color.extra-small {
+    margin: 2px 4px 2px 0;
+
+    width: 35px;
+    height: 26px;
   }
 }
 </style>

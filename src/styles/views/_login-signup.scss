@@ -1,5 +1,5 @@
 .login-cmp {
-  padding-top: 80px;
+  padding-top: 20px;
   background: linear-gradient(to right, #1e3c72, #2a5298);
   width: 100%;
   height: 100vh;
@@ -25,13 +25,13 @@
     margin-top: 25px;
     background-color: #fff;
     padding: rem(15px);
-    height: 300px;
+    min-height: 300px;
     width: 280px;
     border-radius: 3px;
     .login-btn,
     .signup-btn {
       padding: 10px 30px;
-      margin-top: 30px;
+      margin-top: 10px;
       font-size: rem(16px);
       border-radius: 3px;
       transition: all 0.4s ease-in-out;
@@ -43,8 +43,7 @@
       margin: 10px 0;
       font-weight: 600;
     }
-    p {
-      margin-top: 25px;
+    span {
       text-align: center;
     }
     // img {

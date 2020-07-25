@@ -13,7 +13,7 @@
       </div>
       <div class="task-title-container flex">
         <span @click="taskClicked">{{ task.title }}</span>
-        <i class="el-icon-edit edit"></i>
+        <i class="el-icon-delete"></i>
       </div>
       <div class="task-status-container" @click="taskClicked">
         <div
@@ -55,7 +55,7 @@ export default {
   computed: {
     checkListsStatus() {
       let isUncompleted;
-      let completedAmout=0;
+      let completedAmout = 0;
       let allTasks = 0;
       this.currentTask.checkLists.forEach(checkList => {
         allTasks += checkList["items"].length;

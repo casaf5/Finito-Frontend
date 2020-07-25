@@ -114,7 +114,7 @@ export default {
     this.taskGroup = this.board.taskGroups.find(
       tg => tg.id === this.task.parentListId
     );
-    this.taskToEdit = this.taskGroup.tasks.find(t => t.id === this.task.id); 
+    this.taskToEdit = this.taskGroup.tasks.find(t => t.id === this.task.id);
   },
   computed: {
     watchIsOn() {
@@ -161,8 +161,16 @@ export default {
         color,
         id
       };
-      this.taskToEdit.labels.push(taskLabel);
-      this.$emit("emitBoardChange", "ADDED_LABEL");
+      const labelIndex = this.taskToEdit.labels.findIndex(
+        label => label.id === taskLabel.id
+      );
+      if (labelIndex > -1) {
+        this.taskToEdit.labels.splice(labelIndex, 1);
+        this.$emit("emitBoardChange", "REMOVED_LABEL");
+      } else {
+        this.taskToEdit.labels.push(taskLabel);
+        this.$emit("emitBoardChange", "ADDED_LABEL");
+      }
     },
     editLabel({ label: { title, id, color, selectedColor }, index }) {
       const boardLabel = {
