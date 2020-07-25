@@ -1,6 +1,7 @@
 <template>
   <section class="task-details">
     <!-- will change to col from task width-->
+    <modal>
     <div class="task-details-containers-wraper">
       <button class="close-modal-btn" @click="showModal = !showModal">
         <i class="fas fa-times-circle"></i>
@@ -126,6 +127,7 @@
         </div>
       </div>
     </div>
+    </modal>
   </section>
 </template>
 

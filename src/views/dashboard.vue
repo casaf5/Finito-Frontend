@@ -182,7 +182,7 @@ export default {
           labels: this.monthsToShow,
             datasets: [
                         {
-                label: 'Members Progress Over a Full Year',
+                label: 'All Completed Tasks Over a Year',
                 backgroundColor: '#003366',
                 data: this.completedTasksPerMonth
                  }
