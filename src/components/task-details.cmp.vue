@@ -2,45 +2,46 @@
   <section class="task-details">
     <!-- will change to col from task width-->
     <modal>
-    <div class="task-details-containers-wraper">
-      <button class="close-modal-btn" @click="showModal = !showModal">
-        <i class="fas fa-times-circle"></i>
-      </button>
-      <div class="task-details-main-container">
-        <div class="task-left-container">
-          <div class="task-details-titles-container">
-            <i class="el-icon-postcard"></i>
-            <input
-              type="text"
-              v-model="task.title"
-              class="task-name"
-              @blur="updateTitle"
-            />
-            <h6 class="task-group-name">
-              in Task-Group
-              <span>{{ taskGroup.title }}</span>
-            </h6>
-          </div>
-          <!-- combine with due date -->
-          <!-- <el-checkbox  @click="toggleTaskCompletion" v-model="checked" class="task-isComplete" >Completed</el-checkbox> -->
-          <div class="task-members-labels-date flex wrap">
-            <section
-              v-show="task.members.length"
-              class="task-members-container-wraper"
-            >
-              <h6>Members</h6>
-              <div class="task-members-container flex">
-                <div v-for="(member, idx) in task.members" :key="idx">
-                  <avatar
-                    v-if="member.img"
-                    :src="member.img"
-                    :size="35"
-                  ></avatar>
-                  <avatar
-                    v-else
-                    :username="member.userName"
-                    :size="35"
-                  ></avatar>
+      <div class="task-details-containers-wraper">
+        <button class="close-modal-btn" @click="showModal = !showModal">
+          <i class="fas fa-times-circle"></i>
+        </button>
+        <div class="task-details-main-container">
+          <div class="task-left-container">
+            <div class="task-details-titles-container">
+              <i class="el-icon-postcard"></i>
+              <input
+                type="text"
+                v-model="task.title"
+                class="task-name"
+                @blur="updateTitle"
+              />
+              <h6 class="task-group-name">
+                in Task-Group
+                <span>{{ taskGroup.title }}</span>
+              </h6>
+            </div>
+            <!-- combine with due date -->
+            <!-- <el-checkbox  @click="toggleTaskCompletion" v-model="checked" class="task-isComplete" >Completed</el-checkbox> -->
+            <div class="task-members-labels-date flex wrap">
+              <section
+                v-show="task.members.length"
+                class="task-members-container-wraper"
+              >
+                <h6>Members</h6>
+                <div class="task-members-container flex">
+                  <div v-for="(member, idx) in task.members" :key="idx">
+                    <avatar
+                      v-if="member.img"
+                      :src="member.img"
+                      :size="35"
+                    ></avatar>
+                    <avatar
+                      v-else
+                      :username="member.userName"
+                      :size="35"
+                    ></avatar>
+                  </div>
                 </div>
               </section>
               <section
