@@ -95,7 +95,8 @@ export default {
     monthsToShow(){
       const monthsForward = []
       // make if full year since this month - shows 12 month backward
-      if (!this.monthToStartFrom) {this.monthToStartFrom = (new Date(Date.now()).getMonth())+2}
+      if (!this.monthToStartFrom) {this.monthToStartFrom = (new Date(Date.now()).getMonth())+1}
+      console.log(this.monthToStartFrom)
       var currMonth = this.monthToStartFrom-1
       for (var i=0; i<12; i++) {
         monthsForward.push(this.months[currMonth])
@@ -122,7 +123,10 @@ export default {
         return this.board.activities.reduce((acc,activity) => {
           const creationMonth = new Date(activity.createdAt).getMonth()
           const monthByWord = this.months[creationMonth-1]
-          if ((activity.action === "COMPLETED_TASK") && (month === monthByWord)) acc++         
+          if ((activity.action === "COMPLETED_TASK") && (month === monthByWord)) {
+            console.log(creationMonth)
+            acc++
+          }         
           return acc
         }, 0)
       })

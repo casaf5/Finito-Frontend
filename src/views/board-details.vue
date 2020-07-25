@@ -6,11 +6,14 @@
   >
     <board-options-nav />
     <section class="board-details">
-      <task-details
-        v-if="taskToEdit"
-        :taskToEdit="taskToEdit"
-        @closeModal="closeTaskModal"
-      />
+      <modal @close="closeTaskModal" v-if="showModal">
+        <task-details
+          @close="closeTaskModal"
+          v-if="taskToEdit"
+          :taskToEdit="taskToEdit"
+          @closeModal="closeTaskModal"
+        />
+      </modal>
       <Container
         @drop="onDrop"
         drag-handle-selector=".task-group-title"
@@ -38,7 +41,7 @@ import taskGroup from "../components/task-group.cmp.vue";
 import socketService from "../services/socket-service";
 import boardOptionsNav from "../components/board-options-nav.vue";
 import addGroup from "../components/add-group.cmp";
-
+import modal from "../components/UI Components/modal";
 export default {
   name: "board-details",
   components: {
@@ -48,6 +51,7 @@ export default {
     taskDetails,
     boardOptionsNav,
     addGroup,
+    modal,
   },
   data() {
     return {
@@ -57,6 +61,7 @@ export default {
         animationDuration: "150",
         showOnTop: true,
       },
+      showModal: false,
     };
   },
   async created() {
@@ -109,9 +114,10 @@ export default {
     },
     openTaskModal(task) {
       this.taskToEdit = task;
+      this.showModal = !this.showModal;
     },
     closeTaskModal() {
-      this.taskToEdit = null;
+      this.showModal = !this.showModal;
     },
     sendToSocket(board) {
       socketService.emit("boardUpdate", board);
