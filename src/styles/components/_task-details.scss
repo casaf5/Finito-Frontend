@@ -176,7 +176,22 @@
     }
   }
   .task-labels-container-wraper {
+    margin-inline-start: 40px;
     margin-right: 1rem;
+    .add-label {
+      cursor: pointer;
+      background-color: rgb(239, 239, 239);
+      width: 35px;
+      margin: 2px 2px;
+      height: 26px;
+      display: flex;
+      align-items: center;
+      text-align: center;
+      justify-content: center;
+      i {
+        font-size: 14px;
+      }
+    }
   }
   .task-date-container-wraper {
     margin-right: 1rem;
@@ -225,12 +240,11 @@
     h4 {
       font-size: 15px;
       font-family: Montserrat;
-      margin:0;
+      margin: 0;
     }
     span {
       font-size: 12px;
       color: #5e6c84;
     }
   }
- 
 }

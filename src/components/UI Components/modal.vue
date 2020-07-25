@@ -33,7 +33,7 @@ export default {
   position: fixed;
   left: 0;
   top: 0;
-  overflow: auto;
+  overflow-y: auto;
   margin-bottom: 5rem;
   z-index: 20;
 }

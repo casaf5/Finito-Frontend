@@ -2,6 +2,7 @@
   <section class="board-options flex space-between">
     <section class="left-side flex space-between">
       <input type="text" placeholder="Board Name" v-model="board.name" @blur="updateBoard" />
+      <!-- <span @input="sync" v-text="content" contenteditable="true"></span> -->
       <section class="board-members flex">
         <Avatar
           v-for="member in board.members"
@@ -16,10 +17,10 @@
           @close="toggleAddMember"
         />
       </section>
-      <router-link class="nav-btn" tag="li" to="/board/dash/charts">Dashboard</router-link>
     </section>
 
     <section class="right-side">
+      <router-link class="nav-btn" tag="li" to="/board/dash/charts">Dashboard</router-link>
       <button @click.self="toggleMenu">Activity Log</button>
       <button @click.self="toggleBgSelect">Background</button>
       <board-bg-select
@@ -46,12 +47,16 @@ export default {
       menuIsOpen: false,
       bgSelectOpen: false,
       boardMembersOpen: false,
-      style: { bgColor: "", bgUrl: "" }
+      style: { bgColor: "", bgUrl: "" },
+      content: ""
     };
   },
   created() {
     const board = this.$store.getters.board;
     this.board = JSON.parse(JSON.stringify(board));
+  },
+  mounted() {
+    this.content = this.board.name;
   },
   methods: {
     updateBoard() {
