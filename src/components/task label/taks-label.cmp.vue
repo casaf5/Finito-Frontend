@@ -1,4 +1,4 @@
-<template>
+<template class="task-labels">
   <component
     @selectedColor="selectedColor"
     @back="toggleComponent"

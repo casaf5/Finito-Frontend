@@ -13,7 +13,7 @@ export default {
         {
           label: "GitHub Commits",
           // make more colors
-          backgroundColor: ['#3399FF', '#3366CC', '#003366', '#79BEDB', '#10C8CD', '#10C8CD'],
+          backgroundColor: ['#3399FF', '#3366CC', '#003366', '#79BEDB', '#10C8CD', 'gray'],
           data: this.data
         }
       ],
