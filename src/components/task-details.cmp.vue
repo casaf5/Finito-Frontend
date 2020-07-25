@@ -1,105 +1,132 @@
 <template>
-  <modal @close="showModal= !showModal">
-    <section class="task-details">
-      <!-- will change to col from task width-->
-      <div class="task-details-containers-wraper">
-        <button class="close-modal-btn" @click="showModal= !showModal">
-          <i class="fas fa-times-circle"></i>
-        </button>
-        <div class="task-details-main-container">
-          <div class="task-left-container">
-            <div class="task-details-titles-container">
-              <i class="el-icon-postcard"></i>
-              <input type="text" v-model="task.title" class="task-name" @blur="updateTitle" />
-              <h6 class="task-group-name">
-                in Task-Group
-                <span>{{ taskGroup.title }}</span>
-              </h6>
-            </div>
-            <!-- combine with due date -->
-            <!-- <el-checkbox  @click="toggleTaskCompletion" v-model="checked" class="task-isComplete" >Completed</el-checkbox> -->
-            <div class="task-members-labels-date flex wrap">
-              <section v-show="task.members.length" class="task-members-container-wraper">
-                <h6>Members</h6>
-                <div class="task-members-container flex">
-                  <div v-for="(member, idx) in task.members" :key="idx">
-                    <avatar v-if="member.img" :src="member.img" :size="35"></avatar>
-                    <avatar v-else :username="member.userName" :size="35"></avatar>
-                  </div>
-                </div>
-              </section>
-              <section v-show="task.labels.length" class="task-labels-container-wraper">
-                <h6>Labels</h6>
-                <div class="task-labels-container flex">
-                  <color-small
-                    size="extra-small"
-                    :propColor="task.labels"
-                    @colorClicked="removeLabel"
-                  />
-                  <div class="add-label">
-                    <i class="el-icon-plus"></i>
-                  </div>
-                </div>
-              </section>
-              <section v-show="task.dueDate" class="task-date-container-wraper">
-                <h6>Due Date</h6>
-                <div class="task-date-container flex">
-                  <label>
-                    <input type="checkbox" v-model="task.isComplete" @click="toggleTaskCompletion" />
-                    {{ task.dueDate }}
-                  </label>
-                </div>
-              </section>
-            </div>
-            <div class="task-desc-container">
-              <i class="el-icon-s-unfold"></i>
-              <h4>Description</h4>
-              <textarea
-                placeholder="Add Description to task.."
-                @click="focusOnDesc"
-                v-model="task.desc"
-                ref="desTextArea"
-                @blur="removeFocus"
-                class="desc-textarea"
-              />
-            </div>
-            <div class="task-attachments-container" v-if="task.attachments.length > 0">
-              <i class="fas fa-file-alt"></i>
-              <h4>Attachments</h4>
-              <file-preview
-                v-for="(file, idx) in task.attachments"
-                :file="file"
-                :cover="task.cover"
-                :key="idx"
-                @remove="removeAttach(idx)"
-                @cover="setTaskCover(idx)"
-              />
-            </div>
-            <div class="task-checklists" v-if="task.checkLists.length > 0">
-              <task-check-list
-                v-for="(checklist, idx) in task.checkLists"
-                :checklist="checklist"
-                :key="idx"
-                @remove="removeCheckList(idx)"
-                @update="updateCheckList(idx)"
-              />
-            </div>
-            <task-activity v-if="activitiesToShow" :activities="activitiesToShow" />
+  <section class="task-details">
+    <!-- will change to col from task width-->
+    <div class="task-details-containers-wraper">
+      <button class="close-modal-btn" @click="showModal = !showModal">
+        <i class="fas fa-times-circle"></i>
+      </button>
+      <div class="task-details-main-container">
+        <div class="task-left-container">
+          <div class="task-details-titles-container">
+            <i class="el-icon-postcard"></i>
+            <input
+              type="text"
+              v-model="task.title"
+              class="task-name"
+              @blur="updateTitle"
+            />
+            <h6 class="task-group-name">
+              in Task-Group
+              <span>{{ taskGroup.title }}</span>
+            </h6>
           </div>
-          <div class="task-right-container">
-            <details-btns
-              :board="boardToEdit"
-              :user="user"
-              :taskIdx="taskIdx"
-              :task="task"
-              @emitBoardChange="boardChanged"
-              @emitCloseModal="closeModal"
+          <!-- combine with due date -->
+          <!-- <el-checkbox  @click="toggleTaskCompletion" v-model="checked" class="task-isComplete" >Completed</el-checkbox> -->
+          <div class="task-members-labels-date flex wrap">
+            <section
+              v-show="task.members.length"
+              class="task-members-container-wraper"
+            >
+              <h6>Members</h6>
+              <div class="task-members-container flex">
+                <div v-for="(member, idx) in task.members" :key="idx">
+                  <avatar
+                    v-if="member.img"
+                    :src="member.img"
+                    :size="35"
+                  ></avatar>
+                  <avatar
+                    v-else
+                    :username="member.userName"
+                    :size="35"
+                  ></avatar>
+                </div>
+              </div>
+            </section>
+            <section
+              v-show="task.labels.length"
+              class="task-labels-container-wraper"
+            >
+              <h6>Labels</h6>
+              <div class="task-labels-container flex">
+                <color-small
+                  size="extra-small"
+                  :propColor="task.labels"
+                  @colorClicked="removeLabel"
+                />
+                <div class="add-label">
+                  <i class="el-icon-plus"></i>
+                </div>
+              </div>
+            </section>
+            <section v-show="task.dueDate" class="task-date-container-wraper">
+              <h6>Due Date</h6>
+              <div class="task-date-container flex">
+                <label>
+                  <input
+                    type="checkbox"
+                    v-model="task.isComplete"
+                    @click="toggleTaskCompletion"
+                  />
+                  {{ task.dueDate }}
+                </label>
+              </div>
+            </section>
+          </div>
+          <div class="task-desc-container">
+            <i class="el-icon-s-unfold"></i>
+            <h4>Description</h4>
+            <textarea
+              placeholder="Add Description to task.."
+              @click="focusOnDesc"
+              v-model="task.desc"
+              ref="desTextArea"
+              @blur="removeFocus"
+              class="desc-textarea"
             />
           </div>
+          <div
+            class="task-attachments-container"
+            v-if="task.attachments.length > 0"
+          >
+            <i class="fas fa-file-alt"></i>
+            <h4>Attachments</h4>
+            <file-preview
+              v-for="(file, idx) in task.attachments"
+              :file="file"
+              :cover="task.cover"
+              :key="idx"
+              @remove="removeAttach(idx)"
+              @cover="setTaskCover(idx)"
+            />
+          </div>
+          <div class="task-checklists" v-if="task.checkLists.length > 0">
+            <task-check-list
+              v-for="(checklist, idx) in task.checkLists"
+              :checklist="checklist"
+              :key="idx"
+              @remove="removeCheckList(idx)"
+              @update="updateCheckList(idx)"
+            />
+          </div>
+          <task-activity
+            v-if="activitiesToShow"
+            :activities="activitiesToShow"
+          />
+        </div>
+        <div class="task-right-container">
+          <details-btns
+            :board="boardToEdit"
+            :user="user"
+            :taskIdx="taskIdx"
+            :task="task"
+            @emitBoardChange="boardChanged"
+            @emitCloseModal="closeModal"
+          />
         </div>
       </div>
-    </section>
-  </modal>
+    </div>
+  </section>
 </template>
 
 <script>
@@ -130,29 +157,29 @@ export default {
       taskIdx: null,
       // checked: false,
       showModal: false,
-      boardToEdit: null
+      boardToEdit: null,
     };
   },
   created() {
     this.boardToEdit = JSON.parse(JSON.stringify(this.board));
     const taskGroupId = this.taskToEdit.parentListId;
     this.taskGroup = this.boardToEdit.taskGroups.find(
-      tg => tg.id === taskGroupId
+      (tg) => tg.id === taskGroupId
     );
     const taskGroupIdx = this.boardToEdit.taskGroups.findIndex(
-      tg => tg.id === taskGroupId
+      (tg) => tg.id === taskGroupId
     );
     this.task = this.taskGroup.tasks.find(
-      task => task.id === this.taskToEdit.id
+      (task) => task.id === this.taskToEdit.id
     );
-    this.taskIdx = this.taskGroup.tasks.findIndex(t => t.id === this.task.id);
+    this.taskIdx = this.taskGroup.tasks.findIndex((t) => t.id === this.task.id);
     this.user = this.$store.getters.loggedUser
       ? this.$store.getters.loggedUser
       : {
           id: "443",
           userName: "Guest",
           url:
-            "https://api.adorable.io/avatars/400/79c159e13036a02295c94901b6628bfe.png"
+            "https://api.adorable.io/avatars/400/79c159e13036a02295c94901b6628bfe.png",
         };
   },
   computed: {
@@ -164,16 +191,16 @@ export default {
       if (this.boardToEdit.activities.length > 0) {
         activities = this.boardToEdit.activities;
         activities = activities.filter(
-          activity => activity.editedTask.id === this.task.id
+          (activity) => activity.editedTask.id === this.task.id
         );
         return activities;
       }
-    }
+    },
   },
   methods: {
     updateBoard(actionStr = "ACTION SAVED") {
       socketService.emit("boardUpdate", this.boardToEdit);
-      socketService.on("boardUpdate", board => {
+      socketService.on("boardUpdate", (board) => {
         this.$store.commit({ type: "setBoard", board });
         // const savedBoard = await this.$store.dispatch({
         //   type: "updateBoard",
@@ -251,7 +278,7 @@ export default {
         action,
         byUser: this.user,
         txt: loggerService.buildLog(action, changed, this.user, this.task),
-        createdAt: Date.now()
+        createdAt: Date.now(),
       };
       this.boardToEdit.activities.unshift(activityToAdd);
       this.updateBoard(action);
@@ -259,7 +286,7 @@ export default {
     removeLabel(_, index) {
       this.task.labels.splice(index, 1);
       this.addActivity("REMOVED_LABEL");
-    }
+    },
   },
 
   components: {
@@ -270,8 +297,8 @@ export default {
     detailsBtns,
     filePreview,
     colorSmall,
-    modal
-  }
+    modal,
+  },
 };
 </script>
 

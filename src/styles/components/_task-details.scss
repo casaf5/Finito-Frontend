@@ -129,7 +129,7 @@
 
   .task-right-container {
     display: grid;
-    grid-template-rows: 60px repeat(11, 35px);
+    grid-template-rows: repeat(11, 35px);
     grid-auto-rows: 35px;
     grid-gap: 10px;
     button {
@@ -149,7 +149,7 @@
       }
     }
     .task-actions {
-      grid-row: 2;
+      grid-row: 1;
       label {
         font-size: rem(12px);
         margin: 10px 0;
