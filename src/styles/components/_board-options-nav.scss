@@ -4,10 +4,11 @@
   background-color: transparent;
   color: white;
   text-align: center;
-  height: 50px;
+  height: 41px;
+  top: 45px;
   background-color: rgba(0, 0, 0, 0.4);
   padding: 15px 0;
-  top: 55px;
+  padding-bottom: 18px;
   .left-side {
     margin-inline-start: 5px;
     .board-members {
@@ -58,7 +59,7 @@
   }
   .right-side {
     :last-child {
-      margin-right: 20px;
+      margin-right: 12px;
     }
     display: flex;
     align-items: center;
@@ -69,10 +70,10 @@
       outline: none;
       padding: 5px;
       font-family: Montserrat;
-      font-size: 16px;
+      font-size: 14px;
       color: white;
       margin-inline-start: 10px;
-      .el-icon-pie-char {
+      .el-icon-pie-chart {
         margin: 0;
       }
     }

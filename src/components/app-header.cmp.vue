@@ -31,7 +31,7 @@
             to="/signup"
             >Sign Up</router-link
           >
-          <i class="far fa-bell header-item notification-icon"></i>
+          <i class="far fa-bell header-item notification-icon notification-bell"></i>
           <Avatar username="Guest" :size="35" />
         </ul>
       </nav>
