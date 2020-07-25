@@ -18,6 +18,7 @@
     background-color: transparent;
     border: none;
     font-size: 18px;
+    width: 100%;
   }
   input ~ i {
     top: 4px;
@@ -30,7 +31,8 @@
   line-height: 1.25rem;
   background-color: #f4f5f7;
   position: absolute;
-  top: 0;
+  top: 45px;
+  margin-bottom:60px;
   left: 50%;
   transform: translate(-50%);
   font-size: 1.2rem;
@@ -128,6 +130,7 @@
   }
 
   .task-right-container {
+    padding-top: 1rem;
     display: grid;
     grid-template-rows: repeat(11, 35px);
     grid-auto-rows: 35px;
@@ -231,7 +234,7 @@
   ul {
     padding-left: 0;
     font-size: rem(12px);
-    max-height: 270px;
+    max-height: 200px;
     overflow-y: auto;
   }
   .details-activity-text {

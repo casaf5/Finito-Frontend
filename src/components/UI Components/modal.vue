@@ -24,7 +24,6 @@ export default {
 <style lang="scss" scoped>
 .overlay-wrapper {
   display: flex;
-  align-items: center;
   justify-content: center;
   height: 100%;
   width: 100%;
