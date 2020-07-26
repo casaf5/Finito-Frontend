@@ -37,10 +37,19 @@
           border: 0px;
           padding: 5px;
           transition: all 0.3s ease-in-out;
+          background-color: #ffffff52;
+          border: none;
+          padding: 5px;
+          margin: 5px;
+          align-self: center;
+          height: 25px;
+          width: 200px;
           border-radius: 3px;
+          font-size: 15px;
+          padding: 1;
           &::placeholder {
             font-family: inherit;
-            color: #000;
+            color: white;
           }
           &:focus {
             color: #000;
@@ -51,7 +60,7 @@
           }
           &:focus ~ .search-icon {
             color: #333;
-            right: -10px;
+            right: 0;
           }
           li {
             font-size: rem(13px);
@@ -64,10 +73,11 @@
         }
         .search-icon {
           transition: all 0.3s ease-in-out;
-          right: 2%;
+          right: 4%;
           position: absolute;
           margin-right: 3px;
           color: #000;
+          font-size: 15px;
         }
       }
       margin-left: 3px;
@@ -94,11 +104,16 @@
       font-size: 14px;
       border-radius: 3px;
       padding: 5px 10px;
-      margin-left: 0px;
+      margin-bottom: 2px;
+      margin-left:0;
       display: flex;
-      align-items: center;
-      background-color: #3498db;
+      justify-content: center;
+      color: #ffffff;
+      border: 1px solid white;
       transition: all 0.3s ease-in-out;
+      width: 80px;
+      height: 25px;
+      align-items: center;
       &:hover {
         background-color: darken(#3498db, 8%);
       }

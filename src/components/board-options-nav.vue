@@ -13,6 +13,7 @@
           v-for="member in board.members"
           :key="member._id"
           :size="30"
+          :src="member.img"
           :username="member.userName"
         />
         <i class="fas fa-user-plus" @click="toggleAddMember"></i>
@@ -22,16 +23,26 @@
           @close="toggleAddMember"
         />
       </section>
-  
     </section>
 
     <section class="right-side">
       <router-link class="nav-btn" tag="button" to="/board/dash/charts">
         <i class="el-icon-pie-chart"></i>
-        Dashboard
       </router-link>
-      <button @click.self="toggleMenu">Activity Log</button>
-      <button @click.self="toggleBgSelect">Background</button>
+      <button @click="toggleMenu">
+        <i class="fas fa-clipboard-list"></i>
+      </button>
+      <button @click="toggleBgSelect">
+        <i class="far fa-image"></i>
+      </button>
+      <button>
+        <i class="far fa-bell"></i>
+      </button>
+      <Avatar
+        class="logged-user-status"
+        src="https://us04images.zoom.us/p/OjcYh3vrTOW5Nd7c8YjmUw/121c96b7-02b7-44e5-9059-c5de7d765df2-7757?type=large"
+        :size="30"
+      />
       <board-bg-select
         class="bgSelector"
         v-if="bgSelectOpen"
@@ -59,24 +70,20 @@ export default {
       content: "",
     };
   },
-  // created() {
-  //   const board = this.$store.getters.board;
-  //   this.board = JSON.parse(JSON.stringify(board));
-  // },
   computed: {
     board() {
       return this.$store.getters.board;
     },
+   
   },
   mounted() {
     this.content = this.board.name;
-    console.log(this.$store.getters.tasksRefs)
   },
   methods: {
     updateName() {
       let board = this.board;
       board.name = this.$refs.boardName.value;
-      this.$store.dispatch({ type: "saveBoard", board});
+      this.$store.dispatch({ type: "saveBoard", board });
     },
     toggleMenu() {
       this.menuIsOpen = !this.menuIsOpen;
@@ -88,9 +95,9 @@ export default {
       this.boardMembersOpen = !this.boardMembersOpen;
     },
     setBoardBg(imageUrls) {
-      console.log('imageUrls',imageUrls)
       let board = this.board;
-      this.style.bgUrls[0] = imageUrls;
+      this.style.bgUrls = [imageUrls];
+      this.style.previewUrl=imageUrls.small
       this.board.style = this.style;
       this.$store.dispatch({ type: "saveBoard", board });
       this.$store.commit({ type: "setStyle", style: this.style });
@@ -98,7 +105,7 @@ export default {
     membersUpdate(members) {
       let board = this.board;
       board.members = members;
-      this.$store.dispatch({ type: "saveBoard", board});
+      this.$store.dispatch({ type: "saveBoard", board });
     },
   },
   components: {

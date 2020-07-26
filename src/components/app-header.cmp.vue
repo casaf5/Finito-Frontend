@@ -18,23 +18,19 @@
       <nav>
         <ul class="navbar clean-list">
           <router-link
-            :style="navbarBgStyle.navBar.buttonColors"
+           
             class="nav-btn"
             tag="li"
             to="/Login"
             >Login</router-link
           >
           <router-link
-            :style="navbarBgStyle.navBar.buttonColors"
             class="nav-btn"
             tag="li"
             to="/signup"
             >Sign Up</router-link
           >
-          <i
-            class="far fa-bell header-item notification-icon notification-bell"
-          ></i>
-          <Avatar username="Guest" :size="35" />
+        
         </ul>
       </nav>
     </section>
@@ -85,7 +81,6 @@ export default {
           ref.el.classList.add('yellow');
         }
       });
-      console.log(this.searchResults);
     },
   },
   mounted() {},
