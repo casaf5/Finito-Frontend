@@ -37,7 +37,7 @@
 
 <script>
 import AddTask from "../components/add-task.cmp";
-import TaskLabel from "../components/task label/taks-label.cmp";
+import TaskLabel from "../components/taskLabel/taks-label.cmp";
 import taskDuedate from "../components/task-duedate.cmp";
 import TaskCheckList from "../components/task-checklist.cmp";
 import TaskMembers from "../components/task-members.cmp";

@@ -16,7 +16,7 @@
 
 <script>
 import TaskActionContainer from "./task-action-container.cmp";
-import FormInput from "./From Elements/form-input.cmp";
+import FormInput from "./FormElements/form-input.cmp";
 
 export default {
   components: {

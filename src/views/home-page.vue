@@ -66,7 +66,7 @@
             <div class="template-img-container">
               <img
                 class="template-preview-img"
-                src="../assets/images/web-development-template.jpeg"
+                :src="require(`@/assets/images/${templatePreviewImg}`)"
               />
             </div>
             <div class="templdate-content-container">
@@ -120,11 +120,11 @@
 import { boardService } from "../services/board-service.js";
 import { UnsplashService } from "../services/unsplashImage-service";
 import boardPreview from "../components/board-preview.cmp.vue";
-import boardTemplate from "../components/UI Components/template";
-import formInput from "../components/From Elements/form-input.cmp";
-import searchImg from "../components/UI Components/search-img";
-import modal from "../components/UI Components/modal";
-import colorSmall from "../components/UI Components/color-small";
+import boardTemplate from "../components/UIComponents/template";
+import formInput from "../components/FormElements/form-input.cmp";
+import searchImg from "../components/UIComponents/search-img";
+import modal from "../components/UIComponents/modal";
+import colorSmall from "../components/UIComponents/color-small";
 import boardPreviewCmpVue from "../components/board-preview.cmp.vue";
 export default {
   name: "home-page",

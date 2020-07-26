@@ -10,7 +10,7 @@
     />
     <div class="imgs-container">
       <img
-        @click="imageChoosen(url,index)"
+        @click="imageChoosen(url, index)"
         :src="url[imageDisplaySize]"
         :key="index"
         v-for="(url, index) in imagesToDisplay"
@@ -20,28 +20,28 @@
 </template>
 
 <script>
-import formInput from "../From Elements/form-input.cmp";
+import formInput from "../FormElements/form-input.cmp";
 import { UnsplashService } from "../../services/unsplashImage-service";
 export default {
   props: {
     topImages: {
-      type: Array
+      type: Array,
     },
     imageDisplaySize: {
       type: String,
-      default: "thumb"
+      default: "thumb",
     },
     saveSettings: {
-      type: Object
+      type: Object,
     },
     getAllSizes: {
-      type: Boolean
-    }
+      type: Boolean,
+    },
   },
   data() {
     return {
       searchedImages: [],
-      query: ""
+      query: "",
     };
   },
   methods: {
@@ -51,7 +51,7 @@ export default {
     imageChoosen(url, index) {
       const { previewSize, saveSize } = this.saveSettings;
       let img = {
-        thumbnail: url["thumb"]
+        thumbnail: url["thumb"],
       };
       if (this.getAllSizes) {
         img.small = url["small"];
@@ -66,16 +66,16 @@ export default {
         }
       }
       this.$emit("imageChoosen", img);
-    }
+    },
   },
   components: {
-    formInput
+    formInput,
   },
   computed: {
     imagesToDisplay() {
       return this.searchedImages.length ? this.searchedImages : this.topImages;
-    }
-  }
+    },
+  },
 };
 </script>
 

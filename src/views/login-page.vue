@@ -29,7 +29,7 @@
 </template>
 
 <script>
-import formInput from "../components/From Elements/form-input.cmp";
+import formInput from "../components/FormElements/form-input.cmp";
 import {
   required,
   minValue,

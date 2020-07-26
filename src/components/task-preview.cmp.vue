@@ -40,8 +40,8 @@
 </template>
 
 <script>
-import Modal from "./UI Components/modal";
-import SmallLabel from "./UI Components/small-label";
+import Modal from "./UIComponents/modal";
+import SmallLabel from "./UIComponents/small-label";
 export default {
   props: {
     task: {

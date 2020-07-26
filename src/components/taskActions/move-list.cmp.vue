@@ -18,7 +18,7 @@
 </template>
 
 <script>
-import FormSelect from "../From Elements/form-select.cmp";
+import FormSelect from "../FormElements/form-select.cmp";
 export default {
   data() {
     return {
