@@ -1,7 +1,7 @@
 <template>
 <section class="member flex space-between" @click="emittoggleMember">
   <div class="member-container" >
-    <Avatar :src="member.url" :username="member.userName" :size="35" />
+    <Avatar :src="member.img" :username="member.userName" :size="30" />
     <span class="member-name">{{member.userName}}</span>
   </div>
   <slot>

@@ -1,5 +1,5 @@
 <template>
-  <div class="task-preview-container">
+  <div ref="taskPreview" class="task-preview-container">
     <div :style="taskCover" class="task-cover" @click="taskClicked"></div>
     <div class="task-preview-content">
       <div v-if="currentTask.labels.length >= 1" class="task-label-container">
@@ -34,6 +34,15 @@
           <span>{{ this.currentTask.attachments.length }}</span>
         </div>
         <i v-if="currentTask.desc" class="fas fa-stream"></i>
+        <div class="task-members-preview flex space-between">
+          <Avatar
+            v-for="member in task.members"
+            :key="member._id"
+            :src="member.img"
+            :username="member.userName"
+            :size="28"
+          />
+        </div>
       </div>
     </div>
   </div>
@@ -42,6 +51,7 @@
 <script>
 import Modal from "./UIComponents/modal";
 import SmallLabel from "./UIComponents/small-label";
+import Avatar from "vue-avatar";
 export default {
   props: {
     task: {
@@ -49,7 +59,6 @@ export default {
       required: true,
     },
   },
-  methods: {},
   data() {
     return {
       displayModal: false,
@@ -120,7 +129,6 @@ export default {
     },
     toggleLabels() {
       this.board.taskGroups.forEach((taskGroup) => {
-        console.log(taskGroup.isOpen);
         taskGroup.labelsOpen = !taskGroup.labelsOpen;
       });
     },
@@ -128,6 +136,7 @@ export default {
   components: {
     Modal,
     SmallLabel,
+    Avatar,
   },
 };
 </script>

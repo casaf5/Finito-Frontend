@@ -51,7 +51,7 @@ export default {
       this.downloadLink = type === "file" ? `https://gofile.io/?c=${res}` : res;
       if (type === "image") this.imageUrl = res;
       this.fileName = ev.target.files[0].name;
-      this.createAttachment(ev);
+      this.createAttachment();
     },
     createAttachment() {
       this.attachment = {
