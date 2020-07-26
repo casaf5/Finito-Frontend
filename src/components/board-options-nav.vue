@@ -3,19 +3,11 @@
     <section class="left-side flex space-between">
       <input
         type="text"
-<<<<<<< HEAD
         ref="boardName"
         placeholder="Board Name"
         v-model="board.name"
         @blur="updateName"
       />
-=======
-        placeholder="Board Name"
-        v-model="board.name"
-        @blur="updateBoard"
-      />
-      <!-- <span @input="sync" v-text="content" contenteditable="true"></span> -->
->>>>>>> dev
       <section class="board-members flex">
         <Avatar
           v-for="member in board.members"
@@ -30,12 +22,7 @@
           @close="toggleAddMember"
         />
       </section>
-<<<<<<< HEAD
-      <router-link class="nav-btn" tag="li" to="/board/dash/charts"
-        >Dashboard</router-link
-      >
-=======
->>>>>>> dev
+  
     </section>
 
     <section class="right-side">
@@ -68,12 +55,8 @@ export default {
       menuIsOpen: false,
       bgSelectOpen: false,
       boardMembersOpen: false,
-<<<<<<< HEAD
-      style: { bgColor: "", bgUrls: [] },
-=======
       style: { bgColor: "", bgUrl: "" },
       content: "",
->>>>>>> dev
     };
   },
   // created() {
@@ -112,14 +95,9 @@ export default {
       this.$store.commit({ type: "setStyle", style: this.style });
     },
     membersUpdate(members) {
-<<<<<<< HEAD
       let board = this.board;
       board.members = members;
       this.$store.dispatch({ type: "saveBoard", board});
-=======
-      this.board.members = members;
-      this.updateBoard();
->>>>>>> dev
     },
   },
   components: {
