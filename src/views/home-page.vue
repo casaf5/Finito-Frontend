@@ -148,10 +148,10 @@ export default {
         {
           name: "Project Managment",
           previewImg:
-            "http://www.financetodayusa.com/wp-content/uploads/2020/03/istock-844535646.jpg",
+            "https://images.unsplash.com/photo-1513530534585-c7b1394c6d51?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=1080&fit=max&ixid=eyJhcHBfaWQiOjE0OTc5MX0",
           desc:
             "All of the Lists you need to work on your project right in one place right for you",
-          imgLink: "web-development-template.jpeg",
+          imgLink: "company-overview-template.jpeg",
         },
         {
           name: "Marketing",
@@ -177,16 +177,17 @@ export default {
         {
           name: "Design",
           previewImg:
-            "https://blog.intercomassets.com/blog/wp-content/uploads/2018/05/Design-leadership-as-a-subversive-activity-.png",
+            "http://www.financetodayusa.com/wp-content/uploads/2020/03/istock-844535646.jpg",
           desc:
             "Lorem ipsum dolor sit amet consectetur adipisicing elit. Deserunt, tenetur",
         },
         {
           name: "Buisness",
           previewImg:
-            "https://thumbor.forbes.com/thumbor/960x0/https%3A%2F%2Fblogs-images.forbes.com%2Falejandrocremades%2Ffiles%2F2018%2F07%2Fdesk-3139127_1920-1200x773.jpg",
+            "https://images.unsplash.com/photo-1509785307050-d4066910ec1e?ixlib=rb-1.2.1&q=85&fm=jpg&crop=entropy&cs=srgb&ixid=eyJhcHBfaWQiOjE0OTc5MX0",
           desc:
             "Lorem ipsum dolor sit amet consectetur adipisicing elit. Deserunt, tenetur",
+          imgLink: "buissness-template-img.jpg",
         },
         {
           name: "Design",
