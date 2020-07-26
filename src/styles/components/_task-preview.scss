@@ -40,11 +40,21 @@
     .task-status-container {
       display: flex;
       align-items: center;
+      position: relative;
       > * {
         margin-right: 5px;
       }
+      .task-members-preview{
+        position: absolute;
+        right: 0;
+        margin: 0;
+        >*{
+          margin-left: 3px;
+        }
+      }
       .checklist-container {
         padding: 2px;
+
         span {
           font-size: rem(11px);
           color: #8e8d8d;

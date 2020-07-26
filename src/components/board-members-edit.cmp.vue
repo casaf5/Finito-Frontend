@@ -9,12 +9,17 @@
       />
       <section class="members-container">
         <section
+          @click="toggleUser(user)"
           v-for="user in filteredUsers"
           :key="user.userName"
           class="member"
         >
-          <Avatar :username="user.userName" :size="25" />
-          <h4 @click="toggleUser(user)">{{ user.userName }}</h4>
+          <Avatar
+            :username="user.userName"
+            :src="user.img"
+            :size="30"
+          />
+          <h4>{{ user.userName }}</h4>
           <i v-if="isInBoard(user)" class="el-icon-check v-member"></i>
         </section>
       </section>

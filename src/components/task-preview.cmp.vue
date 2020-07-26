@@ -34,6 +34,15 @@
           <span>{{ this.currentTask.attachments.length }}</span>
         </div>
         <i v-if="currentTask.desc" class="fas fa-stream"></i>
+        <div class="task-members-preview flex space-between">
+          <Avatar
+            v-for="member in task.members"
+            :key="member._id"
+            :src="member.img"
+            :username="member.userName"
+            :size="28"
+          />
+        </div>
       </div>
     </div>
   </div>
@@ -42,6 +51,7 @@
 <script>
 import Modal from "./UIComponents/modal";
 import SmallLabel from "./UIComponents/small-label";
+import Avatar from "vue-avatar";
 export default {
   props: {
     task: {
@@ -49,18 +59,12 @@ export default {
       required: true,
     },
   },
-  created() {
-    console.log('preview refs',this.$refs)
-  },
   data() {
     return {
       displayModal: false,
     };
   },
   computed: {
-    trimTitle(){
-      return this.task.title.replace(' ','')
-    },
     checkListsStatus() {
       let isUncompleted;
       let completedAmout = 0;
@@ -125,7 +129,6 @@ export default {
     },
     toggleLabels() {
       this.board.taskGroups.forEach((taskGroup) => {
-        console.log(taskGroup.isOpen);
         taskGroup.labelsOpen = !taskGroup.labelsOpen;
       });
     },
@@ -133,6 +136,7 @@ export default {
   components: {
     Modal,
     SmallLabel,
+    Avatar,
   },
 };
 </script>

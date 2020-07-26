@@ -9,7 +9,7 @@
       <h4>Images taken from Unsplash</h4>
       <div class="imgs-container">
         <img
-          @click="imageChoosen(urls.full)"
+          @click="imageChoosen(urls)"
           :src="urls.small"
           :key="index"
           v-for="(urls, index) in searchedImages"
@@ -27,7 +27,7 @@ export default {
   name: "board-bg-select",
   data() {
     return {
-      searchedImages: [],
+      searchedImages: null,
       query: "",
     };
   },
@@ -35,8 +35,8 @@ export default {
     async searchForPhotos() {
       this.searchedImages = await UnsplashService.searchPhoto(this.query, 10);
     },
-    imageChoosen(url) {
-      this.$emit("imageChoosen", url);
+    imageChoosen(urls) {
+      this.$emit("imageChoosen", urls);
     },
   },
   components: {

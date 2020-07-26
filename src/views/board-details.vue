@@ -1,9 +1,5 @@
 <template>
-  <section
-    class="board-details-container"
-    v-if="board"
-    :style="boardBackground"
-  >
+  <section class="board-details-container" v-if="board" :style="boardBackground" >
     <board-options-nav />
     <section class="board-details">
       <modal @close="closeTaskModal" v-if="showModal">

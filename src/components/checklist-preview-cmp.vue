@@ -9,18 +9,41 @@
       <el-progress :percentage="completedItems"></el-progress>
     </div>
     <ul class="checklist-container clean-list">
-      <li v-for="(item, idx) in checklist.items" class="flex space-between" :key="idx">
-        <label :for="idx" class="check-item" :class="{ isDone: item.completed }">
-          <input type="checkbox" v-model="item.completed" :id="idx" @click="changeItemStatus(idx)" />
+      <li v-for="(item, idx) in checklist.items" class="list-item" :key="idx">
+        <input
+          type="checkbox"
+          v-model="item.completed"
+          :id="idx"
+          @click="changeItemStatus(idx)"
+        />
+        <label
+          :for="idx"
+          class="check-item"
+          :class="{ isDone: item.completed }"
+        >
           {{ item.content }}
         </label>
-        <i class="fas fa-trash-alt justify-self-end" @click="removeItem(idx)"></i>
+        <i class="fas fa-trash-alt " @click="removeItem(idx)"></i>
       </li>
     </ul>
     <section class="add-item flex space-between" v-if="isAddClicked">
-      <input v-model="newItemTxt" @keyup.enter="addItem" type="text" placeholder="Enter New Item.." />
+      <input
+        v-model="newItemTxt"
+        @keyup.enter="addItem"
+        type="text"
+        placeholder="Enter New Item.."
+      />
     </section>
-    <label class="new-item-label flex space-between" @click="openCloseAdd">Add an item</label>
+    <section class="add-section flex space-between">
+      <button
+        class="add-item-btn"
+        :class="{ addIsOpen: isAddClicked }"
+        @click="addAction"
+      >
+        {{ addItemStatus }}
+      </button>
+      <i @click="openCloseAdd" class="el-icon-close"></i>
+    </section>
   </section>
 </template>
 
@@ -32,7 +55,7 @@ export default {
     return {
       isAddClicked: false,
       newItemTxt: "",
-      status: 0
+      status: 0,
     };
   },
   computed: {
@@ -43,7 +66,10 @@ export default {
       }, 0);
       this.status = Math.floor((completed / this.checklist.items.length) * 100);
       return this.status > 0 ? this.status : 0;
-    }
+    },
+    addItemStatus() {
+      return this.isAddClicked ? "Add" : "Add an item";
+    },
   },
   methods: {
     openCloseAdd() {
@@ -53,11 +79,14 @@ export default {
       if (this.newItemTxt === "") return;
       let newItem = {
         content: this.newItemTxt,
-        completed: false
+        completed: false,
       };
       this.checklist.items.push(newItem);
       this.newItemTxt = "";
       this.$emit("update");
+    },
+    addAction() {
+      this.isAddClicked ? this.addItem() : this.openCloseAdd();
     },
     removeItem(idx) {
       this.checklist.items.splice(idx, 1);
@@ -70,7 +99,7 @@ export default {
     },
     removeList() {
       this.$emit("remove");
-    }
-  }
+    },
+  },
 };
 </script>
