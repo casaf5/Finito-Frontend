@@ -1,5 +1,5 @@
 <template>
-  <div class="task-preview-container">
+  <div ref="taskPreview" class="task-preview-container">
     <div :style="taskCover" class="task-cover" @click="taskClicked"></div>
     <div class="task-preview-content">
       <div v-if="currentTask.labels.length >= 1" class="task-label-container">
@@ -49,13 +49,18 @@ export default {
       required: true,
     },
   },
-  methods: {},
+  created() {
+    console.log('preview refs',this.$refs)
+  },
   data() {
     return {
       displayModal: false,
     };
   },
   computed: {
+    trimTitle(){
+      return this.task.title.replace(' ','')
+    },
     checkListsStatus() {
       let isUncompleted;
       let completedAmout = 0;

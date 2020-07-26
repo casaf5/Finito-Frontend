@@ -4,6 +4,7 @@ export default {
   state: {
     boards: [],
     board: null,
+    tasksRefs:[],
     filterBy: {
       name: "",
       tags: "",
@@ -31,6 +32,9 @@ export default {
     },
     style(state){
       return state.style
+    },
+    tasksRefs(state){
+      return state.tasksRefs
     }
   },
   mutations: {
@@ -60,6 +64,9 @@ export default {
     },
     setStyle(state,{style}){
       state.style=style
+    },
+    addToTasksRefs(state,{ref}){
+      state.tasksRefs.push(ref)
     }
   },
   actions: {

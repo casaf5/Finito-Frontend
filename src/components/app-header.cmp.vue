@@ -46,8 +46,12 @@ import Avatar from "vue-avatar";
 
 export default {
   name: "app-header",
-  computed: {},
-  methods: {},
+  data() {
+    return {
+      textSearch: "",
+      searchResults: [],
+    };
+  },
   components: {
     Avatar,
   },
@@ -69,8 +73,21 @@ export default {
           },
         };
     },
-    buttonColor() {},
   },
-  displayHeader() {},
+  methods: {
+    searchRefs() {
+      let tasksRefs = this.$store.getters.tasksRefs;
+      tasksRefs.forEach(ref=>ref.el.classList.remove('yellow'))
+      if(!this.textSearch)return 
+      this.searchResults = [];
+      tasksRefs.map((ref) => {
+        if (ref.name.includes(this.textSearch)) {
+          ref.el.classList.add('yellow');
+        }
+      });
+      console.log(this.searchResults);
+    },
+  },
+  mounted() {},
 };
 </script>
