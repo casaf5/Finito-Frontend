@@ -38,7 +38,7 @@ export default {
     return {
       status: null,
       imageUrl:
-        "https://res.cloudinary.com/dwgaobhor/image/upload/v1595278304/edolcc05z4ybqyso6pqz.png",
+        "https://res.cloudinary.com/dwgaobhor/image/upload/v1595762512/yqfkginczj15h9dxcw3a.png",
       fileName: "",
       downloadLink: null,
       attachment: null,

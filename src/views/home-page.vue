@@ -190,14 +190,14 @@ export default {
           imgLink: "buissness-template-img.jpg",
         },
         {
-          name: "Design",
+          name: "Remote Work",
           previewImg:
             "https://blog.intercomassets.com/blog/wp-content/uploads/2018/05/Design-leadership-as-a-subversive-activity-.png",
           desc:
-            "Lorem ipsum dolor sit amet consectetur adipisicing elit. Deserunt, tenetur",
+            "A Mission Control Center for your team productivity",
         },
         {
-          name: "Buisness",
+          name: "Family",
           previewImg:
             "https://thumbor.forbes.com/thumbor/960x0/https%3A%2F%2Fblogs-images.forbes.com%2Falejandrocremades%2Ffiles%2F2018%2F07%2Fdesk-3139127_1920-1200x773.jpg",
           desc:
