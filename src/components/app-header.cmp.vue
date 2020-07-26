@@ -1,7 +1,7 @@
 <template>
   <header
     :style="navbarBgStyle.navBar.navbarBgColor"
-    v-if="$route.path != '/' && $route.path != '/Login'"
+    v-if="$route.path != '/' && $route.path != '/login'"
     class="app-header"
   >
     <section class="navbar-container">
@@ -31,7 +31,9 @@
             to="/signup"
             >Sign Up</router-link
           >
-          <i class="far fa-bell header-item notification-icon notification-bell"></i>
+          <i
+            class="far fa-bell header-item notification-icon notification-bell"
+          ></i>
           <Avatar username="Guest" :size="35" />
         </ul>
       </nav>
