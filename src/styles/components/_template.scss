@@ -6,9 +6,11 @@
     height: 150px;
     width: 100%;
     object-fit: cover;
+    transition: 0.3s ease-in-out;
+    cursor: pointer;
   }
   .template-header {
-    font-size: rem(18px);
+    font-size: rem(16px);
     margin: 10px 0;
     font-weight: 600;
   }
@@ -23,11 +25,13 @@
     color: #fff;
     z-index: 3;
   }
+  
   &:after {
+ 
     content: "";
     top: 0;
     position: absolute;
-    height: 10%;
+    height: 23px;
     width: 100%;
     background-color: rgba(0, 0, 0, 0.384);
   }

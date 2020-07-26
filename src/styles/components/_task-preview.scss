@@ -26,13 +26,13 @@
         width: 90%;
         margin-bottom: 2px;
       }
-      .edit {
+      .el-icon-delete {
         margin-left: auto;
         margin-right: 5px;
         opacity: 0;
         transition: all 0.3s;
       }
-      &:hover .edit {
+      &:hover .el-icon-delete {
         opacity: 1;
       }
     }
@@ -64,7 +64,7 @@
           margin-left: 5px;
           font-size: 13px;
         }
-        i{
+        i {
           font-size: 13px;
         }
       }

@@ -1,19 +1,24 @@
 .board-options {
-  position: absolute;
+  position: fixed;
   width: 100%;
   background-color: transparent;
   color: white;
   text-align: center;
-  height: 40px;
-  padding: 5px;
-  top: 8%;
+  height: 41px;
+  top: 45px;
+  background-color: rgba(0, 0, 0, 0.4);
+  padding: 15px 0;
+  padding-bottom: 18px;
   .left-side {
+    margin-inline-start: 5px;
     .board-members {
       align-self: center;
       > * {
         margin-inline-start: 5px;
       }
       i {
+        background-color: rgb(206, 206, 206);
+        border-radius: 50%;
         font-size: 16px;
         display: flex;
         justify-content: center;
@@ -21,14 +26,16 @@
         width: 30px;
         height: 30px;
         color: black;
-        border-radius: 50%;
         transition: all 0.3s;
         padding: 2px;
         &:hover {
           cursor: pointer;
-          background-color: white;
+          background-color: rgb(255, 255, 255);
         }
       }
+    }
+    span {
+      max-width: 100%;
     }
     input {
       background-color: #ffffff52;
@@ -38,8 +45,6 @@
       align-self: center;
       height: 35px;
       color: white;
-      font-family: Montserrat-Bold;
-      font-weight: bold;
       border-radius: 3px;
       text-align: center;
       font-size: 18px;
@@ -53,17 +58,26 @@
     }
   }
   .right-side {
+    :last-child {
+      margin-right: 12px;
+    }
+    display: flex;
+    align-items: center;
     button {
-      background-color: #465055;
+      background-color: #3498db;
       border-radius: 3px;
       border: none;
       outline: none;
       padding: 5px;
       font-family: Montserrat;
-      font-size: 18px;
+      font-size: 14px;
       color: white;
       margin-inline-start: 10px;
+      .el-icon-pie-chart {
+        margin: 0;
+      }
     }
+
     .bgSelector {
       color: black;
       position: absolute;

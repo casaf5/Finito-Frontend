@@ -1,9 +1,10 @@
 <template>
   <div>
-    <div class="overlay-content">
-      <slot></slot>
+    <div @click.self="backGroundClicked" style="cursor:pointer" class="overlay-wrapper">
+      <div class="overlay-content">
+        <slot></slot>
+      </div>
     </div>
-    <div @click.self="backGroundClicked" style="cursor:pointer" class="overlay-wrapper"></div>
   </div>
 </template>
 
@@ -23,7 +24,6 @@ export default {
 <style lang="scss" scoped>
 .overlay-wrapper {
   display: flex;
-  align-items: center;
   justify-content: center;
   height: 100%;
   width: 100%;
@@ -33,7 +33,7 @@ export default {
   position: fixed;
   left: 0;
   top: 0;
-  overflow: auto;
+  overflow-y: auto;
   margin-bottom: 5rem;
   z-index: 20;
 }

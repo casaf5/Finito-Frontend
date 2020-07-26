@@ -114,12 +114,12 @@ export default {
     this.taskGroup = this.board.taskGroups.find(
       tg => tg.id === this.task.parentListId
     );
-    this.taskToEdit = this.taskGroup.tasks.find(t => t.id === this.task.id); 
+    this.taskToEdit = this.taskGroup.tasks.find(t => t.id === this.task.id);
   },
   computed: {
     watchIsOn() {
       const isOn = this.taskToEdit.watchMembers.find(
-        member => member.id === this.user.id
+        member => member._id === this.user._id
       )
         ? true
         : false;
@@ -161,8 +161,16 @@ export default {
         color,
         id
       };
-      this.taskToEdit.labels.push(taskLabel);
-      this.$emit("emitBoardChange", "ADDED_LABEL");
+      const labelIndex = this.taskToEdit.labels.findIndex(
+        label => label.id === taskLabel.id
+      );
+      if (labelIndex > -1) {
+        this.taskToEdit.labels.splice(labelIndex, 1);
+        this.$emit("emitBoardChange", "REMOVED_LABEL");
+      } else {
+        this.taskToEdit.labels.push(taskLabel);
+        this.$emit("emitBoardChange", "ADDED_LABEL");
+      }
     },
     editLabel({ label: { title, id, color, selectedColor }, index }) {
       const boardLabel = {
@@ -212,7 +220,7 @@ export default {
       this.$emit("emitBoardChange", "JOINED_MEMBER");
     },
     removeMember(member) {
-      const idx = this.task.members.findIndex(m => m.id === member.id);
+      const idx = this.task.members.findIndex(m => m._id === member._id);
       this.taskToEdit.members.splice(idx, 1);
       this.$emit("emitBoardChange", "MEMBER_LEFT");
     },
@@ -256,7 +264,7 @@ export default {
     },
     toggleWatch() {
       const idx = this.taskToEdit.watchMembers.findIndex(
-        member => member.id === this.user.id
+        member => member._id === this.user._id
       );
       if (idx !== -1) {
         this.taskToEdit.watchMembers.splice(idx, 1);

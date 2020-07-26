@@ -74,6 +74,9 @@ export default {
     padding: 5px;
     outline: none;
     border: 1px solid #3498db;
+    &.error {
+      border: 1px solid #e63946;
+    }
   }
 }
 </style>

@@ -1,7 +1,7 @@
 <template>
   <header
     :style="navbarBgStyle.navBar.navbarBgColor"
-    v-if="$route.path != '/' &&$route.name!='login-page'"
+    v-if="$route.path != '/' && $route.path != '/login'"
     class="app-header"
   >
     <section class="navbar-container">
@@ -22,14 +22,16 @@
             class="nav-btn"
             tag="li"
             to="/Login"
-          >Login</router-link>
+            >Login</router-link
+          >
           <router-link
             :style="navbarBgStyle.navBar.buttonColors"
             class="nav-btn"
             tag="li"
             to="/signup"
-          >Sign Up</router-link>
-          <i class="far fa-bell header-item notification-icon"></i>
+            >Sign Up</router-link
+          >
+          <i class="far fa-bell header-item notification-icon notification-bell"></i>
           <Avatar username="Guest" :size="35" />
         </ul>
       </nav>
@@ -45,7 +47,7 @@ export default {
   computed: {},
   methods: {},
   components: {
-    Avatar
+    Avatar,
   },
 
   computed: {
@@ -54,19 +56,19 @@ export default {
         return {
           navBar: {
             navbarBgColor: "background-color:#0006",
-            buttonColors: "background-color:#2383c4;color:#fff"
-          }
+            buttonColors: "background-color:#2383c4;color:#fff",
+          },
         };
       } else
         return {
           navBar: {
             navbarBgColor: "background-color:#3498db",
-            buttonColors: "background-color:#fff;color:#333"
-          }
+            buttonColors: "background-color:#fff;color:#333",
+          },
         };
     },
-    buttonColor() {}
+    buttonColor() {},
   },
-  displayHeader() {}
+  displayHeader() {},
 };
 </script>

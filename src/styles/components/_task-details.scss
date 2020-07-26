@@ -18,6 +18,7 @@
     background-color: transparent;
     border: none;
     font-size: 18px;
+    width: 100%;
   }
   input ~ i {
     top: 4px;
@@ -30,7 +31,8 @@
   line-height: 1.25rem;
   background-color: #f4f5f7;
   position: absolute;
-  top: 0;
+  top: 45px;
+  margin-bottom:60px;
   left: 50%;
   transform: translate(-50%);
   font-size: 1.2rem;
@@ -128,8 +130,9 @@
   }
 
   .task-right-container {
+    padding-top: 1rem;
     display: grid;
-    grid-template-rows: 60px repeat(11, 35px);
+    grid-template-rows: repeat(11, 35px);
     grid-auto-rows: 35px;
     grid-gap: 10px;
     button {
@@ -149,7 +152,7 @@
       }
     }
     .task-actions {
-      grid-row: 2;
+      grid-row: 1;
       label {
         font-size: rem(12px);
         margin: 10px 0;
@@ -176,7 +179,22 @@
     }
   }
   .task-labels-container-wraper {
+    margin-inline-start: 40px;
     margin-right: 1rem;
+    .add-label {
+      cursor: pointer;
+      background-color: rgb(239, 239, 239);
+      width: 35px;
+      margin: 2px 2px;
+      height: 26px;
+      display: flex;
+      align-items: center;
+      text-align: center;
+      justify-content: center;
+      i {
+        font-size: 14px;
+      }
+    }
   }
   .task-date-container-wraper {
     margin-right: 1rem;
@@ -216,8 +234,8 @@
   ul {
     padding-left: 0;
     font-size: rem(12px);
-    max-height: 600px;
-    overflow: scroll;
+    max-height: 200px;
+    overflow-y: auto;
   }
   .details-activity-text {
     margin-left: 0.7rem;
@@ -225,12 +243,11 @@
     h4 {
       font-size: 15px;
       font-family: Montserrat;
-      margin:0;
+      margin: 0;
     }
     span {
       font-size: 12px;
       color: #5e6c84;
     }
   }
- 
 }
