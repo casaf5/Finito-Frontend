@@ -7,28 +7,25 @@ const routes = [
   {
     path: "/",
     name: "Landing-Page",
-    component: () =>
-      import("../views/landing-page.vue"),
+    component: () => import("../views/landing-page.vue"),
   },
   {
     path: "/home",
-    name: 'Home-Page',
-    component: () =>
-      import( "../views/home-page.vue"),
+    name: "Home-Page",
+    component: () => import("../views/home-page.vue"),
   },
   {
     path: "/board/:id",
     name: "Finito-app",
-    component: () =>
-      import("../views/trellor-app.vue"),
+    component: () => import("../views/trellor-app.vue"),
   },
   {
     path: "/login",
-    component: () => import( "../views/login-page.vue"),
+    component: () => import("../views/login-page.vue"),
   },
   {
     path: "/signup",
-    component: () => import( "../views/signup-page.vue"),
+    component: () => import("../views/signup-page.vue"),
   },
   {
     path: "/board/dash/charts",
@@ -36,7 +33,7 @@ const routes = [
   },
   {
     path: "*",
-    component: () => import( "../views/404.vue"),
+    component: () => import("../views/404.vue"),
   },
 ];
 

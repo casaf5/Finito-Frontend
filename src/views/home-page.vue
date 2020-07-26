@@ -43,21 +43,7 @@
         <button @click="addNewBoard" class="btn-primary">Create</button>
       </div>
     </modal>
-    <!-- <el-select
-          v-model="newBoard.members"
-          filterable
-          multiple
-          size="large"
-          style="margin-left: 20px;"
-          placeholder="Select"
-        >
-          <el-option
-            v-for="member in users"
-            :key="member._id"
-            :label="member.userName"
-            :value="member._id"
-          ></el-option>
-    </el-select>-->
+
     <div class="board-templates-container">
       <h4 class="catagory-label">
         <i class="fas fa-photo-video"></i> Templates
@@ -68,8 +54,64 @@
           :template="template"
           :key="index"
           v-for="(template, index) in templates"
+          @showTemplate="showTemplate"
         />
       </div>
+      <transition name="fade">
+        <modal
+          @close="showTemplateModal = !showTemplateModal"
+          v-if="showTemplateModal"
+        >
+          <div class="template-details-container">
+            <div class="template-img-container">
+              <img
+                class="template-preview-img"
+                src="../assets/images/web-development-template.jpeg"
+              />
+            </div>
+            <div class="templdate-content-container">
+              <h4 class="catagory-label">Web Development</h4>
+              <p>
+                Pre made with all the necessary lists to get you started right
+                away
+              </p>
+              <h4 class="catagory-label">Template Features</h4>
+              <ul class="clean-list template-features-container">
+                <li>
+                  <i class="el-icon-edit"></i>
+                  <span>Fully customizable</span>
+                </li>
+                <li>
+                  <i class="el-icon-data-analysis"></i>
+                  <span>Supports tasks analysis</span>
+                </li>
+                <li>
+                  <i class="el-icon-picture-outline"></i>
+                  <span>Supports background images</span>
+                </li>
+                <li>
+                  <i class="fas fa-palette"></i>
+                  <span>Supports background colors</span>
+                </li>
+                <li>
+                  <i class="el-icon-paperclip"></i>
+                  <span>Supports file uploads</span>
+                </li>
+                <li>
+                  <i class="fas fa-sync"></i>
+                  <span>Supports live synchronization</span>
+                </li>
+              </ul>
+              <button class="btn-primary full-width">
+                Generate Template
+              </button>
+              <p @click="showTemplateModal = !showTemplateModal">
+                Back to Homepage
+              </p>
+            </div>
+          </div>
+        </modal>
+      </transition>
     </div>
   </section>
 </template>
@@ -99,60 +141,63 @@ export default {
       boards: null,
       users: null,
       showModal: false,
+      showTemplateModal: false,
       selectedBgImgs: null,
+      templatePreviewImg: "",
       templates: [
         {
           name: "Project Managment",
-          img:
+          previewImg:
             "http://www.financetodayusa.com/wp-content/uploads/2020/03/istock-844535646.jpg",
           desc:
             "All of the Lists you need to work on your project right in one place right for you",
+          imgLink: "web-development-template.jpeg",
         },
         {
           name: "Marketing",
-          img:
+          previewImg:
             "https://www.selected.co.il/wp-content/uploads/2019/06/inner1.jpg",
           desc:
             "From Digital marketing to traditonial marketing,everything list is ready for you to use and start increasing your revenues",
         },
         {
           name: "Engineering",
-          img:
+          previewImg:
             "https://www.nbn.org.il/wp-content/uploads/2014/01/engineering_mechanical_3042380_cropped.jpg",
           desc:
             "List are premade to save you the effort on making them. Go and start coding!",
         },
         {
           name: "Education",
-          img:
+          previewImg:
             "https://tcmagazine.info/wp-content/uploads/2019/03/Online-Education.jpg",
           desc:
             "All you need for your eductation task magagment is right here ",
         },
         {
           name: "Design",
-          img:
+          previewImg:
             "https://blog.intercomassets.com/blog/wp-content/uploads/2018/05/Design-leadership-as-a-subversive-activity-.png",
           desc:
             "Lorem ipsum dolor sit amet consectetur adipisicing elit. Deserunt, tenetur",
         },
         {
           name: "Buisness",
-          img:
+          previewImg:
             "https://thumbor.forbes.com/thumbor/960x0/https%3A%2F%2Fblogs-images.forbes.com%2Falejandrocremades%2Ffiles%2F2018%2F07%2Fdesk-3139127_1920-1200x773.jpg",
           desc:
             "Lorem ipsum dolor sit amet consectetur adipisicing elit. Deserunt, tenetur",
         },
         {
           name: "Design",
-          img:
+          previewImg:
             "https://blog.intercomassets.com/blog/wp-content/uploads/2018/05/Design-leadership-as-a-subversive-activity-.png",
           desc:
             "Lorem ipsum dolor sit amet consectetur adipisicing elit. Deserunt, tenetur",
         },
         {
           name: "Buisness",
-          img:
+          previewImg:
             "https://thumbor.forbes.com/thumbor/960x0/https%3A%2F%2Fblogs-images.forbes.com%2Falejandrocremades%2Ffiles%2F2018%2F07%2Fdesk-3139127_1920-1200x773.jpg",
           desc:
             "Lorem ipsum dolor sit amet consectetur adipisicing elit. Deserunt, tenetur",
@@ -229,8 +274,21 @@ export default {
       this.newBoard.name = template.name;
       this.addNewBoard();
     },
+    showTemplate(template) {
+      this.templatePreviewImg = template.imgLink;
+      this.showTemplateModal = true;
+    },
   },
 };
 </script>
 
-<style lang="scss"></style>
+<style lang="scss">
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.3s ease;
+}
+.fade-enter, .fade-leave-to
+/* .component-fade-leave-active below version 2.1.8 */ {
+  opacity: 0;
+}
+</style>

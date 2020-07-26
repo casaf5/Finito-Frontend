@@ -1,6 +1,10 @@
 <template>
   <div>
-    <div @click.self="backGroundClicked" style="cursor:pointer" class="overlay-wrapper">
+    <div
+      @click.self="backGroundClicked"
+      style="cursor:pointer"
+      class="overlay-wrapper"
+    >
       <div class="overlay-content">
         <slot></slot>
       </div>
@@ -16,8 +20,8 @@ export default {
   methods: {
     backGroundClicked() {
       this.$emit("close");
-    }
-  }
+    },
+  },
 };
 </script>
 

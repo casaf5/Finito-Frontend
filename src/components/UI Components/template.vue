@@ -1,11 +1,12 @@
 <template>
-  <div @click="createTemplate" class="template-container">
+  <div class="template-container">
     <div class="template-img-container">
-      <img :src="template.img" alt="template-img" />
-      <i class="el-icon-s-platform"></i>
+      <img :src="template.previewImg" alt="template-img" />
+      <i @click="showTemplate" class="el-icon-s-platform"></i>
+      <span>View Template</span>
     </div>
-    <h5 class="template-header">{{template.name}}</h5>
-    <p>{{template.desc}}</p>
+    <h5 class="template-header">{{ template.name }}</h5>
+    <p>{{ template.desc }}</p>
   </div>
 </template>
 
@@ -13,15 +14,17 @@
 export default {
   name: "board-template",
   props: {
-    template: Object
+    template: Object,
   },
   methods: {
     createTemplate() {
       this.$emit("createTemplate", this.template);
-    }
-  }
+    },
+    showTemplate() {
+      this.$emit("showTemplate", this.template);
+    },
+  },
 };
 </script>
 
-<style>
-</style>
+<style></style>
