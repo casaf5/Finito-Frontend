@@ -2,6 +2,9 @@
   min-height: 250px;
   align-self: flex-start;
   position: relative;
+  .template-img-container {
+    position: relative;
+  }
   img {
     height: 150px;
     width: 100%;
@@ -18,20 +21,46 @@
     margin: 0;
   }
   i {
+    transition: all 0.5s ease-in-out;
     cursor: pointer;
     position: absolute;
-    top: 5px;
-    right: 10px;
+    opacity: 0;
+    font-size: 3rem;
+    left: 50%;
+    top: 45%;
+    transform: translate(-50%, -50%);
     color: #fff;
     z-index: 3;
   }
-  
+  span {
+    transition: all 0.5s ease-in-out;
+    position: absolute;
+    left: 0;
+    left: 50%;
+    top: 75%;
+    transform: translate(-50%, -50%);
+    color: #fff;
+    z-index: 5;
+    font-weight: 700;
+    opacity: 0;
+  }
+  &:hover {
+    span {
+      opacity: 1;
+    }
+    &:after {
+      height: 150px;
+    }
+    i {
+      opacity: 1;
+    }
+  }
   &:after {
- 
+    transition: all 0.3s ease-in-out;
     content: "";
     top: 0;
     position: absolute;
-    height: 23px;
+    height: 0px;
     width: 100%;
     background-color: rgba(0, 0, 0, 0.384);
   }

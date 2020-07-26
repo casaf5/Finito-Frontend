@@ -1,5 +1,5 @@
 <template>
-  <div class="task-preview-container">
+  <div ref="taskPreview" class="task-preview-container">
     <div :style="taskCover" class="task-cover" @click="taskClicked"></div>
     <div class="task-preview-content">
       <div v-if="currentTask.labels.length >= 1" class="task-label-container">
@@ -26,9 +26,12 @@
             <span>{{ taskString }}</span>
           </div>
         </div>
-        <div v-if="currentTask.attachments.length" class="attachments-container">
+        <div
+          v-if="currentTask.attachments.length"
+          class="attachments-container"
+        >
           <i class="fas fa-paperclip"></i>
-          <span>{{this.currentTask.attachments.length}}</span>
+          <span>{{ this.currentTask.attachments.length }}</span>
         </div>
         <i v-if="currentTask.desc" class="fas fa-stream"></i>
       </div>
@@ -37,29 +40,34 @@
 </template>
 
 <script>
-import Modal from "./UI Components/modal";
-import SmallLabel from "./UI Components/small-label";
+import Modal from "./UIComponents/modal";
+import SmallLabel from "./UIComponents/small-label";
 export default {
   props: {
     task: {
       type: Object,
-      required: true
-    }
+      required: true,
+    },
   },
-  methods: {},
+  created() {
+    console.log('preview refs',this.$refs)
+  },
   data() {
     return {
-      displayModal: false
+      displayModal: false,
     };
   },
   computed: {
+    trimTitle(){
+      return this.task.title.replace(' ','')
+    },
     checkListsStatus() {
       let isUncompleted;
       let completedAmout = 0;
       let allTasks = 0;
-      this.currentTask.checkLists.forEach(checkList => {
+      this.currentTask.checkLists.forEach((checkList) => {
         allTasks += checkList["items"].length;
-        isUncompleted = checkList["items"].some(item => !item.completed);
+        isUncompleted = checkList["items"].some((item) => !item.completed);
         completedAmout += checkList["items"].reduce((acc, task) => {
           if (task.completed) acc++;
           return acc;
@@ -68,7 +76,7 @@ export default {
       return {
         allTasks,
         isUncompleted,
-        completedAmout
+        completedAmout,
       };
     },
     taskCover() {
@@ -94,10 +102,10 @@ export default {
     currentTask() {
       const board = this.$store.getters.board;
       const currentTaskGroup = board.taskGroups.findIndex(
-        taskGroup => taskGroup.id === this.task.parentListId
+        (taskGroup) => taskGroup.id === this.task.parentListId
       );
       const currentTask = board.taskGroups[currentTaskGroup].tasks.find(
-        task => task.id === this.task.id
+        (task) => task.id === this.task.id
       );
       return currentTask;
     },
@@ -106,59 +114,27 @@ export default {
     },
     enlargeLabel() {
       const currentTaskGroup = this.board.taskGroups.findIndex(
-        taskGroup => taskGroup.id === this.task.parentListId
+        (taskGroup) => taskGroup.id === this.task.parentListId
       );
       return this.board.taskGroups[currentTaskGroup].labelsOpen;
-    }
+    },
   },
   methods: {
     taskClicked() {
       this.$emit("taskClicked", this.task);
     },
     toggleLabels() {
-      this.board.taskGroups.forEach(taskGroup => {
+      this.board.taskGroups.forEach((taskGroup) => {
         console.log(taskGroup.isOpen);
         taskGroup.labelsOpen = !taskGroup.labelsOpen;
       });
-    }
+    },
   },
   components: {
     Modal,
-    SmallLabel
-  }
+    SmallLabel,
+  },
 };
 </script>
 
-<style lang="scss">
-// .task-preview-container {
-//   margin: 10px;
-//   .task-preview-content {
-//     display: flex;
-//     flex-direction: column;
-//     .task-status-container {
-//       display: flex;
-//       align-items: center;
-//       * {
-//         margin-right: 3px;
-//       }
-//     }
-//   }
-//   .task-label-container {
-//     .label-color {
-//       display: inline-block;
-//       height: 7px;
-//       border-radius: 3px;
-//       margin: 0 5px;
-//       width: 30px;
-//       transition: all 0.5s ease-in-out;
-//       cursor: pointer;
-//     }
-//   }
-// }
-// .label-color-enlarged {
-//   padding-right: 40px;
-//   padding-top: 20px;
-// }
-
-//
-</style>
+<style lang="scss"></style>

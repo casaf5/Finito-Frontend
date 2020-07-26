@@ -12,7 +12,8 @@
           @click="imageChoosen(urls)"
           :src="urls.small"
           :key="index"
-          v-for="(urls, index) in searchedImages"/>
+          v-for="(urls, index) in searchedImages"
+        />
       </div>
     </task-action-container>
   </div>
@@ -20,7 +21,7 @@
 
 <script>
 import taskActionContainer from "./task-action-container.cmp";
-import FormInput from "./From Elements/form-input.cmp";
+import FormInput from "./FormElements/form-input.cmp";
 import { UnsplashService } from "../services/unsplashImage-service.js";
 export default {
   name: "board-bg-select",
@@ -32,7 +33,7 @@ export default {
   },
   methods: {
     async searchForPhotos() {
-      this.searchedImages = await UnsplashService.searchPhoto(this.query,10);
+      this.searchedImages = await UnsplashService.searchPhoto(this.query, 10);
     },
     imageChoosen(urls) {
       this.$emit("imageChoosen", urls);

@@ -43,21 +43,7 @@
         <button @click="addNewBoard" class="btn-primary">Create</button>
       </div>
     </modal>
-    <!-- <el-select
-          v-model="newBoard.members"
-          filterable
-          multiple
-          size="large"
-          style="margin-left: 20px;"
-          placeholder="Select"
-        >
-          <el-option
-            v-for="member in users"
-            :key="member._id"
-            :label="member.userName"
-            :value="member._id"
-          ></el-option>
-    </el-select>-->
+
     <div class="board-templates-container">
       <h4 class="catagory-label">
         <i class="fas fa-photo-video"></i> Templates
@@ -68,8 +54,64 @@
           :template="template"
           :key="index"
           v-for="(template, index) in templates"
+          @showTemplate="showTemplate"
         />
       </div>
+      <transition name="fade">
+        <modal
+          @close="showTemplateModal = !showTemplateModal"
+          v-if="showTemplateModal"
+        >
+          <div class="template-details-container">
+            <div class="template-img-container">
+              <img
+                class="template-preview-img"
+                :src="require(`@/assets/images/${templatePreviewImg}`)"
+              />
+            </div>
+            <div class="templdate-content-container">
+              <h4 class="catagory-label">Web Development</h4>
+              <p>
+                Pre made with all the necessary lists to get you started right
+                away
+              </p>
+              <h4 class="catagory-label">Template Features</h4>
+              <ul class="clean-list template-features-container">
+                <li>
+                  <i class="el-icon-edit"></i>
+                  <span>Fully customizable</span>
+                </li>
+                <li>
+                  <i class="el-icon-data-analysis"></i>
+                  <span>Supports tasks analysis</span>
+                </li>
+                <li>
+                  <i class="el-icon-picture-outline"></i>
+                  <span>Supports background images</span>
+                </li>
+                <li>
+                  <i class="fas fa-palette"></i>
+                  <span>Supports background colors</span>
+                </li>
+                <li>
+                  <i class="el-icon-paperclip"></i>
+                  <span>Supports file uploads</span>
+                </li>
+                <li>
+                  <i class="fas fa-sync"></i>
+                  <span>Supports live synchronization</span>
+                </li>
+              </ul>
+              <button class="btn-primary full-width">
+                Generate Template
+              </button>
+              <p @click="showTemplateModal = !showTemplateModal">
+                Back to Homepage
+              </p>
+            </div>
+          </div>
+        </modal>
+      </transition>
     </div>
   </section>
 </template>
@@ -78,11 +120,11 @@
 import { boardService } from "../services/board-service.js";
 import { UnsplashService } from "../services/unsplashImage-service";
 import boardPreview from "../components/board-preview.cmp.vue";
-import boardTemplate from "../components/UI Components/template";
-import formInput from "../components/From Elements/form-input.cmp";
-import searchImg from "../components/UI Components/search-img";
-import modal from "../components/UI Components/modal";
-import colorSmall from "../components/UI Components/color-small";
+import boardTemplate from "../components/UIComponents/template";
+import formInput from "../components/FormElements/form-input.cmp";
+import searchImg from "../components/UIComponents/search-img";
+import modal from "../components/UIComponents/modal";
+import colorSmall from "../components/UIComponents/color-small";
 import boardPreviewCmpVue from "../components/board-preview.cmp.vue";
 export default {
   name: "home-page",
@@ -99,60 +141,64 @@ export default {
       boards: null,
       users: null,
       showModal: false,
+      showTemplateModal: false,
       selectedBgImgs: null,
+      templatePreviewImg: "",
       templates: [
         {
           name: "Project Managment",
-          img:
-            "http://www.financetodayusa.com/wp-content/uploads/2020/03/istock-844535646.jpg",
+          previewImg:
+            "https://images.unsplash.com/photo-1513530534585-c7b1394c6d51?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=1080&fit=max&ixid=eyJhcHBfaWQiOjE0OTc5MX0",
           desc:
             "All of the Lists you need to work on your project right in one place right for you",
+          imgLink: "company-overview-template.jpeg",
         },
         {
           name: "Marketing",
-          img:
+          previewImg:
             "https://www.selected.co.il/wp-content/uploads/2019/06/inner1.jpg",
           desc:
             "From Digital marketing to traditonial marketing,everything list is ready for you to use and start increasing your revenues",
         },
         {
           name: "Engineering",
-          img:
+          previewImg:
             "https://www.nbn.org.il/wp-content/uploads/2014/01/engineering_mechanical_3042380_cropped.jpg",
           desc:
             "List are premade to save you the effort on making them. Go and start coding!",
         },
         {
           name: "Education",
-          img:
+          previewImg:
             "https://tcmagazine.info/wp-content/uploads/2019/03/Online-Education.jpg",
           desc:
             "All you need for your eductation task magagment is right here ",
         },
         {
           name: "Design",
-          img:
-            "https://blog.intercomassets.com/blog/wp-content/uploads/2018/05/Design-leadership-as-a-subversive-activity-.png",
+          previewImg:
+            "http://www.financetodayusa.com/wp-content/uploads/2020/03/istock-844535646.jpg",
           desc:
             "Lorem ipsum dolor sit amet consectetur adipisicing elit. Deserunt, tenetur",
         },
         {
           name: "Buisness",
-          img:
-            "https://thumbor.forbes.com/thumbor/960x0/https%3A%2F%2Fblogs-images.forbes.com%2Falejandrocremades%2Ffiles%2F2018%2F07%2Fdesk-3139127_1920-1200x773.jpg",
+          previewImg:
+            "https://images.unsplash.com/photo-1509785307050-d4066910ec1e?ixlib=rb-1.2.1&q=85&fm=jpg&crop=entropy&cs=srgb&ixid=eyJhcHBfaWQiOjE0OTc5MX0",
           desc:
             "Lorem ipsum dolor sit amet consectetur adipisicing elit. Deserunt, tenetur",
+          imgLink: "buissness-template-img.jpg",
         },
         {
           name: "Design",
-          img:
+          previewImg:
             "https://blog.intercomassets.com/blog/wp-content/uploads/2018/05/Design-leadership-as-a-subversive-activity-.png",
           desc:
             "Lorem ipsum dolor sit amet consectetur adipisicing elit. Deserunt, tenetur",
         },
         {
           name: "Buisness",
-          img:
+          previewImg:
             "https://thumbor.forbes.com/thumbor/960x0/https%3A%2F%2Fblogs-images.forbes.com%2Falejandrocremades%2Ffiles%2F2018%2F07%2Fdesk-3139127_1920-1200x773.jpg",
           desc:
             "Lorem ipsum dolor sit amet consectetur adipisicing elit. Deserunt, tenetur",
@@ -229,8 +275,21 @@ export default {
       this.newBoard.name = template.name;
       this.addNewBoard();
     },
+    showTemplate(template) {
+      this.templatePreviewImg = template.imgLink;
+      this.showTemplateModal = true;
+    },
   },
 };
 </script>
 
-<style lang="scss"></style>
+<style lang="scss">
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.3s ease;
+}
+.fade-enter, .fade-leave-to
+/* .component-fade-leave-active below version 2.1.8 */ {
+  opacity: 0;
+}
+</style>

@@ -7,7 +7,7 @@
       title="Search for images"
     >
       <searchImg
-        :saveSettings="{previewSize:'thumb',saveSize:'small'}"
+        :saveSettings="{ previewSize: 'thumb', saveSize: 'small' }"
         :topImages="topImages"
         @imageChoosen="imageChoosen"
       />
@@ -17,13 +17,13 @@
 
 <script>
 import taskActionContainer from "../task-action-container.cmp";
-import FormInput from "../From Elements/form-input.cmp";
+import FormInput from "../FormElements/form-input.cmp";
 import { UnsplashService } from "../../services/unsplashImage-service";
-import searchImg from "../UI Components/search-img";
+import searchImg from "../UIComponents/search-img";
 export default {
   props: {
     topImages: {
-      type: Array
+      type: Array,
     },
   },
 
@@ -37,13 +37,13 @@ export default {
     },
     closeCmp() {
       this.$emit("close");
-    }
+    },
   },
   computed: {},
   components: {
     taskActionContainer,
-    searchImg
-  }
+    searchImg,
+  },
 };
 </script>
 

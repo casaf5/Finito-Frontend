@@ -24,7 +24,7 @@
 
 <script>
 import taskActionContainer from "./task-action-container.cmp";
-import formInput from "../components/From Elements/form-input.cmp";
+import formInput from "../components/FormElements/form-input.cmp";
 import Avatar from "vue-avatar";
 export default {
   name: "board-members-edit",

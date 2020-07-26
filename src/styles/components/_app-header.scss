@@ -4,7 +4,7 @@
   padding: rem(10px);
   padding-right: 0;
   position: fixed;
-  color: white;
+  color: #fff;
   text-align: center;
   z-index: 10;
   cursor: pointer;
@@ -12,25 +12,70 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    ul{
+    ul {
       height: 25px;
-        .notification-bell{
-          background-color: rgb(139, 195, 74);;
-          width: 35px;
-          height: 35px;
-          border-radius: 50%;
-          padding-top: 9px;
-          margin-left: 0;
-          margin-right: 0;
+      .notification-bell {
+        background-color: rgb(139, 195, 74);
+        width: 35px;
+        height: 35px;
+        border-radius: 50%;
+        padding-top: 9px;
+        margin-left: 0;
+        margin-right: 0;
       }
     }
     .navbar-left-side {
+      align-items: center;
+      .searchbar-container {
+        display: flex;
+        align-items: center;
+        border-radius: 3px;
+        position: relative;
+
+        input {
+          margin-left: 10px;
+          border: 0px;
+          padding: 5px;
+          transition: all 0.3s ease-in-out;
+          border-radius: 3px;
+          &::placeholder {
+            font-family: inherit;
+            color: #000;
+          }
+          &:focus {
+            color: #000;
+            border: 0px;
+            outline: none;
+            background-color: #fff;
+            transform: scale(1.1);
+          }
+          &:focus ~ .search-icon {
+            color: #333;
+            right: -10px;
+          }
+          li {
+            font-size: rem(13px);
+            display: flex;
+            place-items: center;
+          }
+          .home-icon {
+            cursor: pointer;
+          }
+        }
+        .search-icon {
+          transition: all 0.3s ease-in-out;
+          right: 2%;
+          position: absolute;
+          margin-right: 3px;
+          color: #000;
+        }
+      }
       margin-left: 3px;
       display: flex;
       :last-child {
         margin-left: 10px;
         transition: all 0.3s ease-in-out;
-        &:hover {
+        &:hover:not(.searchbar-container) {
           transform: scale(1.1);
           color: darken(#3498db, 8%);
         }
@@ -43,49 +88,6 @@
     align-items: center;
     > * {
       margin: 0 10px;
-    }
-    .searchbar-container {
-      display: flex;
-      align-items: center;
-      border-radius: 3px;
-      position: relative;
-      input {
-        border: 0px;
-        padding: 5px;
-        transition: all 0.3s ease-in-out;
-        border-radius: 3px;
-        height: 29px;
-        &::placeholder {
-          font-family: inherit;
-          color: rgb(221, 221, 221);
-        }
-        &:focus {
-          color: #000;
-          border: 0px;
-          outline: none;
-          background-color: #fff;
-          transform: scale(1.2);
-        }
-        &:focus ~ .search-icon {
-          color: #333;
-          right: -10px;
-        }
-        li {
-          font-size: rem(13px);
-          display: flex;
-          place-items: center;
-        }
-        .home-icon {
-          cursor: pointer;
-        }
-      }
-      .search-icon {
-        transition: all 0.3s ease-in-out;
-        right: 2%;
-        position: absolute;
-        margin-right: 3px;
-        color: #000;
-      }
     }
     .nav-btn {
       cursor: pointer;

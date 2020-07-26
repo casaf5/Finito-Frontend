@@ -26,7 +26,9 @@
           v-for="(color, index) in newColors"
         />
       </li>
-      <button class="btn-primary" @click="createNewLabel">{{ this.editMode ? "Save" : "Create" }}</button>
+      <button class="btn-primary" @click="createNewLabel">
+        {{ this.editMode ? "Save" : "Create" }}
+      </button>
     </div>
   </task-action-container>
 </template>
@@ -34,32 +36,32 @@
 <script>
 import TaskActionContainer from "../task-action-container.cmp";
 import LabelColor from "./label-color.cmp";
-import formInput from "../From Elements/form-input.cmp";
+import formInput from "../FormElements/form-input.cmp";
 export default {
   props: {
     choosenColor: {
-      type: String
+      type: String,
     },
     title: {
-      type: String
+      type: String,
     },
     editMode: {
-      type: Boolean
+      type: Boolean,
     },
     choosenLabelIndex: {
-      type: Number
+      type: Number,
     },
     colors: {
-      type: Array
+      type: Array,
     },
     labelToEdit: {
-      type: Object
-    }
+      type: Object,
+    },
   },
   components: {
     TaskActionContainer,
     LabelColor,
-    formInput
+    formInput,
   },
   mounted() {
     if (this.title && this.editMode) {
@@ -76,39 +78,39 @@ export default {
           title: "",
           color: "#61BD4F",
           selectedColor: "#519839",
-          wasClicked: false
+          wasClicked: false,
         },
         {
           title: "",
           color: "#f2d600",
           selectedColor: "#D9B51C",
-          wasClicked: false
+          wasClicked: false,
         },
         {
           title: "",
           color: "#ff9f1a",
           selectedColor: "#cd8313",
-          wasClicked: false
+          wasClicked: false,
         },
         {
           title: "",
           color: "#eb5a46",
           selectedColor: "#b04632",
-          wasClicked: false
+          wasClicked: false,
         },
         {
           title: "",
           color: "#0079BF",
           selectedColor: "#055A8C",
-          wasClicked: false
+          wasClicked: false,
         },
         {
           title: "",
           color: "#C377E0",
           selectedColor: "#89609E",
-          wasClicked: false
-        }
-      ]
+          wasClicked: false,
+        },
+      ],
     };
   },
   methods: {
@@ -127,7 +129,7 @@ export default {
         this.labelToEdit.wasClicked = false;
         this.$emit("createLabel", {
           label: this.labelToEdit,
-          index: this.choosenLabelIndex
+          index: this.choosenLabelIndex,
         });
       }
     },
@@ -146,12 +148,12 @@ export default {
     },
     editLabel(index) {
       this.labelToEditIndex = index;
-    }
+    },
   },
   computed: {
     isCreateMode() {
       return !this.editMode;
-    }
+    },
   },
   created() {
     if (this.choosenLabelIndex >= -1) {
@@ -159,7 +161,7 @@ export default {
         this.choosenLabelIndex
       ].wasClicked;
     }
-  }
+  },
 };
 </script>
 

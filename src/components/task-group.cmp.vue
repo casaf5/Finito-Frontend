@@ -63,7 +63,9 @@ export default {
       required: true,
     },
   },
-  created() {},
+  created() {
+    console.log(this)
+  },
   data() {
     return {
       show: false,

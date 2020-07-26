@@ -5,7 +5,9 @@
         <color-small @colorClicked="colorClicked" size="medium" />
       </div>
       <div class="imgs-container">
-        <button @click="removeCover" v-if="isCoverSet" class="btn-primary">Remove Cover</button>
+        <button @click="removeCover" v-if="isCoverSet" class="btn-primary">
+          Remove Cover
+        </button>
         <h4>Images taken from Unsplash</h4>
         <img
           @click="setImage(url.small)"
@@ -16,25 +18,27 @@
         />
       </div>
       <button
-        @click="$emit('changeComponent','task-cover-img')"
+        @click="$emit('changeComponent', 'task-cover-img')"
         class="btn-primary"
-      >Search for other photos</button>
+      >
+        Search for other photos
+      </button>
     </task-action-container>
   </div>
 </template>
 
 <script>
 import taskActionContainer from "../task-action-container.cmp";
-import colorSmall from "../UI Components/color-small";
-import FormInput from "../From Elements/form-input.cmp";
+import colorSmall from "../UIComponents/color-small";
+import FormInput from "../FormElements/form-input.cmp";
 export default {
   props: {
     topImages: {
-      type: Array
+      type: Array,
     },
     isCoverSet: {
-      type: Boolean
-    }
+      type: Boolean,
+    },
   },
   created() {
     this.imagesUrl = this.topImages;
@@ -46,42 +50,42 @@ export default {
       searchPhotos: false,
       colors: [
         {
-          color: "#61BD4F"
+          color: "#61BD4F",
         },
         {
-          color: "#f2d600"
+          color: "#f2d600",
         },
         {
-          color: "#ff9f1a"
+          color: "#ff9f1a",
         },
         {
-          color: "#eb5a46"
+          color: "#eb5a46",
         },
         {
-          color: "#0079BF"
+          color: "#0079BF",
         },
         {
-          color: "#C377E0"
+          color: "#C377E0",
         },
         {
-          color: "#1abc9c"
+          color: "#1abc9c",
         },
         {
-          color: "#e74c3c"
+          color: "#e74c3c",
         },
         {
-          color: "#8e44ad"
+          color: "#8e44ad",
         },
         {
-          color: "#778beb"
+          color: "#778beb",
         },
         {
-          color: "#f78fb3"
+          color: "#f78fb3",
         },
         {
-          color: "#c44569"
-        }
-      ]
+          color: "#c44569",
+        },
+      ],
     };
   },
   methods: {
@@ -93,14 +97,14 @@ export default {
     },
     removeCover() {
       this.$emit("removeCover");
-    }
+    },
   },
   computed: {},
   components: {
     taskActionContainer,
     FormInput,
-    colorSmall
-  }
+    colorSmall,
+  },
 };
 </script>
 

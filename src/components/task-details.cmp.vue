@@ -126,8 +126,8 @@ import taskCheckList from "../components/checklist-preview-cmp";
 import taskActivity from "../components/task-activity.cmp.vue";
 import taskAttachment from "../components/task-attachment.cmp.vue";
 import filePreview from "../components/task-attach-preview.cmp.vue";
-import colorSmall from "../components/UI Components/color-small";
-import modal from "../components/UI Components/modal";
+import colorSmall from "../components/UIComponents/color-small";
+import modal from "../components/UIComponents/modal";
 
 import Avatar from "vue-avatar";
 import { eventBus, SHOW_MSG } from "../services/event-bus-service.js";
