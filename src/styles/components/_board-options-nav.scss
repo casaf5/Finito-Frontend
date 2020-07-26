@@ -56,7 +56,10 @@
     }
   }
   .right-side {
-    :last-child {
+    .el-icon-pie-chart {
+      margin-right: 0px;
+    }
+    &:last-child {
       margin-right: 20px;
     }
     display: flex;

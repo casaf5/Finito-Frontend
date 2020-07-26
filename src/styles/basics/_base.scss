@@ -17,6 +17,7 @@ body::-webkit-scrollbar,
   width: 11px;
 }
 body,
+.overlay-wrapper,
 .task-container {
   scrollbar-width: auto;
   scrollbar-color: var(--thumbBG) var(--scrollbarBG);
@@ -34,9 +35,9 @@ body::-webkit-scrollbar-track,
   border-radius: 20px;
 }
 
-img {
-  width: 100%;
-}
+// img {
+//   width: 100%;
+// }
 
 h1,
 h2,

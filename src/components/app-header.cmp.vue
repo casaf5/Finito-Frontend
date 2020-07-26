@@ -1,7 +1,7 @@
 <template>
   <header
     :style="navbarBgStyle.navBar.navbarBgColor"
-    v-if="$route.path != '/' && $route.path != '/login'"
+    v-if="$route.path != '/' && $route.path != '/Login'"
     class="app-header"
   >
     <section class="navbar-container">
@@ -10,13 +10,13 @@
         <router-link tag="div" to="/home">
           <i class="fas fa-home header-item home-icon"></i>
         </router-link>
+        <li class="searchbar-container">
+          <input type="text" placeholder="Search.." />
+          <i class="fas fa-search search-icon"></i>
+        </li>
       </div>
       <nav>
         <ul class="navbar clean-list">
-          <li class="searchbar-container">
-            <input type="text" placeholder="Search.." />
-            <i class="fas fa-search search-icon"></i>
-          </li>
           <router-link
             :style="navbarBgStyle.navBar.buttonColors"
             class="nav-btn"

@@ -2,7 +2,10 @@
   <div>
     <div class="not-found-container">
       <h1>404</h1>
-      <p>You seem to be lost like our friend tasky here who wandered away from his board</p>
+      <p>
+        You seem to be lost like our friend tasky here who wandered away from
+        his board
+      </p>
       <img src="../assets/images/lost.png" alt />
       <button class="btn-primary">Take me back</button>
     </div>
@@ -10,7 +13,9 @@
 </template>
 
 <script>
-export default {};
+export default {
+  name: "notfound",
+};
 </script>
 
 <style lang="scss">
