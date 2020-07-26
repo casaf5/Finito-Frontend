@@ -15,17 +15,20 @@
               @toggleMember="toggleMember(member)"
               :member="member"
               :key="member._id"
-              v-for="member in filterdMembers" >
+              v-for="member in filterdMembers"
+            >
               <i v-if="isInGroup(member)" class="el-icon-check v-member"></i>
             </member>
           </div>
           <div class="member-search-status" v-else>
-            <h6>No members found please confirm that the person your'e looking
-              for is a member of this board</h6>
+            <h6>
+              No members found please confirm that the person your'e looking for
+              is a member of this board
+            </h6>
           </div>
         </div>
         <div class="member-search-status" v-else>
-          <h6>Start typing to search for members in the group </h6>
+          <h6>Start typing to search for members in the group</h6>
         </div>
       </div>
     </task-action-container>
@@ -34,8 +37,8 @@
 
 <script>
 import TaskActionContainer from "./task-action-container.cmp";
-import FormInput from "./From Elements/form-input.cmp";
-import Member from "./UI Components/member";
+import FormInput from "./FormElements/form-input.cmp";
+import Member from "./UIComponents/member";
 
 export default {
   props: ["boardMembers", "taskMembers"],
@@ -75,4 +78,3 @@ export default {
   },
 };
 </script>
-

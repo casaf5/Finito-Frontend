@@ -41,7 +41,7 @@ import taskGroup from "../components/task-group.cmp.vue";
 import socketService from "../services/socket-service";
 import boardOptionsNav from "../components/board-options-nav.vue";
 import addGroup from "../components/add-group.cmp";
-import modal from "../components/UI Components/modal";
+import modal from "../components/UIComponents/modal";
 export default {
   name: "board-details",
   components: {

@@ -9,6 +9,8 @@
   background-color: rgba(0, 0, 0, 0.4);
   padding: 15px 0;
   padding-bottom: 18px;
+  z-index: 20;
+
   .left-side {
     margin-inline-start: 5px;
     .board-members {
@@ -58,7 +60,10 @@
     }
   }
   .right-side {
-    :last-child {
+    .el-icon-pie-chart {
+      margin-right: 0px;
+    }
+    &:last-child {
       margin-right: 12px;
     }
     display: flex;

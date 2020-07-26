@@ -1,10 +1,10 @@
 <template>
   <section class="login-cmp">
     <div class="login-header-container">
-      <h1>Ready to continue owning your tasks?</h1>
+      <h1>{{ introductionText }}</h1>
     </div>
     <form @submit.prevent="login" class="login-form">
-      <h3>Welcome back to Finito</h3>
+      <h3>{{ welcomeMessage }}</h3>
       <div class="inputs-container">
         <form-input
           v-if="!isLogin"
@@ -12,7 +12,7 @@
           v-model="email"
           :showLabel="true"
         />
-        <form-input labelText="username" v-model="username" :showLabel="true" />
+        <form-input labelText="username" v-model="userName" :showLabel="true" />
         <form-input labelText="password" v-model="password" :showLabel="true" />
         <form-input
           v-if="!isLogin"
@@ -22,14 +22,14 @@
         />
       </div>
       <!-- <img src="../assets/images/login.png" alt /> -->
-      <button class="login-btn">Login</button>
-      <p @click="isLogin = !isLogin">Already Have an account?</p>
+      <button class="login-btn">{{ buttonText }}</button>
+      <p @click="isLogin = !isLogin">{{ authMessage }}</p>
     </form>
   </section>
 </template>
 
 <script>
-import formInput from "../components/From Elements/form-input.cmp";
+import formInput from "../components/FormElements/form-input.cmp";
 import {
   required,
   minValue,
@@ -43,7 +43,7 @@ export default {
   data() {
     return {
       isLogin: false,
-      username: "",
+      userName: "",
       password: "",
       confirmPassword: "",
       email: "",
@@ -52,7 +52,7 @@ export default {
   methods: {
     async authUser() {
       const credentials = {
-        username: this.username,
+        userName: this.userName,
         password: this.password,
       };
       if (this.isLogin) {
@@ -75,6 +75,24 @@ export default {
   },
   components: {
     formInput,
+  },
+  computed: {
+    introductionText() {
+      return this.isLogin
+        ? "Ready to continue owning your tasks?"
+        : "Make your future more productive";
+    },
+    welcomeMessage() {
+      return this.isLogin
+        ? "Welcome back, we've missed you"
+        : "Nice to meet you,welcome to Finito";
+    },
+    authMessage() {
+      return this.isLogin ? "Not registered yet?" : "Already Have an account?";
+    },
+    buttonText() {
+      return this.isLogin ? "Log in" : "Create an account";
+    },
   },
 };
 </script>

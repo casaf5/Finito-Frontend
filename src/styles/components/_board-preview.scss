@@ -1,6 +1,7 @@
 .board-preview {
   cursor: pointer;
   margin-right: 10px;
+  margin-bottom: 10px;
   padding: 5px;
   color: #fff;
   font-weight: 600;
@@ -9,7 +10,6 @@
   font-size: rem(15px);
   background-size: cover;
   background-position: center;
-
   transition: 0.3s ease-in-out;
   &.full {
     height: 100%;
@@ -19,17 +19,17 @@
   &.short {
     width: 150px;
     height: 100px;
-    &:hover {
-      transform: scale(1.05);
-    }
+  }
+  &:hover {
+    transform: scale(1.05);
   }
   &.create-board {
     background-color: #3498db;
     align-items: center;
     box-shadow: 4px 4px 8px 0 rgba(56, 56, 56, 0.25),
       -8px -8px 12px 0px rgba(71, 71, 71, 0.06);
-      &:hover {
-        transform: scale(1.05);
-      }
+    &:hover {
+      transform: scale(1.05);
+    }
   }
 }

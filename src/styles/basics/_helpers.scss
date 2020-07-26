@@ -92,6 +92,10 @@ button {
   &.large {
     padding: 10px 20px;
   }
+  &.full-width {
+    padding: 10px 20px;
+    width: 100%;
+  }
   &:hover {
     background-color: darken($btn-primary-color, 10%);
   }

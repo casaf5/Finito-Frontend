@@ -22,9 +22,9 @@
 
 <script>
 import TaskActionContainer from "./task-action-container.cmp";
-import ListOfActions from "./task actions/list-of-actions";
-import MoveList from "./task actions/move-list.cmp";
-import SortBy from "./task actions/sort-by.cmp";
+import ListOfActions from "./taskActions/list-of-actions";
+import MoveList from "./taskActions/move-list.cmp";
+import SortBy from "./taskActions/sort-by.cmp";
 export default {
   data() {
     return {
@@ -68,7 +68,7 @@ export default {
       this.$emit("duplicateList");
       this.$emit("close");
     },
-     removeGroup() {
+    removeGroup() {
       this.$emit("removeGroup");
       this.$emit("close");
     },

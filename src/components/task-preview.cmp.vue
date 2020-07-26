@@ -26,9 +26,12 @@
             <span>{{ taskString }}</span>
           </div>
         </div>
-        <div v-if="currentTask.attachments.length" class="attachments-container">
+        <div
+          v-if="currentTask.attachments.length"
+          class="attachments-container"
+        >
           <i class="fas fa-paperclip"></i>
-          <span>{{this.currentTask.attachments.length}}</span>
+          <span>{{ this.currentTask.attachments.length }}</span>
         </div>
         <i v-if="currentTask.desc" class="fas fa-stream"></i>
       </div>
@@ -37,21 +40,21 @@
 </template>
 
 <script>
-import Modal from "./UI Components/modal";
-import SmallLabel from "./UI Components/small-label";
+import Modal from "./UIComponents/modal";
+import SmallLabel from "./UIComponents/small-label";
 export default {
   props: {
     task: {
       type: Object,
-      required: true
-    }
+      required: true,
+    },
   },
   created() {
     console.log('preview refs',this.$refs)
   },
   data() {
     return {
-      displayModal: false
+      displayModal: false,
     };
   },
   computed: {
@@ -62,9 +65,9 @@ export default {
       let isUncompleted;
       let completedAmout = 0;
       let allTasks = 0;
-      this.currentTask.checkLists.forEach(checkList => {
+      this.currentTask.checkLists.forEach((checkList) => {
         allTasks += checkList["items"].length;
-        isUncompleted = checkList["items"].some(item => !item.completed);
+        isUncompleted = checkList["items"].some((item) => !item.completed);
         completedAmout += checkList["items"].reduce((acc, task) => {
           if (task.completed) acc++;
           return acc;
@@ -73,7 +76,7 @@ export default {
       return {
         allTasks,
         isUncompleted,
-        completedAmout
+        completedAmout,
       };
     },
     taskCover() {
@@ -99,10 +102,10 @@ export default {
     currentTask() {
       const board = this.$store.getters.board;
       const currentTaskGroup = board.taskGroups.findIndex(
-        taskGroup => taskGroup.id === this.task.parentListId
+        (taskGroup) => taskGroup.id === this.task.parentListId
       );
       const currentTask = board.taskGroups[currentTaskGroup].tasks.find(
-        task => task.id === this.task.id
+        (task) => task.id === this.task.id
       );
       return currentTask;
     },
@@ -111,34 +114,27 @@ export default {
     },
     enlargeLabel() {
       const currentTaskGroup = this.board.taskGroups.findIndex(
-        taskGroup => taskGroup.id === this.task.parentListId
+        (taskGroup) => taskGroup.id === this.task.parentListId
       );
       return this.board.taskGroups[currentTaskGroup].labelsOpen;
-    }
+    },
   },
   methods: {
     taskClicked() {
       this.$emit("taskClicked", this.task);
     },
     toggleLabels() {
-      this.board.taskGroups.forEach(taskGroup => {
+      this.board.taskGroups.forEach((taskGroup) => {
         console.log(taskGroup.isOpen);
         taskGroup.labelsOpen = !taskGroup.labelsOpen;
       });
-    }
+    },
   },
   components: {
     Modal,
-    SmallLabel
+    SmallLabel,
   },
-  mounted(){
-    let preview={
-      name:this.trimTitle,
-      el:this.$refs.taskPreview
-    }
-    this.$store.commit({type:"addToTasksRefs",ref:preview})
-  }
 };
 </script>
 
-
+<style lang="scss"></style>
