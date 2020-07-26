@@ -1,5 +1,5 @@
 <template>
-  <section class="board-details-container" v-if="board" :style="boardBackground">
+  <section class="board-details-container" v-if="board" :style="boardBackground" >
     <board-options-nav />
     <section class="board-details">
       <task-details v-if="taskToEdit" :taskToEdit="taskToEdit" @closeModal="closeTaskModal" />
