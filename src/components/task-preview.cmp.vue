@@ -1,5 +1,5 @@
 <template>
-  <div class="task-preview-container">
+  <div ref="taskPreview" class="task-preview-container">
     <div :style="taskCover" class="task-cover" @click="taskClicked"></div>
     <div class="task-preview-content">
       <div v-if="currentTask.labels.length >= 1" class="task-label-container">
@@ -46,13 +46,18 @@ export default {
       required: true
     }
   },
-  methods: {},
+  created() {
+    console.log('preview refs',this.$refs)
+  },
   data() {
     return {
       displayModal: false
     };
   },
   computed: {
+    trimTitle(){
+      return this.task.title.replace(' ','')
+    },
     checkListsStatus() {
       let isUncompleted;
       let completedAmout = 0;
@@ -125,40 +130,15 @@ export default {
   components: {
     Modal,
     SmallLabel
+  },
+  mounted(){
+    let preview={
+      name:this.trimTitle,
+      el:this.$refs.taskPreview
+    }
+    this.$store.commit({type:"addToTasksRefs",ref:preview})
   }
 };
 </script>
 
-<style lang="scss">
-// .task-preview-container {
-//   margin: 10px;
-//   .task-preview-content {
-//     display: flex;
-//     flex-direction: column;
-//     .task-status-container {
-//       display: flex;
-//       align-items: center;
-//       * {
-//         margin-right: 3px;
-//       }
-//     }
-//   }
-//   .task-label-container {
-//     .label-color {
-//       display: inline-block;
-//       height: 7px;
-//       border-radius: 3px;
-//       margin: 0 5px;
-//       width: 30px;
-//       transition: all 0.5s ease-in-out;
-//       cursor: pointer;
-//     }
-//   }
-// }
-// .label-color-enlarged {
-//   padding-right: 40px;
-//   padding-top: 20px;
-// }
 
-//
-</style>

@@ -65,6 +65,7 @@ export default {
   },
   mounted() {
     this.content = this.board.name;
+    console.log(this.$store.getters.tasksRefs)
   },
   methods: {
     updateBoard() {

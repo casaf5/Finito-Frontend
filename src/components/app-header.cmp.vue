@@ -14,7 +14,12 @@
       <nav>
         <ul class="navbar clean-list">
           <li class="searchbar-container">
-            <input type="text" placeholder="Search.." />
+            <input
+              type="text"
+              placeholder="Search.."
+              v-model="textSearch"
+              @input="searchRefs"
+            />
             <i class="fas fa-search search-icon"></i>
           </li>
           <router-link
@@ -31,7 +36,9 @@
             to="/signup"
             >Sign Up</router-link
           >
-          <i class="far fa-bell header-item notification-icon notification-bell"></i>
+          <i
+            class="far fa-bell header-item notification-icon notification-bell"
+          ></i>
           <Avatar username="Guest" :size="35" />
         </ul>
       </nav>
@@ -44,8 +51,12 @@ import Avatar from "vue-avatar";
 
 export default {
   name: "app-header",
-  computed: {},
-  methods: {},
+  data() {
+    return {
+      textSearch: "",
+      searchResults: [],
+    };
+  },
   components: {
     Avatar,
   },
@@ -67,8 +78,21 @@ export default {
           },
         };
     },
-    buttonColor() {},
   },
-  displayHeader() {},
+  methods: {
+    searchRefs() {
+      let tasksRefs = this.$store.getters.tasksRefs;
+      tasksRefs.forEach(ref=>ref.el.classList.remove('yellow'))
+      if(!this.textSearch)return 
+      this.searchResults = [];
+      tasksRefs.map((ref) => {
+        if (ref.name.includes(this.textSearch)) {
+          ref.el.classList.add('yellow');
+        }
+      });
+      console.log(this.searchResults);
+    },
+  },
+  mounted() {},
 };
 </script>
