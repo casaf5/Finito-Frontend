@@ -9,6 +9,10 @@ export default {
       tags: "",
       creator: "",
     },
+    style:{
+      "bgColor" : "#48aef9",
+      "bgUrl" : "https://i.pinimg.com/originals/5e/65/20/5e6520289b44e11a9e74363c18ce3ee1.jpg"
+    }
   },
   getters: {
     boards(state) {
@@ -25,6 +29,9 @@ export default {
         (taskGroup) => taskGroup.id === taskGroupId
       );
     },
+    style(state){
+      return state.style
+    }
   },
   mutations: {
     setBoards(state, { boards }) {
@@ -32,6 +39,7 @@ export default {
     },
     setBoard(state, { board }) {
       state.board = board;
+      state.style=board.style
     },
     deleteBoard(state, { id }) {
       const idx = state.boards.findIndex((t) => t._id === board._id);
@@ -50,6 +58,9 @@ export default {
     setFilterBy(state, { filterBy }) {
       state.filterBy = filterBy;
     },
+    setStyle(state,{style}){
+      state.style=style
+    }
   },
   actions: {
     async loadBoards({ commit, state }, { filterBy }) {
@@ -86,8 +97,9 @@ export default {
       try {
         const savedBoard = await boardService.save(board);
         commit({ type, board: savedBoard });
+        return savedBoard;
       } catch (err) {
-        console.log("Problem Updating board id-", board._id);
+        console.log("Problem Saving board id-", board._id);
         throw err;
       }
     },

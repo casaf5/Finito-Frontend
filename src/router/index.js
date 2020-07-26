@@ -1,30 +1,44 @@
-import Vue from 'vue'
-import VueRouter from 'vue-router'
-import landingPage from '../views/landing-page.vue'
-import trellorApp from '../views/trellor-app.vue'
+import Vue from "vue";
+import VueRouter from "vue-router";
+import dashboard from "@/views/dashboard.vue";
+Vue.use(VueRouter);
 
-Vue.use(VueRouter)
-
-  const routes = [
+const routes = [
   {
-    path: '/',
-    name: 'Landing-Page',
-    component: trellorApp
+    path: "/",
+    name: "Landing-Page",
+    component: () => import("../views/landing-page.vue"),
   },
   {
-    path: '/cmps-check',
-    // name: 'Landing-Page',
-    component: landingPage
+    path: "/home",
+    name: "Home-Page",
+    component: () => import("../views/home-page.vue"),
   },
-  // {
-  //   path: '/about',
-  //   name: 'About',
-  //   component: () => import(/* webpackChunkName: "about" */ '../views/About.vue')
-  // }
-]
+  {
+    path: "/board/:id",
+    name: "Finito-app",
+    component: () => import("../views/trellor-app.vue"),
+  },
+  {
+    path: "/login",
+    component: () => import("../views/login-page.vue"),
+  },
+  {
+    path: "/signup",
+    component: () => import("../views/signup-page.vue"),
+  },
+  {
+    path: "/board/dash/charts",
+    component: dashboard,
+  },
+  {
+    path: "*",
+    component: () => import("../views/404.vue"),
+  },
+];
 
 const router = new VueRouter({
-  routes
-})
+  routes,
+});
 
-export default router
+export default router;

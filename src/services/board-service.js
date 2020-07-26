@@ -1,4 +1,5 @@
 import axios from "axios";
+import { utilService } from "../utils/utils.js";
 axios.defaults.withCredentials = true;
 
 export const boardService = {
@@ -6,27 +7,25 @@ export const boardService = {
   deleteBoard,
   save,
   getById,
-  // getEmptyBoard,
+  getEmptyBoard,
 };
 
 function _getUrl(id = "") {
   const BASE_URL =
     process.env.NODE_ENV !== "development"
       ? "/api/board"
-      : "//localhost:3000/board";
+      : "//localhost:3030/api/board";
   return `${BASE_URL}/${id}`;
 }
 async function query(filterBy) {
   // let filterQuery = `?name=${filterBy.name}`;
   const res = await axios.get(_getUrl());
   const boards = res.data;
-  console.log("boards", boards);
   return boards;
 }
 async function getById(boardId) {
   const res = await axios.get(_getUrl(boardId));
   const board = res.data;
-  console.log("board", board);
   return board;
 }
 
@@ -47,12 +46,6 @@ function save(board) {
   return board._id ? _update(board) : _add(board);
 }
 
-// function getEmptyBoard(){
-//   return {
-//     name: "",
-//     price: 0,
-//     type: "",
-//     inStock: false,
-//     image:'',
-//   }
-// }
+function getEmptyBoard() {
+  return utilService.getNewBoard();
+}

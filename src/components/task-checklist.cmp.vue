@@ -1,26 +1,45 @@
 <template>
-  <task-action-container title="Enter Title">
-    <form-input :showLabel="true" labelText="title" v-model="title" type="text" />
-    <button class="btn-primary large">Add</button>
+  <task-action-container
+    title="Add Checklist"
+    class="add-checklist-cmp"
+    @close="closeChecklist"
+  >
+    <form-input
+      :showLabel="true"
+      labelText="List Title"
+      v-model="title"
+      type="text"
+    />
+    <button @click="createCheckList" class="btn-primary large">Add</button>
   </task-action-container>
 </template>
 
 <script>
 import TaskActionContainer from "./task-action-container.cmp";
-import FormInput from "./From Elements/form-input.cmp";
+import FormInput from "./FormElements/form-input.cmp";
 
 export default {
   components: {
     TaskActionContainer,
-    FormInput
+    FormInput,
   },
   data() {
     return {
-      title: ""
+      title: "New Check List",
     };
-  }
+  },
+  methods: {
+    createCheckList() {
+      if (this.title) {
+        this.$emit("createCheckList", this.title);
+        this.$emit("close");
+      }
+    },
+    closeChecklist() {
+      this.$emit("close");
+    },
+  },
 };
 </script>
 
-<style lang="scss" >
-</style>
+<style lang="scss"></style>

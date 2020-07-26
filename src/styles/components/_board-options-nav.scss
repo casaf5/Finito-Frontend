@@ -1,0 +1,102 @@
+.board-options {
+  position: fixed;
+  width: 100%;
+  background-color: transparent;
+  color: white;
+  text-align: center;
+  height: 41px;
+  top: 45px;
+  background-color: rgba(0, 0, 0, 0.4);
+  padding: 15px 0;
+  padding-bottom: 18px;
+  z-index: 20;
+
+  .left-side {
+    margin-inline-start: 5px;
+    .board-members {
+      align-self: center;
+      > * {
+        margin-inline-start: 5px;
+      }
+      i {
+        background-color: rgb(206, 206, 206);
+        border-radius: 50%;
+        font-size: 16px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 30px;
+        height: 30px;
+        color: black;
+        transition: all 0.3s;
+        padding: 2px;
+        &:hover {
+          cursor: pointer;
+          background-color: rgb(255, 255, 255);
+        }
+      }
+    }
+    span {
+      max-width: 100%;
+    }
+    input {
+      background-color: #ffffff52;
+      border: none;
+      padding: 5px;
+      margin: 5px;
+      align-self: center;
+      height: 35px;
+      color: white;
+      border-radius: 3px;
+      text-align: center;
+      font-size: 18px;
+      &:focus {
+        color: black;
+        background-color: white;
+      }
+      &:hover {
+        background-color: #ffffff52;
+      }
+    }
+  }
+  .right-side {
+    .el-icon-pie-chart {
+      margin-right: 0px;
+    }
+    &:last-child {
+      margin-right: 12px;
+    }
+    display: flex;
+    align-items: center;
+    button {
+      background-color: #3498db;
+      border-radius: 3px;
+      border: none;
+      outline: none;
+      padding: 5px;
+      font-family: Montserrat;
+      font-size: 14px;
+      color: white;
+      margin-inline-start: 10px;
+      .el-icon-pie-chart {
+        margin: 0;
+      }
+    }
+
+    .bgSelector {
+      color: black;
+      position: absolute;
+      top: 10%;
+      right: 19%;
+      .imgs-container {
+        display: grid;
+        grid-template-columns: 0.5fr 0.5fr;
+        img {
+          cursor: pointer;
+          width: 120px;
+          height: 100px;
+        }
+      }
+    }
+  }
+}

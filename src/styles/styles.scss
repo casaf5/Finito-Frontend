@@ -12,19 +12,35 @@
 // COMPONENTS
 
 @import "./components/app-header";
+@import "./components/user-msg";
 @import "./components/task-details";
-
+// @import "./components/task-activity";
+@import "./components/checklist";
+@import "./components/task-members";
+@import "./components/task-move";
+@import "./components/task-duedate";
 @import "./components/app-header";
-@import "./components/board";
 @import "./components/task-group-container";
 @import "./components/task-preview";
 @import "./components/checklist-preview";
 @import "./components/add-task";
+@import "./components/add-group";
 @import "./components/task-actions";
 @import "./components/label-color";
-@import "./components/button";
-
+@import "./components/details-btns";
+@import "./components/board-preview";
+@import "./components/action-list";
+@import "./components/task-attachment";
+@import "./components/attachment-preview";
+@import "./components/board-options-nav";
+@import "./components/board-menu";
+@import "./components/board-members-edit";
+@import "./components/template.scss";
 //VIEWS
 
 @import "./views/trellor-app";
 @import "./views//board-details";
+@import "./views//home-page";
+@import "./views/dashboard";
+@import "./views/login-signup";
+@import "./views/landing-page";

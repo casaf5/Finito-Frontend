@@ -1,62 +1,80 @@
 <template>
-  <task-action-container title="Search Members">
-    <form-input :showLabel="true" labelText="search for members" v-model="search" type="text" />
-    <div>
-      <div class="members-container" v-if="search.length">
-        <div v-if="filterdMembers.length">
-          <h3>{{boardMembersText}}</h3>
-          <member :member="member" :key="member.id" v-for="member in filterdMembers" />
+  <section class="task-members">
+    <task-action-container @close="closeComp" title="Search Members">
+      <form-input
+        :showLabel="true"
+        labelText="search for members"
+        v-model="search"
+        type="text"
+      />
+      <div>
+        <div class="members-container" v-if="search.length">
+          <div v-if="filterdMembers.length">
+            <h3>{{ boardMembersText }}</h3>
+            <member
+              @toggleMember="toggleMember(member)"
+              :member="member"
+              :key="member._id"
+              v-for="member in filterdMembers"
+            >
+              <i v-if="isInGroup(member)" class="el-icon-check v-member"></i>
+            </member>
+          </div>
+          <div class="member-search-status" v-else>
+            <h6>
+              No members found please confirm that the person your'e looking for
+              is a member of this board
+            </h6>
+          </div>
         </div>
-        <div v-else>
-          <span>No members found please confirm that the person your'e looking for is a part of this board</span>
+        <div class="member-search-status" v-else>
+          <h6>Start typing to search for members in the group</h6>
         </div>
       </div>
-    </div>
-    <button class="btn-primary large">Add</button>
-  </task-action-container>
+    </task-action-container>
+  </section>
 </template>
 
 <script>
 import TaskActionContainer from "./task-action-container.cmp";
-import FormInput from "./From Elements/form-input.cmp";
-import Member from "./UI Components/member";
+import FormInput from "./FormElements/form-input.cmp";
+import Member from "./UIComponents/member";
 
 export default {
+  props: ["boardMembers", "taskMembers"],
   components: {
     TaskActionContainer,
     FormInput,
-    Member
+    Member,
   },
   data() {
     return {
       search: "",
-      members: [
-        {
-          id: 1,
-          name: "Tomer Zuker",
-          url:
-            "https://scontent.foko1-1.fna.fbcdn.net/v/t1.0-9/84061552_1388471077991414_2755554337399767040_o.jpg?_nc_cat=108&_nc_sid=19026a&_nc_ohc=8KnoLSBmvgMAX9iwnQj&_nc_ht=scontent.foko1-1.fna&oh=a3562e310113e776d2a798232d2068a3&oe=5F380EC2"
-        },
-        { id: 2, name: "Ayal Magid", url: "img" },
-        { id: 3, name: "Asaf Cochen", url: "img" }
-      ]
     };
   },
+  created() {},
   computed: {
     filterdMembers() {
       const searchTerm = this.search.toLowerCase();
-      return this.members.filter(member =>
-        member.name.toLowerCase().includes(this.search)
+      return this.boardMembers.filter((member) =>
+        member.userName.toLowerCase().includes(this.search)
       );
     },
     boardMembersText() {
       return this.filterdMembers.length > 1 ? "Board Members" : "Board Member";
-    }
-  }
+    },
+  },
+  methods: {
+    closeComp() {
+      this.$emit("closeMembersComp");
+    },
+    toggleMember(member) {
+      const event = this.isInGroup(member) ? "removeMember" : "addMember";
+      this.$emit(event, member);
+    },
+    isInGroup(member) {
+      return this.taskMembers.find((m) => m._id === member._id);
+    },
+  },
 };
 </script>
-
-<style lang="scss" >
-.members-container {
-}
-</style>

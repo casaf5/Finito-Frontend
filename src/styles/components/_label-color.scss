@@ -1,6 +1,8 @@
 .colors-container {
   display: flex;
   align-items: center;
+  text-align: center;
+
   .color {
     border-radius: 3px;
     margin: 5px 0;
@@ -9,8 +11,16 @@
     transition: all 0.3s ease-in-out;
     cursor: pointer;
     width: 85%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  span {
+    color: #fff;
+    font-weight: 600;
   }
   i {
+    cursor: pointer;
     display: block;
     width: 15%;
     text-align: center;

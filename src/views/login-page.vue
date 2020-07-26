@@ -1,70 +1,98 @@
 <template>
-  <div class="login-cmp main-layout">
-    <form
-      @submit.prevent="login"
-      class="login-form flex col"
-    >
-      <h1>Sign In</h1>
-      <input
-        ref="userNameInput"
-        id="username"
-        type="text"
-        placeholder="Username"
-        v-model="credentials.username"
-        required
-      >
-      <input
-        id="password"
-        type="password"
-        placeholder="Password"
-        v-model="credentials.password"
-        required
-      >
-      <h3 v-if="failedLogin">Invaild Username/Password</h3>
-      <button class="login-btn">Login</button>
+  <section class="login-cmp">
+    <div class="login-header-container">
+      <h1>{{ introductionText }}</h1>
+    </div>
+    <form @submit.prevent="login" class="login-form">
+      <h3>{{ welcomeMessage }}</h3>
+      <div class="inputs-container">
+        <form-input
+          v-if="!isLogin"
+          labelText="email"
+          v-model="email"
+          :showLabel="true"
+        />
+        <form-input labelText="username" v-model="userName" :showLabel="true" />
+        <form-input labelText="password" v-model="password" :showLabel="true" />
+        <form-input
+          v-if="!isLogin"
+          labelText="Confrim Password"
+          v-model="password"
+          :showLabel="true"
+        />
+      </div>
+      <!-- <img src="../assets/images/login.png" alt /> -->
+      <button class="login-btn">{{ buttonText }}</button>
+      <p @click="isLogin = !isLogin">{{ authMessage }}</p>
     </form>
-  </div>
+  </section>
 </template>
 
 <script>
+import formInput from "../components/FormElements/form-input.cmp";
+import {
+  required,
+  minValue,
+  minLength,
+  sameAs,
+  email,
+} from "vuelidate/lib/validators";
 export default {
-  name: "login-cmp",
+  name: "login-page",
+
   data() {
     return {
-      credentials: {
-        username: "",
-        password: ""
-      },
-      failedLogin: false
+      isLogin: false,
+      userName: "",
+      password: "",
+      confirmPassword: "",
+      email: "",
     };
+  },
+  methods: {
+    async authUser() {
+      const credentials = {
+        userName: this.userName,
+        password: this.password,
+      };
+      if (this.isLogin) {
+        await this.$store.dispatch({
+          type: "login",
+          credentials: { ...credentials },
+        });
+      } else {
+        //Register user
+        credentials.email = this.email;
+        credentials.confirmPassword = this.confirmPassword;
+      }
+    },
   },
   created() {
     if (this.$store.getters.loggedUser) {
       console.log(this.$store.getters.loggedUser);
-      this.$router.push("/");
+      this.$router.push("/home");
     }
   },
-  methods: {
-    async login() {
-      const user = await this.$store.dispatch({
-        type: "login",
-        credentials: { ...this.credentials }
-      });
-      if (user) this.$router.push("/");
-      else {
-        this.failedLogin = true;
-      }
-    }
+  components: {
+    formInput,
   },
-  mounted() {
-    this.$refs.userNameInput.focus();
-  }
+  computed: {
+    introductionText() {
+      return this.isLogin
+        ? "Ready to continue owning your tasks?"
+        : "Make your future more productive";
+    },
+    welcomeMessage() {
+      return this.isLogin
+        ? "Welcome back, we've missed you"
+        : "Nice to meet you,welcome to Finito";
+    },
+    authMessage() {
+      return this.isLogin ? "Not registered yet?" : "Already Have an account?";
+    },
+    buttonText() {
+      return this.isLogin ? "Log in" : "Create an account";
+    },
+  },
 };
 </script>
-
-<style>
-.small {
-  max-width: 600px;
-  margin: 150px auto;
-}
-</style>

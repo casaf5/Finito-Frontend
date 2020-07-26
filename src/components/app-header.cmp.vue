@@ -1,36 +1,76 @@
 <template>
-  <header class="app-header">
-    <user-msg/>
-    <nav>
-      <section class="links flex clean-list">
-        <router-link tag="li" to="/">Boards</router-link>
-        <router-link tag="li" to="/about">About</router-link>
-        <router-link tag="li" to="/cmps-check">CMPS CHECK</router-link>
-        <router-link tag="li" to="/dash">Dashboard</router-link>
-        <router-link tag="li" to="/login">Login</router-link>
-        <!-- <router-link tag="li" to="/signup" v-show="!loggedUser" >Sign Up</router-link> -->
-        <!-- <button class="logout-btn" @click="logout" v-show="loggedUser" >Log Out</button> -->
-      </section>
-    </nav>
+  <header
+    :style="navbarBgStyle.navBar.navbarBgColor"
+    v-if="$route.path != '/' && $route.path != '/login'"
+    class="app-header"
+  >
+    <section class="navbar-container">
+      <div class="navbar-left-side">
+        <router-link tag="span" to="/">Finito</router-link>
+        <router-link tag="div" to="/home">
+          <i class="fas fa-home header-item home-icon"></i>
+        </router-link>
+        <li class="searchbar-container">
+          <input type="text" placeholder="Search.." />
+          <i class="fas fa-search search-icon"></i>
+        </li>
+      </div>
+      <nav>
+        <ul class="navbar clean-list">
+          <router-link
+            :style="navbarBgStyle.navBar.buttonColors"
+            class="nav-btn"
+            tag="li"
+            to="/Login"
+            >Login</router-link
+          >
+          <router-link
+            :style="navbarBgStyle.navBar.buttonColors"
+            class="nav-btn"
+            tag="li"
+            to="/signup"
+            >Sign Up</router-link
+          >
+          <i
+            class="far fa-bell header-item notification-icon notification-bell"
+          ></i>
+          <Avatar username="Guest" :size="35" />
+        </ul>
+      </nav>
+    </section>
   </header>
 </template>
 
 <script>
-
-import {eventBus,SHOW_MSG} from '../services/event-bus-service.js'
-import userMsg from './user-msg.cmp.vue'
+import Avatar from "vue-avatar";
 
 export default {
   name: "app-header",
-  computed: {
-   
-  },
-  methods: {
-   
-  },
+  computed: {},
+  methods: {},
   components: {
-    userMsg,
-  }
+    Avatar,
+  },
+
+  computed: {
+    navbarBgStyle() {
+      if (this.$route.name === "Finito-app") {
+        return {
+          navBar: {
+            navbarBgColor: "background-color:#0006",
+            buttonColors: "background-color:#2383c4;color:#fff",
+          },
+        };
+      } else
+        return {
+          navBar: {
+            navbarBgColor: "background-color:#3498db",
+            buttonColors: "background-color:#fff;color:#333",
+          },
+        };
+    },
+    buttonColor() {},
+  },
+  displayHeader() {},
 };
 </script>
-

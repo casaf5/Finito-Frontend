@@ -1,26 +1,26 @@
 <template>
   <div
-    :style="{'padding':!inGroup? '5px' :''}"
-    :class="{'transparent':!inGroup}"
+    :style="{ padding: !inGroup ? '5px' : '' }"
+    :class="{ transparent: !inGroup }"
     class="add-task-container"
   >
-    <div @click="toggleEdit" v-if="!show" class="add-task-left-content">
+    <div class="add-task-left-content" @click="toggleEdit" v-if="!show">
       <i class="el-icon-plus task-icon"></i>
       <span type="text">Add another card</span>
-      <i class="el-icon-full-screen task-icon"></i>
     </div>
-    <transition name="fade" mode="out-in">
-      <div v-if="show" class="add-task-content-container">
-        <textarea :placeholder="placeholderText" v-model="content"></textarea>
-        <button @click="addTask">{{buttonText}}</button>
+    <div v-if="show" class="add-task-content-container">
+      <textarea :placeholder="placeholderText" v-model="content"></textarea>
+      <section class="add-task-actions flex space-between">
+        <button @click="addTask" :class="{ editActive: show }">{{ buttonText }}</button>
         <i @click="toggleEdit" class="el-icon-close"></i>
-      </div>
-    </transition>
+      </section>
+    </div>
   </div>
 </template>
 
 <script>
 export default {
+  name: "add-task",
   props: ["inGroup", "show"],
   data() {
     return {
@@ -37,10 +37,10 @@ export default {
       if (this.content) {
         if (this.inGroup) {
           this.$emit("addTask", this.content);
-          this.show = false;
+          this.content = "";
         } else {
           this.$emit("addList", this.content);
-          this.show = false;
+          this.$emit("toggleEdit", !this.show);
         }
         return;
       }
@@ -49,7 +49,7 @@ export default {
   },
   computed: {
     buttonText() {
-      return this.inGroup ? "Add Card" : "Add List";
+      return this.inGroup ? "Add task" : "Add List";
     },
     placeholderText() {
       return this.inGroup ? "Enter Card title..." : "Enter List Title...";
@@ -58,17 +58,3 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped>
-.fade-enter-active,
-.fade-leave-active {
-  transition: opacity 0.5s ease-in-out;
-}
-.fade-enter,
-.fade-leave-to {
-  opacity: 0;
-}
-.component-fade-enter-active,
-.component-fade-leave-active {
-  transition: opacity 0.2s ease;
-}
-</style>

@@ -1,18 +1,44 @@
 <template>
   <div class="landing-page">
-    <task-label />
-
-    <!-- <add-task / >-->
-    <!-- <task-calendar />-->
-    <!-- <TaskCheckList /> -->
-    <!-- <task-members /> -->
+    <section class="hero-container">
+      <nav class="navbar-container">
+        <span class="logo">Finito</span>
+        <ul class="navbar">
+          <router-link to="/login" tag="li">
+            <a>Login</a>
+          </router-link>
+          <router-link to="/signup" tag="li">
+            <a>Sign Up</a>
+          </router-link>
+        </ul>
+      </nav>
+      <div class="hero-content-container">
+        <div class="hero-content">
+          <h1>
+            Managing tasks has never been easier
+            <div class="line"></div>
+          </h1>
+          <h3>Take your Task organizing skills far beyond</h3>
+          <p>
+            Finito offers a cutting edge managment system which make working in
+            large teams a breaze and takes you further than before
+          </p>
+          <router-link tag="button" to="/home" class="cta-btn"
+            >Go aboard!</router-link
+          >
+        </div>
+        <div class="hero-img">
+          <img src="../assets/images/hero.svg" alt />
+        </div>
+      </div>
+    </section>
   </div>
 </template>
 
 <script>
 import AddTask from "../components/add-task.cmp";
-import TaskLabel from "../components/taks-label.cmp";
-import TaskCalendar from "../components/task-calander.cmp";
+import TaskLabel from "../components/taskLabel/taks-label.cmp";
+import taskDuedate from "../components/task-duedate.cmp";
 import TaskCheckList from "../components/task-checklist.cmp";
 import TaskMembers from "../components/task-members.cmp";
 export default {
@@ -20,12 +46,9 @@ export default {
   components: {
     AddTask,
     TaskLabel,
-    TaskCalendar,
+    taskDuedate,
     TaskCheckList,
-    TaskMembers
-  }
+    TaskMembers,
+  },
 };
 </script>
-
-<style>
-</style>

@@ -1,0 +1,78 @@
+.checklist-wrapper {
+  margin-bottom: 15px;
+  .checklist-header {
+    align-items: center;
+    margin-bottom: 10px;
+    position: relative;
+    i {
+      position: absolute;
+      top: 0;
+      left: 4px;
+      margin-left: -3px;
+    }
+    h4 {
+      margin-inline-start: 40px;
+    }
+    .checklist-remove-btn {
+      background-color: #091e420a;
+      border-radius: 5px;
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 35px;
+      font-family: Montserrat-Bold;
+      font-weight: bold;
+      border: none;
+    }
+  }
+  .checklist-progress-bar {
+    .el-progress__text {
+      margin-left: -15px;
+    }
+    .el-progress-bar__outer {
+      height: 6px;
+      width: 440px;
+      margin-inline-start: 7px;
+    }
+  }
+  .checklist-container {
+    > * {
+      margin: 5px 5px 16px 2px;
+      font-size: rem(13px);
+      > i {
+        margin-inline-end: 48px;
+      }
+    }
+    .check-item.isDone {
+      text-decoration: line-through;
+    }
+  }
+  .new-item-label {
+    font-size: rem(14px);
+    background-color: rgb(239, 239, 239);
+    width: max-content;
+    padding: 2px;
+    height: 35px;
+    margin: 5px 0 0 5px;
+
+    cursor: pointer;
+  }
+  .new-item-label:hover {
+    background-color: rgb(224, 224, 224);
+  }
+  .add-item {
+    input {
+      width: 82%;
+      height: 30px;
+      margin-inline-start: 7px;
+      border-radius: 3px;
+      padding-left: 5px;
+    }
+    i {
+      font-size: 18px;
+      margin-inline-end: 49px;
+      margin-top: 4px;
+    }
+  }
+}
+

@@ -1,7 +1,6 @@
 .main-layout {
-    display: grid;
-    grid-template-columns: 1fr;
-    grid-template-rows: 0.1fr 0.9fr;
-    min-height: 100vh;
-    align-items: start;
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 4% auto;
+  overflow-y: hidden;
 }

@@ -1,81 +1,172 @@
 <template>
-  <section v-if="isShown" class="task-details">
-          <!-- will change to col from task width-->
-   <div class="task-details-containers-wraper">
-    <button @click="closeModal">X</button>
-    <div class="flex row task-details-main-container">
-      <div class="flex col space-between task-left-container">
-        <h2 class="task-name">{{ task.title }}</h2>
-        <h3 class="task-group-name">{{taskGroup.title}}</h3>
-        <div class="task-isComplete">checkbox</div>
-        <div class="task-members-labels-container flex row">
-          <div class="task-members-container">
-            <h5>Members</h5>
-            {{user.name}}
-            <!-- v for members -->
-          </div>
-        <div>duedate</div>
-          <div class="task-desc">
-            <!-- <task-desc/> -->
-            desc
-          </div>
+  <!-- will change to col from task width-->
+  <div class="task-details-containers-wraper">
+    <button class="close-modal-btn" @click="$emit('close')">
+      <i class="fas fa-times-circle"></i>
+    </button>
+    <div class="task-details-main-container">
+      <div class="task-left-container">
+        <div class="task-details-titles-container">
+          <i class="el-icon-postcard"></i>
+          <input
+            type="text"
+            v-model="task.title"
+            class="task-name"
+            @blur="updateTitle"
+          />
+          <h6 class="task-group-name">
+            in Task-Group
+            <span>{{ taskGroup.title }}</span>
+          </h6>
         </div>
-        <div class="task-desc">
-          <!-- <task-desc/> -->desc
+        <!-- combine with due date -->
+        <!-- <el-checkbox  @click="toggleTaskCompletion" v-model="checked" class="task-isComplete" >Completed</el-checkbox> -->
+        <div class="task-members-labels-date flex wrap">
+          <section
+            v-show="task.members.length"
+            class="task-members-container-wraper"
+          >
+            <h6>Members</h6>
+            <div class="task-members-container flex">
+              <div v-for="(member, idx) in task.members" :key="idx">
+                <avatar v-if="member.img" :src="member.img" :size="35"></avatar>
+                <avatar v-else :username="member.userName" :size="35"></avatar>
+              </div>
+            </div>
+          </section>
+          <section
+            v-show="task.labels.length"
+            class="task-labels-container-wraper"
+          >
+            <h6>Labels</h6>
+            <div class="task-labels-container flex">
+              <color-small
+                size="extra-small"
+                :propColor="task.labels"
+                @colorClicked="removeLabel"
+              />
+              <div class="add-label">
+                <i class="el-icon-plus"></i>
+              </div>
+            </div>
+          </section>
+          <section v-show="task.dueDate" class="task-date-container-wraper">
+            <h6>Due Date</h6>
+            <div class="task-date-container flex">
+              <label>
+                <input
+                  type="checkbox"
+                  v-model="task.isComplete"
+                  @click="toggleTaskCompletion"
+                />
+                {{ task.dueDate }}
+              </label>
+            </div>
+          </section>
         </div>
-        <div class="task-checklists">
-          <!-- v-if="checkListsToShow" -->
-          <ul >
-            <li v-for="(checklist,idx) in task.checkLists" :key="idx">
-              <checklist-preview :checklist="checklist"/>
-            </li>
-          </ul>
+        <div class="task-desc-container">
+          <i class="el-icon-s-unfold"></i>
+          <h4>Description</h4>
+          <textarea
+            placeholder="Add Description to task.."
+            @click="focusOnDesc"
+            v-model="task.desc"
+            ref="desTextArea"
+            @blur="removeFocus"
+            class="desc-textarea"
+          />
         </div>
-        <div class="task-activities">
-          <div class="task-activties-header flex row space-between">
-            <div>icon</div>
-            <button>Show Details</button>
-          </div>
+        <div
+          class="task-attachments-container"
+          v-if="task.attachments.length > 0"
+        >
+          <i class="fas fa-file-alt"></i>
+          <h4>Attachments</h4>
+          <file-preview
+            v-for="(file, idx) in task.attachments"
+            :file="file"
+            :cover="task.cover"
+            :key="idx"
+            @remove="removeAttach(idx)"
+            @cover="setTaskCover(idx)"
+          />
         </div>
+        <div class="task-checklists" v-if="task.checkLists.length > 0">
+          <task-check-list
+            v-for="(checklist, idx) in task.checkLists"
+            :checklist="checklist"
+            :key="idx"
+            @remove="removeCheckList(idx)"
+            @update="updateCheckList(idx)"
+          />
+        </div>
+        <task-activity v-if="activitiesToShow" :activities="activitiesToShow" />
       </div>
-      <div class="flex col task-right-container">
-        <button><i class="el-icon-user"></i> Members</button>
-        <button><i class="el-icon-price-tag"></i> Labels</button> 
-        <button><i class="el-icon-date"></i> Due date</button>
-        <button><i class="el-icon-document-checked"></i> Checklist</button>
-        <button><i class="el-icon-paperclip"></i> Attachment</button>
-        <button><i class="el-icon-picture-outline"></i> Cover</button>
-        <button><i class="el-icon-document-copy"></i> Copy</button>
-        <button @click="removeTask"><i class="el-icon-delete"></i> Remove</button>
-        <button><i class="el-icon-right"></i> Move</button>
-        <button><i class="el-icon-view"></i> Watch</button>
+      <div class="task-right-container">
+        <details-btns
+          :board="boardToEdit"
+          :user="user"
+          :taskIdx="taskIdx"
+          :task="task"
+          @emitBoardChange="boardChanged"
+          @emitCloseModal="closeModal"
+        />
       </div>
     </div>
   </div>
-  </section>
 </template>
 
 <script>
-  import checklistPreview from "@/components/checklist-preview.cmp.vue"
-  // import { eventBus, SHOW_MSG } from "@/services/event-bus.service.js";
+import { utilService } from "../utils/utils.js";
+import { loggerService } from "../services/logger-service.js";
+import socketService from "../services/socket-service.js";
+import TaskActionContainer from "./task-action-container.cmp";
+import detailsBtns from "./details-btns.cmp";
+import taskCheckList from "../components/checklist-preview-cmp";
+import taskActivity from "../components/task-activity.cmp.vue";
+import taskAttachment from "../components/task-attachment.cmp.vue";
+import filePreview from "../components/task-attach-preview.cmp.vue";
+import colorSmall from "../components/UIComponents/color-small";
+import modal from "../components/UIComponents/modal";
+
+import Avatar from "vue-avatar";
+import { eventBus, SHOW_MSG } from "../services/event-bus-service.js";
 
 export default {
   name: "task-details",
-  // move taskgroup to data, not a prop & updated at created
-  props: ["task","isShown"],
+  props: ["taskToEdit"],
   data() {
     return {
-      taskGroup:null,
+      task: null,
+      currDescription: this.taskToEdit.desc,
+      taskGroup: null,
       user: null,
       taskIdx: null,
-      activityToAdd: {
-        edditedTask: {
-          id: this.task.id,
-          name: this.task.name
-        }
-      },
-      boardToEdit: null
+      // checked: false,
+      boardToEdit: null,
     };
+  },
+  created() {
+    this.boardToEdit = JSON.parse(JSON.stringify(this.board));
+    const taskGroupId = this.taskToEdit.parentListId;
+    this.taskGroup = this.boardToEdit.taskGroups.find(
+      (tg) => tg.id === taskGroupId
+    );
+    const taskGroupIdx = this.boardToEdit.taskGroups.findIndex(
+      (tg) => tg.id === taskGroupId
+    );
+    this.task = this.taskGroup.tasks.find(
+      (task) => task.id === this.taskToEdit.id
+    );
+    this.taskIdx = this.taskGroup.tasks.findIndex((t) => t.id === this.task.id);
+    this.user = this.$store.getters.loggedUser
+      ? this.$store.getters.loggedUser
+      : {
+          id: "443",
+          userName: "Guest",
+          url:
+            "https://api.adorable.io/avatars/400/79c159e13036a02295c94901b6628bfe.png",
+        };
   },
   computed: {
     board() {
@@ -83,208 +174,125 @@ export default {
     },
     activitiesToShow() {
       let activities = null;
-      if (this.boardToEdit) {
+      if (this.boardToEdit.activities.length > 0) {
         activities = this.boardToEdit.activities;
-        return activities.filter(
-          activity => activity.edditedTask.id === this.task.id
+        activities = activities.filter(
+          (activity) => activity.editedTask.id === this.task.id
         );
-      } else {
         return activities;
       }
     },
-    checkListsToShow (){
-        return  this.task.checkLists
-  },
   },
   methods: {
-    closeModal (){
-      this.isShown = false;
+    updateBoard(actionStr = "ACTION SAVED") {
+      socketService.emit("boardUpdate", this.boardToEdit);
+      socketService.on("boardUpdate", (board) => {
+        this.$store.commit({ type: "setBoard", board });
+        // const savedBoard = await this.$store.dispatch({
+        //   type: "updateBoard",
+        //   board: this.boardToEdit
+      });
+      // USER MSG
+      // const type = savedBoard ? "success" : "error";
+      // let fixedStr = actionStr;
+      // if (actionStr !== "ACTION SAVED") {
+      //   let words = actionStr.split("_");
+      //   if (words) fixedStr = `${words[0]} ${words[1]}`;
+
+      // const msg = savedBoard
+      //   ? `${fixedStr} SUCCESSFULLY!`
+      //   : `${fixedStr} FAILD...`;
+      // eventBus.$emit(SHOW_MSG, { msg, type });
     },
-    // delete after
-    // async loadBoards() {
-    //   await this.$store.dispatch({ type: "loadBoards" });
-    //   console.log("boardsare loaded");
-    //   this.setBoard();
-    // },
-    // async setBoard() {
-    //   await this.$store.commit({ type: "setBoard", id: "b101" });
-    //   this.boardToEdit = JSON.parse(JSON.stringify(this.board));
-    //   console.log("board to edit", this.boardToEdit);
-      // /////check for checklist
-      // console.log('cl', this.boardToEdit.taskGroups[0].tasks[0].checkLists);
-      //  this.addActivity("ADDED_ITEM", 'checklist');
-    // },
-    ////////
-    // TASK CRUDL +
-    removeTask() {
-      this.taskGroup.tasks.splice(this.taskIdx, 1);
-      this.addActivity("REMOVED_TASK");
-      this.closeModal()
+    closeModal() {
+      this.$emit("closeModal");
     },
-    copyTask() {
-      this.taskGroup.tasks.unshift(JSON.parse(JSON.stringify(this.task)));
-      this.addActivity("COPPIED_TASK");
+    boardChanged(action, changed = null) {
+      changed ? this.addActivity(action, changed) : this.addActivity(action);
     },
-    toggleTaskCompletion(){
-      let action = ''
-      this.task.isComplete = !this.task.isComplete
-      action = (this.task.isComplete)? " COMPLETED_TASK" : "INCOMPLETED_TASK"
-      this.addActivity(action)
+    //TITLE
+    updateTitle() {
+      this.addActivity("UPDATED_TITLE");
     },
-    watchTask(){
+    //DESCREPTION
+    focusOnDesc() {
+      this.$refs.desTextArea.select();
+      this.$refs.desTextArea.classList.add("edit");
     },
-    // gets the new taskgroup id from the relevant comp
-    moveTask(newTaskgroupId) {
-      this.task.parentListId = newTaskgroupId
-      const newGroupIdx = this.boardToEdit.taskGroups.findIndex(g => g.id === newTaskgroupId)
-      this.taskGroup.tasks.splice(this.taskIdx, 1);
-      this.boardToEdit.taskGroups[newGroupIdx].push(this.task);
-         this.addActivity("MOVED_TASK");
+    removeFocus() {
+      this.$refs.desTextArea.classList.remove("edit");
+      if (this.currDescription !== this.task.desc) {
+        this.addActivity("UPDATED_DESCRIPSTION");
+        this.currDescription = this.task.desc;
+      }
+    },
+    toggleTaskCompletion() {
+      let action = "";
+      this.task.isComplete = !this.task.isComplete;
+      action = this.task.isComplete ? "COMPLETED_TASK" : "INCOMPLETED_TASK";
+      this.addActivity(action);
+    },
+    //ATTACHMENT
+    removeAttach(idx) {
+      this.task.attachments.splice(idx, 1);
+      this.addActivity("REMOVED_ATTACHMENT");
     },
 
-    // LABEL "CRUDL" => should emit by component
-    labelAdded(label){
-      this.taskGroup.tasks.labels.push(label)
-      this.addActivity("ADDED_LABEL");
+    setTaskCover(idx) {
+      if (this.task.cover.url === this.task.attachments[idx].imageUrl) {
+        this.task.cover.url = "";
+        this.addActivity("REMOVED_COVER");
+      } else {
+        this.task.cover.url = this.task.attachments[idx].imageUrl;
+        this.addActivity("ADDED_COVER");
+      }
     },
-    labelRemoved(idx){
-      this.taskGroup.tasks.labels.splice(idx, 1)
-      this.addActivity("REMOVED_LABEL");
-    },
-    // CHECKLIST CRUDL => should emit by component (inside will be also items crudl)
-    checkListAdded(checklist){
-      this.task.checkLists.push(checklist)
-      this.addActivity("ADDED_CHECKLIST");
-    },
-    checkListRemoved(idx){
-       this.task.checkLists.splice(idx, 1);
-       this.addActivity("REMOVED_CHECKLIST");
+    // CHECKLIST
+    removeCheckList(idx) {
+      this.task.checkLists.splice(idx, 1);
+      this.addActivity("REMOVED_CHECKLIST");
     },
     // will emit from the checklistpreview comp
-    checkListUpdated(idx){
-      const checklist = this.task.checkLists[idx]
+    updateCheckList(idx) {
+      const checklist = this.task.checkLists[idx];
       this.addActivity("UPDATED_CHECKLIST", checklist.title);
     },
-    // OTHERS
-    // get an obj of the changes and update the board
-    coverUpdated(cover) {
-
-    },
-    memberJoined(memeber){
-
-    },
-    fileAttched(file){
-
-    },
-    ///////// activiy log + state board update/////////
-    // async
+    // get a string as an action and if needed another string of what changed
     addActivity(action, changed = "") {
-      this.activityToAdd.action = action;
-      this.activityToAdd.byUser = this.user;
-      this.activityToAdd.url = this.user.url;
-      const txt = this.getTxtToRndr(action, changed);
-      this.activityToAdd.txt = txt;
-      this.boardToEdit.activities.unshift(this.activityToAdd);
-      // const updatedboard = await this.$store.dispatch({ type:"saveBoard", board: this.boardToEdit});
-      // const type = (updatedboard) ? 'success' : 'error'
-      // const msg = (updatedboard) ? `${this.activityToAdd.action} successfully!` : `${this.activityToAdd.action} faild...`
-      // eventBus.$emit(SHOW_MSG, {msg, type});
+      let activityToAdd = {
+        editedTask: { id: this.task.id, title: this.task.title },
+        action,
+        byUser: this.user,
+        txt: loggerService.buildLog(action, changed, this.user, this.task),
+        createdAt: Date.now(),
+      };
+      this.boardToEdit.activities.unshift(activityToAdd);
+      this.updateBoard(action);
     },
-
-    // getting an action and what has been changed (name/date etc..) => using switch case to get the write txt
-    getTxtToRndr(action, changed) {
-      let txt = "";
-      // return `${action} happend`
-      switch (action) {
-        // ADD
-        case "ADDED_LABEL":
-          txt = `${this.user.name} added label in ${this.task.name}`;
-          break;
-        case "ADDED_CHECKLIST":
-          txt = `${this.user.name} added checklist in ${this.task.name}`;
-          break;
-        case "ADDED_ITEM":
-          // checklist name in changed
-          txt = `${this.user.name} added item in ${this.task.name} ${changed}`;
-          break;
-        case "ADDED_COVER":
-          txt = `${this.user.name} added cover to ${this.task.name}`;
-          break;
-        case "ADDED_ATTACHMENT":
-          txt = `${this.user.name} attached a file to ${this.task.name}`;
-          break;
-        // REMOVE
-        case "REMOVED_TASK":
-          txt = `${this.user.name} removed ${this.task.name}`;
-          break;
-        case "REMOVED_LABEL":
-          txt = `${this.user.name} removed label from ${this.task.name}`;
-          break;
-        case "REMOVED_CHECKLIST":
-          txt = `${this.user.name} removed checklist from ${this.task.name}`;
-          break;
-        case "REMOVED_ITEM":
-          // checklist name in changed
-          txt = `${this.user.name} removed item from ${this.task.name} ${changed}`;
-          break;
-        // UPDATE
-        case "UPDATED_DESC":
-          txt = `${this.user.name} updated the description of ${this.task.name}`;
-          break;
-        case "UPDATED_COVER":
-          txt = `${this.user.name} changed the cover of ${this.task.name}`;
-          break;
-        case "UPDATED_DATE":
-          // the new date in changed
-          txt = `${this.user.name} changed the due-date of ${this.task.name} to ${changed}`;
-          break;
-        case "UPDATED_CHECKLIST":
-          // changed is the name of the checklist
-          txt = `${this.user.name} updated the checklist ${changed} in ${this.task.name}`;
-          break;
-        // OTHERS
-        case "JOINED_MEMBER":
-          txt = `${this.user.name} joined as a memeber to ${this.task.name}`;
-          break;
-        case "MOVED_TASK":
-          // changed gets the new list task was moved to
-          txt = `${this.user.name} moved ${this.task.name} to ${changed}`;
-          break;
-        case "isComplete_TASK":
-          txt = `${this.user.name} isComplete the task ${this.task.name}`;
-          break;
-        case "INisComplete_TASK":
-          txt = `${this.user.name} inisComplete the task ${this.task.name}`;
-          break;
-        case "COPPIED_TASK":
-          txt = `${this.user.name} coppied ${this.task.name}`;
-          break;
-        case "WATCHED_TASK":
-          txt = `${this.user.name} watched ${this.task.name}`;
-          break;
-      }
-      return txt;
-    }
+    removeLabel(_, index) {
+      this.task.labels.splice(index, 1);
+      this.addActivity("REMOVED_LABEL");
+    },
   },
-  created() {
-    // //only for testing
-    // this.loadBoards();
-    // console.log('cls', this.task.checkLists)
-    // /////
 
-    // /// copying the task it self also so could be editted out of the store
-    this.boardToEdit = JSON.parse(JSON.stringify(this.board))
-    const taskGroupId = this.task.parentListId;
-    this.taskGroup = this.boardToEdit.taskGroups.find(tg => tg.id === taskGroupId)
-    console.log('gr',this.taskGroup)
-    const taskGroupIdx = this.boardToEdit.taskGroups.findIndex(tg => tg.id === taskGroupId)
-    this.task = this.boardToEdit.taskGroups[taskGroupIdx].tasks.find(t => t.id===this.task.id)
-    console.log(this.task)
-    this.taskIdx = this.taskGroup.tasks.findIndex(t => t.id===this.task.id)
-    this.user = (this.$store.getters.loggedUser)? this.$store.getters.loggedUser : { name: "Guest", url: "guestimg" }
+  components: {
+    taskCheckList,
+    Avatar,
+    TaskActionContainer,
+    taskActivity,
+    detailsBtns,
+    filePreview,
+    colorSmall,
+    modal,
   },
-  components : {
-    checklistPreview
-  }
-}
+};
 </script>
+
+<style lang="scss" scoped>
+.color {
+  margin: 5px 10px;
+  width: 55px;
+  height: 35px;
+  border-radius: 3px;
+}
+</style>

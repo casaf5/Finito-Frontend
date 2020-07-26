@@ -1,17 +1,15 @@
 .actions-container {
-  top: 20%;
-  left: 50%;
-  z-index: 2;
-  // width: 120%;
-  width: 320px;
-  background-color: #fff;
   position: absolute;
+  top: 40%;
+  left: 65%;
+  z-index: 10;
+  width: 285px;
+  background-color: #fff;
   display: flex;
   flex-direction: column;
   padding: 10px;
   border-radius: 3px;
   box-shadow: 2px 7px 25px 0px rgba(26, 26, 26, 0.2);
-
   .actions-list {
     margin: 0;
     padding: 0;
@@ -26,9 +24,13 @@
     align-items: center;
     position: relative;
     margin-bottom: 15px;
-
+    color: $task-title-color;
+    .el-icon-close {
+      cursor: pointer;
+    }
     span {
       text-align: center;
+      font-size: rem(14px);
     }
     i:not(.icon) {
       position: absolute;

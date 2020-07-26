@@ -1,35 +1,55 @@
+import { authService } from "../services/auth-service.js";
 import { userService } from "../services/user-service.js";
 
 export const userStore = {
   state: {
+    users: null,
     loggedUser: null,
     userPrefs: null,
   },
   getters: {
+    users(state) {
+      return state.users;
+    },
     loggedUser(state) {
       return state.loggedUser;
     },
   },
   mutations: {
+    setUsers(state, { users }) {
+      state.users = users;
+    },
     setLoggedUser(state, { user }) {
       state.loggedUser = user;
-      console.log('loggeduser',state.loggedUser)
+      console.log("loggeduser", state.loggedUser);
     },
   },
   actions: {
-    async login({ commit }, {credentials}) {
-      const loggedUser = await userService.login(credentials);
-      commit({type:'setLoggedUser',user:loggedUser})
-      return loggedUser
+    //Authintication:
+    async login({ commit }, { credentials }) {
+      const loggedUser = await authService.login(credentials);
+      commit({ type: "setLoggedUser", user: loggedUser });
+      return loggedUser;
     },
-    async signup({ commit }, {registerDetails}) {
-      const registeredUser = await userService.signup(registerDetails);
-      commit({type:'setLoggedUser',user:registeredUser})
-      return registeredUser
+    async signup({ commit }, { registerDetails }) {
+      const registeredUser = await authService.signup(registerDetails);
+      commit({ type: "setLoggedUser", user: registeredUser });
+      return registeredUser;
     },
     async logout({ commit }) {
-      await userService.logout();
-      commit({type:'setLoggedUser',user:null})
+      await authService.logout();
+      commit({ type: "setLoggedUser", user: null });
+    },
+    //USERS CURD:
+    async loadUsers({ commit }) {
+      try {
+        const users = await userService.getUsers();
+        commit({ type: "setUsers", users });
+        return users;
+      } catch (err) {
+        console.log("Problem getting Users! ");
+        throw err;
+      }
     },
   },
 };
