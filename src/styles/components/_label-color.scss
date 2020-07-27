@@ -10,7 +10,7 @@
     height: 30px;
     transition: all 0.3s ease-in-out;
     cursor: pointer;
-    width: 85%;
+    width: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -20,9 +20,12 @@
     font-weight: 600;
   }
   i {
+    color: #fff;
+    right: 15px;
+    position: absolute;
     cursor: pointer;
+    font-size: rem(14px);
     display: block;
-    width: 15%;
     text-align: center;
   }
   .unique-color {

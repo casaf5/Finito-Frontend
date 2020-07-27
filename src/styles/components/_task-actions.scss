@@ -1,7 +1,7 @@
 .actions-container {
   position: absolute;
   top: 40%;
-  left: 65%;
+  // left: 65%;
   z-index: 10;
   width: 285px;
   background-color: #fff;
@@ -40,5 +40,11 @@
       position: absolute;
       left: 10px;
     }
+  }
+  &.full-size {
+    right: 0;
+    // left: 77.7%;
+    top: 0;
+    height: 100%;
   }
 }

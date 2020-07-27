@@ -6,7 +6,7 @@
       :style="{ 'background-color': color.color }"
       :key="index"
       v-for="(color, index) in colorsToRender"
-      @click="colorClicked(color,index)"
+      @click="colorClicked(color, index)"
     ></div>
   </div>
 </template>
@@ -16,59 +16,59 @@ export default {
   props: {
     size: {
       type: String,
-      default: "medium"
+      default: "medium",
     },
     propColor: {
-      type: Array
-    }
+      type: Array,
+    },
   },
   data() {
     return {
       colors: [
         {
-          color: "#61BD4F"
+          color: "#61BD4F",
         },
         {
-          color: "#f2d600"
+          color: "#f2d600",
         },
         {
-          color: "#ff9f1a"
+          color: "#ff9f1a",
         },
         {
-          color: "#eb5a46"
+          color: "#eb5a46",
         },
         {
-          color: "#0079BF"
+          color: "#0079BF",
         },
         {
-          color: "#C377E0"
+          color: "#C377E0",
         },
         {
-          color: "#1abc9c"
+          color: "#1abc9c",
         },
         {
-          color: "#e74c3c"
+          color: "#e74c3c",
         },
         {
-          color: "#8e44ad"
+          color: "#8e44ad",
         },
         {
-          color: "#778beb"
+          color: "#778beb",
         },
         {
-          color: "#f78fb3"
+          color: "#f78fb3",
         },
         {
-          color: "#c44569"
-        }
-      ]
+          color: "#c44569",
+        },
+      ],
     };
   },
   methods: {
     colorClicked(color, index) {
       this.$emit("colorClicked", color, index);
       console.log(color);
-    }
+    },
   },
   computed: {
     colorSettings() {
@@ -76,14 +76,16 @@ export default {
         return "color-small";
       } else if (this.size === "extra-small") {
         return "extra-small";
-      } else {
+      } else if (this.size === "medium") {
         return "color-medium";
+      } else {
+        return "extra-large";
       }
     },
     colorsToRender() {
       return this.propColor ? this.propColor : this.colors;
-    }
-  }
+    },
+  },
 };
 </script>
 
@@ -109,6 +111,10 @@ export default {
 
     width: 35px;
     height: 26px;
+  }
+  .color.extra-large {
+    width: 110px;
+    height: 76px;
   }
 }
 </style>

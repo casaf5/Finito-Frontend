@@ -12,6 +12,8 @@ import Vuelidate from "vuelidate";
 import elementLocale from "element-ui/lib/locale/lang/en";
 Vue.use(ElementUI, { locale: elementLocale });
 Vue.use(Vuelidate);
+Vue.use(require("vue-moment"));
+
 Vue.config.productionTip = false;
 
 new Vue({

@@ -8,7 +8,7 @@
       v-model="query"
       @input="searchForPhotos"
     />
-    <div class="imgs-container">
+    <div v-if="!isLoading" class="imgs-container">
       <img
         @click="imageChoosen(url, index)"
         :src="url[imageDisplaySize]"
@@ -16,6 +16,9 @@
         v-for="(url, index) in imagesToDisplay"
       />
     </div>
+    <h1 v-else>
+      Loading...
+    </h1>
   </div>
 </template>
 
@@ -37,16 +40,27 @@ export default {
     getAllSizes: {
       type: Boolean,
     },
+    imageAmount: {
+      type: String,
+    },
   },
   data() {
     return {
       searchedImages: [],
       query: "",
+      isLoading: false,
     };
   },
+  created() {},
   methods: {
     async searchForPhotos() {
-      this.searchedImages = await UnsplashService.searchPhoto(this.query, "9");
+      this.isLoading = true;
+      const imgAmount = this.imageAmount ? this.imageAmount : "9";
+      this.searchedImages = await UnsplashService.searchPhoto(
+        this.query,
+        imgAmount
+      );
+      this.isLoading = false;
     },
     imageChoosen(url, index) {
       const { previewSize, saveSize } = this.saveSettings;
@@ -84,7 +98,7 @@ export default {
   display: flex;
   flex-wrap: wrap;
   h4 {
-    font-size: 16px;
+    font-size: 14px;
   }
   img {
     cursor: pointer;

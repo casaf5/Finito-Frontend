@@ -1,5 +1,4 @@
 .task-preview-container {
- 
   margin: 3px 0;
   background-color: #fff;
   border-radius: 3px;
@@ -44,11 +43,9 @@
       > * {
         margin-right: 5px;
       }
-      .task-members-preview{
-        position: absolute;
-        right: 0;
-        margin: 0;
-        >*{
+      .task-members-preview {
+        margin-left: auto;
+        > *:not(:first-child) {
           margin-left: 3px;
         }
       }
@@ -99,7 +96,6 @@
           font-size: rem(10px);
           padding: 3px;
           font-family: Montserrat-Bold;
-          font-weight: bold;
         }
       }
       .label-color-enlarged {
@@ -108,12 +104,27 @@
         padding: 0px 10px;
       }
     }
+    .due-date-container {
+      font-size: 10px;
+      padding: 3px 5px;
+      border-radius: 3px;
+      color: #fff;
+    }
+    .due-green {
+      background-color: #60bd4e;
+    }
+    .due-red {
+      background-color: #e63946;
+    }
+    .due-yellow {
+      background-color: #e85d04;
+    }
     i {
       font-size: rem(13px);
       color: #5e6c84;
     }
   }
-  &.yellow{
+  &.yellow {
     background-color: yellow;
   }
 }

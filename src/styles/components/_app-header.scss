@@ -9,6 +9,7 @@
   z-index: 10;
   cursor: pointer;
   .navbar-container {
+    height: 100%;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -105,7 +106,7 @@
       border-radius: 3px;
       padding: 5px 10px;
       margin-bottom: 2px;
-      margin-left:0;
+      margin-left: 0;
       display: flex;
       justify-content: center;
       color: #ffffff;
@@ -116,6 +117,10 @@
       align-items: center;
       &:hover {
         background-color: darken(#3498db, 8%);
+      }
+      &.transparent {
+        background-color: transparent;
+        border: 1px solid #fff;
       }
     }
   }

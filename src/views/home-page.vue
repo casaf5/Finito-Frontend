@@ -102,9 +102,7 @@
                   <span>Supports live synchronization</span>
                 </li>
               </ul>
-              <button class="btn-primary full-width">
-                Generate Template
-              </button>
+              <button class="btn-primary full-width">Generate Template</button>
               <p @click="showTemplateModal = !showTemplateModal">
                 Back to Homepage
               </p>
@@ -156,52 +154,32 @@ export default {
         {
           name: "Marketing",
           previewImg:
-            "https://www.selected.co.il/wp-content/uploads/2019/06/inner1.jpg",
+            "https://images.unsplash.com/photo-1522542550221-31fd19575a2d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=750&q=80",
           desc:
-            "From Digital marketing to traditonial marketing,everything list is ready for you to use and start increasing your revenues",
+            "From Digital marketing to traditonial marketing,everything list is ready for you",
         },
         {
           name: "Engineering",
           previewImg:
-            "https://www.nbn.org.il/wp-content/uploads/2014/01/engineering_mechanical_3042380_cropped.jpg",
+            "https://images.unsplash.com/photo-1504328345606-18bbc8c9d7d1?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=750&q=80",
           desc:
             "List are premade to save you the effort on making them. Go and start coding!",
         },
-        {
-          name: "Education",
-          previewImg:
-            "https://tcmagazine.info/wp-content/uploads/2019/03/Online-Education.jpg",
-          desc:
-            "All you need for your eductation task magagment is right here ",
-        },
+
         {
           name: "Design",
           previewImg:
-            "http://www.financetodayusa.com/wp-content/uploads/2020/03/istock-844535646.jpg",
+            "https://images.unsplash.com/photo-1494253109108-2e30c049369b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=750&q=80",
           desc:
             "Lorem ipsum dolor sit amet consectetur adipisicing elit. Deserunt, tenetur",
         },
         {
           name: "Buisness",
           previewImg:
-            "https://images.unsplash.com/photo-1509785307050-d4066910ec1e?ixlib=rb-1.2.1&q=85&fm=jpg&crop=entropy&cs=srgb&ixid=eyJhcHBfaWQiOjE0OTc5MX0",
+            "https://images.unsplash.com/photo-1491336477066-31156b5e4f35?ixlib=rb-1.2.1&auto=format&fit=crop&w=750&q=80",
           desc:
             "Lorem ipsum dolor sit amet consectetur adipisicing elit. Deserunt, tenetur",
           imgLink: "buissness-template-img.jpg",
-        },
-        {
-          name: "Remote Work",
-          previewImg:
-            "https://blog.intercomassets.com/blog/wp-content/uploads/2018/05/Design-leadership-as-a-subversive-activity-.png",
-          desc:
-            "A Mission Control Center for your team productivity",
-        },
-        {
-          name: "Family",
-          previewImg:
-            "https://thumbor.forbes.com/thumbor/960x0/https%3A%2F%2Fblogs-images.forbes.com%2Falejandrocremades%2Ffiles%2F2018%2F07%2Fdesk-3139127_1920-1200x773.jpg",
-          desc:
-            "Lorem ipsum dolor sit amet consectetur adipisicing elit. Deserunt, tenetur",
         },
       ],
       newBoard: {
