@@ -3,7 +3,7 @@
     <div class="login-header-container">
       <h1>{{ introductionText }}</h1>
     </div>
-    <form @submit.prevent="login" class="login-form">
+    <form @submit.prevent="authUser" class="login-form">
       <h3>{{ welcomeMessage }}</h3>
       <div class="inputs-container">
         <form-input
@@ -60,6 +60,7 @@ export default {
           type: "login",
           credentials: { ...credentials },
         });
+        console.log('logged:',this.$store.getters.loggedUser)
       } else {
         //Register user
         credentials.email = this.email;

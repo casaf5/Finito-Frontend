@@ -140,9 +140,8 @@ export default {
       ? this.$store.getters.loggedUser
       : {
           id: "5f1d19ff990a953309006a0b",
-          userName: "Asaf Cohen",
-          img:
-            "https://us04images.zoom.us/p/OjcYh3vrTOW5Nd7c8YjmUw/121c96b7-02b7-44e5-9059-c5de7d765df2-7757?type=large",
+          userName: "Guest",
+          img: "",
         };
   },
   computed: {

@@ -28,14 +28,15 @@
       <button @click="toggleBgSelect">
         <i class="far fa-image"></i>
       </button>
-      <button>
+      <button @click.self="isDemoLogin=!isDemoLogin">
         <i class="far fa-bell"></i>
       </button>
       <Avatar
         class="logged-user-status"
-        src="https://us04images.zoom.us/p/OjcYh3vrTOW5Nd7c8YjmUw/121c96b7-02b7-44e5-9059-c5de7d765df2-7757?type=large"
+        username="Best Demo"
         :size="30"
       />
+    
       <board-bg-select
         class="bgSelector"
         v-if="bgSelectOpen"
@@ -56,6 +57,7 @@ export default {
   name: "board-options-nav",
   data() {
     return {
+      
       menuIsOpen: false,
       bgSelectOpen: false,
       boardMembersOpen: false,

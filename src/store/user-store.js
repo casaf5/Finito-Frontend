@@ -4,7 +4,10 @@ import { userService } from "../services/user-service.js";
 export const userStore = {
   state: {
     users: null,
-    loggedUser: null,
+    loggedUser: {
+      userName:"Tomer Zuker",
+      img:"https://scontent.foko1-1.fna.fbcdn.net/v/t1.0-1/c80.0.320.320a/p320x320/73388525_1504606459711208_171111612044283349_o.jpg?_nc_cat=101&_nc_sid=7206a8&_nc_ohc=y-D9JVHdoNYAX_qExYn&_nc_ht=scontent.foko1-1.fna&oh=214bfcdfc90f78bf6a7b5e44596eb85e&oe=5F4355C2"
+    },
     userPrefs: null,
   },
   getters: {
@@ -27,6 +30,7 @@ export const userStore = {
   actions: {
     //Authintication:
     async login({ commit }, { credentials }) {
+      console.log("credentials",credentials)
       const loggedUser = await authService.login(credentials);
       commit({ type: "setLoggedUser", user: loggedUser });
       return loggedUser;
