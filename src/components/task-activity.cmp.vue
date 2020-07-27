@@ -73,8 +73,5 @@ export default {
     Avatar,
     taskComment
   }
-=======
-  },
->>>>>>> dev
 };
 </script>
