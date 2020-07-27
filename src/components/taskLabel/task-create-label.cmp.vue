@@ -26,7 +26,7 @@
           v-for="(color, index) in newColors"
         />
       </li>
-      <button class="btn-primary" @click="createNewLabel">
+      <button class="btn-primary full-width" @click="createNewLabel">
         {{ this.editMode ? "Save" : "Create" }}
       </button>
     </div>

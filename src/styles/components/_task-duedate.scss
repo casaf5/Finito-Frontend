@@ -1,4 +1,13 @@
-.task-duedate{
-    position: relative;
-    transform: translate(-100%);
+.task-duedate {
+  .el-date-editor {
+    width: 100% !important;
+  }
+  position: relative;
+  transform: translate(-100%);
+
+  .task-duedate-btns-container {
+    display: flex;
+    margin-top: 5px;
+    justify-content: space-between;
+  }
 }
