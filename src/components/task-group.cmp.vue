@@ -126,6 +126,7 @@ export default {
       );
       board.taskGroups[taskGroupIndex].tasks.push(task);
 
+
       //socket io
       this.getAndSetBoard(board);
       // this.$store.dispatch({ type: "saveBoard", board });

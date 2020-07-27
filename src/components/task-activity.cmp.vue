@@ -8,6 +8,7 @@
           </h4>
           <button @click="toggleBtn">{{btnTxt}}</button>
       </div>
+  <task-comment/>
       <div v-if="showList" class="task-activities-list">
         <ul>
           <li v-for="(activity,idx) in activities" :key="idx">
@@ -28,6 +29,7 @@
 
 <script>
 import Avatar from "vue-avatar";
+import taskComment from "./task-comment.cmp"
 export default {
   name: "task-activity",
   props: ["activities"],
@@ -51,7 +53,8 @@ export default {
     }
   },
   components: {
-    Avatar
+    Avatar,
+    taskComment
   }
 };
 </script>
