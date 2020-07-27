@@ -18,7 +18,6 @@ function upload(ev, type) {
   })
     .then((res) => res.json())
     .then((res) => res.data.code)
-    .catch((err) => console.log("Problem Uploading File.. ", err));
 }
 function imageUpload(ev) {
   const UPLOAD_PRESET = "bomtf2xr";
@@ -33,5 +32,4 @@ function imageUpload(ev) {
   })
     .then((res) => res.json())
     .then((res) => res.url)
-    .catch((err) => console.log("Problem Uploading Image.. ", err));
 }
