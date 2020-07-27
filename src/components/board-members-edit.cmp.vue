@@ -1,9 +1,9 @@
 <template>
   <section class="board-members-edit">
-    <task-action-container title="Add Members" @close="closeMembers">
+    <task-action-container title="Board Members" @close="closeMembers">
       <form-input
         type="text"
-        placeholder="Search Members"
+        placeholder="Add/Remove Members"
         :debounceInput="true"
         @input="searchUsers"
       />
@@ -14,11 +14,7 @@
           :key="user.userName"
           class="member"
         >
-          <Avatar
-            :username="user.userName"
-            :src="user.img"
-            :size="30"
-          />
+          <Avatar :username="user.userName" :src="user.img" :size="30" />
           <h4>{{ user.userName }}</h4>
           <i v-if="isInBoard(user)" class="el-icon-check v-member"></i>
         </section>
@@ -40,8 +36,8 @@ export default {
   },
   data() {
     return {
-      filteredUsers: null,
       users: null,
+      filteredUsers: null,
     };
   },
   computed: {
@@ -52,13 +48,11 @@ export default {
   },
   async created() {
     this.users = await this.$store.dispatch({ type: "loadUsers" });
+    this.filteredUsers=this.users
   },
   methods: {
-    setSearchValue(text) {
-      this.searchText = text;
-    },
     searchUsers(text) {
-      console.log(text);
+      if (text==="") this.filteredUsers = this.users;
       this.filteredUsers = this.users.filter((user) => {
         if (user.userName.toLowerCase().includes(text.toLowerCase())) {
           return user;

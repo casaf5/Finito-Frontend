@@ -73,6 +73,7 @@ export default {
     width: 100%;
     padding: 5px;
     outline: none;
+    font-size: 15px;
     border: 1px solid #3498db;
     &.error {
       border: 1px solid #e63946;

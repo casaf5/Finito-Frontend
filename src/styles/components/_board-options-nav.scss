@@ -18,7 +18,7 @@
       > * {
         margin-inline-start: 5px;
       }
-      i {
+      i:not(.el-icon-check) {
         background-color: rgb(206, 206, 206);
         border-radius: 50%;
         font-size: 17px;
@@ -50,6 +50,7 @@
       border-radius: 3px;
       text-align: center;
       font-size: 18px;
+      width: 270px;
       &:focus {
         color: black;
         background-color: white;

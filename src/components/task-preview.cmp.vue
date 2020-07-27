@@ -47,7 +47,7 @@
             :key="member._id"
             :src="member.img"
             :username="member.userName"
-            :size="22"
+            :size="24"
           />
         </div>
       </div>

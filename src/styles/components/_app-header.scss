@@ -43,10 +43,10 @@
           padding: 5px;
           margin: 5px;
           align-self: center;
-          height: 25px;
-          width: 200px;
+          height: 35px;
+          width: 160px;
           border-radius: 3px;
-          font-size: 15px;
+          font-size: 17px;
           padding: 1;
           &::placeholder {
             font-family: inherit;
@@ -57,11 +57,10 @@
             border: 0px;
             outline: none;
             background-color: #fff;
-            transform: scale(1.1);
+            // transform: scale(1.050);
           }
           &:focus ~ .search-icon {
             color: #333;
-            right: 0;
           }
           li {
             font-size: rem(13px);
@@ -74,11 +73,11 @@
         }
         .search-icon {
           transition: all 0.3s ease-in-out;
-          right: 4%;
+          right: 5%;
           position: absolute;
           margin-right: 3px;
           color: #000;
-          font-size: 15px;
+          font-size: 16px;
         }
       }
       margin-left: 3px;

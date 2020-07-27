@@ -9,14 +9,7 @@
         @blur="updateName"
       />
       <section class="board-members flex">
-        <Avatar
-          v-for="member in board.members"
-          :key="member._id"
-          :size="30"
-          :src="member.img"
-          :username="member.userName"
-        />
-        <i class="fas fa-user-plus" @click="toggleAddMember"></i>
+        <i class="fas fa-users" @click="toggleAddMember"></i>
         <board-members-edit
           v-if="boardMembersOpen"
           @update="membersUpdate"

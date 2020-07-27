@@ -11,7 +11,7 @@
           <i class="fas fa-home header-item home-icon"></i>
         </router-link>
         <li class="searchbar-container">
-          <input type="text" placeholder="Search.." />
+          <input type="text" placeholder="Search..." />
           <i class="fas fa-search search-icon"></i>
         </li>
       </div>
