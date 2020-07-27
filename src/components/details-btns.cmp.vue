@@ -1,6 +1,6 @@
 <template>
   <section class="task-actions">
-    <label class="section-header">Add To Task</label>
+    <label class="section-header">ADD TO TASK</label>
     <button class="detail-btn" @click="toggleComponentToRender('memebersOpen')">
       <i class="el-icon-user"></i> Members
     </button>
@@ -58,7 +58,7 @@
       @removeCover="removeCover"
       @close="toggleComponentToRender('addCoverOpen')"
     />
-    <label class="section-header">Actions</label>
+    <label class="section-header">ACTIONS</label>
     <button class="detail-btn" @click="copyTask">
       <i class="el-icon-document-copy"></i> Copy
     </button>

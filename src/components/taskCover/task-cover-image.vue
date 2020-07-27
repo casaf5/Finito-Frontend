@@ -7,6 +7,7 @@
       title="Search for images"
     >
       <searchImg
+        orientation ="portrait"
         :saveSettings="{ previewSize: 'thumb', saveSize: 'small' }"
         :topImages="topImages"
         @imageChoosen="imageChoosen"

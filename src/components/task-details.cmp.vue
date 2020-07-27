@@ -18,7 +18,7 @@
         <!-- <el-checkbox  @click="toggleTaskCompletion" v-model="checked" class="task-isComplete" >Completed</el-checkbox> -->
         <div class="task-members-labels-date flex wrap">
           <section v-show="task.members.length" class="task-members-container-wraper">
-            <h6>Members</h6>
+            <h6>MEMBERS</h6>
             <div class="task-members-container flex">
               <div v-for="(member, idx) in task.members" :key="idx">
                 <avatar v-if="member.img" :src="member.img" :size="30"></avatar>
@@ -27,7 +27,7 @@
             </div>
           </section>
           <section v-show="task.labels.length" class="task-labels-container-wraper">
-            <h6>Labels</h6>
+            <h6>LABELS</h6>
             <div class="task-labels-container flex">
               <color-small size="extra-small" :propColor="task.labels" @colorClicked="removeLabel" />
               <div class="add-label">
@@ -36,7 +36,7 @@
             </div>
           </section>
           <section v-show="task.dueDate" class="task-date-container-wraper">
-            <h6>Due Date</h6>
+            <h6>DUE DATE</h6>
             <div class="task-date-container flex">
               <i @click="toggleTaskCompletion" :class="checkBoxIcon" class="checkbox-icon"></i>
               <!-- <input type="checkbox" v-model="task.isComplete" @click="toggleTaskCompletion" /> -->

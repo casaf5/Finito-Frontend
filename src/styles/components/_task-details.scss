@@ -58,7 +58,16 @@
       }
     }
   }
-
+  .detail-btn{
+      background-color: rgba(9,30,66,.04);
+    i{
+      margin-left: 0.2rem;
+      margin-right: 0.6rem;
+    }
+    .el-icon-price-tag{
+      margin-right: 0.9rem;
+    }
+  }
   .detail-btn:not(.close-modal-btn):hover {
     background-color: rgba(224, 224, 224, 0.911);
   }
@@ -239,6 +248,7 @@
 
 .task-activities {
   .task-activties-header {
+    
     > i {
       position: absolute;
       top: 0;
@@ -259,6 +269,7 @@
       font-family: Montserrat-Bold;
       font-weight: bold;
       border: none;
+      background-color: rgba(9, 30, 66, 0.04);
     }
   }
   text-align: left;

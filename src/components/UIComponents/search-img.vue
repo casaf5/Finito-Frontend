@@ -30,6 +30,9 @@ export default {
     topImages: {
       type: Array,
     },
+    orientation:{
+      type:String,
+    },
     imageDisplaySize: {
       type: String,
       default: "thumb",
@@ -56,9 +59,11 @@ export default {
     async searchForPhotos() {
       this.isLoading = true;
       const imgAmount = this.imageAmount ? this.imageAmount : "9";
+      const orientation = this.orientation ? this.orientation : 'landscape'
       this.searchedImages = await UnsplashService.searchPhoto(
         this.query,
-        imgAmount
+        imgAmount,
+        orientation
       );
       this.isLoading = false;
     },
