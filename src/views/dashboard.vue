@@ -14,12 +14,12 @@
       </div>
     <div class="doughnut-barchart-wraper flex">
      <div class="doughnut-container chart">
-      <h2>TaskGroup Popularity</h2>
+      <h3>TaskGroup Popularity</h3>
         <doughnut-chart  :labels="taskGroupsTitles" :data="numOfTasksInGroup"/>
      </div>
       <div class="barchart-container chart">
     <!--  make it complete and incomlete tasks per member -->
-       <h2>Members Progress</h2>
+       <h3>Members Progress</h3>
         <bar-chart :labels="boardMembersNames" :data="tasksNumPerMember" :options="options"/>
       </div>
      </div>
@@ -38,6 +38,7 @@ export default {
   name: "dashboard",
     data () {
       return {
+              gradient: null,
           datacollection: {},
           months: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
           monthToStartFrom: '',
@@ -182,13 +183,15 @@ export default {
     },
     methods: {
       updateLineChart () {
+
         this.datacollection = {
+          
           labels: this.monthsToShow,
             datasets: [
                         {
                 label: 'All Completed Tasks Over a Year',
-                backgroundColor: '#003366',
-                data: this.completedTasksPerMonth
+                backgroundColor: '#b24773',
+                data: this.completedTasksPerMonth,
                  }
                ]
         }

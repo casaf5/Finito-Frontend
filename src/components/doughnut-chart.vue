@@ -5,6 +5,17 @@ import { Doughnut } from 'vue-chartjs';
 export default {
   props: ['labels', 'data'],
   extends: Doughnut,
+  data () {
+    return {
+      options :{
+         elements: {
+             arc: {
+                borderWidth: 0
+             }
+        }
+      }
+    }
+  },
   mounted() {
     // Overwriting base render method with actual data.
     this.renderChart({
@@ -13,11 +24,11 @@ export default {
         {
           label: "GitHub Commits",
           // make more colors
-          backgroundColor: ['#3399FF', '#3366CC', '#003366', '#79BEDB', '#10C8CD', 'gray'],
+          backgroundColor: ['#ff8d73', '#ff5276', '#b24774', '#fee09a', '#f8cb62', '#ffb031'],
           data: this.data
         }
       ],
-    });
+    }, this.options);
   },
 };
 </script>

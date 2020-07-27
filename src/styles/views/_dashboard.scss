@@ -4,14 +4,31 @@
   padding: 1rem;
   margin-top: 2rem;
   border-radius: 10px;
+  h3, h2{
+    // font-family: Montserrat-Bold;
+    margin-bottom: 1rem;
+    color: gray;
+    text-align: center;
+  }
+  h2{
+    margin-left: 1.7rem;
+  }
   /* display: inline-block; */
 }
 
 .el-select{
   margin-right: 10px;
+  width: 100px;
+}
+
+.linechart-container{
+  width:90%;
+  align-self: center;
+  margin-top: 3rem;
 }
 
 .charts-container {
+  margin-top:2rem;
   font-family: Montserrat-Bold;
   margin: 0 auto;
   margin-top: 1.5rem;
