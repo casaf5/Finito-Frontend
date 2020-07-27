@@ -284,6 +284,12 @@
     margin-left: 0.7rem;
     justify-content: center;
     .details-activity-user {
+      .details-activity-username{
+        font-weight: bold;
+        font-size: 0.875rem;
+        color: black;
+        margin-right: 5px;
+      }
       align-items: center;
     }
     .details-activity-user h4 {

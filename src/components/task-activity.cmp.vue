@@ -29,11 +29,8 @@
                 :src="activity.byUser.url"
               ></avatar>
               <section class="details-activity-text flex col">
-                <div class="details-activity-user flex">
-                  <h4>
-                    {{ activity.byUser.userName }}
-                  </h4>
-                  <p>{{ activity.txt }}</p>
+                <div class="details-activity-user flex">  
+                  <p><span class="details-activity-username">{{ activity.byUser.userName  }}</span>{{ activity.txt }}</p>
                 </div>
                 <span>{{ activity.createdAt | relativeTime }}</span>
               </section>
