@@ -44,7 +44,8 @@
         margin-right: 5px;
       }
       .task-members-preview {
-        > * {
+        margin-left: auto;
+        > *:not(:first-child) {
           margin-left: 3px;
         }
       }
@@ -95,7 +96,6 @@
           font-size: rem(10px);
           padding: 3px;
           font-family: Montserrat-Bold;
-          font-weight: bold;
         }
       }
       .label-color-enlarged {
@@ -105,7 +105,7 @@
       }
     }
     .due-date-container {
-      font-size: 12px;
+      font-size: 10px;
       padding: 3px 5px;
       border-radius: 3px;
       color: #fff;

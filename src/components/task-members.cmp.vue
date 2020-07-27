@@ -8,7 +8,10 @@
         type="text"
       />
       <div>
-        <div class="members-container" v-if="search.length">
+        <div
+          class="members-container"
+          v-if="search.length || filterdMembers.length"
+        >
           <div v-if="filterdMembers.length">
             <h3>{{ boardMembersText }}</h3>
             <member

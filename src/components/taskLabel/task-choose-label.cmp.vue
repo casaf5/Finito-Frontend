@@ -20,7 +20,7 @@
           @editLabel="editLabel"
         />
       </li>
-      <button class="btn-primary" @click="createNewLabel">
+      <button class="btn-primary full-width" @click="createNewLabel">
         Create new Label
       </button>
     </div>
