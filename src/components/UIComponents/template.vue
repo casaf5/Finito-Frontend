@@ -3,7 +3,6 @@
     <div class="template-img-container">
       <img :src="template.previewImg" alt="template-img" />
       <i @click="showTemplate" class="el-icon-s-platform"></i>
-      <span>View Template</span>
     </div>
     <div class="template-content-container">
       <h5 class="template-header">{{ template.name }}</h5>
@@ -16,7 +15,7 @@
 export default {
   name: "board-template",
   props: {
-    template: Object
+    template: Object,
   },
   methods: {
     createTemplate() {
@@ -24,8 +23,8 @@ export default {
     },
     showTemplate() {
       this.$emit("showTemplate", this.template);
-    }
-  }
+    },
+  },
 };
 </script>
 

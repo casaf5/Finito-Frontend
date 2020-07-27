@@ -171,14 +171,14 @@ export default {
           previewImg:
             "https://images.unsplash.com/photo-1494253109108-2e30c049369b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=750&q=80",
           desc:
-            "Lorem ipsum dolor sit amet consectetur adipisicing elit. Deserunt, tenetur",
+            "All of the lists and tasks are premade so you can focus on being creative",
         },
         {
           name: "Buisness",
           previewImg:
             "https://images.unsplash.com/photo-1491336477066-31156b5e4f35?ixlib=rb-1.2.1&auto=format&fit=crop&w=750&q=80",
           desc:
-            "Lorem ipsum dolor sit amet consectetur adipisicing elit. Deserunt, tenetur",
+            "There are a lot of tasks and list to create for business that's why we premade them for you",
           imgLink: "buissness-template-img.jpg",
         },
       ],

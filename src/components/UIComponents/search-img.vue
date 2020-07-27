@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h4>Images taken from Unsplash</h4>
+    <h4 class="credits">Images taken from Unsplash</h4>
     <form-input
       :showLabel="true"
       labelText="search for image"
@@ -94,10 +94,13 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.credits {
+  margin: 5px;
+}
 .imgs-container {
   display: flex;
   flex-wrap: wrap;
-  h4 {
+  .credits {
     font-size: 14px;
   }
   img {

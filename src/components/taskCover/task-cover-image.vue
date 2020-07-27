@@ -52,7 +52,7 @@ export default {
   display: flex;
   flex-wrap: wrap;
   h4 {
-    font-size: 16px;
+    font-size: 14px;
   }
   img {
     cursor: pointer;

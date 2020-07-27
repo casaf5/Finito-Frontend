@@ -1,5 +1,5 @@
 <template>
-  <section class="board-details-container" v-if="board" :style="boardBackground" >
+  <section class="board-details-container" v-if="board" :style="boardBackground">
     <board-options-nav />
     <section class="board-details">
       <modal @close="closeTaskModal" v-if="showModal">
@@ -17,15 +17,12 @@
         orientation="horizontal"
       >
         <Draggable v-for="taskGroup in board.taskGroups" :key="taskGroup.id">
-          <task-group
-            :taskGroup="taskGroup"
-            @taskDrop="onTaskDrop"
-            @taskClicked="openTaskModal"
-          />
+          <task-group :taskGroup="taskGroup" @taskDrop="onTaskDrop" @taskClicked="openTaskModal" />
         </Draggable>
         <add-group @addGroup="addGroup" />
       </Container>
     </section>
+    <!-- <sidebar /> -->
   </section>
 </template>
 
@@ -38,6 +35,7 @@ import socketService from "../services/socket-service";
 import boardOptionsNav from "../components/board-options-nav.vue";
 import addGroup from "../components/add-group.cmp";
 import modal from "../components/UIComponents/modal";
+// import sidebar from "../components/sidebar/sidebar";
 export default {
   name: "board-details",
   components: {
@@ -48,6 +46,7 @@ export default {
     boardOptionsNav,
     addGroup,
     modal,
+    // sidebar,
   },
   data() {
     return {

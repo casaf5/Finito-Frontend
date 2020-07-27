@@ -8,12 +8,7 @@
       <div class="task-left-container">
         <div class="task-details-titles-container">
           <i class="el-icon-postcard"></i>
-          <input
-            type="text"
-            v-model="task.title"
-            class="task-name"
-            @blur="updateTitle"
-          />
+          <input type="text" v-model="task.title" class="task-name" @blur="updateTitle" />
           <h6 class="task-group-name">
             in Task-Group
             <span>{{ taskGroup.title }}</span>
@@ -22,29 +17,19 @@
         <!-- combine with due date -->
         <!-- <el-checkbox  @click="toggleTaskCompletion" v-model="checked" class="task-isComplete" >Completed</el-checkbox> -->
         <div class="task-members-labels-date flex wrap">
-          <section
-            v-show="task.members.length"
-            class="task-members-container-wraper"
-          >
+          <section v-show="task.members.length" class="task-members-container-wraper">
             <h6>Members</h6>
             <div class="task-members-container flex">
               <div v-for="(member, idx) in task.members" :key="idx">
-                <avatar v-if="member.img" :src="member.img" :size="35"></avatar>
-                <avatar v-else :username="member.userName" :size="35"></avatar>
+                <avatar v-if="member.img" :src="member.img" :size="30"></avatar>
+                <avatar v-else :username="member.userName" :size="30"></avatar>
               </div>
             </div>
           </section>
-          <section
-            v-show="task.labels.length"
-            class="task-labels-container-wraper"
-          >
+          <section v-show="task.labels.length" class="task-labels-container-wraper">
             <h6>Labels</h6>
             <div class="task-labels-container flex">
-              <color-small
-                size="extra-small"
-                :propColor="task.labels"
-                @colorClicked="removeLabel"
-              />
+              <color-small size="extra-small" :propColor="task.labels" @colorClicked="removeLabel" />
               <div class="add-label">
                 <i class="el-icon-plus"></i>
               </div>
@@ -53,14 +38,9 @@
           <section v-show="task.dueDate" class="task-date-container-wraper">
             <h6>Due Date</h6>
             <div class="task-date-container flex">
-              <label>
-                <input
-                  type="checkbox"
-                  v-model="task.isComplete"
-                  @click="toggleTaskCompletion"
-                />
-                {{ task.dueDate }}
-              </label>
+              <i @click="toggleTaskCompletion" :class="checkBoxIcon" class="checkbox-icon"></i>
+              <!-- <input type="checkbox" v-model="task.isComplete" @click="toggleTaskCompletion" /> -->
+              <span class="task-date">{{ task.dueDate }}</span>
             </div>
           </section>
         </div>
@@ -76,10 +56,7 @@
             class="desc-textarea"
           />
         </div>
-        <div
-          class="task-attachments-container"
-          v-if="task.attachments.length > 0"
-        >
+        <div class="task-attachments-container" v-if="task.attachments.length > 0">
           <i class="fas fa-file-alt"></i>
           <h4>Attachments</h4>
           <file-preview
@@ -181,6 +158,9 @@ export default {
         );
         return activities;
       }
+    },
+    checkBoxIcon() {
+      return this.task.isComplete ? "far fa-check-square" : "far fa-square";
     },
   },
   methods: {
