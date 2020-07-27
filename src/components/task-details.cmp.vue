@@ -139,10 +139,10 @@ export default {
     this.user = this.$store.getters.loggedUser
       ? this.$store.getters.loggedUser
       : {
-          id: "443",
-          userName: "Guest",
-          url:
-            "https://api.adorable.io/avatars/400/79c159e13036a02295c94901b6628bfe.png",
+          id: "5f1d19ff990a953309006a0b",
+          userName: "Asaf Cohen",
+          img:
+            "https://us04images.zoom.us/p/OjcYh3vrTOW5Nd7c8YjmUw/121c96b7-02b7-44e5-9059-c5de7d765df2-7757?type=large",
         };
   },
   computed: {

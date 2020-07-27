@@ -8,7 +8,7 @@
         </h4>
         <button @click="toggleBtn">{{ btnTxt }}</button>
       </div>
-  <task-comment/>
+  <!-- <task-comment/> -->
       <div v-if="showList" class="task-activities-list">
         <ul>
           <li v-for="(activity, idx) in activities" :key="idx">
