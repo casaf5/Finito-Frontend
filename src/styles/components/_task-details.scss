@@ -1,6 +1,6 @@
 .task-details-containers-wraper {
   h6 {
-    color: rgb(168, 168, 168);
+    color: #172b4d;
     font-size: 0.8rem;
   }
   h2 {
@@ -58,13 +58,14 @@
       }
     }
   }
-  .detail-btn{
-      background-color: rgba(9,30,66,.04);
-    i{
+  .detail-btn {
+    color: #172b4d;
+    background-color: rgba(9, 30, 66, 0.04);
+    i {
       margin-left: 0.2rem;
       margin-right: 0.6rem;
     }
-    .el-icon-price-tag{
+    .el-icon-price-tag {
       margin-right: 0.9rem;
     }
   }
@@ -99,6 +100,7 @@
         font-family: Montserrat-Bold;
         font-weight: bold;
         margin-inline-start: 40px;
+        color: #172b4d;
       }
     }
     .task-details-titles-container {
@@ -127,7 +129,7 @@
         padding: 5px 5px 5px 6px;
         font-size: 14px;
         font-family: Montserrat;
-        color: black;
+        color: #172b4d;
         margin-left: 36px;
         line-height: 1.25rem;
         background-color: transparent;
@@ -163,9 +165,10 @@
       label {
         font-size: rem(12px);
         margin: 10px 0;
-        color: #5e6c84;
+        color: #172b4d;
       }
       .section-header {
+        color:#172b4d;
         margin-left: 10px;
       }
     }
@@ -215,30 +218,8 @@
     .checkbox-icon {
       font-size: 22px;
       margin-right: 5px;
-      color: #333;
+      color: #172b4d;
     }
-    .far {
-      &.fa-square {
-      }
-    }
-    // input {
-    //   position: absolute;
-    //   opacity: 0;
-    //   cursor: pointer;
-    // }
-    // .checkbox-label {
-    //   position: relative;
-    //   .checkbox-custom {
-    //     position: absolute;
-    //     top: 0px;
-    //     left: 0px;
-    //     height: 25px;
-    //     width: 25px;
-    //     background-color: #fff;
-    //     border-radius: 3px;
-    //     border: 2px solid #eaecf0;
-    //   }
-    // }
     .task-date {
       padding: 5px 10px;
       background-color: rgba(9, 30, 66, 0.04);
@@ -248,7 +229,6 @@
 
 .task-activities {
   .task-activties-header {
-    
     > i {
       position: absolute;
       top: 0;
@@ -259,6 +239,7 @@
       font-family: Montserrat-Bold;
       font-weight: bold;
       margin-inline-start: 40px;
+      color:#172b4d;
     }
     button {
       position: absolute;
@@ -284,6 +265,12 @@
     margin-left: 0.7rem;
     justify-content: center;
     .details-activity-user {
+      .details-activity-username {
+        font-weight: bold;
+        font-size: 0.875rem;
+        color: #172b4d;
+        margin-right: 5px;
+      }
       align-items: center;
     }
     .details-activity-user h4 {
@@ -298,7 +285,7 @@
     }
     span {
       font-size: 12px;
-      color: #5e6c84;
+      color: #172b4d;
     }
   }
 }
