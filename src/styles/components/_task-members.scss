@@ -1,11 +1,8 @@
 .task-members {
-  // position: relative;
-  transform: translate(-100%);
-  .members-container{
-      h3{
-          font-size: 18px;
-          text-align: center;
-      }
+  .members-container {
+    h3 {
+      font-size: 16px;
+    }
   }
 }
 .member:hover {
@@ -27,10 +24,9 @@
   .member-name {
     margin-left: 10px;
   }
-  span{
-      font-size: 15px;
+  span {
+    font-size: 15px;
   }
- 
 }
 .v-member {
   align-self: center;

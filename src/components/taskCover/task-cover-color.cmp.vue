@@ -8,7 +8,7 @@
         <button @click="removeCover" v-if="isCoverSet" class="btn-primary">
           Remove Cover
         </button>
-        <h4>Images taken from Unsplash</h4>
+        <h4 class="credits">Images taken from Unsplash</h4>
         <img
           @click="setImage(url.small)"
           :src="url.thumb"
@@ -19,7 +19,7 @@
       </div>
       <button
         @click="$emit('changeComponent', 'task-cover-img')"
-        class="btn-primary"
+        class="btn-primary full-width"
       >
         Search for other photos
       </button>
@@ -115,6 +115,9 @@ h4 {
 .imgs-container {
   display: flex;
   flex-wrap: wrap;
+  .credits {
+    margin: 5px;
+  }
   img {
     cursor: pointer;
     margin: 5px 5px;

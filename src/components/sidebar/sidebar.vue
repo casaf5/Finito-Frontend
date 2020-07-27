@@ -10,6 +10,7 @@ import sidebarOptions from "./sidebar-options";
 import sidebarBackgroundMenu from "./sidebar-background-menu";
 import sidebarImg from "./sidebar-img";
 import sidebarColor from "./sidebar-color";
+
 export default {
   data() {
     return {

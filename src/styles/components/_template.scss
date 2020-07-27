@@ -56,24 +56,4 @@
     font-weight: 700;
     opacity: 0;
   }
-  &:hover {
-    span {
-      opacity: 1;
-    }
-    &:after {
-      height: 120px;
-    }
-    i {
-      opacity: 1;
-    }
-  }
-  &:after {
-    transition: all 0.3s ease-in-out;
-    content: "";
-    top: 0;
-    position: absolute;
-    height: 0px;
-    width: 100%;
-    background-color: rgba(0, 0, 0, 0.384);
-  }
 }

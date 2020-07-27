@@ -1,41 +1,37 @@
 <template>
   <task-actions-container :fullSize="true" title="menu">
-    <div
-      @click="$emit('changeComp', 'sidebar-background-menu')"
-      class="sidebar-menu-container"
-    >
-      <img src="../../assets/images/color-icon.svg" alt="" />
-      <span>
-        Change Background
-      </span>
+    <div @click="$emit('changeComp', 'sidebar-background-menu')" class="sidebar-menu-container">
+      <img src="../../assets/images/color-icon.svg" alt />
+      <span>Change Background</span>
     </div>
     <div class="sidebar-menu-container">
       <i class="fas fa-list"></i>
-      <span>
-        Board Activity
-      </span>
+      <span>Board Activity</span>
     </div>
     <div class="sidebar-menu-container">
       <i class="el-icon-delete"></i>
-      <span>
-        Remove Board
-      </span>
+      <span>Remove Board</span>
     </div>
     <div class="sidebar-menu-container">
       <i class="el-icon-pie-chart"></i>
-      <span>
-        Board Statistics
-      </span>
+      <span>Board Statistics</span>
     </div>
+    <taskActivity :activities="board.activities" />
   </task-actions-container>
 </template>
 
 <script>
 import taskActionsContainer from "../task-action-container.cmp";
-
+import taskActivity from "../task-activity.cmp";
 export default {
   components: {
     taskActionsContainer,
+    taskActivity,
+  },
+  computed: {
+    board() {
+      return this.$store.getters.board;
+    },
   },
 };
 </script>

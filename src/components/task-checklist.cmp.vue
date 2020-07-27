@@ -10,7 +10,7 @@
       v-model="title"
       type="text"
     />
-    <button @click="createCheckList" class="btn-primary large">Add</button>
+    <button @click="createCheckList" class="btn-primary full-width">Add</button>
   </task-action-container>
 </template>
 

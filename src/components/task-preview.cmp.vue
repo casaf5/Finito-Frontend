@@ -13,7 +13,6 @@
       </div>
       <div class="task-title-container flex">
         <span @click="taskClicked">{{ task.title }}</span>
-        <i class="el-icon-delete"></i>
       </div>
       <div class="task-status-container" @click="taskClicked">
         <div
@@ -26,19 +25,12 @@
             <span>{{ taskString }}</span>
           </div>
         </div>
-        <div
-          v-if="currentTask.attachments.length"
-          class="attachments-container"
-        >
+        <div v-if="currentTask.attachments.length" class="attachments-container">
           <i class="fas fa-paperclip"></i>
           <span>{{ this.currentTask.attachments.length }}</span>
         </div>
         <i v-if="currentTask.desc" class="fas fa-stream"></i>
-        <div
-          class="due-date-container"
-          :class="dueDateClass"
-          v-if="currentTask.dueDate"
-        >
+        <div class="due-date-container" :class="dueDateClass" v-if="currentTask.dueDate">
           <span>{{ currentTask.dueDate | moment("MMM D") }}</span>
         </div>
         <div class="task-members-preview flex space-between">
@@ -137,11 +129,14 @@ export default {
           ? Math.abs(taskDueDate - today)
           : Math.abs(today > taskDueDate);
       const diffrenceInDays = Math.round(difference / (1000 * 60 * 60 * 24));
-      if (diffrenceInDays >= 2) {
+      if (this.currentTask.isComplete) {
         return "due-green";
+      }
+      if (diffrenceInDays >= 2) {
+        return "due-far";
       } else if (diffrenceInDays === 1) {
         return "due-yellow";
-      } else {
+      } else if (diffrenceInDays === 0) {
         return "due-red";
       }
     },

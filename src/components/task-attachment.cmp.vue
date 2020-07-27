@@ -7,13 +7,18 @@
       <h5 class="status">{{ uploadStatus }}</h5>
       <h6 v-if="status === 'Upload'">Please Wait</h6>
       <section class="upload-select" v-if="!status">
-        <button @click="openInput('imageInput')">Image</button>
-        <button @click="openInput('fileInput')">File</button>
+        <button class="btn-primary full-width" @click="openInput('imageInput')">
+          Image
+        </button>
+        <button class="btn-primary full-width" @click="openInput('fileInput')">
+          File
+        </button>
         <input
           ref="fileInput"
           type="file"
           @change.prevent="uploadFile($event, 'file')"
-          hidden/>
+          hidden
+        />
         <input
           ref="imageInput"
           type="file"
@@ -22,7 +27,9 @@
         />
       </section>
       <section class="upload-options" v-if="status === true">
-        <button @click="addFile" class="add-file-btn">Add to Task</button>
+        <button @click="addFile" class="btn-primary full-width">
+          Add to Task
+        </button>
       </section>
     </task-action-container>
   </div>
