@@ -34,13 +34,20 @@
           <span>{{ this.currentTask.attachments.length }}</span>
         </div>
         <i v-if="currentTask.desc" class="fas fa-stream"></i>
+        <div
+          class="due-date-container"
+          :class="dueDateClass"
+          v-if="currentTask.dueDate"
+        >
+          <span>{{ currentTask.dueDate | moment("MMM D") }}</span>
+        </div>
         <div class="task-members-preview flex space-between">
           <Avatar
             v-for="member in task.members"
             :key="member._id"
             :src="member.img"
             :username="member.userName"
-            :size="28"
+            :size="25"
           />
         </div>
       </div>
@@ -121,6 +128,22 @@ export default {
         (taskGroup) => taskGroup.id === this.task.parentListId
       );
       return this.board.taskGroups[currentTaskGroup].labelsOpen;
+    },
+    dueDateClass() {
+      const taskDueDate = new Date(this.currentTask.dueDate);
+      const today = new Date();
+      const difference =
+        taskDueDate > today
+          ? Math.abs(taskDueDate - today)
+          : Math.abs(today > taskDueDate);
+      const diffrenceInDays = Math.round(difference / (1000 * 60 * 60 * 24));
+      if (diffrenceInDays >= 2) {
+        return "due-green";
+      } else if (diffrenceInDays === 1) {
+        return "due-yellow";
+      } else {
+        return "due-red";
+      }
     },
   },
   methods: {

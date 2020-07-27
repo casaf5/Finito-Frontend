@@ -1,7 +1,7 @@
 <template>
   <section class="task-actions">
     <label class="section-header">Add To Task</label>
-    <button @click="toggleComponentToRender('memebersOpen')">
+    <button class="detail-btn" @click="toggleComponentToRender('memebersOpen')">
       <i class="el-icon-user"></i> Members
     </button>
     <task-members
@@ -12,7 +12,7 @@
       :boardMembers="board.members"
       :taskMembers="task.members"
     />
-    <button @click="toggleComponentToRender('addLabelOpen')">
+    <button class="detail-btn" @click="toggleComponentToRender('addLabelOpen')">
       <i class="el-icon-price-tag"></i>Labels
     </button>
     <task-label
@@ -22,7 +22,7 @@
       @close="toggleComponentToRender('addLabelOpen')"
       :labels="board.labels"
     />
-    <button @click="toggleComponentToRender('duedateOpen')">
+    <button class="detail-btn" @click="toggleComponentToRender('duedateOpen')">
       <i class="el-icon-date"></i> Due date
     </button>
     <task-duedate
@@ -31,7 +31,7 @@
       @dateRemoved="removeDuedate"
       @closeDateComp="toggleComponentToRender('duedateOpen')"
     />
-    <button @click="toggleComponentToRender('addCheckListOpen')">
+    <button class="detail-btn" @click="toggleComponentToRender('addCheckListOpen')">
       <i class="el-icon-document-checked"></i>
       Checklist
     </button>
@@ -40,7 +40,7 @@
       v-if="componentsToToggle.addCheckListOpen"
       @createCheckList="addCheckList"
     />
-    <button @click="toggleComponentToRender('attachmentsOpen')">
+    <button class="detail-btn" @click="toggleComponentToRender('attachmentsOpen')">
       <i class="el-icon-paperclip"></i> Attachment
     </button>
     <task-attachment
@@ -48,7 +48,7 @@
       @closeAttach="toggleComponentToRender('attachmentsOpen')"
       @uploded="addAttachment"
     />
-    <button @click="toggleComponentToRender('addCoverOpen')">
+    <button class="detail-btn" @click="toggleComponentToRender('addCoverOpen')">
       <i class="el-icon-picture-outline"></i> Cover
     </button>
     <task-cover
@@ -59,11 +59,13 @@
       @close="toggleComponentToRender('addCoverOpen')"
     />
     <label class="section-header">Actions</label>
-    <button @click="copyTask">
+    <button class="detail-btn" @click="copyTask">
       <i class="el-icon-document-copy"></i> Copy
     </button>
-    <button @click="removeTask"><i class="el-icon-delete"></i> Remove</button>
-    <button @click="toggleComponentToRender('moveCompOpen')">
+    <button class="detail-btn" @click="removeTask">
+      <i class="el-icon-delete"></i> Remove
+    </button>
+    <button class="detail-btn" @click="toggleComponentToRender('moveCompOpen')">
       <i class="el-icon-right"></i> Move
     </button>
     <task-move
@@ -72,8 +74,10 @@
       @closeMoveComp="toggleComponentToRender('moveCompOpen')"
       @taskMoved="moveTask"
     />
-    <button @click="toggleWatch" class="flex space-between align-center">
-      <div><i class="el-icon-view"></i> Watch</div>
+    <button @click="toggleWatch" class="flex space-between align-center detail-btn">
+      <div>
+        <i class="el-icon-view"></i> Watch
+      </div>
       <i v-show="watchIsOn" class="el-icon-check v-watch"></i>
     </button>
   </section>
@@ -102,20 +106,20 @@ export default {
         taskGroup: null,
         addCheckListOpen: false,
         addLabelOpen: false,
-        addCoverOpen: false,
-      },
+        addCoverOpen: false
+      }
     };
   },
   created() {
     this.taskGroup = this.board.taskGroups.find(
-      (tg) => tg.id === this.task.parentListId
+      tg => tg.id === this.task.parentListId
     );
-    this.taskToEdit = this.taskGroup.tasks.find((t) => t.id === this.task.id);
+    this.taskToEdit = this.taskGroup.tasks.find(t => t.id === this.task.id);
   },
   computed: {
     watchIsOn() {
       const isOn = this.taskToEdit.watchMembers.find(
-        (member) => member._id === this.user._id
+        member => member._id === this.user._id
       )
         ? true
         : false;
@@ -123,7 +127,7 @@ export default {
     },
     isCoverSet() {
       return !!this.taskToEdit.cover.url || !!this.taskToEdit.cover.color;
-    },
+    }
   },
   methods: {
     // TASKS
@@ -143,7 +147,7 @@ export default {
     moveTask(newTaskgroupId) {
       this.taskToEdit.parentListId = newTaskgroupId;
       const newGroupIdx = this.board.taskGroups.findIndex(
-        (tg) => tg.id === newTaskgroupId
+        tg => tg.id === newTaskgroupId
       );
       this.taskGroup.tasks.splice(this.taskIdx, 1);
       this.board.taskGroups[newGroupIdx].tasks.push(this.taskToEdit);
@@ -155,10 +159,10 @@ export default {
       const taskLabel = {
         title,
         color,
-        id,
+        id
       };
       const labelIndex = this.taskToEdit.labels.findIndex(
-        (label) => label.id === taskLabel.id
+        label => label.id === taskLabel.id
       );
       if (labelIndex > -1) {
         this.taskToEdit.labels.splice(labelIndex, 1);
@@ -174,17 +178,17 @@ export default {
         title,
         color,
         selectedColor,
-        wasClicked: false,
+        wasClicked: false
       };
       const updatedLabel = {
         id,
         title,
-        color,
+        color
       };
       const board = utilService.deepCopy(this.board);
       board.labels.splice(index, 1, boardLabel);
 
-      board.taskGroups.forEach((taskGroup) => {
+      board.taskGroups.forEach(taskGroup => {
         taskGroup.tasks.forEach((task, taskIdx) => {
           task.labels.forEach((label, taskIdX) => {
             if (label.id === updatedLabel.id) {
@@ -216,7 +220,7 @@ export default {
       this.$emit("emitBoardChange", "JOINED_MEMBER");
     },
     removeMember(member) {
-      const idx = this.task.members.findIndex((m) => m._id === member._id);
+      const idx = this.task.members.findIndex(m => m._id === member._id);
       this.taskToEdit.members.splice(idx, 1);
       this.$emit("emitBoardChange", "MEMBER_LEFT");
     },
@@ -260,7 +264,7 @@ export default {
     },
     toggleWatch() {
       const idx = this.taskToEdit.watchMembers.findIndex(
-        (member) => member._id === this.user._id
+        member => member._id === this.user._id
       );
       if (idx !== -1) {
         this.taskToEdit.watchMembers.splice(idx, 1);
@@ -269,7 +273,7 @@ export default {
         this.taskToEdit.watchMembers.push(this.user);
         this.$emit("emitBoardChange", "WATCHED_TASK");
       }
-    },
+    }
   },
   components: {
     taskMembers,
@@ -278,7 +282,7 @@ export default {
     taskAttachment,
     taskCheckList,
     taskLabel,
-    taskCover,
-  },
+    taskCover
+  }
 };
 </script>

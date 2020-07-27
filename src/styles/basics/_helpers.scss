@@ -87,7 +87,10 @@ button {
   transition: all 0.3s ease-in-out;
   color: #fff;
   &.remove {
-    background-color: rgb(231, 138, 44);
+    background-color: #e63946;
+    &:hover {
+      background-color: darken(#e63946, 10%);
+    }
   }
   &.large {
     padding: 10px 20px;
