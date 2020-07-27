@@ -71,7 +71,6 @@ export default {
   },
   components: {
     Avatar,
-<<<<<<< HEAD
     taskComment
   }
 =======
