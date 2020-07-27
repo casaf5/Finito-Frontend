@@ -64,7 +64,6 @@
         i{
           font-size: 12px;
           margin-right: 3px;
-          // color: white;
     
         }
       }
@@ -125,16 +124,21 @@
       color: #fff;
       i{
         font-size: 12px;
-        color: white;
         margin-right: 4px;
+        color:black;
       }
     }
     .due-green {
       background-color: #60bd4e;
+      i{
+        color: white;
+      }
+
     }
     .due-far {
       background-color: transparent;
       color: #172b4d;
+      padding: 3px 0px;
     }
     .due-red {
       background-color: #e63946;

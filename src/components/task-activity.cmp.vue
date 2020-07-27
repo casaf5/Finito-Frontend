@@ -19,15 +19,10 @@
               <avatar
                 :size="35"
                 v-if="activity.byUser.img"
-                :username="activity.byUser.name"
                 :src="activity.byUser.img"
-              ></avatar>
-              <avatar
-                :size="35"
-                v-else
-                :username="activity.byUser.name"
-                :src="activity.byUser.img"
-              ></avatar>
+                :username="activity.byUser.userName"
+              />
+             
               <section class="details-activity-text flex col">
                 <div class="details-activity-user flex">  
                   <p><span class="details-activity-username">{{ activity.byUser.userName  }}</span>{{ activity.txt }}</p>
