@@ -17,6 +17,7 @@
       </div>
       <nav>
         <ul class="navbar clean-list">
+          <button v-if="$route.path === '/board/dash/charts'" class="nav-btn dash-back-btn" tag="li" to="/board" @click="backToBoard">Board</button>
           <router-link class="nav-btn" tag="li" to="/Login">Login</router-link>
           <router-link class="nav-btn" tag="li" to="/signup">Sign Up</router-link>
         </ul>
@@ -48,7 +49,14 @@ export default {
             navbarBgColor: "background-color:#0006",
             buttonColors: "background-color:transparent;color:#fff"
           }
-        };
+        } 
+        }else if (this.$route.name === "dash") {
+          return {
+                 navBar: {
+            navbarBgColor: "background-color:#f8cb62",
+            buttonColors: "background-color:transparent;color:#fff"
+          }
+        }
       } else
         return {
           navBar: {
@@ -69,6 +77,9 @@ export default {
           ref.el.classList.add("yellow");
         }
       });
+    },
+    backToBoard (){
+      this.$router.go(-1)
     }
   },
   mounted() {}

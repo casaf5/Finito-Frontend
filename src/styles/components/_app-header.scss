@@ -99,6 +99,9 @@
     > * {
       margin: 0 10px;
     }
+    .dash-back-btn {
+    background-color: #f8cb62;
+}
     .nav-btn {
       cursor: pointer;
       font-size: 14px;
@@ -115,12 +118,13 @@
       height: 25px;
       align-items: center;
       &:hover {
-        background-color: darken(#3498db, 8%);
+        background-color: #acb6bd;
       }
       &.transparent {
         background-color: transparent;
         border: 1px solid #fff;
       }
+  
     }
   }
 }

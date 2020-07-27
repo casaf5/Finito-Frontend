@@ -34,6 +34,7 @@ const routes = [
   },
   {
     path: "/board/dash/charts",
+    name: "dash",
     component: dashboard,
   },
   {
