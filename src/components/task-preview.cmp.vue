@@ -16,23 +16,32 @@
       </div>
       <div class="task-status-container" @click="taskClicked">
         <div
+          class="due-date-container"
+          :class="dueDateClass"
+          v-if="currentTask.dueDate"
+        >
+          <i class="far fa-clock duedate-clock-icon"></i>
+          <span>{{ currentTask.dueDate | moment("MMM D") }}</span>
+        </div>
+        <i v-if="currentTask.desc" class="fas fa-stream"></i>
+        <div
+          v-if="currentTask.attachments.length"
+          class="attachments-container"
+        >
+          <i class="fas fa-paperclip"></i>
+          <span>{{ this.currentTask.attachments.length }}</span>
+        </div>
+        <div
           :class="{ 'check-list-completed': allCompleted }"
           class="checklist-container"
           v-if="currentTask.checkLists.length"
         >
           <div v-if="checkListsStatus.allTasks">
-            <i class="el-icon-document-checked"></i>
+            <i class="far fa-check-square"></i>
             <span>{{ taskString }}</span>
           </div>
         </div>
-        <div v-if="currentTask.attachments.length" class="attachments-container">
-          <i class="fas fa-paperclip"></i>
-          <span>{{ this.currentTask.attachments.length }}</span>
-        </div>
-        <i v-if="currentTask.desc" class="fas fa-stream"></i>
-        <div class="due-date-container" :class="dueDateClass" v-if="currentTask.dueDate">
-          <span>{{ currentTask.dueDate | moment("MMM D") }}</span>
-        </div>
+
         <div class="task-members-preview flex space-between">
           <Avatar
             v-for="member in task.members"

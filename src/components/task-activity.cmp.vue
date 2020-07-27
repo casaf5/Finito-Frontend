@@ -18,15 +18,15 @@
             >
               <avatar
                 :size="35"
-                v-if="activity.byUser.url"
+                v-if="activity.byUser.img"
                 :username="activity.byUser.name"
-                :src="activity.byUser.url"
+                :src="activity.byUser.img"
               ></avatar>
               <avatar
                 :size="35"
                 v-else
                 :username="activity.byUser.name"
-                :src="activity.byUser.url"
+                :src="activity.byUser.img"
               ></avatar>
               <section class="details-activity-text flex col">
                 <div class="details-activity-user flex">  

@@ -61,6 +61,12 @@
           font-size: 11px;
           color: #8e8d8d;
         }
+        i{
+          font-size: 12px;
+          margin-right: 3px;
+          // color: white;
+    
+        }
       }
       .check-list-completed {
         border-radius: 3px;
@@ -73,6 +79,9 @@
         }
       }
       .attachments-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
         span {
           margin-left: 5px;
           font-size: 13px;
@@ -114,6 +123,11 @@
       padding: 3px 5px;
       border-radius: 3px;
       color: #fff;
+      i{
+        font-size: 12px;
+        color: white;
+        margin-right: 4px;
+      }
     }
     .due-green {
       background-color: #60bd4e;
