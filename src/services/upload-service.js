@@ -9,7 +9,7 @@ export const uploadService = {
 function upload(ev, type) {
   return type === "file" ? fileUpload(ev) : imageUpload(ev);
 }
- function fileUpload(ev) {
+function fileUpload(ev) {
   const FORM_DATA = new FormData();
   FORM_DATA.append("filesUploaded", ev.target.files[0]);
   return fetch("https://srv-file6.gofile.io/upload", {

@@ -94,7 +94,7 @@ export default {
     taskCover() {
       if (this.currentTask.cover.url) {
         return (
-          `background:url("${this.currentTask.cover.url}");` + "height:130px"
+          `background:url("${this.currentTask.cover.url}");` + "height:200px"
         );
       } else {
         return this.currentTask.cover.color
