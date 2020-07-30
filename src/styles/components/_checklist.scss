@@ -43,6 +43,9 @@
       height: 6px;
       width: 410px;
       margin-inline-start: 40px;
+      @include for-narrow-layout{
+        width: 310px;
+      }
     }
   }
   .checklist-container {

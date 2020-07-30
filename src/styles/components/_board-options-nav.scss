@@ -51,6 +51,9 @@
       text-align: center;
       font-size: 18px;
       width: 270px;
+      @include for-narrow-layout{
+        width: 150px;
+      }
       &:focus {
         color: black;
         background-color: white;
