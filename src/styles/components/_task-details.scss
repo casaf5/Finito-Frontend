@@ -11,6 +11,9 @@
   }
 
   .task-name {
+    @include for-narrow-layout {
+      font-size: rem(15px);
+    }
     font-family: Montserrat-Bold;
     font-weight: bold;
     height: 28px;
@@ -30,6 +33,18 @@
   }
 
   width: 750px;
+  @include for-tablet-layout {
+    width: 600px;
+  }
+  @include for-mobile-layout {
+    width: 500px;
+  }
+  @include for-narrow-layout {
+    width: 380px;
+  }
+  @include for-extra-small-layout {
+    width: 340px;
+  }
   min-height: 85vh;
   line-height: 1.25rem;
   background-color: #f4f5f7;
@@ -74,9 +89,15 @@
     i {
       margin-left: 0.2rem;
       margin-right: 0.6rem;
+      @include for-tablet-layout {
+        margin: 0;
+      }
     }
     .el-icon-price-tag {
       margin-right: 0.9rem;
+      @include for-tablet-layout {
+        margin: 0;
+      }
     }
   }
   .detail-btn:not(.close-modal-btn):hover {
@@ -184,6 +205,9 @@
       height: 100%;
       width: 100%;
       margin: 5px;
+      @include for-narrow-layout {
+        margin: 5px 0;
+      }
       justify-self: center;
       text-align: left;
       &.btn-primary {
@@ -305,7 +329,7 @@
       }
       align-items: center;
     }
-    .details-activity-user  {
+    .details-activity-user {
       margin: 0;
       font-family: Montserrat;
       margin-right: 5px;
@@ -313,14 +337,14 @@
         margin: 0;
         color: #172b4d;
         font-size: 14px;
-        span{
+        span {
           font-size: 16px;
           font-family: Montserrat-Bold;
           font-weight: bold;
         }
       }
     }
-    span{
+    span {
       font-size: 13px;
       color: #172b4d;
     }

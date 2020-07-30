@@ -17,19 +17,14 @@
         />
       </section>
     </section>
-
+    <!-- @click.self="isDemoLogin = !isDemoLogin" -->
     <section class="right-side">
-      <router-link class="nav-btn" tag="button" to="/board/dash/charts">
-        <i class="el-icon-pie-chart"></i>
-      </router-link>
-      <button @click="toggleMenu">
-        <i class="fas fa-clipboard-list"></i>
-      </button>
-      <button @click="toggleBgSelect">
-        <i class="far fa-image"></i>
-      </button>
-      <button @click.self="isDemoLogin=!isDemoLogin">
+      <button
+        class="notification-button"
+        @click="showNotifications = !showNotifications"
+      >
         <i class="far fa-bell"></i>
+        <span v-if="notificationsExist" class="red-circle"></span>
       </button>
       <Avatar
         v-if="loggedUser"
@@ -39,6 +34,12 @@
         :size="30"
       />
     
+      <notifictionList v-show="showNotifications" />
+
+      <button @click="$emit('toggleMenu')">
+        <i class="fas fa-bars"></i>
+      </button>
+      <Avatar class="logged-user-status" username="Best Demo" :size="30" />
       <board-bg-select
         class="bgSelector"
         v-if="bgSelectOpen"
@@ -52,6 +53,7 @@
 
 <script>
 import Avatar from "vue-avatar";
+import notifictionList from "../components/notification-list.cmp";
 import boardActivity from "../components/board-activity-menu.cmp";
 import boardMembersEdit from "./board-members-edit.cmp";
 import boardBgSelect from "./board-bg-select.cmp";
@@ -64,6 +66,7 @@ export default {
       boardMembersOpen: false,
       style: { bgColor: "", bgUrl: "" },
       content: "",
+      showNotifications: false,
     };
   },
   computed: {
@@ -72,8 +75,12 @@ export default {
     },
     loggedUser(){
       return this.$store.getters.loggedUser
-    }
+    },
    
+    notificationsExist() {
+      const notifications = this.$store.getters.notifications;
+      return notifications.length;
+    },
   },
   mounted() {
     this.content = this.board.name;
@@ -96,7 +103,7 @@ export default {
     setBoardBg(imageUrls) {
       let board = this.board;
       this.style.bgUrls = [imageUrls];
-      this.style.previewUrl=imageUrls.small
+      this.style.previewUrl = imageUrls.small;
       this.board.style = this.style;
       this.$store.dispatch({ type: "saveBoard", board });
       this.$store.commit({ type: "setStyle", style: this.style });
@@ -112,6 +119,7 @@ export default {
     boardActivity,
     boardBgSelect,
     boardMembersEdit,
+    notifictionList,
   },
 };
 </script>

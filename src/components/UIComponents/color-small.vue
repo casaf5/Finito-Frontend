@@ -113,8 +113,15 @@ export default {
     height: 26px;
   }
   .color.extra-large {
-    width: 110px;
-    height: 76px;
+    width: 96px;
+    height: 78px;
+    @media only screen and(max-width:380px) {
+      width: 65px;
+      height: 50px;
+    }
+    // @include for-extra-small-layout {
+    //   width: 50px;
+    // }
   }
 }
 </style>

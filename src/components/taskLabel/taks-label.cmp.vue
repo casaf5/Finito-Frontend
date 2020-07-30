@@ -35,7 +35,7 @@ export default {
     TaskActionContainer,
     LabelColor,
     TaskChooseLabel,
-    TaskCreateLabel
+    TaskCreateLabel,
   },
   data() {
     return {
@@ -45,7 +45,7 @@ export default {
       choosenLabelIndex: -1,
       title: "",
       newLabel: null,
-      labelToEdit: null
+      labelToEdit: null,
     };
   },
   computed: {
@@ -54,7 +54,7 @@ export default {
     },
     labels() {
       return this.$store.getters.board.labels;
-    }
+    },
   },
   methods: {
     toggleComponent(component) {
@@ -77,7 +77,7 @@ export default {
       console.log("from task label", label);
       this.toggleComponent("task-create-label");
     },
-    createLabel(label) {
+    async createLabel(label) {
       console.log(label);
       //updating a label
       if (label.index > -1) {
@@ -90,11 +90,11 @@ export default {
         //creating a label and updating the board
         const board = utilService.deepCopy(this.board);
         board.labels.push(label);
-        this.$store.dispatch({ type: "saveBoard", board });
+        await this.$store.dispatch({ type: "saveBoard", board });
       }
       this.component = "task-choose-label";
-    }
-  }
+    },
+  },
 };
 </script>
 

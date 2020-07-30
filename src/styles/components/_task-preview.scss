@@ -54,17 +54,16 @@
         font-size: 11px;
         border-radius: 3px;
         color: #fff;
-        div{
+        div {
           padding: 2px;
         }
         span {
           font-size: 11px;
           color: #8e8d8d;
         }
-        i{
+        i {
           font-size: 12px;
           margin-right: 3px;
-    
         }
       }
       .check-list-completed {
@@ -122,18 +121,19 @@
       padding: 3px 5px;
       border-radius: 3px;
       color: #fff;
-      i{
+      i {
         font-size: 12px;
         margin-right: 4px;
-        color:black;
+        color: black;
       }
     }
-    .due-green,.due-red,.due-yellow {
+    .due-green,
+    .due-red,
+    .due-yellow {
       background-color: #60bd4e;
-      i{
+      i {
         color: white;
       }
-
     }
     .due-far {
       background-color: transparent;
@@ -142,7 +142,6 @@
     }
     .due-red {
       background-color: #e63946;
-  
     }
     .due-yellow {
       background-color: #e85d04;
