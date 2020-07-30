@@ -7,24 +7,14 @@
       <h5 class="status">{{ uploadStatus }}</h5>
       <h6 v-if="status === 'Upload'">Please Wait</h6>
       <section class="upload-select" v-if="!status">
-        <button class="btn-primary full-width" @click="openInput('imageInput')">
-          Image
-        </button>
-        <button class="btn-primary full-width" @click="openInput('fileInput')">
-          File
-        </button>
-        <input
-          ref="imageInput"
-          type="file"
-          @change.prevent="uploadFile($event, 'image')"
-          hidden
-        />
-        <input
-          ref="fileInput"
-          type="file"
-          @change.prevent="uploadFile($event, 'file')"
-          hidden
-        />
+          <button class="btn-primary full-width" @click="openInput('imageInput')">
+            Image
+          </button>
+          <button class="btn-primary full-width" @click="openInput('fileInput')">
+            File
+          </button>
+          <input ref="imageInput" type="file" @change.prevent="uploadFile($event, 'image')" hidden />
+          <input ref="fileInput" type="file" @change.prevent="uploadFile($event, 'file')" hidden/>
       </section>
       <section class="upload-options" v-if="status">
         <button @click="addFile" class="btn-primary full-width">
@@ -55,8 +45,8 @@ export default {
     async uploadFile(ev, type) {
       this.status = "Upload";
       let res = await uploadService.upload(ev, type);
-      this.downloadLink = type === "file" ? `https://gofile.io/?c=${res}` : res;
-      this.imageUrl = type === "image" ? res : this.imageUrl;
+      this.downloadLink = (type === "file") ? `https://gofile.io/?c=${res}` : res;
+      this.imageUrl= (type === "image") ? res: this.imageUrl;
       this.fileName = ev.target.files[0].name;
       this.createAttachment();
     },
