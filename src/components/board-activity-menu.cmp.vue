@@ -9,7 +9,7 @@
       <section class="menu-section activity">
         <section class="activity-container">
             <section class="activity-item " v-for="activity in board.activities" :key="activity.createdAt">
-                <Avatar :username="activity.byUser.userName" :size="35"/>
+                <Avatar :username="activity.byUser.username" :size="35"/>
                 <h5>{{activity.txt}}</h5>
                 <h4>{{activity.createdAt|relativeTime}}</h4>
               </section> 

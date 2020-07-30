@@ -139,17 +139,17 @@ export default {
         return this.board.taskGroups.map(tGroup => tGroup.tasks.length)
     },
     boardMembersNames(){
-        // change to userName (with mongo)
-        return this.board.members.map(m => m.userName)
+        // change to username (with mongo)
+        return this.board.members.map(m => m.username)
     },
-       // change to userName (with mongo)
+       // change to username (with mongo)
     tasksNumPerMember(){
         return this.boardMembersNames.map(memberName => {
             // num ot tasks in total
             return this.board.taskGroups.reduce((higherAcc, tg) => {
                 return higherAcc += tg.tasks.reduce((acc, task) => {
                     task.members.forEach (m => {
-                        if (m.userName === memberName) {
+                        if (m.username === memberName) {
                             acc ++; 
                         }
                     })
@@ -164,7 +164,7 @@ export default {
         return this.boardMembersNames.map(memberName => {
             return this.allTasks.reduce((acc, task) => {
               task.members.forEach (m => {
-               if ((task.isComplete)&& (m.userName === memberName))
+               if ((task.isComplete)&& (m.username === memberName))
                   {acc ++}
               })
             return acc

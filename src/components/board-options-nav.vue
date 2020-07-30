@@ -33,7 +33,7 @@
       </button>
       <Avatar
         class="logged-user-status"
-        username="Best Demo"
+        :username="loggedUser.username"
         :size="30"
       />
     
@@ -57,7 +57,6 @@ export default {
   name: "board-options-nav",
   data() {
     return {
-      
       menuIsOpen: false,
       bgSelectOpen: false,
       boardMembersOpen: false,
@@ -69,6 +68,9 @@ export default {
     board() {
       return this.$store.getters.board;
     },
+    loggedUser(){
+      return this.$store.getters.loggedUser
+    }
    
   },
   mounted() {

@@ -12,7 +12,7 @@
           v-model="email"
           :showLabel="true"
         />
-        <form-input labelText="username" v-model="userName" :showLabel="true" />
+        <form-input labelText="username" v-model="username" :showLabel="true" />
         <form-input labelText="password" v-model="password" :showLabel="true" />
         <form-input
           v-if="!isLogin"
@@ -43,7 +43,7 @@ export default {
   data() {
     return {
       isLogin: false,
-      userName: "",
+      username: "",
       password: "",
       confirmPassword: "",
       email: "",
@@ -52,7 +52,7 @@ export default {
   methods: {
     async authUser() {
       const credentials = {
-        userName: this.userName,
+        username: this.username,
         password: this.password,
       };
       if (this.isLogin) {
@@ -60,7 +60,7 @@ export default {
           type: "login",
           credentials: { ...credentials },
         });
-        console.log('logged:',this.$store.getters.loggedUser)
+        this.$router.push("/home");
       } else {
         //Register user
         credentials.email = this.email;
@@ -69,8 +69,7 @@ export default {
     },
   },
   created() {
-    if (this.$store.getters.loggedUser) {
-      console.log(this.$store.getters.loggedUser);
+    if (this.$store.getters.loggedUser.username !== "Guest") {
       this.$router.push("/home");
     }
   },

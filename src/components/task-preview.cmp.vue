@@ -47,7 +47,7 @@
             v-for="member in task.members"
             :key="member._id"
             :src="member.img"
-            :username="member.userName"
+            :username="member.username"
             :size="24"
           />
         </div>

@@ -222,6 +222,7 @@ export default {
 
       let createdBoard = boardService.getEmptyBoard();
       createdBoard.name = this.newBoard.name;
+      createdBoard.creator=this.$store.getters.loggedUser
       createdBoard.style = this.newBoard.style;
       createdBoard.style.bgUrls = this.boardSaveUrls;
       createdBoard.members = this.newBoard.members.map((member) =>

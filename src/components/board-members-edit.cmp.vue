@@ -11,11 +11,11 @@
         <section
           @click="toggleUser(user)"
           v-for="user in filteredUsers"
-          :key="user.userName"
+          :key="user.username"
           class="member"
         >
-          <Avatar :username="user.userName" :src="user.img" :size="30" />
-          <h4>{{ user.userName }}</h4>
+          <Avatar :username="user.username" :src="user.img" :size="30" />
+          <h4>{{ user.username }}</h4>
           <i v-if="isInBoard(user)" class="el-icon-check v-member"></i>
         </section>
       </section>
@@ -54,7 +54,7 @@ export default {
     searchUsers(text) {
       if (text==="") this.filteredUsers = this.users;
       this.filteredUsers = this.users.filter((user) => {
-        if (user.userName.toLowerCase().includes(text.toLowerCase())) {
+        if (user.username.toLowerCase().includes(text.toLowerCase())) {
           return user;
         }
       });

@@ -18,14 +18,13 @@
             >
               <avatar
                 :size="35"
-                v-if="activity.byUser.img"
                 :src="activity.byUser.img"
-                :username="activity.byUser.userName"
+                :username="activity.byUser.username"
               />
              
               <section class="details-activity-text flex col">
                 <div class="details-activity-user flex">  
-                  <p><span class="details-activity-username">{{ activity.byUser.userName  }}</span>{{ activity.txt }}</p>
+                  <p><span class="details-activity-username">{{ activity.byUser.username  }}</span>{{ activity.txt }}</p>
                 </div>
                 <span>{{ activity.createdAt | relativeTime }}</span>
               </section>
