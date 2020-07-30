@@ -34,6 +34,7 @@
       <Avatar
         v-if="loggedUser"
         class="logged-user-status"
+        :src="loggedUser.img"
         :username="loggedUser.username"
         :size="30"
       />
