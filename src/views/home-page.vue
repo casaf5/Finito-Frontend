@@ -212,7 +212,7 @@ export default {
     };
   },
   async created() {
-    this.boards = await this.$store.dispatch({ type: "loadBoards" });
+    this.boards = await this.$store.dispatch({ type: "loadBoards" ,byUser:this.loggedUser._id});
     this.users = await this.$store.dispatch({ type: "loadUsers" });
     this.topImages = await UnsplashService.getRandomPhotos("9", "landscape");
   },
@@ -222,7 +222,7 @@ export default {
 
       let createdBoard = boardService.getEmptyBoard();
       createdBoard.name = this.newBoard.name;
-      createdBoard.creator=this.$store.getters.loggedUser
+      createdBoard.creator=this.$store.getters.loggedUser._id
       createdBoard.style = this.newBoard.style;
       createdBoard.style.bgUrls = this.boardSaveUrls;
       createdBoard.members = this.newBoard.members.map((member) =>
@@ -259,6 +259,11 @@ export default {
       this.showTemplateModal = true;
     },
   },
+  computed:{
+    loggedUser(){
+      return this.$store.getters.loggedUser
+    }
+  }
 };
 </script>
 

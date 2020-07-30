@@ -32,6 +32,7 @@
         <i class="far fa-bell"></i>
       </button>
       <Avatar
+        v-if="loggedUser"
         class="logged-user-status"
         :username="loggedUser.username"
         :size="30"

@@ -25,7 +25,6 @@ export const userStore = {
     },
     setLoggedUser(state, { user }) {
       state.loggedUser = user;
-      console.log("loggeduser", state.loggedUser);
     },
   },
   actions: {
