@@ -88,7 +88,6 @@ export default {
         this.editMode = false;
       } else {
         //creating a label and updating the board
-        console.log(label);
         const board = utilService.deepCopy(this.board);
         board.labels.push(label);
         await this.$store.dispatch({ type: "saveBoard", board });
