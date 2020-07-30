@@ -1,11 +1,15 @@
 <template>
   <task-actions-container
+    @close="$emit('close')"
     :fullSize="true"
     @back="$emit('changeComp', 'sidebar-background-menu')"
     :showIcon="true"
     title="Choose a color"
   >
-    <colorSmall size="extra-large" />
+    <colorSmall
+      @colorClicked="$emit('colorClicked', $event)"
+      size="extra-large"
+    />
   </task-actions-container>
 </template>
 

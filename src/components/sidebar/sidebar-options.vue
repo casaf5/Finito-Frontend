@@ -1,32 +1,37 @@
 <template>
-  <task-actions-container :fullSize="true" title="menu">
-    <div @click="$emit('changeComp', 'sidebar-background-menu')" class="sidebar-menu-container">
+  <task-actions-container @close="$emit('close')" :fullSize="true" title="menu">
+    <div
+      @click="$emit('changeComp', 'sidebar-background-menu')"
+      class="sidebar-menu-container"
+    >
       <img src="../../assets/images/color-icon.svg" alt />
       <span>Change Background</span>
     </div>
     <div class="sidebar-menu-container">
-      <i class="fas fa-list"></i>
-      <span>Board Activity</span>
+      <i class="el-icon-pie-chart"></i>
+      <router-link to="/board/dash/charts" tag="span"
+        >Board Activity</router-link
+      >
     </div>
-    <div class="sidebar-menu-container">
+    <div @click="$emit('removeBoard')" class="sidebar-menu-container">
       <i class="el-icon-delete"></i>
       <span>Remove Board</span>
     </div>
     <div class="sidebar-menu-container">
-      <i class="el-icon-pie-chart"></i>
+      <i class="fas fa-list"></i>
       <span>Board Statistics</span>
     </div>
-    <taskActivity :activities="board.activities" />
+    <activity :activities="board.activities" />
   </task-actions-container>
 </template>
 
 <script>
 import taskActionsContainer from "../task-action-container.cmp";
-import taskActivity from "../task-activity.cmp";
+import activity from "../UIComponents/activity";
 export default {
   components: {
     taskActionsContainer,
-    taskActivity,
+    activity,
   },
   computed: {
     board() {

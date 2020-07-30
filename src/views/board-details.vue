@@ -1,6 +1,6 @@
 <template>
   <section class="board-details-container" v-if="board" :style="boardBackground">
-    <board-options-nav />
+    <board-options-nav @toggleMenu="showSidebar = !showSidebar" />
     <section class="board-details">
       <modal @close="closeTaskModal" v-if="showModal">
         <task-details
@@ -22,7 +22,12 @@
         <add-group @addGroup="addGroup" />
       </Container>
     </section>
-    <!-- <sidebar /> -->
+    <sidebar
+      v-if="showSidebar"
+      @close="showSidebar = false"
+      @removeBoard="removeBoard"
+      @setBackground="setBackground"
+    />
   </section>
 </template>
 
@@ -35,7 +40,7 @@ import socketService from "../services/socket-service";
 import boardOptionsNav from "../components/board-options-nav.vue";
 import addGroup from "../components/add-group.cmp";
 import modal from "../components/UIComponents/modal";
-// import sidebar from "../components/sidebar/sidebar";
+import sidebar from "../components/sidebar/sidebar";
 export default {
   name: "board-details",
   components: {
@@ -46,7 +51,7 @@ export default {
     boardOptionsNav,
     addGroup,
     modal,
-    // sidebar,
+    sidebar,
   },
   data() {
     return {
@@ -57,6 +62,7 @@ export default {
         showOnTop: true,
       },
       showModal: false,
+      showSidebar: false,
     };
   },
   async created() {
@@ -67,6 +73,11 @@ export default {
     socketService.on("boardUpdate", (board) => {
       this.$store.commit({ type: "setBoard", board });
     });
+    const bgSize = utilService.getUrlBasedOnScreenWidth(screen.width);
+    if (this.board.style.bgUrls.length) {
+      if (bgSize === "small")
+        this.board.style.previewUrl = this.board.style.bgUrls[bgSize];
+    }
   },
   computed: {
     board() {
@@ -81,6 +92,31 @@ export default {
     },
   },
   methods: {
+    async setBackground({ payload, type }) {
+      const board = utilService.deepCopy(this.board);
+      if (type === "img") {
+        board.style.bgUrls.splice(0, 1, payload);
+        board.style.previewUrl = payload["thumbnail"];
+      } else {
+        board.style.bgUrls = [];
+        board.style.previewUrl;
+        board.style.bgColor = payload.color;
+      }
+      await this.$store.dispatch({ type: "saveBoard", board });
+      socketService.emit("boardUpdate", this.board);
+      const notification = utilService.getNewNotification(
+        "Tomer",
+        "background Changed"
+      );
+      socketService.emit("boardAction", notification);
+    },
+    async removeBoard() {
+      await this.$store.dispatch({
+        type: "deleteBoard",
+        id: this.board._id,
+      });
+      this.$router.push("/");
+    },
     onDrop(dropResult) {
       this.board.taskGroups = applyDrag(this.board.taskGroups, dropResult);
       this.sendToSocket(this.board);
