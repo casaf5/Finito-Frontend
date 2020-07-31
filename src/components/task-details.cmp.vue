@@ -142,6 +142,7 @@ export default {
     this.taskIdx = this.taskGroup.tasks.findIndex((t) => t.id === this.task.id);
     this.user = this.$store.getters.loggedUser
   },
+
   computed: {
     board() {
       return this.$store.getters.board;
@@ -291,6 +292,7 @@ export default {
     colorSmall,
     modal,
   },
+  
 };
 </script>
 
