@@ -1,7 +1,7 @@
 <template>
   <header
     :style="navbarBgStyle.navBar.navbarBgColor"
-    v-if="$route.path != '/' && $route.path != '/login'"
+    v-if="$route.path != '/' && $route.path != '/auth'"
     class="app-header"
   >
     <section class="navbar-container">
@@ -17,9 +17,15 @@
       </div>
       <nav>
         <ul class="navbar clean-list">
-          <button v-if="$route.path === '/board/dash/charts'" class="nav-btn dash-back-btn" tag="li" to="/board" @click="backToBoard">Board</button>
-          <router-link class="nav-btn" tag="li" to="/Login">Login</router-link>
-          <router-link class="nav-btn" tag="li" to="/signup">Sign Up</router-link>
+          <button
+            v-if="$route.path === '/board/dash/charts'"
+            class="nav-btn dash-back-btn"
+            tag="li"
+            to="/board"
+            @click="backToBoard"
+          >Board</button>
+          <button @click="navToAuth('login')" class="nav-btn">Login</button>
+          <button @click="navToAuth('signUp')" class="nav-btn">SignUp</button>
         </ul>
       </nav>
     </section>
@@ -34,11 +40,11 @@ export default {
   data() {
     return {
       textSearch: "",
-      searchResults: []
+      searchResults: [],
     };
   },
   components: {
-    Avatar
+    Avatar,
   },
 
   computed: {
@@ -47,41 +53,55 @@ export default {
         return {
           navBar: {
             navbarBgColor: "background-color:#0006",
-            buttonColors: "background-color:transparent;color:#fff"
-          }
-        } 
-        }else if (this.$route.name === "dash") {
-          return {
-                 navBar: {
+            buttonColors: "background-color:transparent;color:#fff",
+          },
+        };
+      } else if (this.$route.name === "dash") {
+        return {
+          navBar: {
             navbarBgColor: "background-color:#f8cb62",
-            buttonColors: "background-color:transparent;color:#fff"
-          }
-        }
+            buttonColors: "background-color:transparent;color:#fff",
+          },
+        };
       } else
         return {
           navBar: {
             navbarBgColor: "background-color:#3498db",
-            buttonColors: "background-color:#fff;color:#333"
-          }
+            buttonColors: "background-color:#fff;color:#333",
+          },
         };
-    }
+    },
   },
   methods: {
     searchRefs() {
       let tasksRefs = this.$store.getters.tasksRefs;
-      tasksRefs.forEach(ref => ref.el.classList.remove("yellow"));
+      tasksRefs.forEach((ref) => ref.el.classList.remove("yellow"));
       if (!this.textSearch) return;
       this.searchResults = [];
-      tasksRefs.map(ref => {
+      tasksRefs.map((ref) => {
         if (ref.name.includes(this.textSearch)) {
           ref.el.classList.add("yellow");
         }
       });
     },
-    backToBoard (){
-      this.$router.go(-1)
-    }
+    backToBoard() {
+      this.$router.go(-1);
+    },
+    navToAuth(pageName) {
+      let isLogin;
+      if (pageName === "login") {
+        isLogin = true;
+      } else {
+        isLogin = false;
+      }
+      this.$router.push({
+        name: "auth",
+        params: {
+          isLogin,
+        },
+      });
+    },
   },
-  mounted() {}
+  mounted() {},
 };
 </script>

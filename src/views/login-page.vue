@@ -6,12 +6,7 @@
     <form @submit.prevent="authUser" class="login-form">
       <h3>{{ welcomeMessage }}</h3>
       <div class="inputs-container">
-        <form-input
-          v-if="!isLogin"
-          labelText="email"
-          v-model="email"
-          :showLabel="true"
-        />
+        <form-input v-if="!isLogin" labelText="email" v-model="email" :showLabel="true" />
         <form-input labelText="username" v-model="userName" :showLabel="true" />
         <form-input labelText="password" v-model="password" :showLabel="true" />
         <form-input
@@ -60,7 +55,7 @@ export default {
           type: "login",
           credentials: { ...credentials },
         });
-        console.log('logged:',this.$store.getters.loggedUser)
+        console.log("logged:", this.$store.getters.loggedUser);
       } else {
         //Register user
         credentials.email = this.email;
@@ -69,10 +64,11 @@ export default {
     },
   },
   created() {
-    if (this.$store.getters.loggedUser) {
-      console.log(this.$store.getters.loggedUser);
-      this.$router.push("/home");
-    }
+    // if (this.$store.getters.loggedUser) {
+    //   console.log(this.$store.getters.loggedUser);
+    //   this.$router.push("/home");
+    // }
+    this.isLogin = this.$route.params.isLogin;
   },
   components: {
     formInput,

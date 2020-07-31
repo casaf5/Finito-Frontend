@@ -200,11 +200,6 @@ export default {
     this.boards = await this.$store.dispatch({ type: "loadBoards" });
     this.users = await this.$store.dispatch({ type: "loadUsers" });
     this.topImages = await UnsplashService.getRandomPhotos("9", "landscape");
-    const bgSize = utilService.getUrlBasedOnScreenWidth(screen.width);
-    if (this.board.style.bgUrls.length) {
-      if (bgSize === "small")
-        this.board.style.previewUrl = this.board.style.bgUrls[bgSize];
-    }
   },
   methods: {
     async addNewBoard(isTemplate = false) {
@@ -236,7 +231,7 @@ export default {
         this.boardSaveUrls = [];
       }
       this.boardSaveUrls.push({ small, regular, full });
-      this.newBoard.style.previewUrl = thumbnail;
+      this.newBoard.style.previewUrl = small;
       this.boardImgPreivewUrl = small;
     },
     createTemplate(template) {

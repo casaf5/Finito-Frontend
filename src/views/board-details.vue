@@ -99,7 +99,7 @@ export default {
         board.style.previewUrl = payload["thumbnail"];
       } else {
         board.style.bgUrls = [];
-        board.style.previewUrl;
+        board.style.previewUrl = "";
         board.style.bgColor = payload.color;
       }
       await this.$store.dispatch({ type: "saveBoard", board });
