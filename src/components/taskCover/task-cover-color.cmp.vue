@@ -5,9 +5,7 @@
         <color-small @colorClicked="colorClicked" size="medium" />
       </div>
       <div class="imgs-container">
-        <button @click="removeCover" v-if="isCoverSet" class="btn-primary">
-          Remove Cover
-        </button>
+        <button @click="removeCover" v-if="isCoverSet" class="btn-primary">Remove Cover</button>
         <h4 class="credits">Images taken from Unsplash</h4>
         <img
           @click="setImage(url.small)"
@@ -20,9 +18,7 @@
       <button
         @click="$emit('changeComponent', 'task-cover-img')"
         class="btn-primary full-width"
-      >
-        Search for other photos
-      </button>
+      >Search for other photos</button>
     </task-action-container>
   </div>
 </template>
@@ -115,6 +111,7 @@ h4 {
 .imgs-container {
   display: flex;
   flex-wrap: wrap;
+  justify-content: center;
   .credits {
     margin: 5px;
   }

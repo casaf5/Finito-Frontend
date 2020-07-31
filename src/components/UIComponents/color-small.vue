@@ -99,8 +99,8 @@ export default {
     margin: 5px 5px;
   }
   .color-small {
-    width: 50px;
-    height: 20px;
+    width: 57px;
+    height: 30px;
   }
   .color-medium {
     width: 78px;

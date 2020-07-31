@@ -1,5 +1,12 @@
 <template>
   <section class="login-cmp">
+    <nav>
+      <ul class="clean-list">
+        <router-link tag="li" to="/home">
+          <a class="login-nav-link">Home</a>
+        </router-link>
+      </ul>
+    </nav>
     <div class="login-header-container">
       <h1>{{ introductionText }}</h1>
     </div>
@@ -7,7 +14,7 @@
       <h3>{{ welcomeMessage }}</h3>
       <div class="inputs-container">
         <form-input v-if="!isLogin" labelText="email" v-model="email" :showLabel="true" />
-        <form-input labelText="username" v-model="userName" :showLabel="true" />
+        <form-input labelText="username" v-model="username" :showLabel="true" />
         <form-input labelText="password" v-model="password" :showLabel="true" />
         <form-input
           v-if="!isLogin"
@@ -38,7 +45,7 @@ export default {
   data() {
     return {
       isLogin: false,
-      userName: "",
+      username: "",
       password: "",
       confirmPassword: "",
       email: "",
@@ -47,7 +54,7 @@ export default {
   methods: {
     async authUser() {
       const credentials = {
-        userName: this.userName,
+        username: this.username,
         password: this.password,
       };
       if (this.isLogin) {

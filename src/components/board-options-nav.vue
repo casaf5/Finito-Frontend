@@ -19,10 +19,7 @@
     </section>
     <!-- @click.self="isDemoLogin = !isDemoLogin" -->
     <section class="right-side">
-      <button
-        class="notification-button"
-        @click="showNotifications = !showNotifications"
-      >
+      <button class="notification-button" @click="showNotifications = !showNotifications">
         <i class="far fa-bell"></i>
         <span v-if="notificationsExist" class="red-circle"></span>
       </button>
@@ -31,7 +28,6 @@
       <button @click="$emit('toggleMenu')">
         <i class="fas fa-bars"></i>
       </button>
-      <Avatar class="logged-user-status" username="Best Demo" :size="30" />
       <board-bg-select
         class="bgSelector"
         v-if="bgSelectOpen"
@@ -46,9 +42,7 @@
 <script>
 import Avatar from "vue-avatar";
 import notifictionList from "../components/notification-list.cmp";
-import boardActivity from "../components/board-activity-menu.cmp";
 import boardMembersEdit from "./board-members-edit.cmp";
-import boardBgSelect from "./board-bg-select.cmp";
 export default {
   name: "board-options-nav",
   data() {
@@ -88,14 +82,6 @@ export default {
     toggleAddMember() {
       this.boardMembersOpen = !this.boardMembersOpen;
     },
-    setBoardBg(imageUrls) {
-      let board = this.board;
-      this.style.bgUrls = [imageUrls];
-      this.style.previewUrl = imageUrls.small;
-      this.board.style = this.style;
-      this.$store.dispatch({ type: "saveBoard", board });
-      this.$store.commit({ type: "setStyle", style: this.style });
-    },
     membersUpdate(members) {
       let board = this.board;
       board.members = members;
@@ -104,8 +90,6 @@ export default {
   },
   components: {
     Avatar,
-    boardActivity,
-    boardBgSelect,
     boardMembersEdit,
     notifictionList,
   },
