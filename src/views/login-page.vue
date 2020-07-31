@@ -6,12 +6,7 @@
     <form @submit.prevent="authUser" class="login-form">
       <h3>{{ welcomeMessage }}</h3>
       <div class="inputs-container">
-        <form-input
-          v-if="!isLogin"
-          labelText="email"
-          v-model="email"
-          :showLabel="true"
-        />
+        <form-input v-if="!isLogin" labelText="email" v-model="email" :showLabel="true" />
         <form-input labelText="username" v-model="username" :showLabel="true" />
         <form-input labelText="password" v-model="password" :showLabel="true" />
         <form-input

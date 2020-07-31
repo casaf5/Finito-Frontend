@@ -23,15 +23,9 @@
             tag="li"
             to="/board"
             @click="backToBoard"
-          >
-            Board
-          </button>
-          <router-link class="nav-btn" tag="li" to="/login" v-if="isGuest"
-            >Login</router-link
-          >
-          <router-link class="nav-btn" tag="li" to="/signup" v-if="isGuest"
-            >Sign Up</router-link
-          >
+          >Board</button>
+          <router-link class="nav-btn" tag="li" to="/login" v-if="isGuest">Login</router-link>
+          <router-link class="nav-btn" tag="li" to="/signup" v-if="isGuest">Sign Up</router-link>
           <button class="nav-btn dash-back-btn" @click="logout" v-if="!isGuest">Log Out</button>
         </ul>
       </nav>
@@ -78,7 +72,7 @@ export default {
           },
         };
     },
-    loggedUser(){
+    loggedUser() {
       return this.$store.getters.loggedUser;
     },
     isGuest() {
