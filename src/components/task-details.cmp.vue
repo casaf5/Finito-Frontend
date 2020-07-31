@@ -141,6 +141,12 @@ export default {
     );
     this.taskIdx = this.taskGroup.tasks.findIndex((t) => t.id === this.task.id);
     this.user = this.$store.getters.loggedUser
+     socketService.on("boardUpdate", (board) => {
+        this.$store.commit({ type: "setBoard", board })
+     })
+  },
+  destroyed(){
+    socketService.off('boardUpdate')
   },
   computed: {
     board() {
@@ -188,16 +194,15 @@ export default {
     },
   },
   methods: {
+    
     updateBoard(actionStr = "ACTION SAVED") {
       // console.log("state board labels", this.state.board.labels);
       // console.log("props board labels", this.boardToEdit.labels);
       socketService.emit("boardUpdate", this.boardToEdit);
-      socketService.on("boardUpdate", (board) => {
-        this.$store.commit({ type: "setBoard", board });
         // const savedBoard = await this.$store.dispatch({
         //   type: "updateBoard",
         //   board: this.boardToEdit
-      });
+  
       // USER MSG
       // const type = savedBoard ? "success" : "error";
       // let fixedStr = actionStr;

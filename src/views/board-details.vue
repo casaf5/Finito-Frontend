@@ -79,6 +79,10 @@ export default {
         this.board.style.previewUrl = this.board.style.bgUrls[bgSize];
     }
   },
+  destroyed(){
+    socketService.off('boardUpdate')
+    socketService.terminate();
+  },
   computed: {
     board() {
       return this.$store.getters.board;
@@ -153,9 +157,7 @@ export default {
     sendToSocket(board) {
       socketService.emit("boardUpdate", board);
     },
-    destroyed() {
-      SocketService.terminate();
-    },
+   
   },
 };
 </script>
