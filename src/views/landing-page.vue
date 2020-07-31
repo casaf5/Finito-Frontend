@@ -1,17 +1,17 @@
 <template>
   <div class="landing-page">
+    <nav class="navbar-container">
+      <span class="logo">Finito</span>
+      <ul class="navbar">
+        <router-link to="/auth" tag="li">
+          <a>Login</a>
+        </router-link>
+        <router-link to="/auth" tag="li">
+          <a>Sign Up</a>
+        </router-link>
+      </ul>
+    </nav>
     <section class="hero-container">
-      <nav class="navbar-container">
-        <span class="logo">Finito</span>
-        <ul class="navbar">
-          <router-link to="/login" tag="li">
-            <a>Login</a>
-          </router-link>
-          <router-link to="/signup" tag="li">
-            <a>Sign Up</a>
-          </router-link>
-        </ul>
-      </nav>
       <div class="hero-content-container">
         <div class="hero-content">
           <h1>
@@ -23,9 +23,7 @@
             Finito offers a cutting edge managment system which make working in
             large teams a breaze and takes you further than before
           </p>
-          <router-link tag="button" to="/home" class="cta-btn"
-            >Go aboard!</router-link
-          >
+          <router-link tag="button" to="/home" class="cta-btn">Go aboard!</router-link>
         </div>
         <div class="hero-img">
           <img src="../assets/images/hero.svg" alt />

@@ -40,7 +40,11 @@
             <div class="task-date-container flex">
               <i @click="toggleTaskCompletion" :class="checkBoxIcon" class="checkbox-icon"></i>
               <!-- <input type="checkbox" v-model="task.isComplete" @click="toggleTaskCompletion" /> -->
-              <span class="task-date">{{ task.dueDate }}</span>
+              <span :class="dueDateClass" class="task-date">
+                {{
+                task.dueDate
+                }}
+              </span>
             </div>
           </section>
         </div>
@@ -153,11 +157,40 @@ export default {
       }
     },
     checkBoxIcon() {
-      return this.task.isComplete ? "far fa-check-square" : "far fa-square";
+      return this.taskToEditState.isComplete
+        ? "far fa-check-square"
+        : "far fa-square";
+    },
+    dueDateClass() {
+      const taskDueDate = new Date(this.taskToEdit.dueDate);
+      const today = new Date();
+      const difference =
+        taskDueDate > today
+          ? Math.abs(taskDueDate - today)
+          : Math.abs(today > taskDueDate);
+      const diffrenceInDays = Math.round(difference / (1000 * 60 * 60 * 24));
+      if (this.taskToEdit.isComplete) {
+        return "due-green";
+      }
+      if (diffrenceInDays >= 2) {
+        return "due-far";
+      } else if (diffrenceInDays === 1) {
+        return "due-yellow";
+      } else if (diffrenceInDays === 0) {
+        return "due-red";
+      }
+    },
+    taskToEditState() {
+      const taskGroup = this.board.taskGroups.find(
+        (tg) => tg.id === this.task.parentListId
+      );
+      return taskGroup.tasks.find((t) => t.id === this.task.id);
     },
   },
   methods: {
     updateBoard(actionStr = "ACTION SAVED") {
+      // console.log("state board labels", this.state.board.labels);
+      // console.log("props board labels", this.boardToEdit.labels);
       socketService.emit("boardUpdate", this.boardToEdit);
       socketService.on("boardUpdate", (board) => {
         this.$store.commit({ type: "setBoard", board });

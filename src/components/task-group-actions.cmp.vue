@@ -1,11 +1,6 @@
 <template>
   <div>
-    <task-action-container
-      @back="back"
-      @close="close"
-      :showIcon="showIcon"
-      :title="title"
-    >
+    <task-action-container @back="back" @close="close" :showIcon="showIcon" :title="title">
       <component
         @duplicateList="duplicateList"
         @removeGroup="removeGroup"
@@ -46,7 +41,7 @@ export default {
       this.title = "List of Actions";
     },
     moveToDifferentBoard(index) {
-      this.$emit("moveToDifferentBoard", this.boardToMoveTo);
+      this.$emit("moveToDifferentBoard", index);
     },
     close() {
       this.$emit("close");

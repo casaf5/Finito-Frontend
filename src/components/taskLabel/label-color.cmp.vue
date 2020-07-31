@@ -13,6 +13,7 @@
 </template>
 
 <script>
+import { utilService } from "../../utils/utils.js";
 export default {
   props: {
     color: {
@@ -47,6 +48,9 @@ export default {
         wasClicked: false,
       };
       if (this.createMode) {
+        if (!label.id) {
+          label.id = utilService.getRandomId();
+        }
         this.$emit("createLabel", { label: label, index: this.index });
       }
       this.$emit("labelClicked", { label: label, index: this.index });

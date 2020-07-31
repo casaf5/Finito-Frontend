@@ -11,7 +11,7 @@
       :options="boardsToRender.positions"
       :showLabel="true"
       labelText="Position"
-    /> -->
+    />-->
 
     <button @click="moveToDifferentBoard" class="btn-primary">Move</button>
   </div>

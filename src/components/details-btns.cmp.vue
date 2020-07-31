@@ -31,7 +31,10 @@
       @dateRemoved="removeDuedate"
       @closeDateComp="toggleComponentToRender('duedateOpen')"
     />
-    <button class="detail-btn" @click="toggleComponentToRender('addCheckListOpen')">
+    <button
+      class="detail-btn"
+      @click="toggleComponentToRender('addCheckListOpen')"
+    >
       <i class="el-icon-document-checked"></i>
       Checklist
     </button>
@@ -40,7 +43,10 @@
       v-if="componentsToToggle.addCheckListOpen"
       @createCheckList="addCheckList"
     />
-    <button class="detail-btn" @click="toggleComponentToRender('attachmentsOpen')">
+    <button
+      class="detail-btn"
+      @click="toggleComponentToRender('attachmentsOpen')"
+    >
       <i class="el-icon-paperclip"></i> Attachment
     </button>
     <task-attachment
@@ -74,10 +80,11 @@
       @closeMoveComp="toggleComponentToRender('moveCompOpen')"
       @taskMoved="moveTask"
     />
-    <button @click="toggleWatch" class="flex space-between align-center detail-btn">
-      <div>
-        <i class="el-icon-view"></i> Watch
-      </div>
+    <button
+      @click="toggleWatch"
+      class="flex space-between align-center detail-btn"
+    >
+      <div><i class="el-icon-view"></i> Watch</div>
       <i v-show="watchIsOn" class="el-icon-check v-watch"></i>
     </button>
   </section>
@@ -106,20 +113,20 @@ export default {
         taskGroup: null,
         addCheckListOpen: false,
         addLabelOpen: false,
-        addCoverOpen: false
-      }
+        addCoverOpen: false,
+      },
     };
   },
   created() {
     this.taskGroup = this.board.taskGroups.find(
-      tg => tg.id === this.task.parentListId
+      (tg) => tg.id === this.task.parentListId
     );
-    this.taskToEdit = this.taskGroup.tasks.find(t => t.id === this.task.id);
+    this.taskToEdit = this.taskGroup.tasks.find((t) => t.id === this.task.id);
   },
   computed: {
     watchIsOn() {
       const isOn = this.taskToEdit.watchMembers.find(
-        member => member._id === this.user._id
+        (member) => member._id === this.user._id
       )
         ? true
         : false;
@@ -127,7 +134,16 @@ export default {
     },
     isCoverSet() {
       return !!this.taskToEdit.cover.url || !!this.taskToEdit.cover.color;
-    }
+    },
+    stateBoard() {
+      return this.$store.getters.board;
+    },
+    taskToEditState() {
+      const taskGroup = this.stateBoard.taskGroups.find(
+        (tg) => tg.id === this.task.parentListId
+      );
+      return taskGroup.tasks.find((t) => t.id === this.task.id);
+    },
   },
   methods: {
     // TASKS
@@ -147,7 +163,7 @@ export default {
     moveTask(newTaskgroupId) {
       this.taskToEdit.parentListId = newTaskgroupId;
       const newGroupIdx = this.board.taskGroups.findIndex(
-        tg => tg.id === newTaskgroupId
+        (tg) => tg.id === newTaskgroupId
       );
       this.taskGroup.tasks.splice(this.taskIdx, 1);
       this.board.taskGroups[newGroupIdx].tasks.push(this.taskToEdit);
@@ -159,16 +175,18 @@ export default {
       const taskLabel = {
         title,
         color,
-        id
+        id,
       };
       const labelIndex = this.taskToEdit.labels.findIndex(
-        label => label.id === taskLabel.id
+        (label) => label.id === taskLabel.id
       );
       if (labelIndex > -1) {
         this.taskToEdit.labels.splice(labelIndex, 1);
+        // this.taskToEditState.labels.splice(labelIndex, 1);
         this.$emit("emitBoardChange", "REMOVED_LABEL");
       } else {
         this.taskToEdit.labels.push(taskLabel);
+        // this.taskToEditState.labels.push(taskLabel);
         this.$emit("emitBoardChange", "ADDED_LABEL");
       }
     },
@@ -178,17 +196,18 @@ export default {
         title,
         color,
         selectedColor,
-        wasClicked: false
+        wasClicked: false,
       };
       const updatedLabel = {
         id,
         title,
-        color
+        color,
       };
-      const board = utilService.deepCopy(this.board);
+
+      const board = utilService.deepCopy(this.stateBoard);
       board.labels.splice(index, 1, boardLabel);
 
-      board.taskGroups.forEach(taskGroup => {
+      board.taskGroups.forEach((taskGroup) => {
         taskGroup.tasks.forEach((task, taskIdx) => {
           task.labels.forEach((label, taskIdX) => {
             if (label.id === updatedLabel.id) {
@@ -220,7 +239,7 @@ export default {
       this.$emit("emitBoardChange", "JOINED_MEMBER");
     },
     removeMember(member) {
-      const idx = this.task.members.findIndex(m => m._id === member._id);
+      const idx = this.task.members.findIndex((m) => m._id === member._id);
       this.taskToEdit.members.splice(idx, 1);
       this.$emit("emitBoardChange", "MEMBER_LEFT");
     },
@@ -264,7 +283,7 @@ export default {
     },
     toggleWatch() {
       const idx = this.taskToEdit.watchMembers.findIndex(
-        member => member._id === this.user._id
+        (member) => member._id === this.user._id
       );
       if (idx !== -1) {
         this.taskToEdit.watchMembers.splice(idx, 1);
@@ -273,7 +292,7 @@ export default {
         this.taskToEdit.watchMembers.push(this.user);
         this.$emit("emitBoardChange", "WATCHED_TASK");
       }
-    }
+    },
   },
   components: {
     taskMembers,
@@ -282,7 +301,7 @@ export default {
     taskAttachment,
     taskCheckList,
     taskLabel,
-    taskCover
-  }
+    taskCover,
+  },
 };
 </script>

@@ -29,6 +29,7 @@ async function getById(boardId) {
 }
 
 async function deleteBoard(boardId) {
+  console.log(boardId);
   return await axios.delete(_getUrl(boardId));
 }
 async function _add(board) {

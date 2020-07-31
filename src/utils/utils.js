@@ -6,6 +6,7 @@ export const utilService = {
   getNewBoard,
   deepCopy,
   getUrlBasedOnScreenWidth,
+  getNewNotification,
 };
 
 //Tired of wirting JSON.parse(JSON.stringify(object)
@@ -126,6 +127,17 @@ function getNewBoard() {
     ],
   };
   return newBoard;
+}
+
+function getNewNotification(sender = "Admin", content) {
+  const notification = {
+    senderId: "tomer123",
+    id: getRandomId(),
+    sender,
+    content,
+    closed: false,
+  };
+  return notification;
 }
 
 function getUrlBasedOnScreenWidth(screenWidth) {

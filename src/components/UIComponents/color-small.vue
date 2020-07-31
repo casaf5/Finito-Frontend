@@ -99,8 +99,8 @@ export default {
     margin: 5px 5px;
   }
   .color-small {
-    width: 50px;
-    height: 20px;
+    width: 57px;
+    height: 30px;
   }
   .color-medium {
     width: 78px;
@@ -113,8 +113,15 @@ export default {
     height: 26px;
   }
   .color.extra-large {
-    width: 110px;
-    height: 76px;
+    width: 96px;
+    height: 78px;
+    @media only screen and(max-width:380px) {
+      width: 65px;
+      height: 50px;
+    }
+    // @include for-extra-small-layout {
+    //   width: 50px;
+    // }
   }
 }
 </style>

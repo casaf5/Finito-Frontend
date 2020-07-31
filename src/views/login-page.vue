@@ -1,5 +1,12 @@
 <template>
   <section class="login-cmp">
+    <nav>
+      <ul class="clean-list">
+        <router-link tag="li" to="/home">
+          <a class="login-nav-link">Home</a>
+        </router-link>
+      </ul>
+    </nav>
     <div class="login-header-container">
       <h1>{{ introductionText }}</h1>
     </div>
@@ -55,7 +62,7 @@ export default {
           type: "login",
           credentials: { ...credentials },
         });
-        this.$router.push("/home");
+        console.log("logged:", this.$store.getters.loggedUser);
       } else {
         //Register user
         credentials.email = this.email;
@@ -67,6 +74,11 @@ export default {
     if (this.$store.getters.loggedUser.username !== "Guest") {
       this.$router.push("/home");
     }
+    // if (this.$store.getters.loggedUser) {
+    //   console.log(this.$store.getters.loggedUser);
+    //   this.$router.push("/home");
+    // }
+    this.isLogin = this.$route.params.isLogin;
   },
   components: {
     formInput,

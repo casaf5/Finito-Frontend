@@ -40,6 +40,9 @@
       max-width: 100%;
     }
     input {
+      @include for-narrow-layout {
+        width: 158px;
+      }
       background-color: #ffffff52;
       border: none;
       padding: 5px;
@@ -72,21 +75,18 @@
     }
     display: flex;
     align-items: center;
-    // button {
-    //   background-color: #3498db;
-    //   border-radius: 3px;
-    //   border: none;
-    //   outline: none;
-    //   padding: 5px;
-    //   font-family: Montserrat;
-    //   font-size: 14px;
-    //   color: white;
-    //   margin-inline-start: 10px;
-    //  margin-inline-end: 5px;
-    //  border-radius: 50%;
-    //  height: 35px;
-    //  width: 35px;
-    // }
+    .notification-button {
+      position: relative;
+      .red-circle {
+        position: absolute;
+        right: 6px;
+        top: 6px;
+        width: 8px;
+        height: 8px;
+        background-color: #e63946;
+        border-radius: 100%;
+      }
+    }
     button {
       background-color: rgb(206, 206, 206);
       border-radius: 50%;
@@ -105,7 +105,7 @@
         background-color: rgb(255, 255, 255);
       }
     }
-    .logged-user-status{
+    .logged-user-status {
       margin-inline-start: 5px;
     }
 
@@ -121,7 +121,7 @@
           cursor: pointer;
           width: 130px;
           height: 100px;
-          margin:2px;
+          margin: 2px;
         }
       }
     }

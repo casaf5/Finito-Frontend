@@ -1,7 +1,13 @@
 <template>
   <div>
-    <h1>adsad</h1>
-    <component @changeComp="changeComp" :is="component" />
+    <component
+      @imageChoosen="setBackground"
+      @changeComp="changeComp"
+      @colorClicked="setBackground"
+      @removeBoard="removeBoard"
+      @close="$emit('close')"
+      :is="component"
+    />
   </div>
 </template>
 
@@ -26,6 +32,17 @@ export default {
   methods: {
     changeComp(compToRender) {
       this.component = compToRender;
+    },
+    setBackground(payload) {
+      console.log(payload);
+      if (payload.color) {
+        this.$emit("setBackground", { payload, type: "color" });
+      } else {
+        this.$emit("setBackground", { payload, type: "img" });
+      }
+    },
+    removeBoard() {
+      this.$emit("removeBoard");
     },
   },
 };

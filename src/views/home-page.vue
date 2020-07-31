@@ -6,40 +6,32 @@
         Your Boards
       </h4>
       <div class="recent-boards">
-        <board-preview
-          :isLink="true"
-          v-for="board in boards"
-          :board="board"
-          :key="board._id"
-        />
+        <board-preview :isLink="true" v-for="board in boards" :board="board" :key="board._id" />
         <div
           @click="showModal = !showModal"
           class="board-preview flex create-board"
-        >
-          Create New Board
-        </div>
+        >Create New Board</div>
       </div>
     </div>
     <modal @close="showModal = !showModal" v-if="showModal">
       <div class="create-board-container">
+        <board-preview :previewUrl="boardImgPreivewUrl" :board="newBoard" />
         <div class="create-board-input">
-          <form-input
-            v-model="newBoard.name"
-            :showLabel="true"
-            labelText="Board Title"
-          />
+          <form-input v-model="newBoard.name" :showLabel="true" labelText="Board Title" />
         </div>
         <div class="create-board-colors">
           <h4>Choose Color</h4>
           <color-small @colorClicked="changeBgColor" size="small" />
         </div>
-        <searchImg
-          :saveSettings="{ previewSize: 'regular', saveSize: 'full' }"
-          :getAllSizes="true"
-          :topImages="topImages"
-          @imageChoosen="setBoardImg"
-        />
-        <board-preview :previewUrl="boardImgPreivewUrl" :board="newBoard" />
+        <div class="create-board-imgs">
+          <searchImg
+            :saveSettings="{ previewSize: 'regular', saveSize: 'full' }"
+            :getAllSizes="true"
+            :topImages="topImages"
+            @imageChoosen="setBoardImg"
+          />
+        </div>
+
         <button @click="addNewBoard" class="btn-primary">Create</button>
       </div>
     </modal>
@@ -58,10 +50,7 @@
         />
       </div>
       <transition name="fade">
-        <modal
-          @close="showTemplateModal = !showTemplateModal"
-          v-if="showTemplateModal"
-        >
+        <modal @close="showTemplateModal = !showTemplateModal" v-if="showTemplateModal">
           <div class="template-details-container">
             <div class="template-img-container">
               <img
@@ -103,9 +92,7 @@
                 </li>
               </ul>
               <button class="btn-primary full-width">Generate Template</button>
-              <p @click="showTemplateModal = !showTemplateModal">
-                Back to Homepage
-              </p>
+              <p @click="showTemplateModal = !showTemplateModal">Back to Homepage</p>
             </div>
           </div>
         </modal>
@@ -117,6 +104,7 @@
 <script>
 import { boardService } from "../services/board-service.js";
 import { UnsplashService } from "../services/unsplashImage-service";
+import { utilService } from "../utils/utils";
 import boardPreview from "../components/board-preview.cmp.vue";
 import boardTemplate from "../components/UIComponents/template";
 import formInput from "../components/FormElements/form-input.cmp";
@@ -247,7 +235,7 @@ export default {
         this.boardSaveUrls = [];
       }
       this.boardSaveUrls.push({ small, regular, full });
-      this.newBoard.style.previewUrl = thumbnail;
+      this.newBoard.style.previewUrl = small;
       this.boardImgPreivewUrl = small;
     },
     createTemplate(template) {

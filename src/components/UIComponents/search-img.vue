@@ -10,15 +10,14 @@
     />
     <div v-if="!isLoading" class="imgs-container">
       <img
+        :class="imageSize"
         @click="imageChoosen(url, index)"
         :src="url[imageDisplaySize]"
         :key="index"
         v-for="(url, index) in imagesToDisplay"
       />
     </div>
-    <h1 v-else>
-      Loading...
-    </h1>
+    <h1 v-else>Loading...</h1>
   </div>
 </template>
 
@@ -30,8 +29,8 @@ export default {
     topImages: {
       type: Array,
     },
-    orientation:{
-      type:String,
+    orientation: {
+      type: String,
     },
     imageDisplaySize: {
       type: String,
@@ -46,6 +45,9 @@ export default {
     imageAmount: {
       type: String,
     },
+    size: {
+      type: String,
+    },
   },
   data() {
     return {
@@ -54,12 +56,11 @@ export default {
       isLoading: false,
     };
   },
-  created() {},
   methods: {
     async searchForPhotos() {
       this.isLoading = true;
       const imgAmount = this.imageAmount ? this.imageAmount : "9";
-      const orientation = this.orientation ? this.orientation : 'landscape'
+      const orientation = this.orientation ? this.orientation : "landscape";
       this.searchedImages = await UnsplashService.searchPhoto(
         this.query,
         imgAmount,
@@ -94,6 +95,13 @@ export default {
     imagesToDisplay() {
       return this.searchedImages.length ? this.searchedImages : this.topImages;
     },
+    imageSize() {
+      if (this.size) {
+        if (this.size === "large") {
+          return "large";
+        }
+      }
+    },
   },
 };
 </script>
@@ -105,6 +113,7 @@ export default {
 .imgs-container {
   display: flex;
   flex-wrap: wrap;
+  justify-content: center;
   .credits {
     font-size: 14px;
   }
@@ -115,6 +124,14 @@ export default {
     width: 78px;
     height: 50px;
     object-fit: cover;
+    &.large {
+      width: 100px;
+      height: 60px;
+      @media only screen and(max-width:380px) {
+        width: 65px;
+        height: 50px;
+      }
+    }
   }
 }
 </style>

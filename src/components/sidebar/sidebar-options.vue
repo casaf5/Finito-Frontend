@@ -1,32 +1,57 @@
 <template>
-  <task-actions-container :fullSize="true" title="menu">
-    <div @click="$emit('changeComp', 'sidebar-background-menu')" class="sidebar-menu-container">
+  <task-actions-container @close="$emit('close')" :fullSize="true" title="menu">
+    <div>
+      <button class="btn menu-login-btn" @click="navToAuth('signUp')">Signup</button>
+      <button class="btn menu-login-btn" @click="navToAuth('login')">Sign In</button>
+    </div>
+    <div
+      @click="$emit('changeComp', 'sidebar-background-menu')"
+      class="sidebar-menu-container menu-action"
+    >
       <img src="../../assets/images/color-icon.svg" alt />
       <span>Change Background</span>
     </div>
-    <div class="sidebar-menu-container">
-      <i class="fas fa-list"></i>
-      <span>Board Activity</span>
+    <div class="sidebar-menu-container menu-action">
+      <i class="el-icon-pie-chart"></i>
+      <router-link to="/board/dash/charts" tag="span">Board Activity</router-link>
     </div>
-    <div class="sidebar-menu-container">
+    <div @click="$emit('removeBoard')" class="sidebar-menu-container">
       <i class="el-icon-delete"></i>
       <span>Remove Board</span>
     </div>
-    <div class="sidebar-menu-container">
-      <i class="el-icon-pie-chart"></i>
+
+    <div class="sidebar-menu-container menu-activity">
+      <i class="fas fa-list"></i>
       <span>Board Statistics</span>
     </div>
-    <taskActivity :activities="board.activities" />
+    <hr />
+    <activity :activities="board.activities" />
   </task-actions-container>
 </template>
 
 <script>
 import taskActionsContainer from "../task-action-container.cmp";
-import taskActivity from "../task-activity.cmp";
+import activity from "../UIComponents/activity";
 export default {
   components: {
     taskActionsContainer,
-    taskActivity,
+    activity,
+  },
+  methods: {
+    navToAuth(pageName) {
+      let isLogin;
+      if (pageName === "login") {
+        isLogin = true;
+      } else {
+        isLogin = false;
+      }
+      this.$router.push({
+        name: "auth",
+        params: {
+          isLogin,
+        },
+      });
+    },
   },
   computed: {
     board() {
@@ -37,20 +62,4 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.sidebar-menu-container {
-  padding: 5px;
-  display: flex;
-  align-items: center;
-  > img,
-  i {
-    margin-right: 10px;
-  }
-  img {
-    width: 16px;
-  }
-  transition: all 0.3s ease-in-out;
-  &:hover {
-    background-color: rgba(9, 30, 66, 0.13);
-  }
-}
 </style>

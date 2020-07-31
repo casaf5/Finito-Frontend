@@ -17,7 +17,6 @@ body::-webkit-scrollbar,
   width: 11px;
 }
 body,
-.overlay-wrapper,
 .task-container {
   scrollbar-width: auto;
   scrollbar-color: var(--thumbBG) var(--scrollbarBG);

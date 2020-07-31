@@ -25,13 +25,14 @@ const routes = [
     component: () => import("../views/trellor-app.vue"),
   },
   {
-    path: "/login",
+    name: "auth",
+    path: "/auth",
     component: () => import("../views/login-page.vue"),
   },
-  {
-    path: "/signup",
-    component: () => import("../views/signup-page.vue"),
-  },
+  // {
+  //   path: "/signup",
+  //   component: () => import("../views/signup-page.vue"),
+  // },
   {
     path: "/board/dash/charts",
     name: "dash",
