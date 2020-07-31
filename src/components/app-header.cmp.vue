@@ -22,10 +22,8 @@
             class="nav-btn dash-back-btn"
             tag="li"
             to="/board"
-            @click="backToBoard">
-            Board
-          </button>
-       
+            @click="backToBoard"
+          >Board</button>
           <button class="nav-btn dash-back-btn" @click="logout" v-if="!isGuest">Log Out</button>
           <button @click="navToAuth('login')" class="nav-btn" v-if="isGuest">Login</button>
           <button @click="navToAuth('signUp')" class="nav-btn" v-if="isGuest">SignUp</button>
@@ -74,7 +72,7 @@ export default {
           },
         };
     },
-    loggedUser(){
+    loggedUser() {
       return this.$store.getters.loggedUser;
     },
     isGuest() {
