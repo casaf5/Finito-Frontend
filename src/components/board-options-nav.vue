@@ -26,37 +26,19 @@
         <i class="far fa-bell"></i>
         <span v-if="notificationsExist" class="red-circle"></span>
       </button>
-      <Avatar
-        v-if="loggedUser"
-        class="logged-user-status"
-        :src="loggedUser.img"
-        :username="loggedUser.username"
-        :size="30"
-      />
-    
+     
       <notifictionList v-show="showNotifications" />
-
       <button @click="$emit('toggleMenu')">
         <i class="fas fa-bars"></i>
       </button>
-      <Avatar class="logged-user-status" username="Best Demo" :size="30" />
-      <board-bg-select
-        class="bgSelector"
-        v-if="bgSelectOpen"
-        @close="toggleBgSelect"
-        @imageChoosen="setBoardBg"
-      />
     </section>
-    <board-activity v-if="menuIsOpen" @close="toggleMenu" />
   </section>
 </template>
 
 <script>
 import Avatar from "vue-avatar";
 import notifictionList from "../components/notification-list.cmp";
-import boardActivity from "../components/board-activity-menu.cmp";
 import boardMembersEdit from "./board-members-edit.cmp";
-import boardBgSelect from "./board-bg-select.cmp";
 export default {
   name: "board-options-nav",
   data() {
@@ -116,8 +98,6 @@ export default {
   },
   components: {
     Avatar,
-    boardActivity,
-    boardBgSelect,
     boardMembersEdit,
     notifictionList,
   },

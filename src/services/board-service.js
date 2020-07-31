@@ -29,8 +29,8 @@ async function getById(boardId) {
 }
 
 async function deleteBoard(boardId) {
-  console.log(boardId);
-  return await axios.delete(_getUrl(boardId));
+  const deletedBoard= await axios.delete(_getUrl(boardId));
+  return deletedBoard.data
 }
 async function _add(board) {
   const savedBoard = await axios.post(_getUrl(), board);

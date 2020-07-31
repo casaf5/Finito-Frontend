@@ -8,7 +8,7 @@
               :size="35"
               v-if="activity.byUser.img"
               :src="activity.byUser.img"
-              :username="activity.byUser.userName"
+              :username="activity.byUser.username"
             />
           </div>
 
@@ -17,7 +17,7 @@
               <p>
                 <span class="details-activity-username">
                   {{
-                  activity.byUser.userName
+                  activity.byUser.username
                   }}
                 </span>
                 {{ activity.txt }}

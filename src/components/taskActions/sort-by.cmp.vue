@@ -7,7 +7,7 @@
       Date Created(Oldest First)
     </button>
     <button @click="sortBy('alphabet')" class="btn">
-      Date Created(Alphabetically First)
+     Alphabetically
     </button>
   </div>
 </template>
