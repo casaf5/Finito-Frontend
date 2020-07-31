@@ -1,7 +1,7 @@
 <template>
   <header
     :style="navbarBgStyle.navBar.navbarBgColor"
-    v-if="$route.path != '/' && $route.path != '/login'"
+    v-if="$route.path != '/' && $route.path != '/auth'"
     class="app-header"
   >
     <section class="navbar-container">
@@ -22,17 +22,13 @@
             class="nav-btn dash-back-btn"
             tag="li"
             to="/board"
-            @click="backToBoard"
-          >
+            @click="backToBoard">
             Board
           </button>
-          <router-link class="nav-btn" tag="li" to="/login" v-if="isGuest"
-            >Login</router-link
-          >
-          <router-link class="nav-btn" tag="li" to="/signup" v-if="isGuest"
-            >Sign Up</router-link
-          >
+       
           <button class="nav-btn dash-back-btn" @click="logout" v-if="!isGuest">Log Out</button>
+          <button @click="navToAuth('login')" class="nav-btn">Login</button>
+          <button @click="navToAuth('signUp')" class="nav-btn">SignUp</button>
         </ul>
       </nav>
     </section>
@@ -104,5 +100,19 @@ export default {
       this.$store.dispatch({ type: "logout" });
     },
   },
+    navToAuth(pageName) {
+      let isLogin;
+      if (pageName === "login") {
+        isLogin = true;
+      } else {
+        isLogin = false;
+      }
+      this.$router.push({
+        name: "auth",
+        params: {
+          isLogin,
+        },
+      });
+    },
 };
 </script>
