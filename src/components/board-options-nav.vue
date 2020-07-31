@@ -28,6 +28,11 @@
       <button @click="$emit('toggleMenu')">
         <i class="fas fa-bars"></i>
       </button>
+      <Avatar
+      :size="30"
+      :src="loggedUser.img"
+      :username="loggedUser.username"
+      />
     </section>
   </section>
 </template>
@@ -55,7 +60,6 @@ export default {
     loggedUser(){
       return this.$store.getters.loggedUser
     },
-   
     notificationsExist() {
       const notifications = this.$store.getters.notifications;
       return notifications.length;

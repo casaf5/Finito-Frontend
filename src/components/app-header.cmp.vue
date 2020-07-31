@@ -27,8 +27,8 @@
           </button>
        
           <button class="nav-btn dash-back-btn" @click="logout" v-if="!isGuest">Log Out</button>
-          <button @click="navToAuth('login')" class="nav-btn">Login</button>
-          <button @click="navToAuth('signUp')" class="nav-btn">SignUp</button>
+          <button @click="navToAuth('login')" class="nav-btn" v-if="isGuest">Login</button>
+          <button @click="navToAuth('signUp')" class="nav-btn" v-if="isGuest">SignUp</button>
         </ul>
       </nav>
     </section>
@@ -99,8 +99,7 @@ export default {
     logout() {
       this.$store.dispatch({ type: "logout" });
     },
-  },
-    navToAuth(pageName) {
+     navToAuth(pageName) {
       let isLogin;
       if (pageName === "login") {
         isLogin = true;
@@ -114,5 +113,7 @@ export default {
         },
       });
     },
+  },
+   
 };
 </script>
