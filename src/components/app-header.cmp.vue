@@ -11,7 +11,7 @@
           <i class="fas fa-home header-item home-icon"></i>
         </router-link>
         <li class="searchbar-container">
-          <input type="text" placeholder="Search..." />
+          <input type="text" placeholder="Search..." v-model="textSearch" @input="searchRefs" />
           <i class="fas fa-search search-icon"></i>
         </li>
       </div>
@@ -82,12 +82,12 @@ export default {
   methods: {
     searchRefs() {
       let tasksRefs = this.$store.getters.tasksRefs;
-      tasksRefs.forEach((ref) => ref.el.classList.remove("yellow"));
+      tasksRefs.forEach((ref) => ref.el.classList.remove("markResult"));
       if (!this.textSearch) return;
       this.searchResults = [];
       tasksRefs.map((ref) => {
         if (ref.name.includes(this.textSearch)) {
-          ref.el.classList.add("yellow");
+          ref.el.classList.add("markResult");
         }
       });
     },

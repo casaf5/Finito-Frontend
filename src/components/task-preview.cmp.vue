@@ -165,6 +165,9 @@ export default {
     SmallLabel,
     Avatar,
   },
+  mounted(){;
+    this.$store.commit({type:"addToTasksRefs",ref:{name:this.task.title,el:this.$refs.taskPreview}})
+  }
 };
 </script>
 
