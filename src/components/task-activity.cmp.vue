@@ -8,7 +8,7 @@
         </h4>
         <button @click="toggleBtn">{{ btnTxt }}</button>
       </div>
-  <task-comment/>
+  <!-- <task-comment/> -->
       <div v-if="showList" class="task-activities-list">
         <ul>
           <li v-for="(activity, idx) in activities" :key="idx">
@@ -18,22 +18,13 @@
             >
               <avatar
                 :size="35"
-                v-if="activity.byUser.url"
-                :username="activity.byUser.name"
-                :src="activity.byUser.url"
-              ></avatar>
-              <avatar
-                :size="35"
-                v-else
-                :username="activity.byUser.name"
-                :src="activity.byUser.url"
-              ></avatar>
+                :src="activity.byUser.img"
+                :username="activity.byUser.username"
+              />
+             
               <section class="details-activity-text flex col">
-                <div class="details-activity-user flex">
-                  <h4>
-                    {{ activity.byUser.userName }}
-                  </h4>
-                  <p>{{ activity.txt }}</p>
+                <div class="details-activity-user flex">  
+                  <p><span class="details-activity-username">{{ activity.byUser.username  }}</span>{{ activity.txt }}</p>
                 </div>
                 <span>{{ activity.createdAt | relativeTime }}</span>
               </section>

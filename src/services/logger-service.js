@@ -3,7 +3,7 @@ export const loggerService = {
 };
 
 // getting an action and what has been changed (name/date etc..) => using switch case to get the write txt
-function buildLog(action, changed, user, task) {
+function buildLog(action, changed,task) {
   let txt = "";
   switch (action) {
     // ADD

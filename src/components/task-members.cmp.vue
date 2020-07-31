@@ -60,7 +60,7 @@ export default {
     filterdMembers() {
       const searchTerm = this.search.toLowerCase();
       return this.boardMembers.filter((member) =>
-        member.userName.toLowerCase().includes(this.search)
+        member.username.toLowerCase().includes(this.search)
       );
     },
     boardMembersText() {

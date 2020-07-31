@@ -3,16 +3,11 @@
     <div class="login-header-container">
       <h1>{{ introductionText }}</h1>
     </div>
-    <form @submit.prevent="login" class="login-form">
+    <form @submit.prevent="authUser" class="login-form">
       <h3>{{ welcomeMessage }}</h3>
       <div class="inputs-container">
-        <form-input
-          v-if="!isLogin"
-          labelText="email"
-          v-model="email"
-          :showLabel="true"
-        />
-        <form-input labelText="username" v-model="userName" :showLabel="true" />
+        <form-input v-if="!isLogin" labelText="email" v-model="email" :showLabel="true" />
+        <form-input labelText="username" v-model="username" :showLabel="true" />
         <form-input labelText="password" v-model="password" :showLabel="true" />
         <form-input
           v-if="!isLogin"
@@ -43,7 +38,7 @@ export default {
   data() {
     return {
       isLogin: false,
-      userName: "",
+      username: "",
       password: "",
       confirmPassword: "",
       email: "",
@@ -52,7 +47,7 @@ export default {
   methods: {
     async authUser() {
       const credentials = {
-        userName: this.userName,
+        username: this.username,
         password: this.password,
       };
       if (this.isLogin) {
@@ -60,6 +55,7 @@ export default {
           type: "login",
           credentials: { ...credentials },
         });
+        this.$router.push("/home");
       } else {
         //Register user
         credentials.email = this.email;
@@ -68,8 +64,7 @@ export default {
     },
   },
   created() {
-    if (this.$store.getters.loggedUser) {
-      console.log(this.$store.getters.loggedUser);
+    if (this.$store.getters.loggedUser.username !== "Guest") {
       this.$router.push("/home");
     }
   },

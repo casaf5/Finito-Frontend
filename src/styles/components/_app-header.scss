@@ -44,11 +44,15 @@
           margin: 5px;
           align-self: center;
           height: 29px;
-          // width: 200px;
+          width: 160px;
           border-radius: 3px;
           font-size: 15px;
           padding: 1;
-          width: 177px;
+          @include for-narrow-layout{
+            width: 80px;
+            font-size: 12px;
+            height: 27px;
+          }
           &::placeholder {
             font-family: inherit;
             color: white;

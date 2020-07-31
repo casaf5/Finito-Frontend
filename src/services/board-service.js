@@ -17,8 +17,7 @@ function _getUrl(id = "") {
       : "//localhost:3030/api/board";
   return `${BASE_URL}/${id}`;
 }
-async function query(filterBy) {
-  // let filterQuery = `?name=${filterBy.name}`;
+async function query() {
   const res = await axios.get(_getUrl());
   const boards = res.data;
   return boards;

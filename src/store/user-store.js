@@ -4,7 +4,11 @@ import { userService } from "../services/user-service.js";
 export const userStore = {
   state: {
     users: null,
-    loggedUser: null,
+    loggedUser: JSON.parse(sessionStorage.getItem("user")) || null,
+    guestUser: {
+      username: "Guest",
+      img: "https://cdn.onlinewebfonts.com/svg/img_83486.png",
+    },
     userPrefs: null,
   },
   getters: {
@@ -12,7 +16,7 @@ export const userStore = {
       return state.users;
     },
     loggedUser(state) {
-      return state.loggedUser;
+      return state.loggedUser ? state.loggedUser : state.guestUser;
     },
   },
   mutations: {
@@ -21,7 +25,6 @@ export const userStore = {
     },
     setLoggedUser(state, { user }) {
       state.loggedUser = user;
-      console.log("loggeduser", state.loggedUser);
     },
   },
   actions: {

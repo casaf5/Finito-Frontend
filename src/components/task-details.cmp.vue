@@ -22,7 +22,7 @@
             <div class="task-members-container flex">
               <div v-for="(member, idx) in task.members" :key="idx">
                 <avatar v-if="member.img" :src="member.img" :size="30"></avatar>
-                <avatar v-else :username="member.userName" :size="30"></avatar>
+                <avatar v-else :username="member.username" :size="30"></avatar>
               </div>
             </div>
           </section>
@@ -137,13 +137,6 @@ export default {
     );
     this.taskIdx = this.taskGroup.tasks.findIndex((t) => t.id === this.task.id);
     this.user = this.$store.getters.loggedUser
-      ? this.$store.getters.loggedUser
-      : {
-          id: "443",
-          userName: "Guest",
-          url:
-            "https://api.adorable.io/avatars/400/79c159e13036a02295c94901b6628bfe.png",
-        };
   },
   computed: {
     board() {
@@ -243,7 +236,7 @@ export default {
         editedTask: { id: this.task.id, title: this.task.title },
         action,
         byUser: this.user,
-        txt: loggerService.buildLog(action, changed, this.user, this.task),
+        txt: loggerService.buildLog(action, changed, this.task),
         createdAt: Date.now(),
       };
       this.boardToEdit.activities.unshift(activityToAdd);

@@ -71,9 +71,9 @@ export default {
     }
   },
   actions: {
-    async loadBoards({ commit, state }, { filterBy }) {
+    async loadBoards({ commit }) {
       try {
-        const boards = await boardService.query(state.filterBy);
+        const boards = await boardService.query();
         commit({ type: "setBoards", boards });
         return boards;
       } catch (err) {

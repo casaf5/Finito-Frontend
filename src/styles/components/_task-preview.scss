@@ -1,5 +1,4 @@
 .task-preview-container {
-  
   margin: 3px 0;
   background-color: #fff;
   border-radius: 3px;
@@ -23,9 +22,10 @@
     }
     .task-title-container {
       span {
-        font-size: rem(13px);
+        font-size: rem(12px);
         width: 90%;
         margin-bottom: 2px;
+        color: #172b4d;
       }
       .el-icon-delete {
         margin-left: auto;
@@ -51,11 +51,20 @@
         }
       }
       .checklist-container {
-        padding: 2px;
-
+        font-size: 11px;
+        border-radius: 3px;
+        color: #fff;
+        div{
+          padding: 2px;
+        }
         span {
-          font-size: rem(11px);
+          font-size: 11px;
           color: #8e8d8d;
+        }
+        i{
+          font-size: 12px;
+          margin-right: 3px;
+    
         }
       }
       .check-list-completed {
@@ -65,10 +74,13 @@
         i,
         span {
           color: #fff;
-          font-size: 13px;
+          font-size: 11px;
         }
       }
       .attachments-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
         span {
           margin-left: 5px;
           font-size: 13px;
@@ -106,20 +118,31 @@
       }
     }
     .due-date-container {
-      font-size: 12px;
+      font-size: 11px;
       padding: 3px 5px;
       border-radius: 3px;
       color: #fff;
+      i{
+        font-size: 12px;
+        margin-right: 4px;
+        color:black;
+      }
     }
-    .due-green {
+    .due-green,.due-red,.due-yellow {
       background-color: #60bd4e;
+      i{
+        color: white;
+      }
+
     }
     .due-far {
       background-color: transparent;
       color: #172b4d;
+      padding: 3px 0px;
     }
     .due-red {
       background-color: #e63946;
+  
     }
     .due-yellow {
       background-color: #e85d04;

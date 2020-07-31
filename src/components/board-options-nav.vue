@@ -28,14 +28,17 @@
       <button @click="toggleBgSelect">
         <i class="far fa-image"></i>
       </button>
-      <button>
+      <button @click.self="isDemoLogin=!isDemoLogin">
         <i class="far fa-bell"></i>
       </button>
       <Avatar
+        v-if="loggedUser"
         class="logged-user-status"
-        src="https://us04images.zoom.us/p/OjcYh3vrTOW5Nd7c8YjmUw/121c96b7-02b7-44e5-9059-c5de7d765df2-7757?type=large"
+        :src="loggedUser.img"
+        :username="loggedUser.username"
         :size="30"
       />
+    
       <board-bg-select
         class="bgSelector"
         v-if="bgSelectOpen"
@@ -67,6 +70,9 @@ export default {
     board() {
       return this.$store.getters.board;
     },
+    loggedUser(){
+      return this.$store.getters.loggedUser
+    }
    
   },
   mounted() {

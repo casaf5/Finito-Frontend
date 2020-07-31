@@ -8,37 +8,50 @@
       position: absolute;
       top: 0;
       left: 4px;
-      margin-left: -3px;
     }
     h4 {
       margin-inline-start: 40px;
     }
     .checklist-remove-btn {
-      background-color: #091e420a;
-      border-radius: 5px;
       position: absolute;
+      border-radius: 5px;
       top: 0;
       right: 0;
       height: 35px;
-      font-family: Montserrat-old;
+      font-family: Montserrat-Bold;
       font-weight: bold;
       border: none;
+      background-color: rgba(9, 30, 66, 0.04);
+      color: #172b4d;
     }
   }
   .checklist-progress-bar {
+    margin-bottom: 5px;
+    .el-progress.el-progress--line {
+      position: relative;
+      .el-progress__text {
+        position: absolute;
+        left: 17px;
+        top: 7px;
+        font-size: 12px;
+      }
+    }
     .el-progress__text {
       margin-left: -15px;
     }
     .el-progress-bar__outer {
       height: 6px;
-      width: 440px;
-      margin-inline-start: 7px;
+      width: 410px;
+      margin-inline-start: 40px;
+      @include for-narrow-layout{
+        width: 310px;
+      }
     }
   }
   .checklist-container {
     > * {
-      margin: 5px 5px 16px 2px;
-      font-size: rem(13px);
+      margin: 0 5px 6px 2px;
+      font-size: rem(11px);
       label {
         margin-inline-start: 15px;
       }
@@ -55,30 +68,33 @@
       text-decoration: line-through;
     }
   }
-  .add-section{
-    i{
-      margin-inline-end: 79px;
-      display: flex;
-      justify-self: center;
-      align-self: center;
+  .add-section {
+    i {
+        margin: 6px 0 0 10px;
+        padding: 2px;
+        font-size: 25px;
     }
   }
   .add-item-btn {
     font-size: rem(11px);
-    background-color: rgba(9,30,66,.04);
-    width: max-content;
+    background-color: rgba(9, 30, 66, 0.04);
     padding: 6px 12px;
     height: 35px;
     margin: 5px 0 0 5px;
     margin-inline-start: 40px;
-    font-family: Montserrat;
-    &.addIsOpen{
+    font-family: Montserrat-Bold;
+    font-weight: bold;
+    color: #172b4d;
+    transition: all .2s;
+    &:hover{
+      background-color: rgba(91, 91, 92, 0.166);
+    }
+    &.addIsOpen {
       background-color: #5aac44;
-      &:hover{
+      &:hover {
         background-color: #5aac44;
       }
     }
-   
 
     cursor: pointer;
   }

@@ -7,26 +7,16 @@
       <h5 class="status">{{ uploadStatus }}</h5>
       <h6 v-if="status === 'Upload'">Please Wait</h6>
       <section class="upload-select" v-if="!status">
-        <button class="btn-primary full-width" @click="openInput('imageInput')">
-          Image
-        </button>
-        <button class="btn-primary full-width" @click="openInput('fileInput')">
-          File
-        </button>
-        <input
-          ref="fileInput"
-          type="file"
-          @change.prevent="uploadFile($event, 'file')"
-          hidden
-        />
-        <input
-          ref="imageInput"
-          type="file"
-          @change.prevent="uploadFile($event, 'image')"
-          hidden
-        />
+          <button class="btn-primary full-width" @click="openInput('imageInput')">
+            Image
+          </button>
+          <button class="btn-primary full-width" @click="openInput('fileInput')">
+            File
+          </button>
+          <input ref="imageInput" type="file" @change.prevent="uploadFile($event, 'image')" hidden />
+          <input ref="fileInput" type="file" @change.prevent="uploadFile($event, 'file')" hidden/>
       </section>
-      <section class="upload-options" v-if="status === true">
+      <section class="upload-options" v-if="status">
         <button @click="addFile" class="btn-primary full-width">
           Add to Task
         </button>
@@ -45,7 +35,7 @@ export default {
     return {
       status: null,
       imageUrl:
-        "https://res.cloudinary.com/dwgaobhor/image/upload/v1595762512/yqfkginczj15h9dxcw3a.png",
+        "https://res.cloudinary.com/dwgaobhor/image/upload/v1595866561/kxycptcna8aygamwg6lj.png",
       fileName: "",
       downloadLink: null,
       attachment: null,
@@ -55,8 +45,8 @@ export default {
     async uploadFile(ev, type) {
       this.status = "Upload";
       let res = await uploadService.upload(ev, type);
-      this.downloadLink = type === "file" ? `https://gofile.io/?c=${res}` : res;
-      if (type === "image") this.imageUrl = res;
+      this.downloadLink = (type === "file") ? `https://gofile.io/?c=${res}` : res;
+      this.imageUrl= (type === "image") ? res: this.imageUrl;
       this.fileName = ev.target.files[0].name;
       this.createAttachment();
     },
