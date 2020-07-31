@@ -7,7 +7,7 @@
       title="Search for images"
     >
       <searchImg
-        orientation ="portrait"
+        orientation="portrait"
         :saveSettings="{ previewSize: 'thumb', saveSize: 'small' }"
         :topImages="topImages"
         @imageChoosen="imageChoosen"
@@ -49,19 +49,4 @@ export default {
 </script>
 
 <style scoped lang="scss">
-.imgs-container {
-  display: flex;
-  flex-wrap: wrap;
-  h4 {
-    font-size: 14px;
-  }
-  img {
-    cursor: pointer;
-    margin: 5px 5px;
-    border-radius: 5px;
-    width: 78px;
-    height: 45px;
-    object-fit: cover;
-  }
-}
 </style>

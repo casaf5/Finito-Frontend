@@ -5,7 +5,6 @@
   }
 }
 .task-checklists {
-
   ul {
     padding: 0;
   }
@@ -32,18 +31,5 @@
   }
   .check-icon {
     margin-left: 2px;
-  }
-
-  .checklist-progress-bar {
-    margin-top: 20px !important;
-  }
-  .el-progress-bar__outer {
-    width: 100% !important;
-    margin-inline-start: 0px;
-  }
-
-  .el-progress-bar {
-    padding-right: 0 !important;
-    width: 100% !important;
   }
 }

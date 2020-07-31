@@ -11,14 +11,24 @@
     margin: 10px 0;
   }
   .create-board-container {
+    @include for-narrow-layout {
+      overflow-y: auto;
+      width: 350px;
+      min-height: 600px;
+      .create-board-imgs {
+        margin: 0 auto;
+      }
+    }
+    @include for-extra-small-layout {
+      width: 90%;
+      height: 450px;
+    }
     background-color: #fff;
     display: grid;
-    grid-gap: rem(10px);
-    grid-template-columns: 1.2fr 1.5fr;
-    grid-template-rows: min-content;
+    grid-template-rows: min-content auto;
     padding: rem(10px);
-    width: 750px;
-    min-height: 250px;
+    width: 425px;
+    height: 560px;
     border-radius: 3px;
     margin: 0 auto;
     position: fixed;
@@ -29,15 +39,12 @@
       margin: 5px 0;
     }
     .board-preview.full {
-      grid-column: 2/3;
-      grid-row: 2/4;
+      height: 90px;
     }
-    .create-board-input {
-      grid-column: 2/3;
-    }
-    .create-board-colors {
-      grid-row: 1/2;
-      grid-column: 1/2;
+    .create-board-imgs {
+      .credits {
+        margin: 0;
+      }
     }
   }
   .recent-boards-container {

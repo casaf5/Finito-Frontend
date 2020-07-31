@@ -50,6 +50,7 @@
 <script>
 import { Container, Draggable } from "vue-smooth-dnd";
 import { utilService } from "../utils/utils.js";
+import { boardService } from "../services/board-service";
 import TaskPreview from "./task-preview.cmp";
 import taskGroupActions from "./task-group-actions.cmp";
 import TaskActionContainer from "./task-action-container.cmp";
@@ -126,7 +127,6 @@ export default {
       );
       board.taskGroups[taskGroupIndex].tasks.push(task);
 
-
       //socket io
       this.getAndSetBoard(board);
       // this.$store.dispatch({ type: "saveBoard", board });
@@ -158,14 +158,19 @@ export default {
       const board = utilService.deepCopy(this.board);
       const taskGroupToMove = utilService.deepCopy(this.taskGroup);
       board.taskGroups.splice(taksGroupIndex, 1);
-      this.boards[index].taskGroups.push(taskGroupToMove);
-    },
-    removeGroup(groupId){
-      let board=this.board
-      const idx=board.taskGroups.findIndex(group=>group.id===this.taskGroup.id)
-      board.taskGroups.splice(idx,1)
-      this.$store.dispatch({type:"saveBoard",board})
+      this.$store.dispatch({ type: "saveBoard", board });
 
+      this.boards[index].taskGroups.unshift(taskGroupToMove);
+      // this.$store.dispatch({ type: "saveBoard", board: this.boards[index] });
+      boardService.save(this.boards[index]);
+    },
+    removeGroup(groupId) {
+      let board = this.board;
+      const idx = board.taskGroups.findIndex(
+        (group) => group.id === this.taskGroup.id
+      );
+      board.taskGroups.splice(idx, 1);
+      this.$store.dispatch({ type: "saveBoard", board });
     },
     watchList() {
       this.taskGroup.isWatched = !this.taskGroup.isWatched;
@@ -181,8 +186,8 @@ export default {
         });
       } else {
         sortedTasks = this.taskGroup.tasks.sort((taskA, taskB) => {
-          var titleA = taskA.title.toUpperCase(); 
-          var titleB = taskB.title.toUpperCase(); 
+          var titleA = taskA.title.toUpperCase();
+          var titleB = taskB.title.toUpperCase();
           if (titleA < titleB) return -1;
           if (titleA > titleB) return 1;
           return 0;

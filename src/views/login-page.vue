@@ -1,5 +1,12 @@
 <template>
   <section class="login-cmp">
+    <nav>
+      <ul class="clean-list">
+        <router-link tag="li" to="/home">
+          <a class="login-nav-link">Home</a>
+        </router-link>
+      </ul>
+    </nav>
     <div class="login-header-container">
       <h1>{{ introductionText }}</h1>
     </div>

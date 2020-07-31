@@ -15,6 +15,7 @@
     </div>
     <modal @close="showModal = !showModal" v-if="showModal">
       <div class="create-board-container">
+        <board-preview :previewUrl="boardImgPreivewUrl" :board="newBoard" />
         <div class="create-board-input">
           <form-input v-model="newBoard.name" :showLabel="true" labelText="Board Title" />
         </div>
@@ -22,13 +23,15 @@
           <h4>Choose Color</h4>
           <color-small @colorClicked="changeBgColor" size="small" />
         </div>
-        <searchImg
-          :saveSettings="{ previewSize: 'regular', saveSize: 'full' }"
-          :getAllSizes="true"
-          :topImages="topImages"
-          @imageChoosen="setBoardImg"
-        />
-        <board-preview :previewUrl="boardImgPreivewUrl" :board="newBoard" />
+        <div class="create-board-imgs">
+          <searchImg
+            :saveSettings="{ previewSize: 'regular', saveSize: 'full' }"
+            :getAllSizes="true"
+            :topImages="topImages"
+            @imageChoosen="setBoardImg"
+          />
+        </div>
+
         <button @click="addNewBoard" class="btn-primary">Create</button>
       </div>
     </modal>

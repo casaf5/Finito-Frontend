@@ -112,13 +112,9 @@
   grid-template-columns: 0.75fr 0.25fr;
   grid-template-rows: 1fr;
   padding: rem(15px);
-  @include for-normal-layout{
-    grid-template-columns: 600px;
-    grid-template-rows: 0.5fr 0.5fr;  
-  }
-  @include for-narrow-layout{
-    grid-template-columns: 350px;
-    grid-template-rows: 0.5fr 0.5fr;
+  @include for-mobile-layout {
+    display: flex;
+    flex-direction: column;
   }
   .task-left-container {
     display: grid;
@@ -184,20 +180,15 @@
   }
 
   .task-right-container {
+    @include for-mobile-layout {
+      margin: 0 auto;
+    }
+    padding-top: 1rem;
     display: grid;
     grid-template-rows: repeat(11, 35px);
     grid-auto-rows: 35px;
     grid-gap: 10px;
     padding: 10px;
-    @include for-normal-layout{
-      grid-template-columns: 425px;
-      justify-content: center;
-
-    }
-    @include for-narrow-layout{
-      grid-template-columns: 300px;
-      justify-content: start;
-
     }
     .detail-btn {
       border: none;
@@ -227,7 +218,7 @@
         margin-left: 10px;
       }
     }
-  }
+  
 }
 .task-members-labels-date {
   .task-members-container {

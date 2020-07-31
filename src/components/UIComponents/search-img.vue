@@ -113,6 +113,7 @@ export default {
 .imgs-container {
   display: flex;
   flex-wrap: wrap;
+  justify-content: center;
   .credits {
     font-size: 14px;
   }

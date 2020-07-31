@@ -52,9 +52,9 @@ ul {
   display: flex;
   flex-direction: column;
 }
-@media only screen and(max-width:380px) {
+@media only screen and(max-width:500px) {
   ul {
-    max-height: 327px;
+    max-height: 250px;
   }
 }
 .details-activity-text {
