@@ -58,6 +58,7 @@
             ref="desTextArea"
             @blur="removeFocus"
             class="desc-textarea"
+            :style="calcLength"
           />
         </div>
         <div class="task-attachments-container" v-if="task.attachments.length > 0">
@@ -192,6 +193,10 @@ export default {
       );
       return taskGroup.tasks.find((t) => t.id === this.task.id);
     },
+    calcLength(){
+      let length=this.task.desc.length<60?60:this.task.desc.length
+      return `height:${length/1.7}px`
+    }
   },
   methods: {
     updateBoard(actionStr = "ACTION SAVED") {

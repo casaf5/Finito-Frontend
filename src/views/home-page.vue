@@ -53,9 +53,9 @@
       </h4>
       <div class="board-templates">
         <board-template
+          v-for="(template, index) in templates"
           :template="template"
           :key="index"
-          v-for="(template, index) in templates"
           @showTemplate="showTemplate"
         />
       </div>
@@ -68,11 +68,13 @@
             <div class="template-img-container">
               <img
                 class="template-preview-img"
-                :src="require(`@/assets/images/${this.selectedTemplate.imgLink}`)"
+                :src="
+                  require(`@/assets/images/TempsPreview/${this.selectedTemplate.imgLink}`)
+                "
               />
             </div>
             <div class="templdate-content-container">
-              <h4 class="catagory-label">Web Development</h4>
+              <h4 class="catagory-label">{{this.selectedTemplate.name}}</h4>
               <p>
                 Pre made with all the necessary lists to get you started right
                 away
@@ -104,7 +106,9 @@
                   <span>Supports live synchronization</span>
                 </li>
               </ul>
-              <button @click="createTemplate" class="btn-primary full-width">Generate Template</button>
+              <button @click="createTemplate" class="btn-primary full-width">
+                Generate Template
+              </button>
               <p @click="showTemplateModal = !showTemplateModal">
                 Back to Homepage
               </p>
@@ -145,7 +149,7 @@ export default {
       showTemplateModal: false,
       selectedBgImgs: null,
       templatePreviewImg: "",
-      selectedTemplate:null,
+      selectedTemplate: null,
       templates: [
         {
           name: "Project Managment",
@@ -162,23 +166,29 @@ export default {
             "https://images.unsplash.com/photo-1522542550221-31fd19575a2d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=750&q=80",
           desc:
             "From Digital marketing to traditonial marketing,everything list is ready for you",
+          imgLink: "Marketing-Temp-Preview.png",
         },
         {
+          _id:"5f25e290981b6d0017b18804",
           name: "Engineering",
           previewImg:
             "https://images.unsplash.com/photo-1504328345606-18bbc8c9d7d1?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=750&q=80",
           desc:
             "List are premade to save you the effort on making them. Go and start coding!",
+          imgLink: "company-overview-template.jpeg",
         },
 
         {
+          _id:"5f25e4d3981b6d0017b18805",
           name: "Design",
           previewImg:
             "https://images.unsplash.com/photo-1494253109108-2e30c049369b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=750&q=80",
           desc:
             "All of the lists and tasks are premade so you can focus on being creative",
+          imgLink: "company-overview-template.jpeg",
         },
         {
+          _id:"5f25e723981b6d0017b18806",
           name: "Buisness",
           previewImg:
             "https://images.unsplash.com/photo-1491336477066-31156b5e4f35?ixlib=rb-1.2.1&auto=format&fit=crop&w=750&q=80",
@@ -262,8 +272,9 @@ export default {
         type: "getBoardById",
         id: this.selectedTemplate._id,
       });
-      delete newBoard._id
-      newBoard.creator = this.$store.getters.loggedUser._id || "Guest"
+      delete newBoard._id;
+      newBoard.activities=[]
+      newBoard.creator = this.$store.getters.loggedUser._id || "Guest";
       await this.$store.dispatch({
         type: "saveBoard",
         board: newBoard,
@@ -271,7 +282,7 @@ export default {
       this.showTemplateModal = false;
     },
     showTemplate(template) {
-      this.selectedTemplate=template
+      this.selectedTemplate = template;
       this.showTemplateModal = true;
     },
   },
