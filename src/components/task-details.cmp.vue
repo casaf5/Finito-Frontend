@@ -194,11 +194,10 @@ export default {
     },
   },
   methods: {
-    
     updateBoard(actionStr = "ACTION SAVED") {
+      socketService.emit("boardUpdate", this.boardToEdit);
       // console.log("state board labels", this.state.board.labels);
       // console.log("props board labels", this.boardToEdit.labels);
-      socketService.emit("boardUpdate", this.boardToEdit);
         // const savedBoard = await this.$store.dispatch({
         //   type: "updateBoard",
         //   board: this.boardToEdit

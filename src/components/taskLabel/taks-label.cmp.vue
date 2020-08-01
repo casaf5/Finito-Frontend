@@ -6,7 +6,7 @@
     @labelClicked="labelClicked"
     @editLabel="editLabel"
     @createLabel="createLabel"
-    @close="$emit('close')"
+    @close="closeLabels"
     :editMode="editMode"
     :choosenLabelIndex="choosenLabelIndex"
     :labelToEdit="labelToEdit"
@@ -25,12 +25,20 @@ import TaskCreateLabel from "./task-create-label.cmp";
 import { utilService } from "../../utils/utils";
 
 export default {
-  // props: {
-  //   labels: {
-  //     type: Array,
-  //     required: true,
-  // }
-  // },
+  props: {
+    labels: {
+      type: Array,
+      required: true,
+    },
+    board: {
+      type: Object,
+      required: true,
+    },
+    task: {
+      type: Object,
+      required: true,
+    },
+  },
   components: {
     TaskActionContainer,
     LabelColor,
@@ -48,13 +56,12 @@ export default {
       labelToEdit: null,
     };
   },
-  computed: {
-    board() {
-      return this.$store.getters.board;
-    },
-    labels() {
-      return this.$store.getters.board.labels;
-    },
+  created() {
+    this.board.labels.forEach((label) => {
+      if (this.task.labels.some((taskLable) => taskLable.id === label.id)) {
+        label.wasClicked = true;
+      }
+    });
   },
   methods: {
     toggleComponent(component) {
@@ -69,30 +76,25 @@ export default {
       this.$emit("setLabel", label);
     },
     editLabel(label) {
-      //getting my label to edit and passing the index down to label create component to continue editing
       this.editMode = true;
       this.choosenLabelIndex = label.labelIndex;
       this.title = label.label.title;
       this.labelToEdit = label.label;
-      console.log("from task label", label);
       this.toggleComponent("task-create-label");
     },
     async createLabel(label) {
-      console.log(label);
-      //updating a label
       if (label.index > -1) {
-        // updating a label
-        //updating should happen at board level
-        // refector so the board will be updated from here
         this.$emit("editLabel", label);
         this.editMode = false;
       } else {
-        //creating a label and updating the board
-        const board = utilService.deepCopy(this.board);
-        board.labels.push(label);
-        await this.$store.dispatch({ type: "saveBoard", board });
+        this.board.labels.push(label);
+        await this.$store.dispatch({ type: "saveBoard", board: this.board });
       }
       this.component = "task-choose-label";
+    },
+    closeLabels() {
+      this.board.labels.forEach((label) => (label.wasClicked = false));
+      this.$emit("close");
     },
   },
 };

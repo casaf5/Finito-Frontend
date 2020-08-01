@@ -134,7 +134,6 @@ export default {
       }
     },
     createLabel({ label, index }) {
-      console.log("label to create methods in create label", label);
       this.labelToCreate = label;
     },
     labelClicked(label) {
@@ -156,7 +155,7 @@ export default {
     },
   },
   created() {
-    if (this.choosenLabelIndex >= -1) {
+    if (this.choosenLabelIndex||this.choosenLabelIndex >= -1) {
       this.newColors[this.choosenLabelIndex].wasClicked = !this.newColors[
         this.choosenLabelIndex
       ].wasClicked;

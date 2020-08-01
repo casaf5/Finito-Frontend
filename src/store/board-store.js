@@ -43,7 +43,6 @@ export default {
     },
     setBoard(state, { board }) {
       state.board = board;
-      console.log('set board')
       state.style=board.style
     },
     deleteBoard(state, { board }) {

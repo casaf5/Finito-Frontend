@@ -18,9 +18,6 @@ export default {
     template: Object,
   },
   methods: {
-    createTemplate() {
-      this.$emit("createTemplate", this.template);
-    },
     showTemplate() {
       this.$emit("showTemplate", this.template);
     },
