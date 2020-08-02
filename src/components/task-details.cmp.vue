@@ -149,6 +149,7 @@ export default {
   destroyed(){
     socketService.off('boardUpdate')
   },
+
   computed: {
     board() {
       return this.$store.getters.board;
@@ -300,6 +301,7 @@ export default {
     colorSmall,
     modal,
   },
+  
 };
 </script>
 

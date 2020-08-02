@@ -45,6 +45,15 @@
       background-color: #a40e4c;
       color: #fff;
     }
+    .input-password,
+    .confirm-password-container {
+      position: relative;
+      i {
+        position: absolute;
+        top: 30px;
+        right: 5px;
+      }
+    }
     h3 {
       margin: 10px 0;
       font-weight: 600;

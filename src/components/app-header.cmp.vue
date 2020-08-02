@@ -97,7 +97,7 @@ export default {
     logout() {
       this.$store.dispatch({ type: "logout" });
     },
-     navToAuth(pageName) {
+    navToAuth(pageName) {
       let isLogin;
       if (pageName === "login") {
         isLogin = true;
@@ -112,6 +112,5 @@ export default {
       });
     },
   },
-   
 };
 </script>

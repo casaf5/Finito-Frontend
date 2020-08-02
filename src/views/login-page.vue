@@ -15,13 +15,19 @@
       <div class="inputs-container">
         <form-input v-if="!isLogin" labelText="email" v-model="email" :showLabel="true" />
         <form-input labelText="username" v-model="username" :showLabel="true" />
-        <form-input labelText="password" v-model="password" :showLabel="true" />
-        <form-input
-          v-if="!isLogin"
-          labelText="Confrim Password"
-          v-model="password"
-          :showLabel="true"
-        />
+        <div class="input-password">
+          <form-input :type="inputType" labelText="password" v-model="password" :showLabel="true" />
+          <i @click="displayPassword" :class="passwordIcon"></i>
+        </div>
+        <div v-if="!isLogin" class="confirm-password-container">
+          <form-input
+            :type="inputType"
+            labelText="Confrim Password"
+            v-model="confirmPassword"
+            :showLabel="true"
+          />
+          <i @click="displayPassword" :class="passwordIcon"></i>
+        </div>
       </div>
       <!-- <img src="../assets/images/login.png" alt /> -->
       <button class="login-btn">{{ buttonText }}</button>
@@ -49,6 +55,8 @@ export default {
       password: "",
       confirmPassword: "",
       email: "",
+      showPassword: false,
+      inputType: "password",
     };
   },
   methods: {
@@ -71,6 +79,12 @@ export default {
        if(newUser)this.$router.push("/home");
        else throw err('Problem Registering')
       }
+    },
+    displayPassword() {
+      this.showPassword = !this.showPassword;
+      this.inputType === "password"
+        ? (this.inputType = "text")
+        : (this.inputType = "password");
     },
   },
   created() {
@@ -98,6 +112,9 @@ export default {
     },
     buttonText() {
       return this.isLogin ? "Log in" : "Create an account";
+    },
+    passwordIcon() {
+      return this.showPassword ? "far fa-eye-slash" : "far fa-eye";
     },
   },
 };

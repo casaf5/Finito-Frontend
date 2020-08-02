@@ -7,7 +7,7 @@
         his board
       </p>
       <img src="../assets/images/lost.png" alt />
-      <button class="btn-primary">Take me back</button>
+      <button @click="$router.push('/home')" class="btn-primary">Take me back</button>
     </div>
   </div>
 </template>
