@@ -21,6 +21,8 @@
       @setLabel="addLabel"
       @close="toggleComponentToRender('addLabelOpen')"
       :labels="board.labels"
+      :board="board"
+      :task="taskToEdit"
     />
     <button class="detail-btn" @click="toggleComponentToRender('duedateOpen')">
       <i class="el-icon-date"></i> Due date

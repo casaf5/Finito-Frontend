@@ -84,7 +84,10 @@ export default {
       return this.$store.getters.boards;
     },
   },
-
+  destroyed() {
+    socketService.off("boardUpdate");
+    // socketService.terminate();
+  },
   methods: {
     getAndSetBoard(board) {
       socketService.emit("boardUpdate", board);

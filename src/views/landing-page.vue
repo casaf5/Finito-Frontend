@@ -9,6 +9,9 @@
         <router-link to="/auth" tag="li">
           <a>Sign Up</a>
         </router-link>
+        <router-link to="/about" tag="li">
+          <a>About</a>
+        </router-link>
       </ul>
     </nav>
     <section class="hero-container">

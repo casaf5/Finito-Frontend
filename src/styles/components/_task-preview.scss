@@ -22,7 +22,7 @@
     }
     .task-title-container {
       span {
-        font-size: rem(12px);
+        font-size: 0.65rem;
         width: 90%;
         margin-bottom: 2px;
         color: #172b4d;
@@ -114,6 +114,7 @@
         border-radius: 5px;
         height: 17px;
         padding: 0px 10px;
+        margin-bottom: 2px;
       }
     }
     .due-date-container {
@@ -151,7 +152,7 @@
       color: #5e6c84;
     }
   }
-  &.yellow {
-    background-color: yellow;
+  &.markResult {
+    background-color: #ff9900;
   }
 }

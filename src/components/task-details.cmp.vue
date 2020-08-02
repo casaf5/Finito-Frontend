@@ -58,6 +58,7 @@
             ref="desTextArea"
             @blur="removeFocus"
             class="desc-textarea"
+            :style="calcLength"
           />
         </div>
         <div class="task-attachments-container" v-if="task.attachments.length > 0">
@@ -141,6 +142,12 @@ export default {
     );
     this.taskIdx = this.taskGroup.tasks.findIndex((t) => t.id === this.task.id);
     this.user = this.$store.getters.loggedUser
+     socketService.on("boardUpdate", (board) => {
+        this.$store.commit({ type: "setBoard", board })
+     })
+  },
+  destroyed(){
+    socketService.off('boardUpdate')
   },
 
   computed: {
@@ -187,18 +194,20 @@ export default {
       );
       return taskGroup.tasks.find((t) => t.id === this.task.id);
     },
+    calcLength(){
+      let length=this.task.desc.length<60?60:this.task.desc.length
+      return `height:${length/1.7}px`
+    }
   },
   methods: {
     updateBoard(actionStr = "ACTION SAVED") {
+      socketService.emit("boardUpdate", this.boardToEdit);
       // console.log("state board labels", this.state.board.labels);
       // console.log("props board labels", this.boardToEdit.labels);
-      socketService.emit("boardUpdate", this.boardToEdit);
-      socketService.on("boardUpdate", (board) => {
-        this.$store.commit({ type: "setBoard", board });
         // const savedBoard = await this.$store.dispatch({
         //   type: "updateBoard",
         //   board: this.boardToEdit
-      });
+  
       // USER MSG
       // const type = savedBoard ? "success" : "error";
       // let fixedStr = actionStr;

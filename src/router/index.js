@@ -1,7 +1,7 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
 import dashboard from "@/views/dashboard.vue";
-import testComp from "../views/test-comp.vue";
+import testComp from "@/views/test-comp.vue";
 Vue.use(VueRouter);
 
 const routes = [
@@ -29,10 +29,11 @@ const routes = [
     path: "/auth",
     component: () => import("../views/login-page.vue"),
   },
-  // {
-  //   path: "/signup",
-  //   component: () => import("../views/signup-page.vue"),
-  // },
+  {
+    name: "about",
+    path: "/about",
+    component: () => import("../views/about-page.vue"),
+  },
   {
     path: "/board/dash/charts",
     name: "dash",

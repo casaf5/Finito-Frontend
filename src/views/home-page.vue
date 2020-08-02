@@ -6,18 +6,29 @@
         Your Boards
       </h4>
       <div class="recent-boards">
-        <board-preview :isLink="true" v-for="board in boards" :board="board" :key="board._id" />
+        <board-preview
+          :isLink="true"
+          v-for="board in boards"
+          :board="board"
+          :key="board._id"
+        />
         <div
           @click="showModal = !showModal"
           class="board-preview flex create-board"
-        >Create New Board</div>
+        >
+          Create New Board
+        </div>
       </div>
     </div>
     <modal @close="showModal = !showModal" v-if="showModal">
       <div class="create-board-container">
         <board-preview :previewUrl="boardImgPreivewUrl" :board="newBoard" />
         <div class="create-board-input">
-          <form-input v-model="newBoard.name" :showLabel="true" labelText="Board Title" />
+          <form-input
+            v-model="newBoard.name"
+            :showLabel="true"
+            labelText="Board Title"
+          />
         </div>
         <div class="create-board-colors">
           <h4>Choose Color</h4>
@@ -42,24 +53,28 @@
       </h4>
       <div class="board-templates">
         <board-template
-          @createTemplate="createTemplate"
+          v-for="(template, index) in templates"
           :template="template"
           :key="index"
-          v-for="(template, index) in templates"
           @showTemplate="showTemplate"
         />
       </div>
       <transition name="fade">
-        <modal @close="showTemplateModal = !showTemplateModal" v-if="showTemplateModal">
+        <modal
+          @close="showTemplateModal = !showTemplateModal"
+          v-if="showTemplateModal"
+        >
           <div class="template-details-container">
             <div class="template-img-container">
               <img
                 class="template-preview-img"
-                :src="require(`@/assets/images/${templatePreviewImg}`)"
+                :src="
+                  require(`@/assets/images/TempsPreview/${this.selectedTemplate.imgLink}`)
+                "
               />
             </div>
             <div class="templdate-content-container">
-              <h4 class="catagory-label">Web Development</h4>
+              <h4 class="catagory-label">{{this.selectedTemplate.name}}</h4>
               <p>
                 Pre made with all the necessary lists to get you started right
                 away
@@ -91,8 +106,12 @@
                   <span>Supports live synchronization</span>
                 </li>
               </ul>
-              <button class="btn-primary full-width">Generate Template</button>
-              <p @click="showTemplateModal = !showTemplateModal">Back to Homepage</p>
+              <button @click="createTemplate" class="btn-primary full-width">
+                Generate Template
+              </button>
+              <p @click="showTemplateModal = !showTemplateModal">
+                Back to Homepage
+              </p>
             </div>
           </div>
         </modal>
@@ -130,6 +149,7 @@ export default {
       showTemplateModal: false,
       selectedBgImgs: null,
       templatePreviewImg: "",
+      selectedTemplate: null,
       templates: [
         {
           name: "Project Managment",
@@ -140,28 +160,35 @@ export default {
           imgLink: "company-overview-template.jpeg",
         },
         {
+          _id: "5f25bc17c8b7690017df331e",
           name: "Marketing",
           previewImg:
             "https://images.unsplash.com/photo-1522542550221-31fd19575a2d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=750&q=80",
           desc:
             "From Digital marketing to traditonial marketing,everything list is ready for you",
+          imgLink: "Marketing-Temp-Preview.png",
         },
         {
+          _id:"5f25e290981b6d0017b18804",
           name: "Engineering",
           previewImg:
             "https://images.unsplash.com/photo-1504328345606-18bbc8c9d7d1?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=750&q=80",
           desc:
             "List are premade to save you the effort on making them. Go and start coding!",
+          imgLink: "company-overview-template.jpeg",
         },
 
         {
+          _id:"5f25e4d3981b6d0017b18805",
           name: "Design",
           previewImg:
             "https://images.unsplash.com/photo-1494253109108-2e30c049369b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=750&q=80",
           desc:
             "All of the lists and tasks are premade so you can focus on being creative",
+          imgLink: "company-overview-template.jpeg",
         },
         {
+          _id:"5f25e723981b6d0017b18806",
           name: "Buisness",
           previewImg:
             "https://images.unsplash.com/photo-1491336477066-31156b5e4f35?ixlib=rb-1.2.1&auto=format&fit=crop&w=750&q=80",
@@ -200,17 +227,19 @@ export default {
     };
   },
   async created() {
-    this.boards = await this.$store.dispatch({ type: "loadBoards" ,byUser:this.loggedUser._id});
+    this.boards = await this.$store.dispatch({
+      type: "loadBoards",
+      byUser: this.loggedUser._id,
+    });
     this.users = await this.$store.dispatch({ type: "loadUsers" });
     this.topImages = await UnsplashService.getRandomPhotos("9", "landscape");
   },
   methods: {
-    async addNewBoard(isTemplate = false) {
+    async addNewBoard() {
       if (!this.newBoard.name) return;
-
       let createdBoard = boardService.getEmptyBoard();
       createdBoard.name = this.newBoard.name;
-      createdBoard.creator=this.$store.getters.loggedUser._id||'Guest'
+      createdBoard.creator = this.$store.getters.loggedUser._id || "Guest";
       createdBoard.style = this.newBoard.style;
       createdBoard.style.bgUrls = this.boardSaveUrls;
       createdBoard.members = this.newBoard.members.map((member) =>
@@ -238,20 +267,30 @@ export default {
       this.newBoard.style.previewUrl = small;
       this.boardImgPreivewUrl = small;
     },
-    createTemplate(template) {
-      this.newBoard.name = template.name;
-      this.addNewBoard();
+    async createTemplate() {
+      let newBoard = await this.$store.dispatch({
+        type: "getBoardById",
+        id: this.selectedTemplate._id,
+      });
+      delete newBoard._id;
+      newBoard.activities=[]
+      newBoard.creator = this.$store.getters.loggedUser._id || "Guest";
+      await this.$store.dispatch({
+        type: "saveBoard",
+        board: newBoard,
+      });
+      this.showTemplateModal = false;
     },
     showTemplate(template) {
-      this.templatePreviewImg = template.imgLink;
+      this.selectedTemplate = template;
       this.showTemplateModal = true;
     },
   },
-  computed:{
-    loggedUser(){
-      return this.$store.getters.loggedUser
-    }
-  }
+  computed: {
+    loggedUser() {
+      return this.$store.getters.loggedUser;
+    },
+  },
 };
 </script>
 
