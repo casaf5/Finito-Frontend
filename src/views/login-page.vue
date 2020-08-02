@@ -66,7 +66,10 @@ export default {
       } else {
         //Register user
         credentials.email = this.email;
-        credentials.confirmPassword = this.confirmPassword;
+        // credentials.confirmPassword = this.confirmPassword;
+       let newUser =await this.$store.dispatch({type:"signup",registerDetails:credentials})
+       if(newUser)this.$router.push("/home");
+       else throw err('Problem Registering')
       }
     },
   },
