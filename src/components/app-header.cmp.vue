@@ -86,7 +86,7 @@ export default {
       if (!this.textSearch) return;
       this.searchResults = [];
       tasksRefs.map((ref) => {
-        if (ref.name.includes(this.textSearch)) {
+        if (ref.name.toLowerCase().includes(this.textSearch.toLowerCase())) {
           ref.el.classList.add("markResult");
         }
       });
@@ -96,6 +96,8 @@ export default {
     },
     logout() {
       this.$store.dispatch({ type: "logout" });
+      this.$router.push('/')
+     
     },
     navToAuth(pageName) {
       let isLogin;

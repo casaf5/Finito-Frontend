@@ -30,9 +30,14 @@ export const userStore = {
   actions: {
     //Authintication:
     async login({ commit }, { credentials }) {
-      const loggedUser = await authService.login(credentials);
-      commit({ type: "setLoggedUser", user: loggedUser });
-      return loggedUser;
+      try{
+        const loggedUser = await authService.login(credentials);
+        commit({ type: "setLoggedUser", user: loggedUser });
+        return loggedUser;
+      }catch(err){
+        console.log('Error Login..')
+      return null
+      }
     },
     async signup({ commit }, { registerDetails }) {
       const registeredUser = await authService.signup(registerDetails);

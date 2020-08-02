@@ -13,10 +13,20 @@
     <form @submit.prevent="authUser" class="login-form">
       <h3>{{ welcomeMessage }}</h3>
       <div class="inputs-container">
-        <form-input v-if="!isLogin" labelText="email" v-model="email" :showLabel="true" />
+        <form-input
+          v-if="!isLogin"
+          labelText="email"
+          v-model="email"
+          :showLabel="true"
+        />
         <form-input labelText="username" v-model="username" :showLabel="true" />
         <div class="input-password">
-          <form-input :type="inputType" labelText="password" v-model="password" :showLabel="true" />
+          <form-input
+            :type="inputType"
+            labelText="password"
+            v-model="password"
+            :showLabel="true"
+          />
           <i @click="displayPassword" :class="passwordIcon"></i>
         </div>
         <div v-if="!isLogin" class="confirm-password-container">
@@ -29,7 +39,7 @@
           <i @click="displayPassword" :class="passwordIcon"></i>
         </div>
       </div>
-      <!-- <img src="../assets/images/login.png" alt /> -->
+      <h4  v-if="loginFailed" style="color:red; font-size: 12px;">Incorrect Username/ Password</h4>
       <button class="login-btn">{{ buttonText }}</button>
       <p @click="isLogin = !isLogin">{{ authMessage }}</p>
     </form>
@@ -50,13 +60,14 @@ export default {
 
   data() {
     return {
-      isLogin: false,
+      isLogin: true,
       username: "",
       password: "",
       confirmPassword: "",
       email: "",
       showPassword: false,
       inputType: "password",
+      loginFailed:false,
     };
   },
   methods: {
@@ -66,18 +77,18 @@ export default {
         password: this.password,
       };
       if (this.isLogin) {
-        await this.$store.dispatch({
-          type: "login",
-          credentials: { ...credentials },
-        });
-        this.$router.push("/home");
+        let user=await this.$store.dispatch({type: "login",credentials});
+        if(user) this.$router.push("/home");
+        else{
+          this.loginFailed=true
+          setTimeout(()=>this.loginFailed=false,4000)
+        }
       } else {
         //Register user
         credentials.email = this.email;
-        // credentials.confirmPassword = this.confirmPassword;
-       let newUser =await this.$store.dispatch({type:"signup",registerDetails:credentials})
-       if(newUser)this.$router.push("/home");
-       else throw err('Problem Registering')
+        let newUser = await this.$store.dispatch({ type: "signup",registerDetails: credentials});
+        if (newUser) this.$router.push("/home");
+        else throw new Error("Problem Registering");
       }
     },
     displayPassword() {
